@@ -16,50 +16,81 @@
 #include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "libft/libft.h"
+
+
+
+char *ft_find_abs_path(char *command)
+{
+    char *path = getenv("PATH");
+    char **arr = ft_split(path, ':');
+    char *path_to_command = NULL;
+    int i = 0;
+	while (arr[i])
+	{
+		char *tmp = ft_strjoin(arr[i], "/", command);
+		if (access(tmp, F_OK | X_OK) != -1) 
+        {
+            path_to_command = tmp;
+            break;
+        }
+        free(tmp);
+		i++;
+	}
+	free(arr);
+
+    return path_to_command;
+}
+
 
 int main (int argc, char **argv, char **envp)
 {
-    char *buf;
-    char *command;
-    pid_t pid;
-
+char *buf;
+    int id;
     (void)argc;
     (void)argv;
     (void)envp;
-    while (1)
-    { // Бесконечный цикл для приема команд
-        buf = readline("$> "); // Запрашиваем ввод команды
-        if (buf == NULL || strcmp(buf, "exit") == 0) 
-        {
-            // Если пользователь ввел exit или закрыл ввод (Ctrl+D), завершаем цикл
+    while (1) {
+        buf = readline("$> "); // Prompt for input command
+        if (buf == NULL || strcmp(buf, "exit") == 0) {
+            // If user enters exit or closes input (Ctrl+D), exit the loop
             free(buf);
             break;
         }
-//    printf("%s, %s", strtok(buf, " "), strtok(NULL, " "));
-    pid = fork();
-    if (pid == -1)
-    {
-        // В случае ошибки при вызове fork()
-        perror("fork");
-        exit(EXIT_FAILURE);
-    } else if (pid == 0)
-    {
-        // Код процесса-потомка
-        // Заменяем образ процесса программой, которую хотим запустить
-        command = strtok(buf, " ");
-        execlp(command, command, strtok(NULL, " "), (char *)NULL);
-        // Если execlp вернул управление, значит, произошла ошибка
-        perror("execlp");
-        exit(EXIT_FAILURE);
-    } else
-    {
-        // Код процесса-родителя
-        int status;
-        waitpid(pid, &status, 0); // Дожидаемся завершения процесса-потомка
-        if (WIFEXITED(status)) {
-            printf("Программа завершилась с кодом %d\n", WEXITSTATUS(status));
+        // Split buf into command and arguments
+        char *command = strtok(buf, " ");
+        char **args = (char **)malloc(sizeof(char *) * 2); // assuming maximum 1 argument
+        args[0] = command;
+        args[1] = strtok(NULL, " ");
+        args[2] = NULL; // NULL terminate the array
+        id = fork();
+        if (id == -1) {
+            // Fork failed
+            perror("fork");
+            exit(EXIT_FAILURE);
+        } else if (id == 0) {
+            // Child process
+            char *path = ft_find_abs_path(command);
+            if (path != NULL) {
+                if (execve(path, args, NULL) == -1) {
+                    perror("execve");
+                    exit(EXIT_FAILURE);
+                }
+                free(path); // Free the memory allocated for path
+            } else {
+                printf("Command not found: %s\n", command);
+                exit(EXIT_FAILURE);
+            }
+        } else {
+            // Parent process
+            int status;
+            waitpid(id, &status, 0); // Wait for child process to finish
+            if (WIFEXITED(status)) {
+                printf("Child process exited with status: %d\n", WEXITSTATUS(status));
+            }
         }
+        free(args); // Free the memory allocated for args
+        free(buf);  // Free the memory allocated for buf
     }
-    }
-    return (0);
+    return 0;
 }

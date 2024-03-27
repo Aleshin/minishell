@@ -1,28 +1,30 @@
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-RM = rm -f
+LDFLAGS = -L./libft -lft -lreadline
+INCLUDES = -I./libft -I.
 
+SRC = minishell.c
+OBJ = $(SRC:.c=.o)
 NAME = minishell
-HEADER = minishell.h
 
-SRCS =	$(wildcard *.c)
+all: $(NAME)
 
-OBJS = $(SRCS:.c=.o)
+$(NAME): $(OBJ)
+	make -C libft
+	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
-%.o:%.c 	$(HEADER) Makefile
-			$(CC) $(CFLAGS) -c $< -o $@
-
-all: 		$(NAME)
-
-$(NAME): 	$(OBJS)
-			$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lreadline
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
-			$(RM) $(OBJS)
+	make -C libft clean
+	$(RM) $(OBJ)
 
-fclean: 	clean
-			$(RM) $(NAME)
+fclean: clean
+	make -C libft fclean
+	$(RM) $(NAME)
 
-re:			fclean all
+re: fclean all
+
 
 .PHONY: all clean fclean re
