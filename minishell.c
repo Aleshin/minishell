@@ -29,7 +29,8 @@ int main (int argc, char **argv, char **envp)
     while (1)
     { // Бесконечный цикл для приема команд
         buf = readline("$> "); // Запрашиваем ввод команды
-        if (buf == NULL || strcmp(buf, "exit") == 0) {
+        if (buf == NULL || strcmp(buf, "exit") == 0) 
+        {
             // Если пользователь ввел exit или закрыл ввод (Ctrl+D), завершаем цикл
             free(buf);
             break;
