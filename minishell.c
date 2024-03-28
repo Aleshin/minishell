@@ -59,10 +59,10 @@ char *buf;
         }
         // Split buf into command and arguments
         char *command = strtok(buf, " ");
-        char **args = (char **)malloc(sizeof(char *) * 2); // assuming maximum 1 argument
+        char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
         args[0] = command;
         args[1] = strtok(NULL, " ");
-        args[2] = NULL; // NULL terminate the array
+        args[2] = NULL; // NULL terminate the arrayvvvv
         id = fork();
         if (id == -1) {
             // Fork failed
@@ -70,9 +70,9 @@ char *buf;
             exit(EXIT_FAILURE);
         } else if (id == 0) {
             // Child process
-            char *path = ft_find_abs_path(command);
+            char *path = ft_find_abs_path(command); //we use malloc here
             if (path != NULL) {
-                if (execve(path, args, NULL) == -1) {
+                if (execve(path, args, NULL) == -1) { ///NULL stands for inherit env from the calling process, e.g. minishell
                     perror("execve");
                     exit(EXIT_FAILURE);
                 }
@@ -85,8 +85,14 @@ char *buf;
             // Parent process
             int status;
             waitpid(id, &status, 0); // Wait for child process to finish
-            if (WIFEXITED(status)) {
-                printf("Child process exited with status: %d\n", WEXITSTATUS(status));
+            if (WIFEXITED(status)) 
+            {
+                int statusCode = WEXITSTATUS(status);
+                if (statusCode == 0)
+                    printf("Success!\n");
+                else
+                    printf("Failure with status code %d:(\n", statusCode);
+                //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
             }
         }
         free(args); // Free the memory allocated for args

@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LDFLAGS = -L./libft -lft -lreadline
 INCLUDES = -I./libft -I.
 
@@ -7,13 +7,15 @@ SRC = minishell.c
 OBJ = $(SRC:.c=.o)
 NAME = minishell
 
-all: $(NAME)
+all: libs $(NAME)
 
-$(NAME): $(OBJ)
+libs:
 	make -C libft
+
+$(NAME): $(OBJ) ./libft/libft.a
 	$(CC) $(CFLAGS) $(OBJ) $(LDFLAGS) -o $(NAME)
 
-%.o: %.c
+%.o: %.c Makefile minishell.h
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
@@ -27,4 +29,4 @@ fclean: clean
 re: fclean all
 
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re libs
