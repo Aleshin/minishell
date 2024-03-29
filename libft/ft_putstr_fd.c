@@ -18,10 +18,8 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	unsigned int	i;
 	size_t			size;
 
-	i = 0;
 	size = ft_strlen(s);
 	while (size > 0)
 	{
