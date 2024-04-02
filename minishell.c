@@ -51,7 +51,7 @@ char *buf;
     (void)argv;
     (void)envp;
     while (1) {
-        buf = readline("$> "); // Prompt for input command
+        buf = readline("$> "); // Prompt for input command./
         if (buf == NULL || strcmp(buf, "exit") == 0) {
             // If user enters exit or closes input (Ctrl+D), exit the loop
             free(buf);
