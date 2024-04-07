@@ -23,4 +23,34 @@ typedef struct s_env {
   struct s_env *next;
 } t_env;
 
+typedef struct s_struct
+{
+	int		i;
+	int		n;
+	int		flag;
+	int		start;
+	int		in_fd;
+	int		out_fd;
+	char	**paths;
+	char	*path1;
+	char	*path2;
+	char	**in_cmd;
+	char	**out_cmd;
+}	t_pipe;
+
+// void	initialize_tpipe(t_pipe *info)
+// {
+// 	info -> i = -1;
+// 	info -> n = -1;
+// 	info -> flag = 0;
+// 	info -> in_fd = -1;
+// 	info -> out_fd = -1;
+// 	info -> paths = NULL;
+// 	info -> path1 = NULL;
+// 	info -> path2 = NULL;
+// 	info -> in_cmd = NULL;
+// 	info -> out_cmd = NULL;
+// }
+
+
 #endif
