@@ -75,6 +75,36 @@ char	**ft_split(char const *s, char c)
 	arr_of_words[i] = (NULL);
 	return (arr_of_words);
 }
+//split for global var (separator is =)
+char	**ft_split_global(char const *s, char c)
+{
+	char	**arr_of_words;
+	int		i;
+	size_t	size_word;
+
+	i = 0;
+	arr_of_words = (char **)malloc((ft_count_words(s, c) + 1) * sizeof(char *));
+	if (!arr_of_words)
+		return (NULL);
+	while (*s)
+	{
+		if (*s == c)
+			s++;
+		else
+		{
+			size_word = 0;
+			while (s[size_word] && s[size_word] != c)
+				size_word++;
+			arr_of_words[i++] = ft_substr(s, 0, size_word);
+			if (!arr_of_words[i - 1])
+				return (free_matrix(arr_of_words, i - 1));
+			s = s + size_word;
+		}
+	}
+	arr_of_words[i] = (NULL);
+	return (arr_of_words);
+}
+
 /*
 int	main()
 {

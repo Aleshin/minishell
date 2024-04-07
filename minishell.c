@@ -49,7 +49,10 @@ char *buf;
     int id;
     (void)argc;
     (void)argv;
-    (void)envp;
+    //(void)envp;
+    for (char **env = envp; *env != NULL; env++) {
+        printf("%s\n", *env); // Print each environment variable
+    }
     while (1) {
         buf = readline("$> "); // Prompt for input command
         if (buf == NULL || strcmp(buf, "exit") == 0) {
