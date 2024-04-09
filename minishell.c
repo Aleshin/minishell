@@ -38,9 +38,10 @@ char *ft_find_abs_path(char *command)
 		i++;
 	}
 	free(arr);
-
     return path_to_command;
 }
+
+
 
 
 int main (int argc, char **argv, char **envp)
@@ -86,7 +87,7 @@ char *buf;
             }
         } else {
             // Parent process
-            int status;
+            int status; ///int value returned by waitpid
             waitpid(id, &status, 0); // Wait for child process to finish
             if (WIFEXITED(status)) 
             {
