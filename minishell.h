@@ -17,10 +17,11 @@
 # include <signal.h>
 
 //STRUCT FOR ENVIROMENT VAR
-typedef struct s_env {
+typedef struct t_list 
+{
   char *name;
   char *value;
-  struct s_env *next;
+  struct t_list *next;
 } t_env;
 
 typedef struct s_struct

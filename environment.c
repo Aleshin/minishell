@@ -21,29 +21,40 @@ int check_varname(char *str) //1 yes 0 no
     return (res);
 }
 
-t_env    *find_last_node(t_env *head)
-{
-	if (NULL == head)
-		return (NULL);
-	while (head->next != NULL)
-		head = head->next;
-	return (head);
-}
+// t_env    *find_last_node(t_env *head) //t_list	*ft_lstlast(t_list *lst)???
+// {
+// 	if (NULL == head)
+// 		return (NULL);
+// 	while (head->next != NULL)
+// 		head = head->next;
+// 	return (head);
+// }
 
+// t_list	*ft_lstlast(t_list *lst)
+// {
+// 	if (lst == NULL)
+// 		return (0);
+// 	while (lst->next != NULL)
+// 	{
+// 		lst = lst->next;
+// 	}
+// 	return (lst);
+// }
 
-void lst_dealloc(t_env **head)
-{
-    if (*head == NULL)
-        return ;
-    t_env *current = *head;
-    while (current != NULL)
-    {
-        t_env *aux = current;
-        current = current->next;
-        free(aux);
-    }
-    *head = NULL;
-}
+// void lst_dealloc(t_env **head)
+// {
+//     if (*head == NULL)
+//         return ;
+//     t_env *current = *head;
+//     while (current != NULL)
+//     {
+//         t_env *aux = current;
+//         current = current->next;
+//         free(aux);
+//     }
+//     *head = NULL;
+// }
+
 ////
 void init_new_node(t_env *new_node, int n)//here name and value
 {
@@ -55,11 +66,11 @@ void init_new_node(t_env *new_node, int n)//here name and value
 void append_node(t_env **head,  int n)
 {
     t_env *new_node;
-    t_env *last_node = find_last_node(*head);
+    t_env *last_node = ft_lstlast(*head);
     new_node = malloc(sizeof(t_env));
     if (new_node == NULL)
     {
-        lst_dealloc(head);
+        ft_lstclear(head, NULL);
         exit(1);
     }
     init_new_node(new_node, n);
@@ -81,8 +92,8 @@ void init_envvar(t_env **head, char **envp)
 
     while(envp[i])
     {
-        s = ft_atoi(argv[i]);//split env var  PWD="/Users/ekaterinamikaylova"
-        append_node(head, n);
+        s = ; //split env var  PWD="/Users/ekaterinamikaylova"
+        append_node(head, );
         i++;
     }
 }

@@ -32,18 +32,3 @@ char	*ft_strrchr(const char *s, int c)
 	}
 	return (NULL);
 }
-/*
-int	main (void)
-{
-	const char *str = "Hello World!";
-	int char_to_find = 'l';
-	char *res = ft_strrchr(str, char_to_find);
-	if (res != NULL)
-	{
-		printf("function returns: %c on a position %ld  \n", char_to_find, res - str);
-		printf("%s, %s", res, str);
-	}
-	else
-		printf("Character %c is not found.", char_to_find);
-	return (0);
-}*/
