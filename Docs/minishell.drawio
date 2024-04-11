@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-03-22T23:11:17.682Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="jZS7Fd5cTRPAuzOvOOjY" version="24.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-11T16:03:30.392Z" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36" etag="UALHBnlOJyu-vgz4bTrv" version="24.2.3" type="device">
   <diagram name="Page-1" id="_QiBhrfd16QJceg2HKCt">
     <mxGraphModel dx="1520" dy="789" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -48,6 +48,9 @@
         </mxCell>
         <mxCell id="mgkkG4edfA3IA-EPgYgJ-17" value="В C переменные окружения доступны через третий параметр функции main (char *envp[])&amp;nbsp;или глобальную переменную environ." style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" parent="1" vertex="1">
           <mxGeometry x="60" y="540" width="250" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="WOlnoPycVJXtn0csY6QS-1" value="Парсер должен:&lt;div&gt;&lt;ol&gt;&lt;li&gt;Запускать приложение (с абсолютным или относительным путем и искать пути в PATH)&lt;/li&gt;&lt;li&gt;Не обрабатывать незакрытые кавычки, \ ;&lt;/li&gt;&lt;li&gt;Обрабатывать &#39; без обработки спецсимволов&lt;/li&gt;&lt;li&gt;Обрабатывать &quot; с обработкой $ только&lt;/li&gt;&lt;li&gt;Обрабатывать редиректы:&lt;br&gt;◦ &amp;lt; should redirect input.&lt;br&gt;◦ &amp;gt; should redirect output.&lt;br&gt;◦ &amp;lt;&amp;lt; should be given a delimiter, then read the input until a line containing the&lt;br&gt;delimiter is seen. However, it doesn’t have to update the history!&lt;br&gt;◦ &amp;gt;&amp;gt; should redirect output in append mode.&lt;br&gt;&lt;/li&gt;&lt;li&gt;Обрабатывать пайпы |&lt;/li&gt;&lt;li&gt;Обрабатывать $ и вставлять вместо них значения&lt;/li&gt;&lt;li&gt;Обрабатывать последовательности:&lt;br&gt;◦ ctrl-C displays a new prompt on a new line.&lt;br&gt;◦ ctrl-D exits the shell.&lt;br&gt;◦ ctrl-\ does nothing.&lt;br&gt;&lt;/li&gt;&lt;li&gt;Реализовать builtins:&lt;br&gt;◦ echo with option -n&lt;br&gt;◦ cd with only a relative or absolute path&lt;br&gt;◦ pwd with no options&lt;br&gt;◦ export with no options&lt;br&gt;◦ unset with no options&lt;br&gt;◦ env with no options or arguments&lt;br&gt;◦ exit with no options&lt;br&gt;&lt;/li&gt;&lt;/ol&gt;&lt;div&gt;Бонусная часть:&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;ol&gt;&lt;li&gt;Поддерживать &amp;amp;&amp;amp; и || (вторая команда выполняется, если первая вернула 0/вернула ошибку)&lt;/li&gt;&lt;li&gt;Поддерживать скобки для приоритета выполнения&lt;/li&gt;&lt;li&gt;Работать с * в текущем рабочем директории&lt;/li&gt;&lt;/ol&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="640" y="540" width="340" height="550" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
