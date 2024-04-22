@@ -2,6 +2,12 @@
 #include <stdlib.h>
 #include <strings.h>
 #include "libft/libft.h"
+#include <unistd.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+#include "libft/libft.h"
 
 
 typedef struct t_list 
@@ -41,9 +47,6 @@ char **split_env(char *env, char c) //c == '='
     res[1] = malloc(sizeof(char) * len_after + 1);
     if (res[0] == NULL || res[1] == NULL)
     {
-        // free(res[1]);
-        // free(res[0]);
-        // free(res);
         free_arr(res);
         return NULL;
     }    
@@ -144,31 +147,136 @@ t_env *envp_to_linked_list(char **envp)
     return head;
 }
 
-int main(int argc, char **argv, char **envp) 
+void print_env(t_env *env)
 {
-    (void)argc;
-    (void)argv;
-    // Loop through envp until you encounter a NULL pointer
-    t_env *environment_list = envp_to_linked_list(envp);
-    
-    //print linked list
-    t_env *curr = environment_list;
+    t_env *curr = env;
 
     while (curr != NULL) 
     {
-        printf("name: %s ---> value: %s\n", curr->name, curr->value); // Print each environment variable
+        printf("%s=%s\n", curr->name, curr->value); // Print each environment variable
         curr = curr->next;
     }
-    //free memory //shure I have some function for this
-    curr = environment_list;
+    //free memory //shure I have some function for this --->>>> to the separate function
+    curr = env;
     t_env *temp = curr->next;
-    while (curr != NULL) {
+    while (curr != NULL) 
+    {
         temp = curr->next;
         free_env_node(curr);
         curr = temp;
     }
+}
+
+
+//unset   export(add new var)  env
+//unset ---> if var name does not exist there is no error, bash just dont do anything
+void ft_env(t_env *lst, char **argv)
+{
+    if (lst != NULL)
+	{
+		if (!ft_strncmp(argv[0], "unset", 5) && argv[1])  ////DOES NOT WORK, SEE HOW TO DELETE NODE WITH DATA!!!
+        {
+            while (lst != NULL)
+            {
+                if (!ft_strncmp(lst->name, argv[1], ft_strlen(argv[1])))
+                {
+                    free(lst->value);
+                    lst->value = ft_strdup("");
+                    if (lst->value == NULL) 
+                        free(lst->value);
+                }
+                lst = lst->next;
+            }
+        }
+        else if (!ft_strncmp(argv[0], "env", 3) && !argv[1])
+            print_env(lst);
+        else if (!ft_strncmp(argv[0], "export", 6))
+            printf("here should be export command\n");
+        else
+            printf("%s : No such file or directory\n", argv[0]);
+	}
+}
+
+void ft_parent(int id)
+{
+    int status; ///int value returned by waitpid
+    waitpid(id, &status, 0); // Wait for child process to finish
+    if (WIFEXITED(status)) 
+    {
+        int statusCode = WEXITSTATUS(status);
+        if (statusCode == 0)
+            printf("Success!\n");
+        else
+            printf("Failure with status code %d:(\n", statusCode);
+            //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
+    }
+}
+
+int main (int argc, char **argv, char **envp)
+{
+char *buf;
+    int id;
+    (void)argc;
+    (void)argv;
+    //(void)envp;
+    
+    while (1) 
+    {
+        buf = readline("$> "); // Prompt for input command./
+        if (buf == NULL || strcmp(buf, "exit") == 0) 
+        {
+            // If user enters exit or closes input (Ctrl+D), exit the loop
+            free(buf);
+            break;
+        }
+        t_env *environment_list = envp_to_linked_list(envp);
+        // Split buf into command and arguments  init_parse_tree(buf);
+        char *command = strtok(buf, " ");
+        char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
+        args[0] = command;
+        args[1] = strtok(NULL, " ");
+        args[2] = NULL; // NULL terminate the array
+        id = fork();
+        if (id == -1) 
+        {
+            // Fork failed
+            perror("fork");
+            exit(EXIT_FAILURE);
+        } 
+        else if (id == 0) 
+        {
+            // Child process
+            //run_child(???)
+           ft_env(environment_list, args);
+        } 
+        else 
+        {
+            ft_parent(id);
+        }
+        free(args); // Free the memory allocated for args
+        free(buf);  // Free the memory allocated for buf
+    }
     return 0;
 }
+
+
+// int main(int argc, char **argv, char **envp) 
+// {
+//     (void)argc;
+//     //(void)argv;
+//     // Loop through envp until you encounter a NULL pointer
+//     t_env *environment_list = envp_to_linked_list(envp);
+//     ft_env(environment_list, argv);
+    
+//     print_env(environment_list);
+
+//     return 0;
+// }
+
+// void ft_unset(t_list env)
+// {
+
+// }
 
 //TODO function to traverse linked list and finde node with node->name
 // function to delete one node

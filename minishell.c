@@ -29,7 +29,7 @@ char *ft_find_abs_path(char *command)
 	while (arr[i])
 	{
 		char *tmp = ft_strjoin(arr[i], "/", command);
-		if (access(tmp, F_OK | X_OK) != -1) 
+		if (access(tmp, F_OK | X_OK) != -1) // R_OK W_OK rite write permision
         {
             path_to_command = tmp;
             break;
@@ -41,7 +41,20 @@ char *ft_find_abs_path(char *command)
     return path_to_command;
 }
 
-
+void ft_parent(int id)
+{
+    int status; ///int value returned by waitpid
+    waitpid(id, &status, 0); // Wait for child process to finish
+    if (WIFEXITED(status)) 
+    {
+        int statusCode = WEXITSTATUS(status);
+        if (statusCode == 0)
+            printf("Success!\n");
+        else
+            printf("Failure with status code %d:(\n", statusCode);
+                //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
+    }
+}
 
 
 int main (int argc, char **argv, char **envp)
@@ -54,26 +67,32 @@ char *buf;
     for (char **env = envp; *env != NULL; env++) {
         printf("%s\n", *env); // Print each environment variable
     }
-    while (1) {
+    while (1) 
+    {
         buf = readline("$> "); // Prompt for input command./
-        if (buf == NULL || strcmp(buf, "exit") == 0) {
+        if (buf == NULL || strcmp(buf, "exit") == 0) 
+        {
             // If user enters exit or closes input (Ctrl+D), exit the loop
             free(buf);
             break;
         }
-        // Split buf into command and arguments
+        // Split buf into command and arguments  init_parse_tree(buf);
         char *command = strtok(buf, " ");
         char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
         args[0] = command;
         args[1] = strtok(NULL, " ");
-        args[2] = NULL; // NULL terminate the arrayvvvv
+        args[2] = NULL; // NULL terminate the array
         id = fork();
-        if (id == -1) {
+        if (id == -1) 
+        {
             // Fork failed
             perror("fork");
             exit(EXIT_FAILURE);
-        } else if (id == 0) {
+        } 
+        else if (id == 0) 
+        {
             // Child process
+            //run_child(???)
             char *path = ft_find_abs_path(command); //we use malloc here
             if (path != NULL) {
                 if (execve(path, args, NULL) == -1) { ///NULL stands for inherit env from the calling process, e.g. minishell
@@ -85,19 +104,10 @@ char *buf;
                 printf("Command not found: %s\n", command);
                 exit(EXIT_FAILURE);
             }
-        } else {
-            // Parent process
-            int status; ///int value returned by waitpid
-            waitpid(id, &status, 0); // Wait for child process to finish
-            if (WIFEXITED(status)) 
-            {
-                int statusCode = WEXITSTATUS(status);
-                if (statusCode == 0)
-                    printf("Success!\n");
-                else
-                    printf("Failure with status code %d:(\n", statusCode);
-                //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
-            }
+        } 
+        else 
+        {
+            ft_parent(id);
         }
         free(args); // Free the memory allocated for args
         free(buf);  // Free the memory allocated for buf

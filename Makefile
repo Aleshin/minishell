@@ -30,3 +30,6 @@ re: fclean all
 
 
 .PHONY: all clean fclean re libs
+
+leaks: 
+		leaks --atExit  -- ./experiment
