@@ -167,29 +167,52 @@ void print_env(t_env *env)
     }
 }
 
+//remove specific node where lst->name == name
+void remove_node(t_env **lst, char *name)
+{
+    
+    if (*lst == NULL)
+        return ;
+
+    t_env *head = *lst;
+    //delete first node
+    if (!ft_strncmp(head->name, name, ft_strlen(name)))
+    {
+        printf("head->name %s, user %s \n", head->name, name);
+        *lst = head->next; 
+        free_env_node(head);
+        return;
+    }
+    //delete in the middle
+    t_env *prev = head;
+    t_env *curr = head->next;
+    while(curr->next != NULL)
+    {
+        if (!ft_strncmp(curr->name, name, ft_strlen(name)))
+        {
+            prev->next = curr->next;
+            free_env_node(curr);
+            return; // No need to continue searching
+        }
+        prev = curr;
+        curr = curr->next;
+    }
+}
+
 
 //unset   export(add new var)  env
 //unset ---> if var name does not exist there is no error, bash just dont do anything
-void ft_env(t_env *lst, char **argv)
+void ft_env(t_env **lst, char **argv)
 {
-    if (lst != NULL)
+    if ((*lst) != NULL)
 	{
 		if (!ft_strncmp(argv[0], "unset", 5) && argv[1])  ////DOES NOT WORK, SEE HOW TO DELETE NODE WITH DATA!!!
         {
-            while (lst != NULL)
-            {
-                if (!ft_strncmp(lst->name, argv[1], ft_strlen(argv[1])))
-                {
-                    free(lst->value);
-                    lst->value = ft_strdup("");
-                    if (lst->value == NULL) 
-                        free(lst->value);
-                }
-                lst = lst->next;
-            }
+           remove_node(lst, argv[1]);
+           //printf("here\n");
         }
         else if (!ft_strncmp(argv[0], "env", 3) && !argv[1])
-            print_env(lst);
+            print_env(*lst);
         else if (!ft_strncmp(argv[0], "export", 6))
             printf("here should be export command\n");
         else
@@ -215,11 +238,11 @@ void ft_parent(int id)
 int main (int argc, char **argv, char **envp)
 {
 char *buf;
-    int id;
+    //int id;
     (void)argc;
     (void)argv;
     //(void)envp;
-    
+    t_env *environment_list = envp_to_linked_list(envp);
     while (1) 
     {
         buf = readline("$> "); // Prompt for input command./
@@ -229,30 +252,30 @@ char *buf;
             free(buf);
             break;
         }
-        t_env *environment_list = envp_to_linked_list(envp);
         // Split buf into command and arguments  init_parse_tree(buf);
         char *command = strtok(buf, " ");
         char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
         args[0] = command;
         args[1] = strtok(NULL, " ");
         args[2] = NULL; // NULL terminate the array
-        id = fork();
-        if (id == -1) 
-        {
-            // Fork failed
-            perror("fork");
-            exit(EXIT_FAILURE);
-        } 
-        else if (id == 0) 
-        {
-            // Child process
-            //run_child(???)
-           ft_env(environment_list, args);
-        } 
-        else 
-        {
-            ft_parent(id);
-        }
+        //id = fork();
+        ft_env(&environment_list, args);
+        // if (id == -1) 
+        // {
+        //     // Fork failed
+        //     perror("fork");
+        //     exit(EXIT_FAILURE);
+        // } 
+        // else if (id == 0) 
+        // {
+        //     // Child process
+        //     //run_child(???)
+        //    ft_env(&environment_list, args);
+        // } 
+        // else 
+        // {
+        //     ft_parent(id);
+        // }
         free(args); // Free the memory allocated for args
         free(buf);  // Free the memory allocated for buf
     }
