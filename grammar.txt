@@ -1,0 +1,74 @@
+<command-line> ::= <pipeline> | <command-line> ';' <pipeline>
+
+<pipeline> ::= <command> | <pipeline> '|' <command>
+
+<command> ::= <simple-command> <redirects> | <simple-command>
+
+<simple-command> ::= <word> | <simple-command> <word>
+
+<redirects> ::= <redirect> | <redirects> <redirect>
+
+<redirect> ::= < '<' <filename> | '>' <filename> | '>>' <filename> | '2>' <filename> | '2>>' <filename>
+
+<word> ::= <bare-word> | <single-quoted> | <double-quoted> | <variable>
+
+<bare-word> ::= <letter> | <digit> | <bare-word> <letter> | <bare-word> <digit> | <bare-word> <special-char>
+
+<single-quoted> ::= "'" <sq-contents> "'"
+
+<double-quoted> ::= '"' <dq-contents> '"'
+
+<variable> ::= '$' <letter> | '$' '{' <letter> '}'
+
+<filename> ::= <word>
+
+<sq-contents> ::= <sq-char> | <sq-contents> <sq-char>
+
+<dq-contents> ::= <dq-char> | <dq-contents> <dq-char> | <dq-contents> <variable>
+
+<sq-char> ::= any character except single quote (')
+
+<dq-char> ::= any character except double quote (") or variable ('$')
+
+<letter> ::= 'a' | 'b' | ... | 'z' | 'A' | 'B' | ... | 'Z'
+
+<digit> ::= '0' | '1' | '2' | ... | '9'
+
+<special-char> ::= '_' | '-' | '.' | '/' | '@' | '#' | '%'
+
+
+
+Another version
+```antlr
+grammar BashLite;
+// Parcer's rules
+commandLine
+    : command (PIPE command)* EOF
+    ;
+command
+    : segment (redirect | argument)*
+    ;
+segment
+    : SIMPLE_COMMAND
+    ;
+argument
+    : WORD
+    | QUOTED_STRING
+    | VARIABLE
+    ;
+redirect
+    : REDIRECT_SYMBOL filename
+    ;
+filename
+    : WORD
+    | QUOTED_STRING
+    ;
+// Lexer's rules
+PIPE: '|';
+REDIRECT_SYMBOL: '>' | '>>' | '<';
+SIMPLE_COMMAND: [a-zA-Z_][a-zA-Z0-9_]*;
+WORD: [a-zA-Z0-9_]+;
+QUOTED_STRING: '"' (~["\\] | '\\' .)* '"' | '\'' (~['\\] | '\\' .)* '\'';
+VARIABLE: '$' [a-zA-Z_][a-zA-Z0-9_]*;
+WS: [ \t\r\n]+ -> skip;
+```
