@@ -9,14 +9,16 @@
 #include <readline/history.h>
 #include "libft/libft.h"
 
-
+//декларируем структуру списка переменых среды
 typedef struct t_list 
 {
   char *name;
   char *value;
+  //int export; //1 or 0, when you call export it indicates that env is exported to child process
   struct t_list *next;
 } t_env;
 
+//функция для очистки массива строк
 void free_arr(char **arr)
 {
     int i = 0;
@@ -28,7 +30,7 @@ void free_arr(char **arr)
     free(arr);
 }
 
-//splits list in array of 2 strings(before and after '=')
+//функция делит каждую строку массива на 2 строки(до и после первого '=')
 char **split_env(char *env, char c) //c == '='
 {
     int len_before = 0;
@@ -38,10 +40,16 @@ char **split_env(char *env, char c) //c == '='
     char **res = malloc(sizeof(char *) * 2);
     if (NULL == res)
         return NULL;
-    //find size before
+    //размер строки до знака =
     while (env[len_before] != c && env[len_before] != '\0')
         len_before++;
-    //find size after
+    //this is only fornow maybe
+    if (len_before == 0)
+    {
+        return NULL;
+    }
+        
+    //размер строки после знака =
     len_after = size - len_before - 1;
     res[0] = malloc(sizeof(char) * len_before + 1);
     res[1] = malloc(sizeof(char) * len_after + 1);
@@ -68,12 +76,13 @@ char **split_env(char *env, char c) //c == '='
 }
 
 
+
 t_env	*ft_lstnew_env(char *name, char *value)
 {
 	t_env	*new;
 
-	new = malloc(sizeof(t_env));
-	if (new == NULL)
+    new = malloc(sizeof(t_env));
+    if (new == NULL)
 		return (NULL);
 	new->name = strdup(name);
     if (new->name == NULL) 
@@ -93,13 +102,13 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	return (new);
 }
 
-void free_env_node(t_env *lst)
+void free_env_node(t_env *node)
 {
-    if (lst == NULL)
+    if (node == NULL)
         return ;
-    free(lst->name);
-    free(lst->value);
-    free(lst);
+    free(node->name);
+    free(node->value);
+    free(node);
 }
 
 void	ft_lstadd_back_env(t_env **lst, t_env *new)
@@ -118,14 +127,16 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 		list->next = new;
 	}
 }
-
+//функция преобразует массив строк в односвязный список
 t_env *envp_to_linked_list(char **envp)
 {
     t_env *head = NULL;
     int i = 0;
     while (envp[i] != NULL)
     {
+        //сплит каждой строки на 2
         char **arr = split_env(envp[i], '=');
+        //создаем новый нод с этими строками
         t_env *new_node = ft_lstnew_env(arr[0], arr[1]);
         if (new_node == NULL)
         {
@@ -138,6 +149,7 @@ t_env *envp_to_linked_list(char **envp)
             }
             return NULL;
         } 
+        //добавляем этот нод в конец списка
         ft_lstadd_back_env(&head, new_node);
         i++;
         free(arr[0]);
@@ -146,7 +158,7 @@ t_env *envp_to_linked_list(char **envp)
     }
     return head;
 }
-
+//печать списка (поменять принтф на что то другое)
 void print_env(t_env *env)
 {
     t_env *curr = env;
@@ -156,83 +168,93 @@ void print_env(t_env *env)
         printf("%s=%s\n", curr->name, curr->value); // Print each environment variable
         curr = curr->next;
     }
-    //free memory //shure I have some function for this --->>>> to the separate function
-    curr = env;
-    t_env *temp = curr->next;
-    while (curr != NULL) 
-    {
-        temp = curr->next;
-        free_env_node(curr);
-        curr = temp;
-    }
 }
 
-//remove specific node where lst->name == name
+//удаляет нодб если lst->name == name
 void remove_node(t_env **lst, char *name)
 {
-    
     if (*lst == NULL)
         return ;
 
     t_env *head = *lst;
-    //delete first node
-    if (!ft_strncmp(head->name, name, ft_strlen(name)))
+
+    // Delete first node
+    if (!ft_strcmp(head->name, name))
     {
-        printf("head->name %s, user %s \n", head->name, name);
         *lst = head->next; 
         free_env_node(head);
         return;
     }
-    //delete in the middle
+    // Delete in the middle or last
     t_env *prev = head;
     t_env *curr = head->next;
-    while(curr->next != NULL)
+    while (curr != NULL)
     {
-        if (!ft_strncmp(curr->name, name, ft_strlen(name)))
+        if (!ft_strcmp(curr->name, name))
         {
             prev->next = curr->next;
             free_env_node(curr);
-            return; // No need to continue searching
+            return;
         }
         prev = curr;
         curr = curr->next;
     }
 }
+//should add new var to the end of list or update existing
+//экспортирует переменную в список глобальных переменных
+//если просто присвоить к=555 то переменная видна только в текущем процессе
+void ft_export(t_env **lst, char *str)
+{
+    t_env *curr = *lst;
+    char **new_val = split_env(str, '=');
+    //перебираем лист и если имя есть модифицируем его
+    if (new_val == NULL)
+    {
+        //to check if there is a name, maybe later I dont need it
+        perror("export: `=f': not a valid identifier"); //change later
+        return ;
+    }
 
+    while (curr != NULL)
+    {
+        if (!ft_strcmp(new_val[0], curr->name))
+        {
+            free(curr->value);
+            curr->value = strdup(new_val[1]);
+            return ;
+        }
+        curr = curr->next;
+    }
+  
+    t_env *new_node = ft_lstnew_env(new_val[0], new_val[1]);
+    if (new_node == NULL)
+    {
+        perror("Memory allocation failed for node"); 
+        free_env_node(new_node);
+    }
+    ft_lstadd_back_env(lst, new_node);
+}
 
-//unset   export(add new var)  env
-//unset ---> if var name does not exist there is no error, bash just dont do anything
+//общая функция для модификации переменных среды
 void ft_env(t_env **lst, char **argv)
 {
     if ((*lst) != NULL)
 	{
-		if (!ft_strncmp(argv[0], "unset", 5) && argv[1])  ////DOES NOT WORK, SEE HOW TO DELETE NODE WITH DATA!!!
+		if (!ft_strcmp(argv[0], "unset") && argv[1])
         {
            remove_node(lst, argv[1]);
-           //printf("here\n");
+           //printf("unsetted\n"); som env I should unset 2 times. Why?
         }
-        else if (!ft_strncmp(argv[0], "env", 3) && !argv[1])
+        else if (!ft_strcmp(argv[0], "env") && !argv[1])
             print_env(*lst);
-        else if (!ft_strncmp(argv[0], "export", 6))
-            printf("here should be export command\n");
+        else if (!ft_strcmp(argv[0], "export")) ///what it does exactly?
+        {
+            ft_export(lst, argv[1]);
+        }
+            
         else
             printf("%s : No such file or directory\n", argv[0]);
 	}
-}
-
-void ft_parent(int id)
-{
-    int status; ///int value returned by waitpid
-    waitpid(id, &status, 0); // Wait for child process to finish
-    if (WIFEXITED(status)) 
-    {
-        int statusCode = WEXITSTATUS(status);
-        if (statusCode == 0)
-            printf("Success!\n");
-        else
-            printf("Failure with status code %d:(\n", statusCode);
-            //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
-    }
 }
 
 int main (int argc, char **argv, char **envp)
@@ -258,49 +280,15 @@ char *buf;
         args[0] = command;
         args[1] = strtok(NULL, " ");
         args[2] = NULL; // NULL terminate the array
-        //id = fork();
+       
         ft_env(&environment_list, args);
-        // if (id == -1) 
-        // {
-        //     // Fork failed
-        //     perror("fork");
-        //     exit(EXIT_FAILURE);
-        // } 
-        // else if (id == 0) 
-        // {
-        //     // Child process
-        //     //run_child(???)
-        //    ft_env(&environment_list, args);
-        // } 
-        // else 
-        // {
-        //     ft_parent(id);
-        // }
         free(args); // Free the memory allocated for args
         free(buf);  // Free the memory allocated for buf
     }
+    //here I need to clean nvironment_list when I dont need it anymore
     return 0;
 }
 
 
-// int main(int argc, char **argv, char **envp) 
-// {
-//     (void)argc;
-//     //(void)argv;
-//     // Loop through envp until you encounter a NULL pointer
-//     t_env *environment_list = envp_to_linked_list(envp);
-//     ft_env(environment_list, argv);
-    
-//     print_env(environment_list);
 
-//     return 0;
-// }
-
-// void ft_unset(t_list env)
-// {
-
-// }
-
-//TODO function to traverse linked list and finde node with node->name
-// function to delete one node
 // figure out how to add node and how to modify node->value
