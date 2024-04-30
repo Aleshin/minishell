@@ -111,6 +111,24 @@ void free_env_node(t_env *node)
     free(node);
 }
 
+void lst_dealloc(t_env **head)
+{
+    if (*head == NULL)
+        return;
+
+    t_env *current = *head;
+    while (current != NULL)
+    {
+        t_env *aux = current;
+        current = current->next;
+        
+        // Free dynamically allocated memory for name and value using free_env_node
+        free_env_node(aux);
+    }
+
+    *head = NULL;
+}
+
 void	ft_lstadd_back_env(t_env **lst, t_env *new)
 {
 	t_env	*list;
@@ -286,6 +304,7 @@ char *buf;
         free(buf);  // Free the memory allocated for buf
     }
     //here I need to clean nvironment_list when I dont need it anymore
+    lst_dealloc(&environment_list);
     return 0;
 }
 
