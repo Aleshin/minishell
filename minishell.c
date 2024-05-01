@@ -70,7 +70,7 @@ char *buf;
     while (1) 
     {
         buf = readline("$> "); // Prompt for input command./
-        if (buf == NULL || strcmp(buf, "exit") == 0) 
+        if (buf == NULL || !ft_strcmp(buf, "exit")) 
         {
             // If user enters exit or closes input (Ctrl+D), exit the loop
             free(buf);

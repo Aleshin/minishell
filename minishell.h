@@ -40,6 +40,7 @@ typedef struct s_struct
 	//char	**out_cmd; //command writing output to the pipe
 }	t_pipe;
 
-
+//error handling
+void	put_error_fd(char *bash, char *file, char *error);
 
 #endif
