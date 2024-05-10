@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LDFLAGS = -L../libft -lft -lreadline
 INCLUDES = -I../libft -I.
 
-SRC = proto.c
+SRC = proto.c ast_structure.c
 OBJ = $(SRC:.c=.o)
 NAME = proto
 

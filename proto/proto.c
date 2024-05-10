@@ -14,6 +14,7 @@
 int main(int argc, char** argv)
 {
     char *buf;
+    ASTNode *ast_root;
 
     (void)argc;
     (void)argv;
@@ -23,6 +24,7 @@ int main(int argc, char** argv)
         free(buf);
         return(0);
     }
-    printf("command: %s\n", buf);
+    ast_root = createASTNode(commandLine, buf);
+    printf("command: %d, %s\n", ast_root->type, ast_root->value);
     return(0);
 }

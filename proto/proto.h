@@ -18,15 +18,32 @@
 # include <signal.h>
 
 typedef enum {
-    TOKEN_WORD,
-    TOKEN_PIPE,
-    TOKEN_EOF,
-    TOKEN_UNKNOWN
-} TokenType;
+    commandLine,
+    command,
+    executable,
+    arguments,
+    argument,
+    WORD,
+    SINGLE_QUOTED_STRING,
+    DOUBLE_QUOTED_STRING,
+    PIPE,
+    WS,
+    SYMBOL_UNKNOWN
+} SymbolType;
 
 typedef struct {
-    TokenType type;
+    SymbolType type;
     char *value;
 } Token;
 
+typedef struct ASTNode {
+    SymbolType type;
+    char *value; // string for symbol
+    struct ASTNode *firstChild;  // Child' pointer
+    struct ASTNode *nextSibling; // Sibling pointer
+} ASTNode;
+
+ASTNode* createASTNode(SymbolType type, const char *value);
+void addChildNode(ASTNode *parent, ASTNode *child);
+void freeAST(ASTNode *node);
 #endif

@@ -32,6 +32,11 @@ WORD
     : [a-zA-Z0-9_/.-]+
     ;
 
+// Strings enclosed in single quotes
+SINGLE_QUOTED_STRING
+    : '\'' ~[\']* '\''
+    ;
+
 // Strings enclosed in double quotes
 DOUBLE_QUOTED_STRING
     : '"' ~["]* '"'
