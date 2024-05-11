@@ -32,17 +32,27 @@ typedef enum {
 } SymbolType;
 
 typedef struct {
+    int token_start;
+    int current_char;
+    SymbolType current_token_type;
+    char    *string;
+} Input;
+
+typedef struct Token_node {
     SymbolType type;
     char *value;
-} Token;
+    struct Token_node    *next_token;
+} Token_node;
 
-typedef struct ASTNode {
+typedef struct ASTNode{
     SymbolType type;
     char *value; // string for symbol
     struct ASTNode *firstChild;  // Child' pointer
     struct ASTNode *nextSibling; // Sibling pointer
 } ASTNode;
 
+Token_node *token_last(Token_node *tokens);
+int token_add(Token_node **tokens, Input *input);
 ASTNode* createASTNode(SymbolType type, const char *value);
 void addChildNode(ASTNode *parent, ASTNode *child);
 void freeAST(ASTNode *node);
