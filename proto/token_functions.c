@@ -11,6 +11,23 @@
 /* ************************************************************************** */
 #include "proto.h"
 
+int	copy_substring(Input *input, Token_node *token, int start, int end)
+{
+	int	i;
+	int	j;
+
+	i = start - 1;
+	j = 0;
+	token->next_token->value = (char *)malloc(end - start + 2);
+	while (i < end)
+	{
+		token->next_token->value[j++] = input->string[i++];
+//		printf("%s, ", token->next_token->value);
+	}
+	token->next_token->value[j] = '\0'; //'\n';
+	return (0);
+}
+
 Token_node *token_last(Token_node *tokens)
 {
     Token_node *last_token;
@@ -34,7 +51,8 @@ int token_add(Token_node **tokens, Input *input)
 token_temp = token_last(*tokens);
 token_temp->next_token = (Token_node *)malloc(sizeof(Token_node));
         token_temp->next_token->type = WORD;
-        token_temp->next_token->value = "The end";
+		copy_substring(input, token_temp, 5, 6);
+//        token_temp->next_token->value = "The end";
         token_temp->next_token->next_token = NULL;
         }
     return (0);

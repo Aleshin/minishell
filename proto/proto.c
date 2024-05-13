@@ -21,6 +21,7 @@ int main(int argc, char** argv)
 
     (void)argc;
     (void)argv;
+	(void)ast_root;
     buf = readline("$> "); // Prompt for input command./
     if (buf == NULL || strcmp(buf, "exit") == 0) {
         // If user enters exit or closes input (Ctrl+D), exit the loop
