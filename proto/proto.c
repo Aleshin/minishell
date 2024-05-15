@@ -11,40 +11,46 @@
 /* ************************************************************************** */
 #include "proto.h"
 
-int main(int argc, char** argv)
+int	main(int argc, char **argv)
 {
-    char *buf;
-    Input   *input;
-    Token_node   *token;
-    Token_node   *token_temp;
-    ASTNode *ast_root;
+	char			*buf;
+	t_Input			*input;
+	t_Token_node	*token;
+	t_Token_node	*token_temp;
+	t_ast_node		*ast_root;
 
-    (void)argc;
-    (void)argv;
+	(void)argc;
+	(void)argv;
 	(void)ast_root;
-    buf = readline("$> "); // Prompt for input command./
-    if (buf == NULL || strcmp(buf, "exit") == 0) {
-        // If user enters exit or closes input (Ctrl+D), exit the loop
-        free(buf);
-        return(0);
-    }
-    input = (Input *)malloc(sizeof(Input));
-    input->current_char = 0;
-    input->current_token_type = commandLine;
-    input->string = buf;
-    input->token_start = 0;
-    token = NULL;
-    token_add(&token, input);
-    token_add(&token, input);
-    token_add(&token, input);
-    ast_root = createASTNode(commandLine, buf);
-    printf("command: %d, %s\n", token->type, token->value);
-    token_temp = token;
-    while (token_temp->next_token != NULL)
-    {
-        token_temp = token_temp->next_token;
-    printf("command: %d, %s\n", token_temp->type, token_temp->value);        
-    }
-//    printf("command: %d, %s\n", ast_root->type, ast_root->value);
-    return(0);
+	buf = readline("$> "); // Prompt for input command./
+	if (buf == NULL || strcmp(buf, "exit") == 0)
+	// If user enters exit or closes input (Ctrl+D), exit the loop
+	{
+		free(buf);
+		return (0);
+	}
+	input = (t_Input *)malloc(sizeof(t_Input));
+	input->token_start = 0;
+	input->current_char = 0;
+	input->current_token_type = commandLine;
+	input->string = buf;
+	token = NULL;
+	while (input->string[input->current_char] != '\0')
+	{
+		if (rule_word(&input, &token))
+		{
+			if (rule_ws(&input))
+				rule_symbol_unknown(&input, &token);
+		}
+	}
+	ast_root = create_ast_node(commandLine, buf);
+	token_temp = token;
+	while (token_temp->next_token != NULL)
+	{
+		printf("command: %d, %s\n", token_temp->type, token_temp->value);
+		token_temp = token_temp->next_token;
+	}
+	printf("command: %d, %s\n", token_temp->type, token_temp->value);
+//	printf("command: %d, %s\n", ast_root->type, ast_root->value);
+	return (0);
 }
