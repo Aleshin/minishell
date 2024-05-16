@@ -40,6 +40,8 @@ typedef enum SymbolType {
 	DOUBLE_QUOTED_STRING,
 	PIPE,
 	WS,
+	lexem,
+	terminals,
 	SYMBOL_UNKNOWN
 }	t_SymbolType;
 
@@ -65,8 +67,10 @@ typedef struct ast_node{
 
 t_Token_node	*token_last(t_Token_node **tokens);
 int				token_add(t_Token_node **tokens, t_Input **input);
+int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);
-int				rule_ws(t_Input **input);
+int				rule_ws(t_Input **input, t_Token_node **token);
+int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);
 void			add_child_node(t_ast_node *parent, t_ast_node *child);

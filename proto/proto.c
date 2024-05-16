@@ -37,10 +37,10 @@ int	main(int argc, char **argv)
 	token = NULL;
 	while (input->string[input->current_char] != '\0')
 	{
-		if (rule_word(&input, &token))
+		if (rule_terminals (&input, &token))
 		{
-			if (rule_ws(&input))
-				rule_symbol_unknown(&input, &token);
+			if (rule_ws(&input, &token))
+				rule_lexem(&input, &token);
 		}
 	}
 	ast_root = create_ast_node(commandLine, buf);
