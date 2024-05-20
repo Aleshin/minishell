@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 LDFLAGS = -L../libft -lft -lreadline
 INCLUDES = -I../libft -I.
 
-SRC = proto.c token_functions.c lexer_functions.c ast_structure.c
+SRC = proto.c token_functions.c lexer_functions.c ast_structure.c parser_functions.c
 OBJ = $(SRC:.c=.o)
 NAME = proto
 

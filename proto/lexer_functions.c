@@ -58,9 +58,9 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 	while ((*input)->string[i] != '\0')
 	{
 		if ((*input)->string[i] != ' '
-			|| (*input)->string[i] != '\t'
-			|| (*input)->string[i] != '\r'
-			|| (*input)->string[i] != '\n')
+			&& (*input)->string[i] != '\t'
+			&& (*input)->string[i] != '\r'
+			&& (*input)->string[i] != '\n')
 			break ;
 		if ((*input)->current_token_type == lexem)
 			token_add(token, input);
@@ -91,5 +91,16 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 	(*input)->current_char++;
 	if ((*input)->string[(*input)->current_char] == '\0')
 		token_add(token, input);
+	return (0);
+}
+
+int	print_tokens(t_Token_node *token_temp)
+{
+	while (token_temp->next_token != NULL)
+	{
+		printf("command: %d, %s\n", token_temp->type, token_temp->value);
+		token_temp = token_temp->next_token;
+	}
+	printf("command: %d, %s\n", token_temp->type, token_temp->value);
 	return (0);
 }
