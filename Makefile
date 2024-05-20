@@ -33,3 +33,6 @@ re: fclean all
 
 leaks: 
 		leaks --atExit  -- ./experiment
+
+envir: 
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) experiments.c -o experiment

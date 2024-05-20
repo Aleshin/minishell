@@ -176,6 +176,61 @@ t_env *envp_to_linked_list(char **envp)
     }
     return head;
 }
+
+int list_len(t_env *env)
+{
+    int i = 0;
+    if (env != NULL)
+	{
+        while (env != NULL)
+		{
+			i++;
+            env = env->next;
+		}
+	}
+    return i;
+}
+
+char *linked_list_to_envp(t_env *env)
+{
+    int i = 0;
+    int len = list_len(env);
+    char **arr_of_words = malloc((len + 1) * sizeof(char *));
+    if (arr_of_words == NULL)
+    {
+        perror("malloc");
+        return NULL;
+    }
+
+    while (env != NULL)
+    {
+        // Allocate space for the "key=value" string
+        char *env_string = malloc(strlen(env->name) + strlen(env->value) + 2);
+        if (env_string == NULL)
+        {
+            perror("malloc");
+            // Free already allocated strings and array
+            while (i > 0)
+            {
+                free(arr_of_words[--i]);
+            }
+            free(arr_of_words);
+            return NULL;
+        }
+        
+        // Format "key=value"
+        ft_strjoin(env->name, "=", env->value);
+        arr_of_words[i++] = env_string;
+        
+        env = env->next;
+    }
+    
+    // Null-terminate the array
+    arr_of_words[i] = NULL;
+    return arr_of_words;
+}
+
+
 //печать списка (поменять принтф на что то другое)
 void print_env(t_env *env)
 {
@@ -244,6 +299,7 @@ void ft_export(t_env **lst, char *str)
         curr = curr->next;
     }
   
+    //add new node at the end
     t_env *new_node = ft_lstnew_env(new_val[0], new_val[1]);
     if (new_node == NULL)
     {
