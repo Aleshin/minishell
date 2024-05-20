@@ -7,16 +7,16 @@
 #include <sys/wait.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include "libft/libft.h"
+#include "minishell.h"
 
-//декларируем структуру списка переменых среды
-typedef struct t_list 
-{
-  char *name;
-  char *value;
-  //int export; //1 or 0, when you call export it indicates that env is exported to child process
-  struct t_list *next;
-} t_env;
+// //декларируем структуру списка переменых среды
+// typedef struct t_list 
+// {
+//   char *name;
+//   char *value;
+//   //int export; //1 or 0, when you call export it indicates that env is exported to child process
+//   struct t_list *next;
+// } t_env;
 
 //функция для очистки массива строк
 void free_arr(char **arr)
@@ -273,6 +273,26 @@ void remove_node(t_env **lst, char *name)
         curr = curr->next;
     }
 }
+
+int check_varname(char *str) //1 yes 0 no
+{
+    int res;
+    
+    res = 1;
+    
+    while(*str == ' ' || *str == '\t')
+            str++;
+    if (ft_isdigit(*str))
+        return 0;
+    while(*str != '=')
+    {
+        if (ft_isalpha(*str) || ft_isdigit(*str) || *str == '_')
+            str++;
+        else if (*str == ' ' || *str == '\t')
+            return 0;
+    }
+    return (res);
+}
 //should add new var to the end of list or update existing
 //экспортирует переменную в список глобальных переменных
 //если просто присвоить к=555 то переменная видна только в текущем процессе
@@ -281,12 +301,14 @@ void ft_export(t_env **lst, char *str)
     t_env *curr = *lst;
     char **new_val = split_env(str, '=');
     //перебираем лист и если имя есть модифицируем его
-    if (new_val == NULL)
+    if (new_val == NULL || !check_varname(new_val[0]))
     {
         //to check if there is a name, maybe later I dont need it
-        perror("export: `=f': not a valid identifier"); //change later
+        put_error_fd("export", str, "not a valid identifier");
         return ;
     }
+    //maybe add here: if no '=' return
+
 
     while (curr != NULL)
     {
@@ -309,7 +331,7 @@ void ft_export(t_env **lst, char *str)
     ft_lstadd_back_env(lst, new_node);
 }
 
-//общая функция для модификации переменных среды
+//общая функция для модификации переменных среды, maybe i dont need it after
 void ft_env(t_env **lst, char **argv)
 {
     if ((*lst) != NULL)
@@ -327,9 +349,11 @@ void ft_env(t_env **lst, char **argv)
         }
             
         else
-            printf("%s : No such file or directory\n", argv[0]);
+            put_error_fd(argv[0], argv[1], "No such file or directory");
 	}
 }
+//generic function for exec
+
 
 int main (int argc, char **argv, char **envp)
 {
@@ -363,7 +387,3 @@ char *buf;
     lst_dealloc(&environment_list);
     return 0;
 }
-
-
-
-// figure out how to add node and how to modify node->value
