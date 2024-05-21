@@ -84,10 +84,11 @@ t_ast_node		*create_ast_node(t_SymbolType type, const char *value);
 void			add_child_node(t_ast_node *parent, t_ast_node *child);
 void			free_ast(t_ast_node *node);
 // parser functions
-int				rule_command_line(t_Token_node **token, t_ast_node **ast_node);
-int				rule_command(t_Token_node **token, t_ast_node **ast_node);
-int				rule_executable(t_Token_node **token, t_ast_node **ast_node);
-int				rule_arguments(t_Token_node **token, t_ast_node **ast_node);
-int				rule_argument(t_Token_node **token, t_ast_node **ast_node);
+t_ast_node		*rule_command_line(t_Token_node *token, t_ast_node *ast_node);
+t_ast_node		*rule_command(t_Token_node *token, t_ast_node *ast_node);
+t_ast_node		*rule_executable(t_Token_node *token);
+t_ast_node		*rule_arguments(t_Token_node *token, t_ast_node *ast_node);
+t_ast_node		*recursive_arguments(t_Token_node *token, t_ast_node *ast_node);
+t_ast_node		*rule_argument(t_Token_node *token);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 #endif

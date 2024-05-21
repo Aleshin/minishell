@@ -43,7 +43,9 @@ int	main(int argc, char **argv)
 		}
 	}
 	print_tokens(token);
-	ast_root = create_ast_node(token->type, token->value);
+	ast_root = create_ast_node(commandLine, buf);
+    ast_root = rule_command_line(token, ast_root);
+/*
 	ast_root->first_child = create_ast_node(token->next_token->type, token->next_token->value);
 	ast_root->first_child->first_child = create_ast_node(token->next_token->next_token->type, token->next_token->next_token->value);
 	ast_root->first_child->first_child->first_child = create_ast_node(token->next_token->next_token->next_token->type, token->next_token->next_token->next_token->value);
@@ -53,6 +55,8 @@ int	main(int argc, char **argv)
 	ast_root->first_child->first_child->next_sibling->next_sibling = create_ast_node(commandLine, buf);
 	ast_root->first_child->first_child->first_child->next_sibling = create_ast_node(commandLine, buf);
 	ast_root->first_child->first_child->first_child->next_sibling->next_sibling = create_ast_node(commandLine, buf);
+
+*/
 	print_ast_tree(ast_root, 0);
 	return (0);
 }
