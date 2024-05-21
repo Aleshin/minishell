@@ -210,11 +210,7 @@ char *linked_list_to_envp(t_env *env)
         {
             perror("malloc");
             // Free already allocated strings and array
-            while (i > 0)
-            {
-                free(arr_of_words[--i]);
-            }
-            free(arr_of_words);
+            free_arr(arr_of_words);
             return NULL;
         }
         
