@@ -15,7 +15,7 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 {
 	t_ast_node	*reverse_node;
 
-	reverse_node = rule_command(*token);
+	reverse_node = rule_command(token);
 	if (reverse_node != NULL)
 	{
 		add_child_node(ast_node, reverse_node);
@@ -34,7 +34,7 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 	return (ast_node);
 }
 
-t_ast_node	*rule_command(t_Token_node *token)
+t_ast_node	*rule_command(t_Token_node **token)
 {
 	t_ast_node	*command_node;
 	t_ast_node	*reverse_node;
@@ -46,9 +46,9 @@ t_ast_node	*rule_command(t_Token_node *token)
 		command_node = create_ast_node(command, "");
 		add_child_node(command_node, reverse_node);
 	}
-    if (token->next_token != NULL)
+    if ((*token)->next_token != NULL)
     {
-        token = token->next_token;
+        *token = (*token)->next_token;
         reverse_node = rule_arguments(token);
         if (reverse_node != NULL)
         {
@@ -58,19 +58,19 @@ t_ast_node	*rule_command(t_Token_node *token)
 	return (command_node);
 }
 
-t_ast_node	*rule_executable(t_Token_node *token)
+t_ast_node	*rule_executable(t_Token_node **token)
 {
 	t_ast_node	*ast_node;
 
 	ast_node = NULL;
-	if (token->type == lexem)
+	if ((*token)->type == lexem)
 	{
-		ast_node = create_ast_node(executable, token->value);
+		ast_node = create_ast_node(executable, (*token)->value);
 	}
 	return (ast_node);
 }
 
-t_ast_node	*rule_arguments(t_Token_node *token)
+t_ast_node	*rule_arguments(t_Token_node **token)
 {
 	t_ast_node	*arguments_node;
 	t_ast_node	*reverse_node;
@@ -87,13 +87,13 @@ t_ast_node	*rule_arguments(t_Token_node *token)
 	return (arguments_node);
 }
 
-t_ast_node	*recursive_arguments(t_Token_node *token, t_ast_node *ast_node)
+t_ast_node	*recursive_arguments(t_Token_node **token, t_ast_node *ast_node)
 {
 	t_ast_node	*reverse_node;
 
-	if (token->next_token != NULL)
+	if ((*token)->next_token != NULL && (*token)->next_token->type == lexem)
 	{
-		token = token->next_token;
+		*token = (*token)->next_token;
 		reverse_node = rule_argument(token);
 		if (reverse_node != NULL)
         {
@@ -104,14 +104,14 @@ t_ast_node	*recursive_arguments(t_Token_node *token, t_ast_node *ast_node)
 	return (ast_node);
 }
 
-t_ast_node	*rule_argument(t_Token_node *token)
+t_ast_node	*rule_argument(t_Token_node **token)
 {
 	t_ast_node	*ast_node;
 
 	ast_node = NULL;
-	if (token->type == lexem)
+	if ((*token)->type == lexem)
 	{
-		ast_node = create_ast_node(argument, token->value);
+		ast_node = create_ast_node(argument, (*token)->value);
 	}
 	return (ast_node);
 }
