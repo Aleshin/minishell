@@ -42,9 +42,9 @@ int	main(int argc, char **argv)
 				rule_lexem(&input, &token);
 		}
 	}
-	print_tokens(token);
+//	print_tokens(token);
 	ast_root = create_ast_node(commandLine, buf);
-    ast_root = rule_command_line(token, ast_root);
+    ast_root = rule_command_line(&token, ast_root);
 /*
 	ast_root->first_child = create_ast_node(token->next_token->type, token->next_token->value);
 	ast_root->first_child->first_child = create_ast_node(token->next_token->next_token->type, token->next_token->next_token->value);
