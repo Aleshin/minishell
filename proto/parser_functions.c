@@ -19,17 +19,18 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 	if (reverse_node != NULL)
 	{
 		add_child_node(ast_node, reverse_node);
-		if ((*token)->next_token != NULL && (*token)->next_token->value[0] == '|')
+		if ((*token)->next_token != NULL
+			&& (*token)->next_token->value[0] == '|')
 		{
- 			*token = (*token)->next_token;
-            reverse_node = create_ast_node(PIPE, (*token)->value);
-            add_child_node(ast_node, reverse_node);
+			*token = (*token)->next_token;
+			reverse_node = create_ast_node(PIPE, (*token)->value);
+			add_child_node(ast_node, reverse_node);
 			if ((*token)->next_token != NULL)
 			{
-				*token = (*token)->next_token;    
+				*token = (*token)->next_token;
 				ast_node = rule_command_line(token, ast_node);
-            }
-        }
+			}
+		}
 	}
 	return (ast_node);
 }
@@ -46,15 +47,15 @@ t_ast_node	*rule_command(t_Token_node **token)
 		command_node = create_ast_node(command, "");
 		add_child_node(command_node, reverse_node);
 	}
-    if ((*token)->next_token != NULL)
-    {
-        *token = (*token)->next_token;
-        reverse_node = rule_arguments(token);
-        if (reverse_node != NULL)
-        {
-            add_child_node(command_node, reverse_node);
-        }
-    }
+	if ((*token)->next_token != NULL)
+	{
+		*token = (*token)->next_token;
+		reverse_node = rule_arguments(token);
+		if (reverse_node != NULL)
+		{
+			add_child_node(command_node, reverse_node);
+		}
+	}
 	return (command_node);
 }
 
@@ -79,7 +80,6 @@ t_ast_node	*rule_arguments(t_Token_node **token)
 	reverse_node = rule_argument(token);
 	if (reverse_node != NULL)
 	{
-
 		arguments_node = create_ast_node(arguments, "");
 		add_child_node(arguments_node, reverse_node);
 		arguments_node = recursive_arguments(token, arguments_node);
@@ -96,11 +96,11 @@ t_ast_node	*recursive_arguments(t_Token_node **token, t_ast_node *ast_node)
 		*token = (*token)->next_token;
 		reverse_node = rule_argument(token);
 		if (reverse_node != NULL)
-        {
-            add_child_node(ast_node, reverse_node);
-            ast_node = recursive_arguments(token, ast_node);
-        }
-    }
+		{
+			add_child_node(ast_node, reverse_node);
+			ast_node = recursive_arguments(token, ast_node);
+		}
+	}
 	return (ast_node);
 }
 
@@ -118,7 +118,7 @@ t_ast_node	*rule_argument(t_Token_node **token)
 
 int	print_ast_tree(t_ast_node *ast_node, int level)
 {
-	printf("%.*s%d, \"%s\"\n", level, "\t\t\t\t\t\t\t\t\t\t\t\t", ast_node->type, ast_node->value);
+	printf("%.*s%d, \"%s\"\n", level, "\t\t\t\t\t\t", ast_node->type, ast_node->value);
 	if (ast_node->first_child != NULL)
 	{
 		print_ast_tree(ast_node->first_child, level + 1);

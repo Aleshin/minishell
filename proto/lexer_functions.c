@@ -25,7 +25,8 @@ int	rule_word(t_Input **input, t_Token_node **token)
 	if ((*input)->token_start != (*input)->current_char)
 	{
 		(*input)->current_token_type = WORD;
-		token_add(token, input);
+		if (token_add(token, input) == 1)
+			return (1);
 		return (0);
 	}
 	return (1);
@@ -41,10 +42,12 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 		|| (*input)->string[i] == '>')
 	{
 		if ((*input)->current_token_type == lexem)
-			token_add(token, input);
+			if (token_add(token, input) == 1)
+				return (1);
 		(*input)->current_char++;
 		(*input)->current_token_type = terminals;
-		token_add(token, input);
+		if (token_add(token, input) == 1)
+			return (1);
 		return (0);
 	}
 	return (1);
@@ -63,7 +66,8 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 			&& (*input)->string[i] != '\n')
 			break ;
 		if ((*input)->current_token_type == lexem)
-			token_add(token, input);
+			if (token_add(token, input) == 1)
+				return (1);
 		(*input)->current_token_type = WS;
 		i++;
 	}
@@ -81,7 +85,8 @@ int	rule_symbol_unknown(t_Input **input, t_Token_node **token)
 {
 	(*input)->current_char++;
 	(*input)->current_token_type = SYMBOL_UNKNOWN;
-	token_add(token, input);
+	if (token_add(token, input) == 1)
+		return (1);
 	return (0);
 }
 
@@ -90,7 +95,8 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 	(*input)->current_token_type = lexem;
 	(*input)->current_char++;
 	if ((*input)->string[(*input)->current_char] == '\0')
-		token_add(token, input);
+	if (token_add(token, input) == 1)
+		return (1);
 	return (0);
 }
 

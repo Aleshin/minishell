@@ -17,8 +17,10 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 	t_ast_node	*node;
 
 	node = (t_ast_node *)malloc(sizeof(t_ast_node));
+	if (!node)
+		return (NULL);
 	node->type = type;
-	node->value = strdup(value); // Дублирование строки для безопасного хранения
+	node->value = ft_strdup(value); // Дублирование строки для безопасного хранения
 	node->first_child = NULL;
 	node->next_sibling = NULL;
 	return (node);

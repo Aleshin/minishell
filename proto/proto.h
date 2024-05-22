@@ -24,7 +24,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
-# include <string.h>
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
@@ -72,6 +71,7 @@ typedef struct ast_node
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 int				token_add(t_Token_node **tokens, t_Input **input);
+void			free_tokens(t_Token_node *head);
 // lexer functions
 int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);

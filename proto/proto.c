@@ -22,7 +22,7 @@ int	main(int argc, char **argv)
 	(void)argv;
 	(void)ast_root;
 	buf = readline("$> "); // Prompt for input command./
-	if (buf == NULL || strcmp(buf, "exit") == 0)
+	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
 	{
 		free(buf);
@@ -44,19 +44,9 @@ int	main(int argc, char **argv)
 	}
 //	print_tokens(token);
 	ast_root = create_ast_node(commandLine, buf);
-    ast_root = rule_command_line(&token, ast_root);
-/*
-	ast_root->first_child = create_ast_node(token->next_token->type, token->next_token->value);
-	ast_root->first_child->first_child = create_ast_node(token->next_token->next_token->type, token->next_token->next_token->value);
-	ast_root->first_child->first_child->first_child = create_ast_node(token->next_token->next_token->next_token->type, token->next_token->next_token->next_token->value);
-	ast_root->next_sibling = create_ast_node(commandLine, buf);
-	ast_root->first_child->next_sibling = create_ast_node(commandLine, buf);
-	ast_root->first_child->first_child->next_sibling = create_ast_node(commandLine, buf);
-	ast_root->first_child->first_child->next_sibling->next_sibling = create_ast_node(commandLine, buf);
-	ast_root->first_child->first_child->first_child->next_sibling = create_ast_node(commandLine, buf);
-	ast_root->first_child->first_child->first_child->next_sibling->next_sibling = create_ast_node(commandLine, buf);
-
-*/
+	ast_root = rule_command_line(&token, ast_root);
 	print_ast_tree(ast_root, 0);
+	free_ast(ast_root);
+	free_tokens(token);
 	return (0);
 }
