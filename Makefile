@@ -36,3 +36,5 @@ leaks:
 
 envir: 
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) experiments.c -o experiment
+pipes:
+	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) pipes.c -o pipes

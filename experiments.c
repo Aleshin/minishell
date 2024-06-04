@@ -84,13 +84,13 @@ t_env	*ft_lstnew_env(char *name, char *value)
     new = malloc(sizeof(t_env));
     if (new == NULL)
 		return (NULL);
-	new->name = strdup(name);
+	new->name = ft_strdup(name);
     if (new->name == NULL) 
     {
         free(new); // Free allocated t_env structure
         return (NULL);
     }
-    new->value = strdup(value);
+    new->value = ft_strdup(value);
 	if (new->name == NULL) 
     {
         free(new->name);
