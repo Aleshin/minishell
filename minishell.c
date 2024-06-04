@@ -19,7 +19,7 @@
 #include "libft/libft.h"
 
 
-
+//returns absolute path or NULL if there is no such a command
 char *ft_find_abs_path(char *command)
 {
     char *path = getenv("PATH");

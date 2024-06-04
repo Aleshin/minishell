@@ -37,7 +37,7 @@ CFLAGS = -Wall -Wextra -Werror
 
 # Metodo implicito
 %.o: %.c	$(INCLUDES) Makefile
-	$(COMPILER) $(CFLAGS) -I $(INCLUDES) -c $< -o $@
+	$(COMPILER) $(CFLAGS) -c $< -o $@
 
 
 

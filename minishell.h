@@ -43,4 +43,7 @@ typedef struct s_struct
 //error handling
 void	put_error_fd(char *bash, char *file, char *error);
 
+//find 
+char *ft_find_abs_path(char *command);
+
 #endif
