@@ -71,7 +71,7 @@ typedef struct ast_node
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 int				token_add(t_Token_node **tokens, t_Input **input);
-void			free_tokens(t_Token_node *head);
+void			free_tokens(t_Token_node **head);
 // lexer functions
 int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);
@@ -82,7 +82,7 @@ int				print_tokens(t_Token_node *token_temp);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);
 void			add_child_node(t_ast_node *parent, t_ast_node *child);
-void			free_ast(t_ast_node *node);
+void			free_ast(t_ast_node **node);
 // parser functions
 t_ast_node		*rule_command_line(t_Token_node **token, t_ast_node *ast_node);
 t_ast_node		*rule_command(t_Token_node **token);

@@ -48,9 +48,6 @@ int	token_add(t_Token_node **token, t_Input **input)
 {
 	t_Token_node	**token_temp;
 
-	token_temp = (t_Token_node **)malloc(sizeof(t_Token_node));
-	if (!token_temp)
-		return (1);
 	if (*token == NULL)
 	{
 		*token = (t_Token_node *)malloc(sizeof(t_Token_node));
@@ -58,10 +55,15 @@ int	token_add(t_Token_node **token, t_Input **input)
 			return (1);
 		(*token)->next_token = NULL;
 		(*token)->type = (*input)->current_token_type;
-		copy_substring(input, token);
+		if (copy_substring(input, token) == 1)
+			return (1);
 	}
 	else
 	{
+		token_temp = (t_Token_node **)malloc(sizeof(t_Token_node));
+		if (!token_temp)
+			return (1);
+		
 		*token_temp = token_last(token);
 		(*token_temp)->next_token = (t_Token_node *)malloc(sizeof(t_Token_node));
 		if (!(*token_temp)->next_token)
@@ -71,21 +73,22 @@ int	token_add(t_Token_node **token, t_Input **input)
 		if (copy_substring(input, token_temp) == 1)
 			return (1);
 		(*token_temp)->next_token = NULL;
+		free(token_temp);
 	}
 	return (0);
 }
 
-void	free_tokens(t_Token_node *head)
+void	free_tokens(t_Token_node **head)
 {
-	t_Token_node	*current;
+	t_Token_node	**current;
 	t_Token_node	*next;
 
 	current = head;
-	while (current != NULL)
+	while (*current != NULL)
 	{
-		next = current->next_token;
-		free(current->value);
-		free(current);
-		current = next;
+		next = (*current)->next_token;
+		free((*current)->value);
+		free(*current);
+		*current = next;
 	}
 }

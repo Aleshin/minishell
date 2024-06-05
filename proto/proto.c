@@ -37,16 +37,16 @@ int	main(int argc, char **argv)
 	while (input->string[input->current_char] != '\0')
 	{
 		if (rule_terminals (&input, &token))
-		{
 			if (rule_ws(&input, &token))
 				rule_lexem(&input, &token);
-		}
 	}
 //	print_tokens(token);
 	ast_root = create_ast_node(commandLine, buf);
 	ast_root = rule_command_line(&token, ast_root);
 	print_ast_tree(ast_root, 0);
-	free_ast(ast_root);
-	free_tokens(token);
+	free_ast(&ast_root);
+	free_tokens(&token);
+	free (buf);
+	free (input);
 	return (0);
 }

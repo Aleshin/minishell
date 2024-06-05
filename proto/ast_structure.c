@@ -23,6 +23,7 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 	node->value = ft_strdup(value); // Дублирование строки для безопасного хранения
 	node->first_child = NULL;
 	node->next_sibling = NULL;
+	printf("type %d, value %s\n", node->type, node->value);
 	return (node);
 }
 
@@ -44,22 +45,35 @@ void	add_child_node(t_ast_node *parent, t_ast_node *child)
 		current->next_sibling = child; // Добавление нового ребенка в конец списка братьев
 	}
 }
-
-void	free_ast(t_ast_node *node)
+/*
+void	free_ast(t_ast_node **node)
 {
 	t_ast_node	*current;
 	t_ast_node	*next;
 
-	if (node->value)
-	{
-		free(node->value);
-	}
-	current = node->first_child;
+	if ((*node)->value)
+		free((*node)->value);
+	current = (*node)->first_child;
 	while (current != NULL)
 	{
 		next = current->next_sibling;
-		free_ast(current);
+		free_ast(&current);
 		current = next;
 	}
-	free (node);
+	free (*node);
+}
+*/
+void	free_ast(t_ast_node **ast_node)
+{
+	if ((*ast_node)->first_child != NULL)
+	{
+		free_ast(&(*ast_node)->first_child);
+	}
+	if ((*ast_node)->next_sibling != NULL)
+	{
+		free_ast(&(*ast_node)->next_sibling);
+	}
+	printf("type %d, value %s\n", (*ast_node)->type, (*ast_node)->value);
+	free((*ast_node)->value);
+	free((*ast_node));
 }
