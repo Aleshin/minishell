@@ -49,10 +49,10 @@ t_ast_node	*rule_command(t_Token_node **token)
 	}
 	if ((*token)->next_token != NULL)
 	{
-		*token = (*token)->next_token;
-		reverse_node = rule_arguments(token);
+		reverse_node = rule_arguments(&(*token)->next_token);
 		if (reverse_node != NULL)
 		{
+			*token = (*token)->next_token;
 			add_child_node(command_node, reverse_node);
 		}
 	}
@@ -127,6 +127,6 @@ int	print_ast_tree(t_ast_node *ast_node, int level)
 	{
 		print_ast_tree(ast_node->next_sibling, level);
 	}
-	ast_node = NULL;
+//	ast_node = NULL;
 	return (0);
 }
