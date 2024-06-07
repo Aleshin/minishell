@@ -104,7 +104,7 @@ int	print_tokens(t_Token_node *token_temp)
 {
 	while (token_temp != NULL)
 	{
-		printf("command: %d, %s\n", token_temp->type, token_temp->value);
+		printf("command: %d, \"%s\" (P: %p)\n", token_temp->type, token_temp->value, token_temp);
 		token_temp = token_temp->next_token;
 	}
 	return (0);
