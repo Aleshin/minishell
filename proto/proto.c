@@ -16,12 +16,12 @@ int	main(int argc, char **argv)
 	char			*buf;
 	t_Input			*input;
 	t_Token_node	*token;
+	t_Token_node	*current_token;
 	t_ast_node		*ast_root;
 
 	(void)argc;
 	(void)argv;
-	(void)ast_root;
-	buf = readline("$> "); // Prompt for input command./
+	buf = readline("$> "); // Prompt for input command
 	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
 	{
@@ -40,9 +40,10 @@ int	main(int argc, char **argv)
 			if (rule_ws(&input, &token))
 				rule_lexem(&input, &token);
 	}
-//	print_tokens(token);
+	current_token = token;
+	print_tokens(token);
 	ast_root = create_ast_node(commandLine, buf);
-	ast_root = rule_command_line(&token, ast_root);
+	ast_root = rule_command_line(&current_token, ast_root);
 	print_ast_tree(ast_root, 0);
 	free_ast(&ast_root);
 	free_tokens(&token);

@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "proto.h"
 
-int	copy_substring(t_Input **input, t_Token_node **token)
+int	copy_substring(t_Input **input, t_Token_node *token)
 {
 	int	start;
 	int	end;
@@ -22,15 +22,16 @@ int	copy_substring(t_Input **input, t_Token_node **token)
 	end = (*input)->current_char;
 	i = start;
 	j = 0;
-	(*token)->value = (char *)malloc(end - start + 1);
-	if (!(*token)->value)
+	token->value = (char *)malloc(end - start + 1);
+	if (!token->value)
 		return (1);
 	while (i < end)
 	{
-		(*token)->value[j++] = (*input)->string[i++];
+		token->value[j++] = (*input)->string[i++];
 	}
-	(*token)->value[j] = '\0';
+	token->value[j] = '\0';
 	(*input)->token_start = (*input)->current_char;
+	printf("Token substring %d, \"%s\" (P: %p)\n", token->type, token->value, token->value);
 	return (0);
 }
 
@@ -46,7 +47,7 @@ t_Token_node	*token_last(t_Token_node **token)
 
 int	token_add(t_Token_node **token, t_Input **input)
 {
-	t_Token_node	**token_temp;
+	t_Token_node	*token_temp;
 
 	if (*token == NULL)
 	{
@@ -55,40 +56,37 @@ int	token_add(t_Token_node **token, t_Input **input)
 			return (1);
 		(*token)->next_token = NULL;
 		(*token)->type = (*input)->current_token_type;
-		if (copy_substring(input, token) == 1)
+		if (copy_substring(input, *token) == 1)
 			return (1);
+		printf("1-st token add %d (P: %p), \"%s\"\n", (*token)->type, *token, (*token)->value);
 	}
 	else
 	{
-		token_temp = (t_Token_node **)malloc(sizeof(t_Token_node));
-		if (!token_temp)
+		token_temp = token_last(token);
+		token_temp->next_token = (t_Token_node *)malloc(sizeof(t_Token_node));
+		if (!token_temp->next_token)
 			return (1);
-		
-		*token_temp = token_last(token);
-		(*token_temp)->next_token = (t_Token_node *)malloc(sizeof(t_Token_node));
-		if (!(*token_temp)->next_token)
-			return (1);
-		*token_temp = (*token_temp)->next_token;
-		(*token_temp)->type = (*input)->current_token_type;
+		token_temp = token_temp->next_token;
+		token_temp->type = (*input)->current_token_type;
 		if (copy_substring(input, token_temp) == 1)
 			return (1);
-		(*token_temp)->next_token = NULL;
-		free(token_temp);
+		token_temp->next_token = NULL;
+		printf("next token add %d (P: %p), \"%s\"\n", token_temp->type, token_temp, token_temp->value);
 	}
 	return (0);
 }
 
 void	free_tokens(t_Token_node **head)
 {
-	t_Token_node	**current;
+	t_Token_node	*current;
 	t_Token_node	*next;
 
-	current = head;
-	while (*current != NULL)
+	current = *head;
+	while (current != NULL)
 	{
-		next = (*current)->next_token;
-		free((*current)->value);
-		free(*current);
-		*current = next;
+		next = current->next_token;
+		free(current->value);
+		free(current);
+		current = next;
 	}
 }

@@ -102,11 +102,10 @@ int	rule_symbol_unknown(t_Input **input, t_Token_node **token)
 
 int	print_tokens(t_Token_node *token_temp)
 {
-	while (token_temp->next_token != NULL)
+	while (token_temp != NULL)
 	{
 		printf("command: %d, %s\n", token_temp->type, token_temp->value);
 		token_temp = token_temp->next_token;
 	}
-	printf("command: %d, %s\n", token_temp->type, token_temp->value);
 	return (0);
 }

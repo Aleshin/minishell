@@ -47,10 +47,10 @@ typedef enum SymbolType
 
 typedef struct Input
 {
-	int				token_start;
-	int				current_char;
-	t_SymbolType	current_token_type;
-	char			*string;
+	int					token_start;
+	int					current_char;
+	t_SymbolType		current_token_type;
+	char				*string;
 }	t_Input;
 
 typedef struct Token_node
