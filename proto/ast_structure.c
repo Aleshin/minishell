@@ -23,7 +23,6 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 	node->value = ft_strdup(value); // Create char array for value
 	node->first_child = NULL;
 	node->next_sibling = NULL;
-	printf("type %d (P: %p), value \"%s\" (P: %p)\n", node->type, node, node->value, node->value);
 	return (node);
 }
 
@@ -54,7 +53,6 @@ void	free_ast(t_ast_node **ast_node)
 	{
 		free_ast(&(*ast_node)->next_sibling);
 	}
-	printf("type %d (P: %p), value \"%s\" (P: %p)\n", (*ast_node)->type, *ast_node, (*ast_node)->value, (*ast_node)->value);
 	free((*ast_node)->value);
 	free((*ast_node));
 }

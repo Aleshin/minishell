@@ -31,7 +31,6 @@ int	copy_substring(t_Input **input, t_Token_node *token)
 	}
 	token->value[j] = '\0';
 	(*input)->token_start = (*input)->current_char;
-	printf("Token substring %d, \"%s\" (P: %p)\n", token->type, token->value, token->value);
 	return (0);
 }
 
@@ -58,7 +57,6 @@ int	token_add(t_Token_node **token, t_Input **input)
 		(*token)->type = (*input)->current_token_type;
 		if (copy_substring(input, *token) == 1)
 			return (1);
-		printf("1-st token add %d (P: %p), \"%s\"\n", (*token)->type, *token, (*token)->value);
 	}
 	else
 	{
@@ -71,7 +69,6 @@ int	token_add(t_Token_node **token, t_Input **input)
 		if (copy_substring(input, token_temp) == 1)
 			return (1);
 		token_temp->next_token = NULL;
-		printf("next token add %d (P: %p), \"%s\"\n", token_temp->type, token_temp, token_temp->value);
 	}
 	return (0);
 }
