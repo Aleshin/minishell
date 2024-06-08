@@ -19,15 +19,14 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 	if (reverse_node != NULL)
 	{
 		add_child_node(ast_node, reverse_node); // Add command node with exec node with or no args
+		if (*token == NULL)
+			return (ast_node);
 		if ((*token)->value[0] == '|')
 		{
 			reverse_node = create_ast_node(PIPE, (*token)->value);
 			add_child_node(ast_node, reverse_node); // add pipe token
-			if ((*token)->next_token != NULL)
-			{
-				*token = (*token)->next_token;
-				ast_node = rule_command_line(token, ast_node); // Recursive Command line -> Command line
-			}
+			*token = (*token)->next_token;
+			ast_node = rule_command_line(token, ast_node); // Recursive Command line -> Command line
 		}
 	}
 	return (ast_node);
@@ -45,7 +44,7 @@ t_ast_node	*rule_command(t_Token_node **token)
 		command_node = create_ast_node(command, ""); // Create command node and add exec node inside
 		add_child_node(command_node, reverse_node);
 	}
-	if ((*token)->next_token != NULL)
+	if ((*token) != NULL)
 	{
 		reverse_node = rule_arguments(token); // Command -> Arguments
 		if (reverse_node != NULL)
@@ -61,11 +60,12 @@ t_ast_node	*rule_executable(t_Token_node **token) // bottom of tree
 	t_ast_node	*ast_node;
 
 	ast_node = NULL;
+	if (*token == NULL)
+		return (NULL);
 	if ((*token)->type == lexem)
 	{
 		ast_node = create_ast_node(executable, (*token)->value); // return exec node to command function
-		if ((*token)->next_token != NULL)
-			*token = (*token)->next_token;
+		*token = (*token)->next_token;
 	}
 	return (ast_node);
 }
@@ -90,17 +90,12 @@ t_ast_node	*recursive_arguments(t_Token_node **token, t_ast_node *ast_node)
 {
 	t_ast_node	*reverse_node;
 
-//	if ((*token)->next_token != NULL && (*token)->next_token->type == lexem)
-//	{
-		reverse_node = rule_argument(token); // -> argument
-		if (reverse_node != NULL)
-		{
-			add_child_node(ast_node, reverse_node);
-//			if ((*token)->next_token == NULL)
-//				return (NULL);
-//			ast_node = recursive_arguments(token, ast_node); // Recursive argument -> argument
-		}
-//	}
+	reverse_node = rule_argument(token); // -> argument
+	if (reverse_node != NULL)
+	{
+		add_child_node(ast_node, reverse_node);
+		ast_node = recursive_arguments(token, ast_node); // Recursive argument -> argument
+	}
 	return (ast_node);
 }
 
@@ -109,11 +104,12 @@ t_ast_node	*rule_argument(t_Token_node **token) // bottom of tree
 	t_ast_node	*ast_node;
 
 	ast_node = NULL;
+	if (*token == NULL)
+		return (NULL);
 	if ((*token)->type == lexem)
 	{
 		ast_node = create_ast_node(argument, (*token)->value);
-		if ((*token)->next_token != NULL)
-			*token = (*token)->next_token;
+		*token = (*token)->next_token;
 	}
 	return (ast_node);
 }
