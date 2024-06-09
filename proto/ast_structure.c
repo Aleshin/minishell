@@ -12,6 +12,24 @@
 
 #include "proto.h"
 
+/*				AST structure
+commands
+ast_tree
+	command 1
+	ast_tree.first_child
+		exec
+		ast_tree.first_child.first_child
+		args (num of args)
+		ast_tree.first_child.next_sibling (ast_tree.first_child..next_sibling.param)
+			arg 1
+			ast_tree.first_child.next_sibling.first_child
+			arg 2
+			ast_tree.first_child.next_sibling.next_sibling
+			...
+	command 2
+	ast_tree.next_sibling
+	...
+*/
 t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 {
 	t_ast_node	*node;

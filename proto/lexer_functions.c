@@ -32,6 +32,39 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
+int	rule_quotes(t_Input **input, t_Token_node **token)
+{
+	int	i;
+
+	i = (*input)->current_char;
+	if ((*input)->string[i] == '\'')
+	{
+		if ((*input)->current_token_type == lexem)
+			if (token_add(token, input) == 1)
+				return (1);
+		i++;
+		(*input)->token_start = i;
+		while ((*input)->string[i] != '\0')
+		{
+			if ((*input)->string[i] == '\'')
+			break ;
+			i++;
+		}
+		if (i > (*input)->current_char)
+		{
+			(*input)->current_token_type = lexem;
+			(*input)->current_char = i;
+			if (token_add(token, input) == 1)
+				return (1);
+			(*input)->current_token_type = SINGLE_QUOTED_STRING;
+			(*input)->current_char = i + 1;
+			(*input)->token_start = i + 1;
+			return (0);
+		}
+	}
+	return (1);
+}
+
 int	rule_ws(t_Input **input, t_Token_node **token)
 {
 	int	i;

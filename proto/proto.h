@@ -90,6 +90,7 @@ int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);
 int				rule_lexem(t_Input **input, t_Token_node **token);
+int				rule_quotes(t_Input **input, t_Token_node **token);
 int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
 int				print_tokens(t_Token_node *token_temp);
 //ast structure functions

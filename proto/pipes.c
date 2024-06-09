@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 #include "proto.h"
 
-//*************compile "gcc -Wall -Wextra -Werror -I ./libft -o pipes pipes.c ./libft/libft.a" ***//
 // Function to find the absolute path of a command
 char *ft_find_abs_path(char *command) 
 {
@@ -59,14 +58,13 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
     return (argv);
 }
 
+// Function to execute commands with or without pipes
 void ft_pipes(t_ast_node *ast_tree)
 {
 	char **argv;
 	t_ast_node	*commands;
 
 	commands = ast_tree->first_child;
-// Function to execute commands with or without pipes
-//void ft_pipes(t_cmd *commands) {
     int pipefds[2];
     pid_t pid;
     int fd_in = 0; // File descriptor for the input to the current command
