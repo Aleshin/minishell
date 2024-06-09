@@ -23,8 +23,9 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 			return (ast_node);
 		if ((*token)->value[0] == '|')
 		{
-			reverse_node = create_ast_node(PIPE, (*token)->value);
-			add_child_node(ast_node, reverse_node); // add pipe token
+// Next 2 strings add token "pipe" to AST-tree
+//			reverse_node = create_ast_node(PIPE, (*token)->value);
+//			add_child_node(ast_node, reverse_node); // add pipe token
 			*token = (*token)->next_token;
 			ast_node = rule_command_line(token, ast_node); // Recursive Command line -> Command line
 		}
@@ -44,14 +45,11 @@ t_ast_node	*rule_command(t_Token_node **token)
 		command_node = create_ast_node(command, ""); // Create command node and add exec node inside
 		add_child_node(command_node, reverse_node);
 	}
-	if ((*token) != NULL)
-	{
 		reverse_node = rule_arguments(token); // Command -> Arguments
 		if (reverse_node != NULL)
 		{
 			add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
 		}
-	}
 	return (command_node);
 }
 
@@ -75,12 +73,12 @@ t_ast_node	*rule_arguments(t_Token_node **token)
 	t_ast_node	*arguments_node;
 	t_ast_node	*reverse_node;
 
-	arguments_node = NULL;
+	arguments_node = create_ast_node(arguments, ""); // Create args node and add 1-st arg node inside 
 	reverse_node = rule_argument(token); // Arguments -> Argument (first)
 	if (reverse_node != NULL)
 	{
-		arguments_node = create_ast_node(arguments, ""); // Create args node and add 1-st arg node inside 
 		add_child_node(arguments_node, reverse_node);
+		arguments_node->param = arguments_node->first_child->param + 1;
 		arguments_node = recursive_arguments(token, arguments_node); // Arguments -> Argument (all next)
 	}
 	return (arguments_node);
@@ -94,6 +92,7 @@ t_ast_node	*recursive_arguments(t_Token_node **token, t_ast_node *ast_node)
 	if (reverse_node != NULL)
 	{
 		add_child_node(ast_node, reverse_node);
+		ast_node->param++;
 		ast_node = recursive_arguments(token, ast_node); // Recursive argument -> argument
 	}
 	return (ast_node);
@@ -112,18 +111,4 @@ t_ast_node	*rule_argument(t_Token_node **token) // bottom of tree
 		*token = (*token)->next_token;
 	}
 	return (ast_node);
-}
-
-int	print_ast_tree(t_ast_node *ast_node, int level)
-{
-	printf("%.*s%d, \"%s\"\n", level, "\t\t\t\t\t\t", ast_node->type, ast_node->value);
-	if (ast_node->first_child != NULL)
-	{
-		print_ast_tree(ast_node->first_child, level + 1);
-	}
-	if (ast_node->next_sibling != NULL)
-	{
-		print_ast_tree(ast_node->next_sibling, level);
-	}
-	return (0);
 }

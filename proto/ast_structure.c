@@ -21,6 +21,7 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 		return (NULL);
 	node->type = type;
 	node->value = ft_strdup(value); // Create char array for value
+	node->param = 0;
 	node->first_child = NULL;
 	node->next_sibling = NULL;
 	return (node);
@@ -41,6 +42,20 @@ void	add_child_node(t_ast_node *parent, t_ast_node *child)
 			current = current->next_sibling; // Move to last sibling
 		current->next_sibling = child; // Add last sibling
 	}
+}
+
+int	print_ast_tree(t_ast_node *ast_node, int level)
+{
+	printf("%.*s%d, \"%s\" (%d)\n", level, "\t\t\t\t\t\t", ast_node->type, ast_node->value, ast_node->param);
+	if (ast_node->first_child != NULL)
+	{
+		print_ast_tree(ast_node->first_child, level + 1);
+	}
+	if (ast_node->next_sibling != NULL)
+	{
+		print_ast_tree(ast_node->next_sibling, level);
+	}
+	return (0);
 }
 
 void	free_ast(t_ast_node **ast_node)

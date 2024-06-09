@@ -28,6 +28,18 @@
 # include <dirent.h>
 # include <signal.h>
 
+//pipes start
+typedef struct s_cmd {
+    char *exec;
+    char *arg1;
+    char *arg2;
+    char *arg3;
+    struct s_cmd *next;
+} t_cmd;
+
+void append(t_cmd **head, char *exec, char *arg1, char *arg2, char *arg3);
+//pipes end
+
 typedef enum SymbolType
 {
 	commandLine,
@@ -64,6 +76,7 @@ typedef struct ast_node
 {
 	t_SymbolType	type;
 	char			*value; // string for symbol
+	int				param; // number of pipes or args
 	struct ast_node	*first_child; // Child' pointer
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
@@ -91,4 +104,6 @@ t_ast_node		*rule_arguments(t_Token_node **token);
 t_ast_node		*recursive_arguments(t_Token_node **token, t_ast_node *ast_node);
 t_ast_node		*rule_argument(t_Token_node **token);
 int				print_ast_tree(t_ast_node *ast_node, int level);
+//executer functions
+void			ft_pipes(t_ast_node *commands);
 #endif
