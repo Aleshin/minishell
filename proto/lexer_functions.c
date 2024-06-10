@@ -32,7 +32,7 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
-int	rule_quotes(t_Input **input, t_Token_node **token)
+int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 {
 	int	i;
 
@@ -41,26 +41,36 @@ int	rule_quotes(t_Input **input, t_Token_node **token)
 	{
 		if ((*input)->current_token_type == lexem)
 			if (token_add(token, input) == 1)
-				return (1);
+				return (-1);
 		i++;
 		(*input)->token_start = i;
 		while ((*input)->string[i] != '\0')
 		{
 			if ((*input)->string[i] == '\'')
-			break ;
+				break ;
 			i++;
 		}
-		if (i > (*input)->current_char)
-		{
-			(*input)->current_token_type = lexem;
-			(*input)->current_char = i;
-			if (token_add(token, input) == 1)
-				return (1);
-			(*input)->current_token_type = SINGLE_QUOTED_STRING;
-			(*input)->current_char = i + 1;
-			(*input)->token_start = i + 1;
-			return (0);
-		}
+	}
+	return (i);
+}
+
+int	rule_quotes(t_Input **input, t_Token_node **token)
+{
+	int	i;
+
+	i = rule_quotes_helper(input, token);
+	if (i == -1)
+		return (1);
+	if (i > (*input)->current_char)
+	{
+		(*input)->current_token_type = lexem;
+		(*input)->current_char = i;
+		if (token_add(token, input) == 1)
+			return (1);
+		(*input)->current_token_type = SINGLE_QUOTED_STRING;
+		(*input)->current_char = i + 1;
+		(*input)->token_start = i + 1;
+		return (0);
 	}
 	return (1);
 }
@@ -137,7 +147,8 @@ int	print_tokens(t_Token_node *token_temp)
 {
 	while (token_temp != NULL)
 	{
-		printf("command: %d, \"%s\" (P: %p)\n", token_temp->type, token_temp->value, token_temp);
+		printf("command: %d, \"%s\" (P: %p)\n",
+			token_temp->type, token_temp->value, token_temp);
 		token_temp = token_temp->next_token;
 	}
 	return (0);

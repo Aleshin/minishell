@@ -45,11 +45,11 @@ t_ast_node	*rule_command(t_Token_node **token)
 		command_node = create_ast_node(command, ""); // Create command node and add exec node inside
 		add_child_node(command_node, reverse_node);
 	}
-		reverse_node = rule_arguments(token); // Command -> Arguments
-		if (reverse_node != NULL)
-		{
-			add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
-		}
+	reverse_node = rule_arguments(token); // Command -> Arguments
+	if (reverse_node != NULL)
+	{
+		add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
+	}
 	return (command_node);
 }
 
