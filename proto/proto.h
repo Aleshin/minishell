@@ -58,6 +58,7 @@ typedef struct Token_node
 	t_SymbolType		type;
 	char				*value;
 	struct Token_node	*next_token;
+	struct Token_node	*prev_token;
 }	t_Token_node;
 
 typedef struct ast_node
@@ -72,7 +73,11 @@ typedef struct ast_node
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 int				token_add(t_Token_node **tokens, t_Input **input);
+int				append_to_token(t_Token_node **token, t_Input **input);
+int				join_next_token(t_Token_node **token);
+int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
+int				print_tokens(t_Token_node *token_temp);
 // lexer functions
 int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);
@@ -80,7 +85,7 @@ int				rule_ws(t_Input **input, t_Token_node **token);
 int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_quotes(t_Input **input, t_Token_node **token);
 int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
-int				print_tokens(t_Token_node *token_temp);
+int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);
 void			add_child_node(t_ast_node *parent, t_ast_node *child);

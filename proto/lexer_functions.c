@@ -40,10 +40,14 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 	if ((*input)->string[i] == '\'')
 	{
 		if ((*input)->current_token_type == lexem)
+		{
 			if (token_add(token, input) == 1)
 				return (-1);
+			(*input)->token_start = (*input)->current_char;
+		}
+		(*input)->current_token_type = SINGLE_QUOTED_STRING;
 		i++;
-		(*input)->token_start = i;
+		(*input)->token_start++;
 		while ((*input)->string[i] != '\0')
 		{
 			if ((*input)->string[i] == '\'')
@@ -63,13 +67,11 @@ int	rule_quotes(t_Input **input, t_Token_node **token)
 		return (1);
 	if (i > (*input)->current_char)
 	{
-		(*input)->current_token_type = lexem;
 		(*input)->current_char = i;
 		if (token_add(token, input) == 1)
 			return (1);
-		(*input)->current_token_type = SINGLE_QUOTED_STRING;
-		(*input)->current_char = i + 1;
-		(*input)->token_start = i + 1;
+		(*input)->token_start++;
+		(*input)->current_char++;
 		return (0);
 	}
 	return (1);
@@ -95,8 +97,9 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 	}
 	if (i > (*input)->current_char)
 	{
-		(*input)->current_token_type = WS;
 		(*input)->current_char = i;
+		if (token_add(token, input) == 1)
+			return (1);
 		(*input)->token_start = i;
 		return (0);
 	}
@@ -143,13 +146,42 @@ int	rule_symbol_unknown(t_Input **input, t_Token_node **token)
 	return (0);
 }
 
-int	print_tokens(t_Token_node *token_temp)
+int	lexer(t_Input **input, t_Token_node **token)
 {
-	while (token_temp != NULL)
+	t_Token_node	**token_temp;
+
+	token_temp = token;
+	while ((*input)->string[(*input)->current_char] != '\0')
 	{
-		printf("command: %d, \"%s\" (P: %p)\n",
-			token_temp->type, token_temp->value, token_temp);
-		token_temp = token_temp->next_token;
+		if (rule_terminals (input, token_temp))
+			if (rule_ws(input, token_temp))
+				if (rule_quotes(input, token_temp))
+					rule_lexem(input, token_temp);
+	}
+	token_temp = token;
+	while (*token_temp != NULL)
+	{
+		if ((*token_temp)->type == WS)
+			delete_token(token_temp);
+		if (*token_temp == NULL)
+			return (0);
+		if ((*token_temp)->type == SINGLE_QUOTED_STRING)
+			(*token_temp)->type = lexem;
+		if (((*token_temp)->next_token != NULL)
+			&& (((*token_temp)->type == lexem
+			&& (*token_temp)->next_token->type == SINGLE_QUOTED_STRING)
+			|| ((*token_temp)->type == SINGLE_QUOTED_STRING
+			&& (*token_temp)->next_token->type == lexem)
+			|| ((*token_temp)->type == lexem
+			&& (*token_temp)->next_token->type == lexem)))
+		{
+			join_next_token(token_temp);
+			delete_token(&(*token_temp)->next_token);
+			if (*token_temp == NULL)
+				return (0);
+		}
+		else if (*token_temp != NULL)
+			token_temp = &(*token_temp)->next_token;
 	}
 	return (0);
 }

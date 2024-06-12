@@ -33,17 +33,17 @@ int	main(int argc, char **argv)
 	input->current_char = 0;
 	input->current_token_type = commandLine;
 	input->string = buf;
-	token = NULL;
-	while (input->string[input->current_char] != '\0')
-	{
-		if (rule_terminals (&input, &token))
-			if (rule_ws(&input, &token))
-				if (rule_quotes(&input, &token))
-					rule_lexem(&input, &token);
-	}
+	token = (t_Token_node *)malloc(sizeof(t_Token_node));
+	if (!token)
+		return (1);
+	token->next_token = NULL;
+	token->prev_token = NULL;
+	token->type = commandLine;
+	token->value = NULL;
 	current_token = token;
+	lexer(&input, &current_token);
 //	print_tokens(token);
-	ast_root = create_ast_node(commandLine, buf);
+	ast_root = create_ast_node(commandLine, input->string);
 	ast_root = rule_command_line(&current_token, ast_root);
 //	print_ast_tree(ast_root, 0);
 	ft_pipes(ast_root);
