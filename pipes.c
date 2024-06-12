@@ -13,10 +13,24 @@ typedef struct s_cmd {
     struct s_cmd *next;
 } t_cmd;// Function to find the absolute path of a command
 
+void free_arr(char **arr)
+{
+    int i = 0;
+    while (arr[i])
+    {
+        free(arr[i]);
+        i++;
+    }
+    free(arr);
+}
+
 char *ft_find_abs_path(char *command) 
 {
     char *path = getenv("PATH");
     char **arr = ft_split(path, ':');
+    if (!arr)
+        return NULL;
+
     char *path_to_command = NULL;
     int i = 0;
     while (arr[i]) {
@@ -29,7 +43,7 @@ char *ft_find_abs_path(char *command)
         free(tmp);
         i++;
     }
-    free(arr);
+    free_arr(arr);
     return path_to_command;
 }
 
@@ -55,7 +69,7 @@ char **cmd_to_argv(t_cmd *cmd) {
     argv[0] = strdup(cmd->exec);
     if (argv[0] == NULL) {
         perror("Failed to allocate memory for exec");
-        free(argv);
+        free_arr(argv);
         exit(EXIT_FAILURE);
     }
 
@@ -65,7 +79,7 @@ char **cmd_to_argv(t_cmd *cmd) {
         if (argv[i++] == NULL) {
             perror("Failed to allocate memory for arg1");
             free(argv[0]);
-            free(argv);
+            free_arr(argv);
             exit(EXIT_FAILURE);
         }
     }
@@ -76,7 +90,7 @@ char **cmd_to_argv(t_cmd *cmd) {
             for (int j = 0; j < i - 1; j++) {
                 free(argv[j]);
             }
-            free(argv);
+            free_arr(argv);
             exit(EXIT_FAILURE);
         }
     }
@@ -87,7 +101,7 @@ char **cmd_to_argv(t_cmd *cmd) {
             for (int j = 0; j < i - 1; j++) {
                 free(argv[j]);
             }
-            free(argv);
+            free_arr(argv);
             exit(EXIT_FAILURE);
         }
     }
@@ -132,22 +146,20 @@ void ft_pipes(t_cmd *commands) {
                 }
             }
             close(pipefds[0]); // Close read end of pipe
+            close(pipefds[1]); // Close write end of pipe after duplicating it
 
             // Execute the command
             char *path = ft_find_abs_path(commands->exec);
-            if (path == NULL)
-            {
-                printf("Command not found: %s\n", commands->exec);
-                free(path);
+            if (path == NULL) {
+                
+                fprintf(stderr, "Command not found: %s\n", commands->exec);
                 exit(EXIT_FAILURE);
             }
             char **argv = cmd_to_argv(commands);
-            //execve(path, argv, NULL);
-            if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
-                { 
-                    perror("execve");
-                    exit(EXIT_FAILURE);
-                }
+            if (execve(path, argv, NULL) == -1) {
+                perror("execve");
+                exit(EXIT_FAILURE);
+            }
         } else {
             // Parent process
             close(pipefds[1]); // Close write end of pipe
@@ -155,6 +167,9 @@ void ft_pipes(t_cmd *commands) {
             commands = commands->next; // Move to the next command
         }
     }
+
+    // Close the remaining read end of the pipe in the parent process
+    close(fd_in);
 
     // Wait for all child processes to finish
     while (wait(NULL) > 0);
@@ -232,9 +247,9 @@ int main()
 {
     //TO TEST append any commands max 3 arg.
     t_cmd *head = NULL; 
-    append(&head, "cat", "pipes.c", NULL, NULL);
-    append(&head, "wc", NULL, NULL, NULL);
-    //append(&head, "wc", "-l", NULL, NULL);    
+    append(&head, "cati", "pipes.c", NULL, NULL);
+    append(&head, "grep", ".c", NULL, NULL);
+    append(&head, "wci", "-l", NULL, NULL);    
 
 
     ft_pipes(head);    
