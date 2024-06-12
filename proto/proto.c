@@ -51,7 +51,7 @@ int	main(int argc, char **argv)
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10
 // cat proto.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
-// ps aux | awk '{print $1}' | sort | uniq -c | sort -nr
+// c
 	free_ast(&ast_root);
 	free_tokens(&token);
 	free (buf);
