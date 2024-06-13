@@ -45,7 +45,7 @@ int	main(int argc, char **argv)
 //	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	ast_root = rule_command_line(&current_token, ast_root);
-//	print_ast_tree(ast_root, 0);
+//	print_ast_tree(ast_root, 0);du ./ | sort -n | tail -10
 	ft_pipes(ast_root);
 // examples for testing
 // du ./ | sort -n | tail -10

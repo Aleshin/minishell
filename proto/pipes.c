@@ -22,29 +22,25 @@ static void free_arr(char **arr)
     free(arr);
 }
 
-static void	print_error(char *command) {
+void ft_perror(char *str)
+{
+	perror(str);
+    exit(EXIT_FAILURE);
+}
+
+static void	print_error(char *command) 
+{
     int cmd_len = strlen(command);
   
     // Write "command not found: "
-   
-    if (write(2, "command not found: ", 19) < 0) {
-        perror("write");
-        exit(EXIT_FAILURE);
-    }
-
+    if (write(2, "command not found: ", 19) < 0) 
+        ft_perror("write");
     // Write the command
-    
-    if (write(2, command, cmd_len) < 0) {
-        perror("write");
-        exit(EXIT_FAILURE);
-    }
-
+    if (write(2, command, cmd_len) < 0)
+        ft_perror("write");
     // Write newline character
-    
-    if (write(2, "\n", 1) < 0) {
-        perror("write");
-        exit(EXIT_FAILURE);
-    }
+    if (write(2, "\n", 1) < 0)
+        ft_perror("write");
 }
 
 // Function to find the absolute path of a command
@@ -84,10 +80,8 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	argc = cmd->next_sibling->param + 1; // receive args num from "args" node
 	argv = (char **)malloc((argc + 1) * sizeof(char *)); //allocate memory for 2d-array
 	if (argv == NULL)
-	{
-		perror("Failed to allocate memory for argv");
-		exit(EXIT_FAILURE);
-	}
+		ft_perror("Failed to allocate memory for argv");
+	
 	i = 0;
 	argv[i++] = cmd->value;
 	if (argc > 1)
@@ -100,76 +94,66 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	argv[i] = NULL; // Null-terminate the array
 	return (argv);
 }
+//function that checks path and if it exists execute execve
+void ft_execute_pipe(t_ast_node	*commands)
+{
+	char *path;
+	char **argv;
+	
+	path = ft_find_abs_path(commands->first_child->value);
+    if (path == NULL) 
+	{
+		print_error(commands->first_child->value);
+        //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
+        exit(EXIT_FAILURE);
+    }
+    argv = cmd_to_argv(commands->first_child);
+    //execve(path, argv, NULL);
+    if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
+    { 
+        perror("execve");
+		free_arr(argv);
+		argv = NULL;
+        exit(EXIT_FAILURE);
+    }
+}
 
 // Function to execute commands with or without pipes
 void	ft_pipes(t_ast_node *ast_tree)
 {
-	char **argv;
 	t_ast_node	*commands;
 
+    int pipefds[2];
+    pid_t pid;
+    int fd_in; // File descriptor for the input to the current command
 
+	fd_in = 0;
 	commands = ast_tree->first_child;
-    	int pipefds[2];
-    	pid_t pid;
-    	
-	int fd_in = 0; // File descriptor for the input to the current command
-
 	while (commands != NULL) 
 	{
 		if (pipe(pipefds) < 0) 
-		{
-            		perror("pipe");
-            		exit(EXIT_FAILURE);
-        	}
-
+			ft_perror("pipe");
 		pid = fork();
-        	if (pid < 0) 
+        if (pid < 0) 
+			ft_perror("fork");
+		//child process
+		if (pid == 0) 
 		{
-			perror("fork");
-			exit(EXIT_FAILURE);
-		}
-		else if (pid == 0) 
-		{
-            // Child process
-
-            // Set up input redirection
-		if (dup2(fd_in, STDIN_FILENO) < 0) 
-		{
-			perror("dup2");
-			exit(EXIT_FAILURE);
-		}
-		close(fd_in); // Close input file descriptor
+        	// Set up input redirection
+			if (dup2(fd_in, STDIN_FILENO) < 0) 
+				ft_perror("dup2");
+	
+			close(fd_in); // Close input file descriptor
 
             // Set up output redirection
-		if (commands->next_sibling != NULL) 
-		{
-			if (dup2(pipefds[1], STDOUT_FILENO) < 0) 
+			if (commands->next_sibling != NULL) 
 			{
-                    		perror("dup2");
-                    		exit(EXIT_FAILURE);
-                	}
-		}
-		close(pipefds[0]); // Close read end of pipe
-
-            // Execute the command
-		char *path = ft_find_abs_path(commands->first_child->value);
-            if (path == NULL) 
-			{
-                //write custom fprintf!!!!!!
-				//printf is not working here
-				print_error(commands->first_child->value);
-                //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
-                exit(EXIT_FAILURE);
-            }
-            argv = cmd_to_argv(commands->first_child);
-            //execve(path, argv, NULL);
-            if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
-                { 
-                    perror("execve");
-					free_arr(argv);
-					argv = NULL;
-                    exit(EXIT_FAILURE);
-                }
+				if (dup2(pipefds[1], STDOUT_FILENO) < 0) 
+                    ft_perror("dup2");
+			}
+			close(pipefds[0]); // Close read end of pipe
+			// Execute the command
+			ft_execute_pipe(commands);
         } 
 		else 
 		{
@@ -179,9 +163,6 @@ void	ft_pipes(t_ast_node *ast_tree)
             commands = commands->next_sibling; // Move to the next command
         }
     }
-
     // Wait for all child processes to finish
     while (wait(NULL) > 0);
-//	if(argv != NULL)
-//		free(argv);
 }
