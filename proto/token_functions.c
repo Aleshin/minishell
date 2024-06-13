@@ -104,7 +104,30 @@ int	join_next_token(t_Token_node **token)
 	free(next_token_value);
 	return (0);
 }
+/*
+int	delete_token(t_Token_node **token)
+{
+	t_Token_node	*prev_token;
+	t_Token_node	*next_token;
 
+	prev_token = (*token)->prev_token;
+	next_token = (*token)->next_token;
+	free((*token)->value);
+    free(*token);
+	*token = NULL;
+	if (prev_token != NULL)
+	{
+		prev_token->next_token = next_token;
+		*token = prev_token;
+	}
+    if (next_token != NULL)
+	{
+		next_token->prev_token = prev_token;
+		*token = next_token;
+	}
+	return (0);
+}
+*/
 int	delete_token(t_Token_node **token)
 {
 	t_Token_node	*prev_token;
@@ -113,6 +136,7 @@ int	delete_token(t_Token_node **token)
 	if ((*token)->next_token == NULL)
 	{
 		prev_token = (*token)->prev_token;
+		free((*token)->value);
 		free(*token);
 		*token = NULL;
 		prev_token->next_token = NULL;
@@ -121,6 +145,7 @@ int	delete_token(t_Token_node **token)
 	{
 		prev_token = (*token)->prev_token;
 		next_token = (*token)->next_token;
+		free((*token)->value);
 		free(*token);
 		if (prev_token != NULL)
 			prev_token->next_token = next_token;
@@ -136,7 +161,6 @@ int	delete_token(t_Token_node **token)
 	}
 	return (0);
 }
-
 
 int	append_to_token(t_Token_node **token, t_Input **input)
 {
