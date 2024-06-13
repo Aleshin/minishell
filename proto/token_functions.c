@@ -87,71 +87,40 @@ int	token_add(t_Token_node **token, t_Input **input)
 	return (0);
 }
 
-int	join_next_token(t_Token_node **token)
-{
-	char	*next_token_value;
-	char	*new_value;
-
-	next_token_value = ft_strdup((*token)->next_token->value);
-	if (!next_token_value)
-		return (1);
-	new_value = ft_strjoin((*token)->value, next_token_value, "");
-	if (!new_value)
-		return (1);
-	free((*token)->value);
-	(*token)->value = new_value;
-	(*token)->type = lexem;
-	free(next_token_value);
-	return (0);
-}
-
 int	delete_token(t_Token_node **token)
 {
 	t_Token_node	*prev_token;
 	t_Token_node	*next_token;
 
-	if ((*token)->next_token == NULL)
+	prev_token = (*token)->prev_token;
+	next_token = (*token)->next_token;
+	free((*token)->value);
+    free(*token);
+	*token = NULL;
+	if (prev_token != NULL)
 	{
-		prev_token = (*token)->prev_token;
-		free(*token);
-		*token = NULL;
-		prev_token->next_token = NULL;
+		prev_token->next_token = next_token;
+		*token = prev_token;
 	}
-	else
+    if (next_token != NULL)
 	{
-		prev_token = (*token)->prev_token;
-		next_token = (*token)->next_token;
-		free(*token);
-		if (prev_token != NULL)
-			prev_token->next_token = next_token;
-		if (next_token != NULL)
-		{
-			next_token->prev_token = prev_token;
-			*token = next_token;
-		}
-		else
-		{
-			*token = prev_token;
-		}
+		next_token->prev_token = prev_token;
+		*token = next_token;
 	}
 	return (0);
 }
 
-
-int	append_to_token(t_Token_node **token, t_Input **input)
+int	join_next_token(t_Token_node **token)
 {
-	char	*add_value;
 	char	*new_value;
 
-	add_value = make_token_value(input);
-	if (!add_value)
-		return (1);
-	new_value = ft_strjoin((*token)->value, add_value, "");
+	new_value = ft_strjoin((*token)->value, (*token)->next_token->value, "");
 	if (!new_value)
 		return (1);
 	free((*token)->value);
 	(*token)->value = new_value;
-	free(add_value);
+	(*token)->type = lexem;
+	delete_token(&(*token)->next_token);
 	return (0);
 }
 

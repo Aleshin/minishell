@@ -176,7 +176,6 @@ int	lexer(t_Input **input, t_Token_node **token)
 			&& (*token_temp)->next_token->type == lexem)))
 		{
 			join_next_token(token_temp);
-			delete_token(&(*token_temp)->next_token);
 			if (*token_temp == NULL)
 				return (0);
 		}
