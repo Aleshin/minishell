@@ -127,6 +127,7 @@ int	delete_token(t_Token_node **token)
 	}
 	return (0);
 }
+//"aa'ss dd'" dont work
 */
 int	delete_token(t_Token_node **token)
 {
