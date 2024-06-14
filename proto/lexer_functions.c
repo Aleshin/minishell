@@ -164,7 +164,10 @@ int	lexer(t_Input **input, t_Token_node **token)
 		if ((*token_temp)->type == WS)
 			delete_token(token_temp);
 		if (*token_temp == NULL)
+		{
+			token = token_temp;
 			return (0);
+		}
 		if ((*token_temp)->type == SINGLE_QUOTED_STRING)
 			(*token_temp)->type = lexem;
 		if (((*token_temp)->next_token != NULL)
@@ -178,7 +181,10 @@ int	lexer(t_Input **input, t_Token_node **token)
 			join_next_token(token_temp);
 			delete_token(&(*token_temp)->next_token);
 			if (*token_temp == NULL)
+			{
+				token = token_temp;
 				return (0);
+			}
 		}
 		else if (*token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;

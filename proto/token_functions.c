@@ -56,6 +56,16 @@ t_Token_node	*token_last(t_Token_node **token)
 	return (last_token);
 }
 
+t_Token_node	*token_first(t_Token_node **token)
+{
+	t_Token_node	*first_token;
+
+	first_token = *token;
+	while (first_token->prev_token != NULL)
+		first_token = first_token->prev_token;
+	return (first_token);
+}
+
 int	token_add(t_Token_node **token, t_Input **input)
 {
 	t_Token_node	*token_temp;
@@ -140,7 +150,8 @@ int	delete_token(t_Token_node **token)
 		free((*token)->value);
 		free(*token);
 		*token = NULL;
-		prev_token->next_token = NULL;
+		if (prev_token != NULL)
+			prev_token->next_token = NULL;
 	}
 	else
 	{

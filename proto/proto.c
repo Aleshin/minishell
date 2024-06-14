@@ -40,13 +40,13 @@ int	main(int argc, char **argv)
 	token->prev_token = NULL;
 	token->type = commandLine;
 	token->value = NULL;
-	current_token = token;
-	lexer(&input, &current_token);
+	lexer(&input, &token);
 //	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
+	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
-	print_ast_tree(ast_root, 0);
-//	ft_pipes(ast_root);
+//	print_ast_tree(ast_root, 0);
+	ft_pipes(ast_root);
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10

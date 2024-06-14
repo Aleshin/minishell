@@ -72,6 +72,7 @@ typedef struct ast_node
 
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
+t_Token_node	*token_first(t_Token_node **token);
 int				token_add(t_Token_node **tokens, t_Input **input);
 int				append_to_token(t_Token_node **token, t_Input **input);
 int				join_next_token(t_Token_node **token);

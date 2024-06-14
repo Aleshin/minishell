@@ -23,7 +23,7 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 			return (ast_node);
 		if ((*token)->value[0] == '|')
 		{
-// Next 2 strings add token "pipe" to AST-tree
+// Next 2 lines add token "pipe" to AST-tree
 //			reverse_node = create_ast_node(PIPE, (*token)->value);
 //			add_child_node(ast_node, reverse_node); // add pipe token
 			*token = (*token)->next_token;
@@ -73,6 +73,8 @@ t_ast_node	*rule_arguments(t_Token_node **token)
 	t_ast_node	*arguments_node;
 	t_ast_node	*reverse_node;
 
+	if (*token == NULL)
+		return (NULL);
 	arguments_node = create_ast_node(arguments, ""); // Create args node and add 1-st arg node inside 
 	reverse_node = rule_argument(token); // Arguments -> Argument (first)
 	if (reverse_node != NULL)
