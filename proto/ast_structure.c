@@ -64,7 +64,8 @@ void	add_child_node(t_ast_node *parent, t_ast_node *child)
 
 int	print_ast_tree(t_ast_node *ast_node, int level)
 {
-	printf("%.*s%d, \"%s\" (%d)\n", level, "\t\t\t\t\t\t", ast_node->type, ast_node->value, ast_node->param);
+	printf("%.*s%d, \"%s\" (%d)\n", level, "\t\t\t\t\t\t",
+		ast_node->type, ast_node->value, ast_node->param);
 	if (ast_node->first_child != NULL)
 	{
 		print_ast_tree(ast_node->first_child, level + 1);

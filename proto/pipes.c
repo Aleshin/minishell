@@ -30,7 +30,7 @@ void ft_perror(char *str)
 
 static void	print_error(char *command) 
 {
-    int cmd_len = strlen(command);
+    int cmd_len = ft_strlen(command);
   
     // Write "command not found: "
     if (write(2, "command not found: ", 19) < 0) 

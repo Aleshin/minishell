@@ -146,47 +146,60 @@ int	rule_symbol_unknown(t_Input **input, t_Token_node **token)
 	return (0);
 }
 
+int	tokenizer(t_Input **input, t_Token_node **token)
+{
+	while ((*input)->string[(*input)->current_char] != '\0')
+	{
+		if (rule_terminals (input, token))
+			if (rule_ws(input, token))
+				if (rule_quotes(input, token))
+					rule_lexem(input, token);
+	}
+	return (0);
+}
+
+int	ws_remover(t_Token_node **token)
+{
+	if ((*token)->type == WS)
+		delete_token(token);
+	if (*token == NULL)
+		return (1);
+	return (0);
+}
+
+int	quotes_remover(t_Token_node **token)
+{
+	t_Token_node	**token_temp;
+
+	token_temp = token;
+	if ((*token_temp)->type == SINGLE_QUOTED_STRING)
+			(*token_temp)->type = lexem;
+	if (((*token_temp)->next_token != NULL)
+		&& (((*token_temp)->type == lexem
+				&& (*token_temp)->next_token->type == SINGLE_QUOTED_STRING)
+			|| ((*token_temp)->type == SINGLE_QUOTED_STRING
+				&& (*token_temp)->next_token->type == lexem)
+			|| ((*token_temp)->type == lexem
+				&& (*token_temp)->next_token->type == lexem)))
+	{
+		join_next_token(token_temp);
+		return (0);
+	}	
+	return (1);
+}
+
 int	lexer(t_Input **input, t_Token_node **token)
 {
 	t_Token_node	**token_temp;
 
 	token_temp = token;
-	while ((*input)->string[(*input)->current_char] != '\0')
-	{
-		if (rule_terminals (input, token_temp))
-			if (rule_ws(input, token_temp))
-				if (rule_quotes(input, token_temp))
-					rule_lexem(input, token_temp);
-	}
+	tokenizer(input, token_temp);
 	token_temp = token;
 	while (*token_temp != NULL)
 	{
-		if ((*token_temp)->type == WS)
-			delete_token(token_temp);
-		if (*token_temp == NULL)
-//		{
-//			token = token_temp;
+		if (ws_remover(token_temp) == 1)
 			return (0);
-//		}
-		if ((*token_temp)->type == SINGLE_QUOTED_STRING)
-			(*token_temp)->type = lexem;
-		if (((*token_temp)->next_token != NULL)
-			&& (((*token_temp)->type == lexem
-			&& (*token_temp)->next_token->type == SINGLE_QUOTED_STRING)
-			|| ((*token_temp)->type == SINGLE_QUOTED_STRING
-			&& (*token_temp)->next_token->type == lexem)
-			|| ((*token_temp)->type == lexem
-			&& (*token_temp)->next_token->type == lexem)))
-		{
-			join_next_token(token_temp);
-//			delete_token(&(*token_temp)->next_token);
-			if (*token_temp == NULL)
-//			{
-//				token = token_temp;
-				return (0);
-//			}
-		}
-		else if (*token_temp != NULL)
+		if (quotes_remover(token_temp) && *token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
 	}
 	return (0);

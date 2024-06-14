@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS = -L../libft -lft -lreadline
 INCLUDES = -I../libft -I.
 

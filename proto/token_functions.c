@@ -13,10 +13,10 @@
 
 char	*make_token_value(t_Input **input)
 {
-	int	start;
-	int	end;
-	int	i;
-	int	j;
+	int		start;
+	int		end;
+	int		i;
+	int		j;
 	char	*value;
 
 	start = (*input)->token_start;
@@ -75,8 +75,6 @@ int	token_add(t_Token_node **token, t_Input **input)
 //		*token = (t_Token_node *)malloc(sizeof(t_Token_node));
 //		if (!(*token))
 //			return (1);
-		(*token)->next_token = NULL;
-		(*token)->prev_token = NULL;
 		(*token)->type = (*input)->current_token_type;
 		if (copy_substring(input, *token) == 1)
 			return (1);
@@ -119,13 +117,13 @@ int	delete_token(t_Token_node **token)
 	prev_token = (*token)->prev_token;
 	next_token = (*token)->next_token;
 	free((*token)->value);
-    free(*token);
+	free(*token);
 	*token = NULL;
 	if (prev_token != NULL)
 	{
 		prev_token->next_token = next_token;
 	}
-    if (next_token != NULL)
+	if (next_token != NULL)
 	{
 		next_token->prev_token = prev_token;
 		*token = next_token;
