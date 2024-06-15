@@ -1,106 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   proto.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: saleshin <saleshin@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/22 22:31:31 by saleshin          #+#    #+#             */
-/*   Updated: 2024/03/22 22:31:38 by saleshin         ###   ########.fr       */
+/*   Created: 2024/05/09 20:49:38 by saleshin          #+#    #+#             */
+/*   Updated: 2024/05/09 20:50:28 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
-#include "libft/libft.h"
+#include "minishell.h"
 
-
-
-char *ft_find_abs_path(char *command)
+int	main(int argc, char **argv)
 {
-    char *path = getenv("PATH");
-    char **arr = ft_split(path, ':');
-    char *path_to_command = NULL;
-    int i = 0;
-	while (arr[i])
+	char			*buf;
+	t_Input			*input;
+	t_Token_node	*token;
+	t_Token_node	*current_token;
+	t_ast_node		*ast_root;
+
+	(void)argc;
+	(void)argv;
+	buf = readline("$> "); // Prompt for input command
+	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
+	// If user enters exit or closes input (Ctrl+D), exit the loop
 	{
-		char *tmp = ft_strjoin(arr[i], "/", command);
-		if (access(tmp, F_OK | X_OK) != -1) 
-        {
-            path_to_command = tmp;
-            break;
-        }
-        free(tmp);
-		i++;
+		free(buf);
+		return (0);
 	}
-	free(arr);
-    return path_to_command;
-}
-
-
-
-
-int main (int argc, char **argv, char **envp)
-{
-char *buf;
-    int id;
-    (void)argc;
-    (void)argv;
-    //(void)envp;
-    for (char **env = envp; *env != NULL; env++) {
-        printf("%s\n", *env); // Print each environment variable
-    }
-    while (1) {
-        buf = readline("$> "); // Prompt for input command./
-        if (buf == NULL || strcmp(buf, "exit") == 0) {
-            // If user enters exit or closes input (Ctrl+D), exit the loop
-            free(buf);
-            break;
-        }
-        // Split buf into command and arguments
-        char *command = strtok(buf, " ");
-        char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
-        args[0] = command;
-        args[1] = strtok(NULL, " ");
-        args[2] = NULL; // NULL terminate the arrayvvvv
-        id = fork();
-        if (id == -1) {
-            // Fork failed
-            perror("fork");
-            exit(EXIT_FAILURE);
-        } else if (id == 0) {
-            // Child process
-            char *path = ft_find_abs_path(command); //we use malloc here
-            if (path != NULL) {
-                if (execve(path, args, NULL) == -1) { ///NULL stands for inherit env from the calling process, e.g. minishell
-                    perror("execve");
-                    exit(EXIT_FAILURE);
-                }
-                free(path); // Free the memory allocated for path
-            } else {
-                printf("Command not found: %s\n", command);
-                exit(EXIT_FAILURE);
-            }
-        } else {
-            // Parent process
-            int status; ///int value returned by waitpid
-            waitpid(id, &status, 0); // Wait for child process to finish
-            if (WIFEXITED(status)) 
-            {
-                int statusCode = WEXITSTATUS(status);
-                if (statusCode == 0)
-                    printf("Success!\n");
-                else
-                    printf("Failure with status code %d:(\n", statusCode);
-                //printf("Child process exited with status: %d\n", WEXITSTATUS(status));
-            }
-        }
-        free(args); // Free the memory allocated for args
-        free(buf);  // Free the memory allocated for buf
-    }
-    return 0;
+	input = (t_Input *)malloc(sizeof(t_Input));
+	input->token_start = 0;
+	input->current_char = 0;
+	input->current_token_type = commandLine;
+	input->string = buf;
+	token = (t_Token_node *)malloc(sizeof(t_Token_node));
+	if (!token)
+		return (1);
+	token->next_token = NULL;
+	token->prev_token = NULL;
+	token->type = commandLine;
+	token->value = NULL;
+	lexer(&input, &token);
+//	print_tokens(token);
+	ast_root = create_ast_node(commandLine, input->string);
+	current_token = token;
+	ast_root = rule_command_line(&current_token, ast_root);
+//	print_ast_tree(ast_root, 0);
+	ft_pipes(ast_root);
+// examples for testing
+// du ./ | sort -n | tail -10
+// ls -l | sort -k 5 -n | tail -10
+// cat proto.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
+// ps aux | awk '{print $1}' | sort | uniq -c | sort -nr
+	free_ast(&ast_root);
+	free_tokens(&token);
+	free (buf);
+	free (input);
+	return (0);
 }
