@@ -11,25 +11,39 @@
 /* ************************************************************************** */
 #include "proto.h"
 
-int	rule_terminals(t_Input **input, t_Token_node **token)
+int	terminal_type(t_Input **input)
 {
 	int	i;
+	int	token_type;
 
 	i = (*input)->current_char;
-	if ((*input)->string[i] == '|'
-		|| (*input)->string[i] == '<'
-		|| (*input)->string[i] == '>')
-	{
-		if ((*input)->current_token_type == lexem)
-			if (token_add(token, input) == 1)
-				return (1);
-		(*input)->current_char++;
-		(*input)->current_token_type = terminals;
+	if ((*input)->string[i] == '|')
+		token_type = PIPE;
+	else
+	if ((*input)->string[i] == '<')
+		token_type = redirect_in;
+	else
+	if ((*input)->string[i] == '>')
+		token_type = redirect_out;
+		else
+		return (-1);
+	return (token_type);
+}
+int	rule_terminals(t_Input **input, t_Token_node **token)
+{
+	int	token_type;
+
+	token_type = terminal_type(input);
+	if (token_type == -1)
+		return (1);
+	if ((*input)->current_token_type == lexem)
 		if (token_add(token, input) == 1)
 			return (1);
-		return (0);
-	}
-	return (1);
+	(*input)->current_char++;
+	(*input)->current_token_type = token_type;
+		if (token_add(token, input) == 1)
+			return (1);
+	return(0);
 }
 
 int	rule_quotes_helper(t_Input **input, t_Token_node **token)
@@ -167,6 +181,26 @@ int	ws_remover(t_Token_node **token)
 	return (0);
 }
 
+int	twin_redirects(t_Token_node **token)
+{
+	if ((*token)->next_token != NULL)
+	{
+		if ((*token)->type == redirect_in
+		&& (*token)->next_token->type == redirect_in)
+		{
+			(*token)->type = heredoc;
+			join_next_token(token);
+		}
+		if ((*token)->type == redirect_out
+		&& (*token)->next_token->type == redirect_out)
+		{
+			(*token)->type = redirect_out_add;
+			join_next_token(token);
+		}
+	}
+	return (0);
+}
+
 int	quotes_remover(t_Token_node **token)
 {
 	t_Token_node	**token_temp;
@@ -182,6 +216,7 @@ int	quotes_remover(t_Token_node **token)
 			|| ((*token_temp)->type == lexem
 				&& (*token_temp)->next_token->type == lexem)))
 	{
+		(*token_temp)->type = lexem;
 		join_next_token(token_temp);
 		return (0);
 	}	
@@ -199,6 +234,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 	{
 		if (ws_remover(token_temp) == 1)
 			return (0);
+		twin_redirects(token_temp);
 		if (quotes_remover(token_temp) && *token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
 	}

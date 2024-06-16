@@ -41,16 +41,16 @@ int	main(int argc, char **argv)
 	token->type = commandLine;
 	token->value = NULL;
 	lexer(&input, &token);
-//	print_tokens(token);
+	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
-//	print_ast_tree(ast_root, 0);
-	ft_pipes(ast_root);
+	print_ast_tree(ast_root, 0);
+//	ft_pipes(ast_root);
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10
-// cat proto.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
+// cat minishell.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
 // ps aux | awk '{print $1}' | sort | uniq -c | sort -nr
 	free_ast(&ast_root);
 	free_tokens(&token);

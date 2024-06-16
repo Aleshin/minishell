@@ -21,7 +21,7 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 		add_child_node(ast_node, reverse_node); // Add command node with exec node with or no args
 		if (*token == NULL)
 			return (ast_node);
-		if ((*token)->value[0] == '|')
+		if ((*token)->type == PIPE)
 		{
 // Next 2 lines add token "pipe" to AST-tree
 //			reverse_node = create_ast_node(PIPE, (*token)->value);
@@ -44,11 +44,11 @@ t_ast_node	*rule_command(t_Token_node **token)
 	{
 		command_node = create_ast_node(command, ""); // Create command node and add exec node inside
 		add_child_node(command_node, reverse_node);
-	}
-	reverse_node = rule_arguments(token); // Command -> Arguments
-	if (reverse_node != NULL)
-	{
-		add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
+		reverse_node = rule_arguments(token); // Command -> Arguments
+		if (reverse_node != NULL)
+		{
+			add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
+		}
 	}
 	return (command_node);
 }
@@ -73,8 +73,8 @@ t_ast_node	*rule_arguments(t_Token_node **token)
 	t_ast_node	*arguments_node;
 	t_ast_node	*reverse_node;
 
-	if (*token == NULL)
-		return (NULL);
+//	if (*token == NULL)
+//		return (NULL);
 	arguments_node = create_ast_node(arguments, ""); // Create args node and add 1-st arg node inside 
 	reverse_node = rule_argument(token); // Arguments -> Argument (first)
 	if (reverse_node != NULL)

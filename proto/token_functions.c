@@ -104,7 +104,6 @@ int	join_next_token(t_Token_node **token)
 		return (1);
 	free((*token)->value);
 	(*token)->value = new_value;
-	(*token)->type = lexem;
 	delete_token(&(*token)->next_token);
 	return (0);
 }
@@ -128,23 +127,6 @@ int	delete_token(t_Token_node **token)
 		next_token->prev_token = prev_token;
 		*token = next_token;
 	}
-	return (0);
-}
-
-int	append_to_token(t_Token_node **token, t_Input **input)
-{
-	char	*add_value;
-	char	*new_value;
-
-	add_value = make_token_value(input);
-	if (!add_value)
-		return (1);
-	new_value = ft_strjoin((*token)->value, add_value, "");
-	if (!new_value)
-		return (1);
-	free((*token)->value);
-	(*token)->value = new_value;
-	free(add_value);
 	return (0);
 }
 
