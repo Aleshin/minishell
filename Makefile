@@ -36,5 +36,5 @@ leaks:
 
 envir: 
 	$(CC) $(CFLAGS) $(INCLUDES) $(LDFLAGS) experiments.c -o experiment
-pipes:
-	gcc -Wall -Wextra -Werror -I ./libft -o pipes pipes.c ./libft/libft.a
+redir:
+	gcc -Wall -Wextra -Werror -I ./libft -o redir redirections.c ./libft/libft.a
