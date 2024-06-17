@@ -100,14 +100,14 @@ void ft_execute_pipe(t_ast_node	*commands)
 	char *path;
 	char **argv;
 	
-	path = ft_find_abs_path(commands->first_child->value);
+	path = ft_find_abs_path(commands->first_child->next_sibling->value);
     if (path == NULL) 
 	{
-		print_error(commands->first_child->value);
+		print_error(commands->first_child->next_sibling->value);
         //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
         exit(EXIT_FAILURE);
     }
-    argv = cmd_to_argv(commands->first_child);
+    argv = cmd_to_argv(commands->first_child->next_sibling);
     //execve(path, argv, NULL);
     if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
     { 

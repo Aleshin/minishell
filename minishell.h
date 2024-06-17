@@ -9,7 +9,25 @@
 /*   Updated: 2024/05/14 18:48:36 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+/*				AST structure
+commands
+ast_tree
+	command 1
+	ast_tree.first_child
+		redirects (num of rdr): ast_tree.first_child.first_child
+			redirect 1
+			ast_tree.first_child.first_child.first_child
+			redirect 2
+			ast_tree.first_child.first_child.first_child.next_sibling
+			...
+		exec: ast_tree.first_child.next_sibling
+		args (num of args): ast_tree.first_child.next_sibling.next_sibling
+			arg 1: ast_tree.first_child.next_sibling..next_sibling.first_child
+			arg 2: ast_tree.first_child.next_sibling..next_sibling.first_child.next_sibling
+			...
+	command 2: ast_tree.next_sibling
+	...
+*/
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
@@ -39,6 +57,7 @@ typedef enum SymbolType
 	SINGLE_QUOTED_STRING,
 	DOUBLE_QUOTED_STRING,
 	PIPE,
+	redirects,
 	redirect_in,
 	heredoc,
 	redirect_out,
@@ -75,6 +94,17 @@ typedef struct ast_node
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
 
+typedef struct ast_keys
+{
+//	t_ast_node	*head;
+	t_ast_node	*command;
+	t_ast_node	*redirects;
+	int			redirects_num;
+	t_ast_node	*arguments;
+	int			arguments_num;
+//	t_ast_node	*reverse_node;
+}	t_ast_keys;
+
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
@@ -100,10 +130,12 @@ void			free_ast(t_ast_node **node);
 t_ast_node		*rule_command_line(t_Token_node **token, t_ast_node *ast_node);
 t_ast_node		*rule_command(t_Token_node **token);
 t_ast_node		*rule_executable(t_Token_node **token);
-t_ast_node		*rule_arguments(t_Token_node **token);
-t_ast_node		*recursive_arguments(t_Token_node **token,
-					t_ast_node *ast_node);
-t_ast_node		*rule_argument(t_Token_node **token);
+t_ast_node		*rule_argument_recursive(t_Token_node **token,
+					t_ast_keys **ast_keys);
+t_ast_node		*rule_redirect_recursive(t_Token_node **token,
+					t_ast_keys **ast_keys);
+void			redirects_arguments(t_Token_node **token,
+					t_ast_keys **ast_keys);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_pipes(t_ast_node *commands);

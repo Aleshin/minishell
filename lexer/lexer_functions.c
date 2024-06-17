@@ -204,6 +204,24 @@ int	twin_redirects(t_Token_node **token)
 	return (0);
 }
 
+int	expand_redirects(t_Token_node **token)
+{
+	if ((*token)->next_token != NULL
+	&& ((*token)->type == redirect_in
+	|| (*token)->type == redirect_out
+	|| (*token)->type == heredoc
+	|| (*token)->type == redirect_out_add))
+	{
+		if ((*token)->next_token->type == lexem)
+			(*token)->next_token->type = (*token)->type;
+		delete_token(token);
+		token = &(*token)->next_token;
+		if (*token == NULL)
+			return (1);
+	}
+	return (0);
+}
+
 int	quotes_remover(t_Token_node **token)
 {
 	t_Token_node	**token_temp;
@@ -241,5 +259,13 @@ int	lexer(t_Input **input, t_Token_node **token)
 		if (quotes_remover(token_temp) && *token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
 	}
+	token_temp = token;
+	while (*token_temp != NULL)
+	{
+		if (expand_redirects(token_temp) == 1)
+			return (0);
+		token_temp = &(*token_temp)->next_token;
+	}
+//	token_temp = token;
 	return (0);
 }

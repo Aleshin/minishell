@@ -41,7 +41,7 @@ int	main(int argc, char **argv)
 	token->type = commandLine;
 	token->value = NULL;
 	lexer(&input, &token);
-	print_tokens(token);
+//	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);

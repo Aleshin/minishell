@@ -33,84 +33,71 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 	return (ast_node);
 }
 
-t_ast_node	*rule_command(t_Token_node **token)
+void	command_init(t_ast_keys **ast_keys, t_ast_node **reverse_node)
 {
-	t_ast_node		*command_node;
-	t_ast_node		*reverse_node;
-
-	command_node = NULL;
-	reverse_node = rule_executable(token); // Command -> Executable
-	if (reverse_node != NULL)
+	if (*reverse_node != NULL)
 	{
-		command_node = create_ast_node(command, ""); // Create command node and add exec node inside
-		add_child_node(command_node, reverse_node);
-		reverse_node = rule_arguments(token); // Command -> Arguments
-		if (reverse_node != NULL)
+		if (!(*ast_keys)->command)
 		{
-			add_child_node(command_node, reverse_node); // Add arguments node with list of arguments inside to command node
+			(*ast_keys)->command = create_ast_node(command, "");
+			(*ast_keys)->redirects = create_ast_node(redirects, "");
+			add_child_node((*ast_keys)->command, (*ast_keys)->redirects);
+		}
+		if ((*reverse_node)->type == redirect_in
+			|| (*reverse_node)->type == redirect_out
+			|| (*reverse_node)->type == redirect_out_add
+			|| (*reverse_node)->type == heredoc)
+		{
+			add_child_node((*ast_keys)->redirects, *reverse_node);
+			(*ast_keys)->redirects->param = (*ast_keys)->redirects_num;
+		}
+		if ((*reverse_node)->type == executable)
+		{
+			add_child_node((*ast_keys)->command, *reverse_node);
+			(*ast_keys)->arguments = create_ast_node(arguments, "");
+			add_child_node((*ast_keys)->command, (*ast_keys)->arguments);
 		}
 	}
-	return (command_node);
 }
 
-t_ast_node	*rule_executable(t_Token_node **token) // bottom of tree
+t_ast_node	*rule_command(t_Token_node **token)
 {
-	t_ast_node	*ast_node;
-
-	ast_node = NULL;
-	if (*token == NULL)
-		return (NULL);
-	if ((*token)->type == lexem)
-	{
-		ast_node = create_ast_node(executable, (*token)->value); // return exec node to command function
-		*token = (*token)->next_token;
-	}
-	return (ast_node);
-}
-
-t_ast_node	*rule_arguments(t_Token_node **token)
-{
-	t_ast_node	*arguments_node;
 	t_ast_node	*reverse_node;
+	t_ast_keys	*ast_keys;
 
-//	if (*token == NULL)
-//		return (NULL);
-	arguments_node = create_ast_node(arguments, ""); // Create args node and add 1-st arg node inside 
-	reverse_node = rule_argument(token); // Arguments -> Argument (first)
-	if (reverse_node != NULL)
-	{
-		add_child_node(arguments_node, reverse_node);
-		arguments_node->param = arguments_node->first_child->param + 1;
-		arguments_node = recursive_arguments(token, arguments_node); // Arguments -> Argument (all next)
-	}
-	return (arguments_node);
+	ast_keys = malloc(sizeof(t_ast_keys));
+	ast_keys->command = NULL;
+	ast_keys->redirects = NULL;
+	ast_keys->redirects_num = 0;
+	ast_keys->arguments = NULL;
+	ast_keys->arguments_num = 0;
+	reverse_node = rule_redirect_recursive(token, &ast_keys);
+	command_init(&ast_keys, &reverse_node);
+	reverse_node = rule_executable(token); // Command -> Executable
+	command_init(&ast_keys, &reverse_node);
+	if (ast_keys->arguments != NULL)
+		redirects_arguments(token, &ast_keys);
+	reverse_node = ast_keys->command;
+	free(ast_keys);
+	return (reverse_node);
 }
 
-t_ast_node	*recursive_arguments(t_Token_node **token, t_ast_node *ast_node)
+void	redirects_arguments(t_Token_node **token, t_ast_keys **ast_keys)
 {
 	t_ast_node	*reverse_node;
 
-	reverse_node = rule_argument(token); // -> argument
+	reverse_node = rule_redirect_recursive(token, ast_keys);
 	if (reverse_node != NULL)
 	{
-		add_child_node(ast_node, reverse_node);
-		ast_node->param++;
-		ast_node = recursive_arguments(token, ast_node); // Recursive argument -> argument
+		add_child_node((*ast_keys)->redirects, reverse_node);
+		redirects_arguments(token, ast_keys);
 	}
-	return (ast_node);
-}
-
-t_ast_node	*rule_argument(t_Token_node **token) // bottom of tree
-{
-	t_ast_node	*ast_node;
-
-	ast_node = NULL;
-	if (*token == NULL)
-		return (NULL);
-	if ((*token)->type == lexem)
+	reverse_node = rule_argument_recursive(token, ast_keys);
+	if (reverse_node != NULL)
 	{
-		ast_node = create_ast_node(argument, (*token)->value);
-		*token = (*token)->next_token;
+		add_child_node((*ast_keys)->arguments, reverse_node);
+		redirects_arguments(token, ast_keys);
 	}
-	return (ast_node);
+	(*ast_keys)->redirects->param = (*ast_keys)->redirects_num;
+	(*ast_keys)->arguments->param = (*ast_keys)->arguments_num;
 }
