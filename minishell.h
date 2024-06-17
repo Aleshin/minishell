@@ -15,10 +15,8 @@ ast_tree
 	command 1
 	ast_tree.first_child
 		redirects (num of rdr): ast_tree.first_child.first_child
-			redirect 1
-			ast_tree.first_child.first_child.first_child
-			redirect 2
-			ast_tree.first_child.first_child.first_child.next_sibling
+			redirect 1: ast_tree.first_child.first_child.first_child
+			redirect 2: ast_tree.first_child.first_child.first_child.next_sibling
 			...
 		exec: ast_tree.first_child.next_sibling
 		args (num of args): ast_tree.first_child.next_sibling.next_sibling

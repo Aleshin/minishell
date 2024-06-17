@@ -88,10 +88,7 @@ void	redirects_arguments(t_Token_node **token, t_ast_keys **ast_keys)
 
 	reverse_node = rule_redirect_recursive(token, ast_keys);
 	if (reverse_node != NULL)
-	{
 		add_child_node((*ast_keys)->redirects, reverse_node);
-		redirects_arguments(token, ast_keys);
-	}
 	reverse_node = rule_argument_recursive(token, ast_keys);
 	if (reverse_node != NULL)
 	{
