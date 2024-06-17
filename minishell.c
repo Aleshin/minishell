@@ -46,7 +46,7 @@ int	main(int argc, char **argv)
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
 //	print_ast_tree(ast_root, 0);
-	ft_pipes(ast_root);
+	ft_pipes(ast_root); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10

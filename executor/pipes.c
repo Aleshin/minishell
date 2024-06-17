@@ -95,7 +95,7 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	return (argv);
 }
 //function that checks path and if it exists execute execve
-void ft_execute_pipe(t_ast_node	*commands)
+void ft_exec_command(t_ast_node	*commands)
 {
 	char *path;
 	char **argv;
@@ -108,7 +108,9 @@ void ft_execute_pipe(t_ast_node	*commands)
         exit(EXIT_FAILURE);
     }
     argv = cmd_to_argv(commands->first_child->next_sibling);
-    //execve(path, argv, NULL);
+    
+	
+	//execve(path, argv, NULL);
     if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
     { 
         perror("execve");
@@ -152,8 +154,9 @@ void	ft_pipes(t_ast_node *ast_tree)
                     ft_perror("dup2");
 			}
 			close(pipefds[0]); // Close read end of pipe
+			
 			// Execute the command
-			ft_execute_pipe(commands);
+			ft_exec_command(commands);
         } 
 		else 
 		{
