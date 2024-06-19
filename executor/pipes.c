@@ -95,7 +95,7 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	return (argv);
 }
 //function that checks path and if it exists execute execve
-void ft_exec_command(t_ast_node	*commands)
+void ft_exec_command(t_ast_node	*commands, char **envp)
 {
 	char *path;
 	char **argv;
@@ -107,17 +107,23 @@ void ft_exec_command(t_ast_node	*commands)
         //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
         exit(EXIT_FAILURE);
     }
-    argv = cmd_to_argv(commands->first_child->next_sibling);
+    printf("PATH is %s\n", path);
+	
+	argv = cmd_to_argv(commands->first_child->next_sibling);
     
+	printf("argv[0] %s\n", argv[0]);
+	printf("argv[0] %s\n", argv[1]);
 	
 	//execve(path, argv, NULL);
-    if (execve(path, argv, NULL) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
+    
+	if (execve(path, argv, envp) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
     { 
-        perror("execve");
+		perror("execve");
 		free_arr(argv);
 		argv = NULL;
         exit(EXIT_FAILURE);
     }
+
 }
 
 
@@ -126,6 +132,9 @@ void ft_handle_redirection(t_ast_node *redirects)
     int file;
     t_ast_node *current_redirect = redirects->first_child;
 	
+	if (redirects == 0)
+		return ;
+
     while (current_redirect != NULL) {
         if (current_redirect->type == 12) 
 		{
@@ -164,7 +173,7 @@ void ft_handle_redirection(t_ast_node *redirects)
 }
 
 // Function to execute commands with or without pipes
-void	ft_pipes(t_ast_node *ast_tree)
+void	ft_executor(t_ast_node *ast_tree, char **envp)
 {
 	t_ast_node	*commands;
 
@@ -201,7 +210,8 @@ void	ft_pipes(t_ast_node *ast_tree)
 			//here goes redirection
 			ft_handle_redirection(commands->first_child);
 			// Execute the command
-			ft_exec_command(commands);
+			
+			ft_exec_command(commands, envp);
         } 
 		else 
 		{

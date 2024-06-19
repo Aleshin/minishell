@@ -137,5 +137,5 @@ void			redirects_arguments(t_Token_node **token,
 					t_ast_keys **ast_keys);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
-void			ft_pipes(t_ast_node *commands);
+void			ft_executor(t_ast_node *commands, char **envp);
 #endif
