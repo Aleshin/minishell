@@ -11,6 +11,29 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+char	*heredoc_stdin(char *delimiter)
+{
+	char	*line;
+	char	*buf;
+	char	*buf_temp;
+
+	buf = (char *)malloc(sizeof(char));
+	*buf = '\0';
+	while ((line = readline("$>")) != NULL)
+	{
+		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
+		{
+			free(line);
+			return (buf);
+		}
+		buf_temp = buf;
+		buf = ft_strjoin(buf_temp, line, "\n");
+		free(buf_temp);
+		free(line);
+	}
+return (NULL);
+}
+
 int	main(int argc, char **argv)
 {
 	char			*buf;
@@ -21,6 +44,23 @@ int	main(int argc, char **argv)
 
 	(void)argc;
 	(void)argv;
+	buf = (char *)malloc(sizeof(char));
+	*buf = '\0';
+/*
+	while ((line = readline("$>")) != NULL)
+	{
+//        if (*input) {
+//            add_history(input);
+            // Обработка команды
+		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
+			break;
+		buf_temp = buf;
+		buf = ft_strjoin(buf_temp, line, "\n");
+		free(buf_temp);
+//		rl_on_new_line();
+	}
+	free(line);
+*/
 	buf = readline("$> "); // Prompt for input command
 	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
@@ -40,13 +80,19 @@ int	main(int argc, char **argv)
 	token->prev_token = NULL;
 	token->type = commandLine;
 	token->value = NULL;
-	lexer(&input, &token);
+	if (lexer(&input, &token) == 1)
+	{
+		free(buf);
+		free(input);
+		free_tokens(&token);
+		return (1);
+	}
 //	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
-//	print_ast_tree(ast_root, 0);
-	ft_pipes(ast_root); ///rename executor!!!!!
+	print_ast_tree(ast_root, 0);
+//	ft_pipes(ast_root); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10

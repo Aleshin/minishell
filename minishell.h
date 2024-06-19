@@ -113,6 +113,7 @@ int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
 int				print_tokens(t_Token_node *token_temp);
 // lexer functions
+char			*heredoc_stdin(char *delimiter);
 int				rule_terminals(t_Input **input, t_Token_node **token);
 int				rule_word(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);

@@ -209,15 +209,32 @@ int	expand_redirects(t_Token_node **token)
 	if ((*token)->next_token != NULL
 	&& ((*token)->type == redirect_in
 	|| (*token)->type == redirect_out
-	|| (*token)->type == heredoc
 	|| (*token)->type == redirect_out_add))
 	{
-		if ((*token)->next_token->type == lexem)
-			(*token)->next_token->type = (*token)->type;
+		if ((*token)->next_token->type != lexem)
+			return (1);
+		(*token)->next_token->type = (*token)->type;
 		delete_token(token);
 		token = &(*token)->next_token;
-		if (*token == NULL)
+	}
+	return (0);
+}
+
+int	expand_heredoc(t_Token_node **token)
+{
+	char	*value_temp;
+
+	if ((*token)->next_token != NULL
+	&& (*token)->type == heredoc)
+	{
+		if ((*token)->next_token->type != lexem)
 			return (1);
+		(*token)->next_token->type = (*token)->type;
+		value_temp = (*token)->next_token->value;
+		(*token)->next_token->value = heredoc_stdin((*token)->next_token->value);
+		free(value_temp);
+		delete_token(token);
+		token = &(*token)->next_token;
 	}
 	return (0);
 }
@@ -254,7 +271,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 	while (*token_temp != NULL)
 	{
 		if (ws_remover(token_temp) == 1)
-			return (0);
+			break;
 		twin_redirects(token_temp);
 		if (quotes_remover(token_temp) && *token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
@@ -263,8 +280,11 @@ int	lexer(t_Input **input, t_Token_node **token)
 	while (*token_temp != NULL)
 	{
 		if (expand_redirects(token_temp) == 1)
-			return (0);
-		token_temp = &(*token_temp)->next_token;
+			return (1);
+		if (expand_heredoc(token_temp) == 1)
+			return (1);
+		if (*token_temp != NULL)
+			token_temp = &(*token_temp)->next_token;
 	}
 //	token_temp = token;
 	return (0);
