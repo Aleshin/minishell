@@ -124,6 +124,7 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 }
 
 
+
 void ft_handle_redirection(t_ast_node *redirects) 
 {
 	int file;
@@ -141,7 +142,11 @@ void ft_handle_redirection(t_ast_node *redirects)
                 ft_perror("Error opening file for output redirection");
 			//redirect standart output of command to "file"
             if (dup2(file, STDOUT_FILENO) < 0)
-                ft_perror("dup2 output redirection");
+			{
+				close(file);
+				ft_perror("dup2 output redirection");
+			}
+                
             close(file);
         } 
 		else if (current_redirect->type == redirect_out_add) 
@@ -150,7 +155,10 @@ void ft_handle_redirection(t_ast_node *redirects)
             if (file == -1)
                 ft_perror("Error opening file for append output redirection");
             if (dup2(file, STDOUT_FILENO) < 0)
-                ft_perror("dup2 append output redirection");
+			{
+				close(file);
+				ft_perror("dup2 append output redirection");
+			} 
             close(file);
         } 
 		else if (current_redirect->type == redirect_in) 
@@ -159,9 +167,39 @@ void ft_handle_redirection(t_ast_node *redirects)
             if (file == -1)
                 ft_perror("Error opening file for input redirection");
             if (dup2(file, STDIN_FILENO) < 0)
-                ft_perror("dup2 input redirection");
-            //close(file); where to close it?????
+			{
+				close(file);
+				ft_perror("dup2 input redirection");
+			}
+                
+            //close(file); //where to close it?????
         }
+		else if (current_redirect->type == heredoc)
+		{
+		// char *tmp = heredoc_stdin(current_redirect->value);
+		// printf("TMP %s/n", heredoc_stdin(current_redirect->value));
+		// if (tmp == NULL) { 
+		// 	ft_perror("Error reading heredoc input");
+		// 	// Handle the error appropriately, maybe return or continue
+		// }
+		file = open(heredoc_stdin(current_redirect->value), O_RDONLY);
+		printf("FD %d/n", file);
+		if (file == -1) {
+			ft_perror("Error opening temporary file for input redirection");
+			free(heredoc_stdin(current_redirect->value)); // Free allocated memory for tmp
+			return; // or handle error
+		}
+		if (dup2(file, STDIN_FILENO) < 0)
+		{
+			close(file);
+			ft_perror("dup2 input redirection");
+			free(heredoc_stdin(current_redirect->value)); // Free allocated memory for tmp
+			return; // or handle error
+		}
+		close(file);
+		unlink(heredoc_stdin(current_redirect->value)); // Delete the temporary file
+		free(heredoc_stdin(current_redirect->value));   // Free allocated memory for tmp
+		}
         current_redirect = current_redirect->next_sibling;
     }
 }
@@ -171,7 +209,7 @@ void	ft_executor(t_ast_node *ast_tree, char **envp)
 {
 	t_ast_node	*commands;
 
-    int pipefds[2];
+    int pipefds[2];//in and out
     pid_t pid;
     int fd_in; // File descriptor for the input to the current command
 
@@ -188,16 +226,22 @@ void	ft_executor(t_ast_node *ast_tree, char **envp)
 		if (pid == 0) 
 		{
         	// Set up input redirection
-			if (dup2(fd_in, STDIN_FILENO) < 0) 
+			if (dup2(fd_in, STDIN_FILENO) < 0) ///here the issue, first command is StdIN 
+			{
+				close(fd_in);
 				ft_perror("dup2");
-	
+			}	
 			close(fd_in); // Close input file descriptor
 
             // Set up output redirection
 			if (commands->next_sibling != NULL) 
 			{
-				if (dup2(pipefds[1], STDOUT_FILENO) < 0) 
-                    ft_perror("dup2");
+				if (dup2(pipefds[1], STDOUT_FILENO) < 0)//redirect output
+				{
+					close(pipefds[1]);
+					ft_perror("dup2");
+				}
+                    
 			}
 			close(pipefds[0]); // Close read end of pipe
 			

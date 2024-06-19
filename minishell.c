@@ -24,6 +24,7 @@ char	*heredoc_stdin(char *delimiter)
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
 		{
 			free(line);
+			printf("BUF %s/n", buf);
 			return (buf);
 		}
 		buf_temp = buf;
