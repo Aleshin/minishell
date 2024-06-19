@@ -239,6 +239,27 @@ int	expand_heredoc(t_Token_node **token)
 	return (0);
 }
 
+int	expand_var(t_Token_node **token)
+{
+	char	*value_temp;
+
+	if ((*token)->next_token != NULL
+	&& (*token)->type == var)
+	{
+		if ((*token)->next_token->type != lexem)
+			return (1);
+		value_temp = (*token)->next_token->value;
+		if (getenv((*token)->next_token->value) == NULL)
+			(*token)->next_token->value = ft_strdup("");
+		else
+			(*token)->next_token->value = ft_strdup(getenv((*token)->next_token->value));
+		free(value_temp);
+		delete_token(token);
+		token = &(*token)->next_token;
+	}
+	return (0);
+}
+
 int	quotes_remover(t_Token_node **token)
 {
 	t_Token_node	**token_temp;
@@ -282,6 +303,8 @@ int	lexer(t_Input **input, t_Token_node **token)
 		if (expand_redirects(token_temp) == 1)
 			return (1);
 		if (expand_heredoc(token_temp) == 1)
+			return (1);
+		if (expand_var(token_temp) == 1)
 			return (1);
 		if (*token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
