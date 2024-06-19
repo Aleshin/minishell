@@ -120,6 +120,49 @@ void ft_exec_command(t_ast_node	*commands)
     }
 }
 
+
+void ft_handle_redirection(t_ast_node *redirects) 
+{
+    int file;
+    t_ast_node *current_redirect = redirects->first_child;
+	
+    while (current_redirect != NULL) {
+        if (current_redirect->type == 12) 
+		{
+            //open file write only, create if not exist, if exist truncate
+			file = open(current_redirect->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (file == -1)
+                ft_perror("Error opening file for output redirection");
+			//redirect standart output of command to "file"
+            if (dup2(file, STDOUT_FILENO) < 0)
+                ft_perror("dup2 output redirection");
+            close(file);
+        } 
+		else if (current_redirect->type == redirect_out_add) 
+		{
+            file = open(current_redirect->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            if (file == -1)
+                ft_perror("Error opening file for append output redirection");
+    
+            if (dup2(file, STDOUT_FILENO) < 0)
+                ft_perror("dup2 append output redirection");
+            close(file);
+        } 
+		else if (current_redirect->type == redirect_in) 
+		{
+            file = open(current_redirect->value, O_RDONLY);
+            if (file == -1)
+                ft_perror("Error opening file for input redirection");
+        
+            if (dup2(file, STDIN_FILENO) < 0) {
+                ft_perror("dup2 input redirection");
+            }
+            close(file);
+        }
+        current_redirect = current_redirect->next_sibling;
+    }
+}
+
 // Function to execute commands with or without pipes
 void	ft_pipes(t_ast_node *ast_tree)
 {
@@ -155,6 +198,8 @@ void	ft_pipes(t_ast_node *ast_tree)
 			}
 			close(pipefds[0]); // Close read end of pipe
 			
+			//here goes redirection
+			ft_handle_redirection(commands->first_child);
 			// Execute the command
 			ft_exec_command(commands);
         } 
