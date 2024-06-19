@@ -100,6 +100,9 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 	char *path;
 	char **argv;
 	
+	if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) 
+        exit(EXIT_FAILURE);
+
 	path = ft_find_abs_path(commands->first_child->next_sibling->value);
     if (path == NULL) 
 	{
@@ -107,15 +110,9 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
         //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
         exit(EXIT_FAILURE);
     }
-    printf("PATH is %s\n", path);
-	
 	argv = cmd_to_argv(commands->first_child->next_sibling);
-    
-	printf("argv[0] %s\n", argv[0]);
-	printf("argv[0] %s\n", argv[1]);
 	
-	//execve(path, argv, NULL);
-    
+	//execve(path, argv, env  var);
 	if (execve(path, argv, envp) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
     { 
 		perror("execve");
@@ -129,18 +126,18 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 
 void ft_handle_redirection(t_ast_node *redirects) 
 {
-    int file;
+	int file;
     t_ast_node *current_redirect = redirects->first_child;
 	
 	if (redirects == 0)
-		return ;
-
+		return;  // No redirections to handle
+    
     while (current_redirect != NULL) {
-        if (current_redirect->type == 12) 
+        if (current_redirect->type == redirect_out)  
 		{
             //open file write only, create if not exist, if exist truncate
 			file = open(current_redirect->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-            if (file == -1)
+			if (file == -1)
                 ft_perror("Error opening file for output redirection");
 			//redirect standart output of command to "file"
             if (dup2(file, STDOUT_FILENO) < 0)
@@ -152,7 +149,6 @@ void ft_handle_redirection(t_ast_node *redirects)
             file = open(current_redirect->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
             if (file == -1)
                 ft_perror("Error opening file for append output redirection");
-    
             if (dup2(file, STDOUT_FILENO) < 0)
                 ft_perror("dup2 append output redirection");
             close(file);
@@ -162,11 +158,9 @@ void ft_handle_redirection(t_ast_node *redirects)
             file = open(current_redirect->value, O_RDONLY);
             if (file == -1)
                 ft_perror("Error opening file for input redirection");
-        
-            if (dup2(file, STDIN_FILENO) < 0) {
+            if (dup2(file, STDIN_FILENO) < 0)
                 ft_perror("dup2 input redirection");
-            }
-            close(file);
+            //close(file); where to close it?????
         }
         current_redirect = current_redirect->next_sibling;
     }
