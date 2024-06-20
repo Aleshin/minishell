@@ -24,7 +24,6 @@ char	*heredoc_stdin(char *delimiter)
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
 		{
 			free(line);
-			//printf("BUF %s/n", buf);
 			return (buf);
 		}
 		buf_temp = buf;
@@ -40,29 +39,12 @@ int	main(int argc, char **argv, char **envp)
 	char			*buf;
 	t_Input			*input;
 	t_Token_node	*token;
-//	t_Token_node	*current_token;
+	t_Token_node	*current_token;
 	t_ast_node		*ast_root;
 
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	buf = (char *)malloc(sizeof(char));
-	*buf = '\0';
-/*
-	while ((line = readline("$>")) != NULL)
-	{
-//        if (*input) {
-//            add_history(input);
-            // Обработка команды
-		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
-			break;
-		buf_temp = buf;
-		buf = ft_strjoin(buf_temp, line, "\n");
-		free(buf_temp);
-//		rl_on_new_line();
-	}
-	free(line);
-*/
 	buf = readline("$> "); // Prompt for input command
 	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
@@ -91,10 +73,10 @@ int	main(int argc, char **argv, char **envp)
 	}
 	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
-//	current_token = token;
-//	ast_root = rule_command_line(&current_token, ast_root);
+	current_token = token;
+	ast_root = rule_command_line(&current_token, ast_root);
 //	print_ast_tree(ast_root, 0);
-//	ft_executor(ast_root, envp); ///rename executor!!!!!
+	ft_executor(ast_root, envp); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10
