@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		free_tokens(&token);
 		return (1);
 	}
-//	print_tokens(token);
+	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
