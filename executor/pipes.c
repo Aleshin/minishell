@@ -147,106 +147,128 @@ void write_string_to_file(const char *filename, const char *content) {
     }
 }
 
-void ft_handle_redirection(t_ast_node *redirects) 
-{
-	int file;
+
+void ft_child_process(t_ast_node *commands, char **envp, int *pipefds, int fd_in) {
+    close(pipefds[0]); // Close read end of the pipe in the child process
+    int outfile = -1; // Initialize outfile file descriptor
+    int infile = -1;  // Initialize infile file descriptor
+
+    t_ast_node *redirects = commands->first_child;
     t_ast_node *current_redirect = redirects->first_child;
-	
-	if (redirects == 0)
-		return;  // No redirections to handle
-    
+
+    if (redirects == NULL)
+        return;  // No redirections to handle
+
     while (current_redirect != NULL) {
-        if (current_redirect->type == redirect_out)  
-		{
-            //open file write only, create if not exist, if exist truncate
-			file = open(current_redirect->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (file == -1)
+        if (current_redirect->type == redirect_out) {
+            // Close the previously opened file descriptor
+            if (outfile != -1) {
+                close(outfile);
+            }
+
+            // Open file write only, create if not exist, if exist truncate
+            outfile = open(current_redirect->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+            if (outfile == -1) {
                 ft_perror("Error opening file for output redirection");
-            close(file);
-        } 
-		else if (current_redirect->type == redirect_out_add) 
-		{
-            file = open(current_redirect->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
-            if (file == -1)
+            }
+
+            // Redirect stdout (file descriptor 1) to outfile
+            if (dup2(outfile, STDOUT_FILENO) < 0) {
+                close(outfile);
+                ft_perror("dup2 output redirection");
+            }
+
+            // Close outfile after redirection
+            close(outfile);
+        } else if (current_redirect->type == redirect_out_add) {
+            // Close the previously opened file descriptor
+            if (outfile != -1) {
+                close(outfile);
+            }
+
+            // Open file write only, create if not exist, if exist append
+            outfile = open(current_redirect->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
+            if (outfile == -1) {
                 ft_perror("Error opening file for append output redirection");
-            close(file);
-        } 
-		else if (current_redirect->type == redirect_in) 
-		{
-            file = open(current_redirect->value, O_RDONLY);
-            if (file == -1)
+            }
+
+            // Redirect stdout (file descriptor 1) to outfile
+            if (dup2(outfile, STDOUT_FILENO) < 0) {
+                close(outfile);
+                ft_perror("dup2 append output redirection");
+            }
+
+            // Close outfile after redirection
+            close(outfile);
+        } else if (current_redirect->type == redirect_in) {
+            // Close the previously opened file descriptor
+            if (infile != -1) {
+                close(infile);
+            }
+
+            // Open file read only
+            infile = open(current_redirect->value, O_RDONLY);
+            if (infile == -1) {
                 ft_perror("Error opening file for input redirection");
-                
-            close(file); //where to close it?????
+            }
+
+            // Redirect stdin (file descriptor 0) to infile
+            if (dup2(infile, STDIN_FILENO) < 0) {
+                close(infile);
+                ft_perror("dup2 input redirection");
+            }
+
+            // Close infile after redirection
+            close(infile);
         }
-		// else if (current_redirect->type == heredoc) {
-    
-		// 	write_string_to_file("heredoc.txt", current_redirect->value);
-		// 	int fd = open("heredoc.txt", O_RDONLY);
-		// 	//close(fd);  Where to close it???????
-        //     unlink("heredoc.txt");
-        //     free(current_redirect->value);   
-        // }
+
         current_redirect = current_redirect->next_sibling;
     }
+
+    // Redirect stdin (file descriptor 0) if necessary (for input redirections)
+    if (fd_in != 0) {
+        if (dup2(fd_in, STDIN_FILENO) < 0) {
+            close(fd_in);
+            ft_perror("dup2 input redirection");
+        }
+        close(fd_in); // Close input file descriptor after redirection
+    }
+
+    // Execute the command
+    ft_exec_command(commands, envp);
+    exit(EXIT_SUCCESS); // Exit the child process after command execution
 }
 
-void ft_child_process(t_ast_node *commands, char **envp, int *pipefds, int fd_in)
-{
-	close(pipefds[0]);
-	ft_handle_redirection(commands->first_child);
-	
-	if (dup2(fd_in, STDIN_FILENO) < 0)
-	{
-		close(fd_in);
-		ft_perror("dup2 input redirection");
-	}
-	
-	if (dup2(pipefds[1], STDOUT_FILENO) < 0)
-	{
-		close(pipefds[1]);
-		ft_perror("dup2 output redirection");
-	}
-	
-	ft_exec_command(commands, envp);
-}
+void ft_executor(t_ast_node *ast_tree, char **envp) {
+    t_ast_node *commands;
+    int pipefds[2]; // Pipe file descriptors (in and out)
+    int fd_in = 0;  // Initial input file descriptor (stdin)
 
-//ft_last_child_process(t_ast_node *commands, char **envp, int pipefds[2], int fd_in)
+    commands = ast_tree->first_child;
+    while (commands != NULL) {
+        // Create a pipe if there is a next command to connect with a pipe
+        if (commands->next_sibling != NULL && pipe(pipefds) < 0) {
+            ft_perror("pipe");
+        }
 
-// Function to execute commands with or without pipes
-void	ft_executor(t_ast_node *ast_tree, char **envp)
-{
-	t_ast_node	*commands;
+        pid_t pid = fork();
+        if (pid < 0) {
+            ft_perror("fork");
+        }
 
-    int pipefds[2];//in and out
-    pid_t pid;
-    int fd_in; // File descriptor for the input to the current command
-
-	fd_in = 0;
-	commands = ast_tree->first_child;
-	while (commands != NULL) 
-	{	
-		if (commands->next_sibling != NULL && pipe(pipefds) < 0) 
-			ft_perror("pipe");
-
-		pid = fork();
-        if (pid < 0) 
-			ft_perror("fork");
-		//child process
-		if (pid == 0) 
-		{
-			close(pipefds[0]);
-			ft_child_process(commands, envp, pipefds, fd_in);
-        } 
-		else 
-		{
+        if (pid == 0) {
+            // Child process
+            close(pipefds[0]); // Close read end of the pipe in the child process
+            ft_child_process(commands, envp, pipefds, fd_in);
+            exit(EXIT_SUCCESS); // Exit the child process after command execution
+        } else {
             // Parent process
-			if (commands->next_sibling != NULL)
-            	close(pipefds[1]); // Close write end of pipe
-            fd_in = pipefds[0]; // Update input file descriptor for next command
+            close(pipefds[1]); // Close write end of the pipe in the parent process
+            fd_in = pipefds[0]; // Update input file descriptor for the next command
             commands = commands->next_sibling; // Move to the next command
         }
     }
+
     // Wait for all child processes to finish
     while (wait(NULL) > 0);
 }
