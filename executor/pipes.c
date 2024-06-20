@@ -162,13 +162,6 @@ void ft_handle_redirection(t_ast_node *redirects)
 			file = open(current_redirect->value, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 			if (file == -1)
                 ft_perror("Error opening file for output redirection");
-			//redirect standart output of command to "file"
-            if (dup2(file, STDOUT_FILENO) < 0)
-			{
-				close(file);
-				ft_perror("dup2 output redirection");
-			}
-                
             close(file);
         } 
 		else if (current_redirect->type == redirect_out_add) 
@@ -176,11 +169,6 @@ void ft_handle_redirection(t_ast_node *redirects)
             file = open(current_redirect->value, O_WRONLY | O_CREAT | O_APPEND, 0644);
             if (file == -1)
                 ft_perror("Error opening file for append output redirection");
-            if (dup2(file, STDOUT_FILENO) < 0)
-			{
-				close(file);
-				ft_perror("dup2 append output redirection");
-			} 
             close(file);
         } 
 		else if (current_redirect->type == redirect_in) 
@@ -188,30 +176,42 @@ void ft_handle_redirection(t_ast_node *redirects)
             file = open(current_redirect->value, O_RDONLY);
             if (file == -1)
                 ft_perror("Error opening file for input redirection");
-            if (dup2(file, STDIN_FILENO) < 0)
-			{
-				close(file);
-				ft_perror("dup2 input redirection");
-			}
                 
-            //close(file); //where to close it?????
+            close(file); //where to close it?????
         }
-		else if (current_redirect->type == heredoc) {
+		// else if (current_redirect->type == heredoc) {
     
-			write_string_to_file("heredoc.txt", current_redirect->value);
-			int fd = open("heredoc.txt", O_RDONLY);
-			if (dup2(fd, STDIN_FILENO) < 0)
-			{
-				close(fd);
-				ft_perror("dup2 input redirection");
-			}
-			//close(fd);  Where to close it???????
-            unlink("heredoc.txt");
-            free(current_redirect->value);   
-        }
+		// 	write_string_to_file("heredoc.txt", current_redirect->value);
+		// 	int fd = open("heredoc.txt", O_RDONLY);
+		// 	//close(fd);  Where to close it???????
+        //     unlink("heredoc.txt");
+        //     free(current_redirect->value);   
+        // }
         current_redirect = current_redirect->next_sibling;
     }
 }
+
+void ft_child_process(t_ast_node *commands, char **envp, int *pipefds, int fd_in)
+{
+	close(pipefds[0]);
+	ft_handle_redirection(commands->first_child);
+	
+	if (dup2(fd_in, STDIN_FILENO) < 0)
+	{
+		close(fd_in);
+		ft_perror("dup2 input redirection");
+	}
+	
+	if (dup2(pipefds[1], STDOUT_FILENO) < 0)
+	{
+		close(pipefds[1]);
+		ft_perror("dup2 output redirection");
+	}
+	
+	ft_exec_command(commands, envp);
+}
+
+//ft_last_child_process(t_ast_node *commands, char **envp, int pipefds[2], int fd_in)
 
 // Function to execute commands with or without pipes
 void	ft_executor(t_ast_node *ast_tree, char **envp)
@@ -225,45 +225,24 @@ void	ft_executor(t_ast_node *ast_tree, char **envp)
 	fd_in = 0;
 	commands = ast_tree->first_child;
 	while (commands != NULL) 
-	{
-		if (pipe(pipefds) < 0) 
+	{	
+		if (commands->next_sibling != NULL && pipe(pipefds) < 0) 
 			ft_perror("pipe");
+
 		pid = fork();
         if (pid < 0) 
 			ft_perror("fork");
 		//child process
 		if (pid == 0) 
 		{
-        	// Set up input redirection
-			if (dup2(fd_in, STDIN_FILENO) < 0) ///here the issue, first command is StdIN 
-			{
-				close(fd_in);
-				ft_perror("dup2");
-			}	
-			close(fd_in); // Close input file descriptor
-
-            // Set up output redirection
-			if (commands->next_sibling != NULL) 
-			{
-				if (dup2(pipefds[1], STDOUT_FILENO) < 0)//redirect output
-				{
-					close(pipefds[1]);
-					ft_perror("dup2");
-				}
-                    
-			}
-			close(pipefds[0]); // Close read end of pipe
-			
-			//here goes redirection
-			ft_handle_redirection(commands->first_child);
-			// Execute the command
-			
-			ft_exec_command(commands, envp);
+			close(pipefds[0]);
+			ft_child_process(commands, envp, pipefds, fd_in);
         } 
 		else 
 		{
             // Parent process
-            close(pipefds[1]); // Close write end of pipe
+			if (commands->next_sibling != NULL)
+            	close(pipefds[1]); // Close write end of pipe
             fd_in = pipefds[0]; // Update input file descriptor for next command
             commands = commands->next_sibling; // Move to the next command
         }
