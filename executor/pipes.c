@@ -123,7 +123,29 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 
 }
 
+void write_string_to_file(const char *filename, const char *content) {
+    // Open the file (create if it doesn't exist, truncate if it does)
+    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1) {
+        perror("Error opening file");
+        return;
+    }
 
+    // Write the content to the file
+    ssize_t bytes_written = write(fd, content, sizeof(char) * ft_strlen(content));
+    if (bytes_written == -1) {
+        perror("Error writing to file");
+        close(fd);
+        return;
+    }
+
+    // Close the file
+    if (close(fd) == -1) {
+        perror("Error closing file");
+    } else {
+        printf("Content written to file successfully.\n");
+    }
+}
 
 void ft_handle_redirection(t_ast_node *redirects) 
 {
@@ -174,32 +196,19 @@ void ft_handle_redirection(t_ast_node *redirects)
                 
             //close(file); //where to close it?????
         }
-		else if (current_redirect->type == heredoc)
-		{
-		// char *tmp = heredoc_stdin(current_redirect->value);
-		// printf("TMP %s/n", heredoc_stdin(current_redirect->value));
-		// if (tmp == NULL) { 
-		// 	ft_perror("Error reading heredoc input");
-		// 	// Handle the error appropriately, maybe return or continue
-		// }
-		file = open(heredoc_stdin(current_redirect->value), O_RDONLY);
-		printf("FD %d/n", file);
-		if (file == -1) {
-			ft_perror("Error opening temporary file for input redirection");
-			free(heredoc_stdin(current_redirect->value)); // Free allocated memory for tmp
-			return; // or handle error
-		}
-		if (dup2(file, STDIN_FILENO) < 0)
-		{
-			close(file);
-			ft_perror("dup2 input redirection");
-			free(heredoc_stdin(current_redirect->value)); // Free allocated memory for tmp
-			return; // or handle error
-		}
-		close(file);
-		unlink(heredoc_stdin(current_redirect->value)); // Delete the temporary file
-		free(heredoc_stdin(current_redirect->value));   // Free allocated memory for tmp
-		}
+		else if (current_redirect->type == heredoc) {
+    
+			write_string_to_file("heredoc.txt", current_redirect->value);
+			int fd = open("heredoc.txt", O_RDONLY);
+			if (dup2(fd, STDIN_FILENO) < 0)
+			{
+				close(fd);
+				ft_perror("dup2 input redirection");
+			}
+			//close(fd);  Where to close it???????
+            unlink("heredoc.txt");
+            free(current_redirect->value);   
+        }
         current_redirect = current_redirect->next_sibling;
     }
 }
