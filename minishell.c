@@ -24,7 +24,6 @@ char	*heredoc_stdin(char *delimiter)
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
 		{
 			free(line);
-			//printf("BUF %s/n", buf);
 			return (buf);
 		}
 		buf_temp = buf;
@@ -45,23 +44,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	buf = (char *)malloc(sizeof(char));
-	*buf = '\0';
-/*
-	while ((line = readline("$>")) != NULL)
-	{
-//        if (*input) {
-//            add_history(input);
-            // Обработка команды
-		if (ft_strncmp(line, "exit", ft_strlen(line)) == 0)
-			break;
-		buf_temp = buf;
-		buf = ft_strjoin(buf_temp, line, "\n");
-		free(buf_temp);
-//		rl_on_new_line();
-	}
-	free(line);
-*/
+//	(void)envp;
 	buf = readline("$> "); // Prompt for input command
 	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
@@ -92,7 +75,7 @@ int	main(int argc, char **argv, char **envp)
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
-	//print_ast_tree(ast_root, 0);
+//	print_ast_tree(ast_root, 0);
 	ft_executor(ast_root, envp); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
