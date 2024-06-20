@@ -120,6 +120,8 @@ int				rule_ws(t_Input **input, t_Token_node **token);
 int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_quotes(t_Input **input, t_Token_node **token);
 int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
+int				tokenizer(t_Input **input, t_Token_node **token);
+int				expand_var(t_Token_node **token);
 int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);

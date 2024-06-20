@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	char			*buf;
 	t_Input			*input;
 	t_Token_node	*token;
-	t_Token_node	*current_token;
+//	t_Token_node	*current_token;
 	t_ast_node		*ast_root;
 
 	(void)argc;
@@ -88,11 +88,11 @@ int	main(int argc, char **argv, char **envp)
 		free_tokens(&token);
 		return (1);
 	}
-//	print_tokens(token);
+	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
-	current_token = token;
-	ast_root = rule_command_line(&current_token, ast_root);
-	print_ast_tree(ast_root, 0);
+//	current_token = token;
+//	ast_root = rule_command_line(&current_token, ast_root);
+//	print_ast_tree(ast_root, 0);
 //	ft_executor(ast_root, envp); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
