@@ -123,6 +123,29 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 
 }
 
+void write_string_to_file(const char *filename, const char *content) {
+    // Open the file (create if it doesn't exist, truncate if it does)
+    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+    if (fd == -1) {
+        perror("Error opening file");
+        return;
+    }
+
+    // Write the content to the file
+    ssize_t bytes_written = write(fd, content, sizeof(char) * ft_strlen(content));
+    if (bytes_written == -1) {
+        perror("Error writing to file");
+        close(fd);
+        return;
+    }
+
+    // Close the file
+    if (close(fd) == -1) {
+        perror("Error closing file");
+    } else {
+        printf("Content written to file successfully.\n");
+    }
+}
 
 void ft_handle_redirection(t_ast_node *redirects) 
 {
@@ -141,7 +164,11 @@ void ft_handle_redirection(t_ast_node *redirects)
                 ft_perror("Error opening file for output redirection");
 			//redirect standart output of command to "file"
             if (dup2(file, STDOUT_FILENO) < 0)
-                ft_perror("dup2 output redirection");
+			{
+				close(file);
+				ft_perror("dup2 output redirection");
+			}
+                
             close(file);
         } 
 		else if (current_redirect->type == redirect_out_add) 
@@ -150,7 +177,10 @@ void ft_handle_redirection(t_ast_node *redirects)
             if (file == -1)
                 ft_perror("Error opening file for append output redirection");
             if (dup2(file, STDOUT_FILENO) < 0)
-                ft_perror("dup2 append output redirection");
+			{
+				close(file);
+				ft_perror("dup2 append output redirection");
+			} 
             close(file);
         } 
 		else if (current_redirect->type == redirect_in) 
@@ -159,8 +189,25 @@ void ft_handle_redirection(t_ast_node *redirects)
             if (file == -1)
                 ft_perror("Error opening file for input redirection");
             if (dup2(file, STDIN_FILENO) < 0)
-                ft_perror("dup2 input redirection");
-            //close(file); where to close it?????
+			{
+				close(file);
+				ft_perror("dup2 input redirection");
+			}
+                
+            //close(file); //where to close it?????
+        }
+		else if (current_redirect->type == heredoc) {
+    
+			write_string_to_file("heredoc.txt", current_redirect->value);
+			int fd = open("heredoc.txt", O_RDONLY);
+			if (dup2(fd, STDIN_FILENO) < 0)
+			{
+				close(fd);
+				ft_perror("dup2 input redirection");
+			}
+			//close(fd);  Where to close it???????
+            unlink("heredoc.txt");
+            free(current_redirect->value);   
         }
         current_redirect = current_redirect->next_sibling;
     }
@@ -171,7 +218,7 @@ void	ft_executor(t_ast_node *ast_tree, char **envp)
 {
 	t_ast_node	*commands;
 
-    int pipefds[2];
+    int pipefds[2];//in and out
     pid_t pid;
     int fd_in; // File descriptor for the input to the current command
 
@@ -188,16 +235,22 @@ void	ft_executor(t_ast_node *ast_tree, char **envp)
 		if (pid == 0) 
 		{
         	// Set up input redirection
-			if (dup2(fd_in, STDIN_FILENO) < 0) 
+			if (dup2(fd_in, STDIN_FILENO) < 0) ///here the issue, first command is StdIN 
+			{
+				close(fd_in);
 				ft_perror("dup2");
-	
+			}	
 			close(fd_in); // Close input file descriptor
 
             // Set up output redirection
 			if (commands->next_sibling != NULL) 
 			{
-				if (dup2(pipefds[1], STDOUT_FILENO) < 0) 
-                    ft_perror("dup2");
+				if (dup2(pipefds[1], STDOUT_FILENO) < 0)//redirect output
+				{
+					close(pipefds[1]);
+					ft_perror("dup2");
+				}
+                    
 			}
 			close(pipefds[0]); // Close read end of pipe
 			
