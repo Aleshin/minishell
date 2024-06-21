@@ -52,18 +52,14 @@ int	main(int argc, char **argv, char **envp)
 		free(buf);
 		return (0);
 	}
-	input = (t_Input *)malloc(sizeof(t_Input));
-	input->token_start = 0;
-	input->current_char = 0;
-	input->current_token_type = commandLine;
-	input->string = buf;
 	token = (t_Token_node *)malloc(sizeof(t_Token_node));
 	if (!token)
 		return (1);
 	token->next_token = NULL;
 	token->prev_token = NULL;
 	token->type = commandLine;
-	token->value = NULL;
+	token->value = buf;
+	input = input_init(&token);
 	if (lexer(&input, &token) == 1)
 	{
 		free(buf);
@@ -71,7 +67,7 @@ int	main(int argc, char **argv, char **envp)
 		free_tokens(&token);
 		return (1);
 	}
-	//print_tokens(token);
+//	print_tokens(token);
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);

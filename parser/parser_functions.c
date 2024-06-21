@@ -21,6 +21,7 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 		add_child_node(ast_node, reverse_node); // Add command node with exec node with or no args
 		if (*token == NULL)
 			return (ast_node);
+		ast_node->param++;
 		if ((*token)->type == PIPE)
 		{
 // Next 2 lines add token "pipe" to AST-tree

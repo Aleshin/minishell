@@ -139,16 +139,6 @@ int	double_quotes_remover(t_Token_node **token)
 			join_next_token(token_temp);
 //			token_temp = &(*token_temp)->next_token;
 		}
-/*
-		if ((*token_temp)->prev_token && (*token_temp)->prev_token->type == lexem)
-		{
-			token_temp = &(*token_temp)->prev_token;
-			join_next_token(token_temp);
-		}
-		if ((*token_temp)->next_token && (*token_temp)->next_token->type == lexem)
-			join_next_token(token_temp);
-		(*token_temp)->type = lexem;
-*/
 	}
 	return (0);
 }

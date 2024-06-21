@@ -50,22 +50,6 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 	return(0);
 }
 
-int	rule_var(t_Input **input, t_Token_node **token)
-{
-	if ((*input)->string[(*input)->current_char] == '$')
-	{
-		if ((*input)->current_token_type == lexem)
-			if (token_add(token, input) == 1)
-				return (1);
-		(*input)->current_char++;
-		(*input)->current_token_type = var;
-		if (token_add(token, input) == 1)
-			return (1);
-		return (0);
-	}
-	return(1);
-}
-
 int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 {
 	int	i;
@@ -150,48 +134,6 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 	if ((*input)->string[(*input)->current_char] == '\0')
 		if (token_add(token, input) == 1)
 			return (1);
-	return (0);
-}
-
-int	tokenizer_double_quotes(t_Token_node **token)
-{
-	t_Input			*input_substring;
-	t_Token_node	*token_temp;
-	t_Token_node	*head;
-
-	token_temp = token_last(token);
-	if (token_temp->type != DOUBLE_QUOTED_STRING)
-		return (1);
-	head = token_temp;
-	input_substring = (t_Input *)malloc(sizeof(t_Input));
-	if (!input_substring)
-		return (1);
-	input_substring->current_char = 0;
-	input_substring->token_start = 0;
-	input_substring->current_token_type = token_temp->type;
-	input_substring->string = token_temp->value;
-
-	while (input_substring->string[input_substring->current_char] != '\0')
-	{
-		if(rule_var(&input_substring, &token_temp))
-			if (rule_ws(&input_substring, &token_temp))
-				rule_lexem(&input_substring, &token_temp);
-	}
-	while (token_temp != NULL)
-	{
-		if (expand_var(&token_temp) == 1)
-			return (1);
-		if (token_temp != NULL)
-			token_temp = token_temp->next_token;
-	}
-	token_temp = head;
-	if (token_temp->next_token)
-		delete_token(&token_temp);
-	token_temp->type = SINGLE_QUOTED_STRING;
-	while (token_temp != NULL && token_temp->next_token != NULL)
-		join_next_token(&token_temp);
-//	printf("token substring %d, \"%s\"\n", token_temp->type, token_temp->value);
-	free(input_substring);
 	return (0);
 }
 

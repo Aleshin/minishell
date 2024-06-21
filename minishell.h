@@ -73,6 +73,7 @@ typedef struct Input
 	int					current_char;
 	t_SymbolType		current_token_type;
 	char				*string;
+	struct Token_node	*token;
 }	t_Input;
 
 typedef struct Token_node
@@ -104,6 +105,7 @@ typedef struct ast_keys
 }	t_ast_keys;
 
 // token structure functions
+t_Input			*input_init(t_Token_node **token);
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
 int				token_add(t_Token_node **tokens, t_Input **input);
