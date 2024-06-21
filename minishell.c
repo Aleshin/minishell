@@ -44,7 +44,7 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-//	(void)envp;
+	(void)envp;
 	buf = readline("$> "); // Prompt for input command
 	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
 	// If user enters exit or closes input (Ctrl+D), exit the loop
@@ -75,8 +75,8 @@ int	main(int argc, char **argv, char **envp)
 	ast_root = create_ast_node(commandLine, input->string);
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
-//	print_ast_tree(ast_root, 0);
-	ft_executor(ast_root, envp); ///rename executor!!!!!
+	print_ast_tree(ast_root, 0);
+//	ft_executor(ast_root, envp); ///rename executor!!!!!
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10

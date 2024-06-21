@@ -121,6 +121,7 @@ int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_quotes(t_Input **input, t_Token_node **token);
 int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
 int				tokenizer(t_Input **input, t_Token_node **token);
+int				tokenizer_double_quotes(t_Token_node **token);
 int				expand_var(t_Token_node **token);
 int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
