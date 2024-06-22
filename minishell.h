@@ -67,6 +67,9 @@ typedef enum SymbolType
 	SYMBOL_UNKNOWN
 }	t_SymbolType;
 
+#define READ_END 0
+#define WRITE_END 1
+
 typedef struct Input
 {
 	int					token_start;
