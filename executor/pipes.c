@@ -147,7 +147,16 @@ void write_string_to_file(const char *filename, const char *content) {
     }
 }
 
+void handle_dup_and_close(int old_fd, int new_fd) {
+    if (dup2(old_fd, new_fd) == -1) {
+        perror("dup2");
+        close(old_fd);
+        exit(EXIT_FAILURE);
+    }
+    close(old_fd);
+}
 
+//INPUT REDIRECTIONS
 int input_redir(t_ast_node *commands) {
     int file = -3;  // Initialize file descriptor
     t_ast_node *redirects = commands->first_child;
@@ -167,11 +176,32 @@ int input_redir(t_ast_node *commands) {
                 exit(EXIT_FAILURE);
             }
         }
+        else if (current_redirect->type == heredoc)
+        {
+            int pipefd[2];
+            if (pipe(pipefd) == -1) {
+                perror("pipe");
+                exit(EXIT_FAILURE);
+            }
+
+            // Write heredoc content to the pipe
+            ssize_t n = write(pipefd[WRITE_END], current_redirect->value, ft_strlen(current_redirect->value));
+            if (n == -1) {
+                perror("write");
+                exit(EXIT_FAILURE);
+            }
+
+            close(pipefd[WRITE_END]);  // Close writing end of the pipe after writing all data
+
+            // Use reading end of the pipe as input file descriptor
+            file = pipefd[READ_END];
+        }
         current_redirect = current_redirect->next_sibling;
     }
     return file;
 }
 
+//OUTPUT REDIRECTIONS
 int output_redir(t_ast_node *commands) {
     int file = -3;  // Initialize file descriptor to an invalid value
     int flags;
@@ -182,7 +212,8 @@ int output_redir(t_ast_node *commands) {
     t_ast_node *current_redirect = redirects->first_child;
 
     while (current_redirect != NULL) {
-        if (current_redirect->type == redirect_out || current_redirect->type == redirect_out_add) {
+        if (current_redirect->type == redirect_out || current_redirect->type == redirect_out_add) 
+        {
             if (file != -3) {
                 close(file); // Close previous file descriptor if any
             }
@@ -200,16 +231,12 @@ int output_redir(t_ast_node *commands) {
             if (file == -1) {
                 perror("Error opening file for output redirection");
                 exit(EXIT_FAILURE);
-            }
-
-            
+            }   
         }
         current_redirect = current_redirect->next_sibling;
     }
     return file;
 }
-
-
 
 
 void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp) 
@@ -230,26 +257,31 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
 
     // Redirect input if fd_in is valid
     if (fd_in != 0) {
-        if (dup2(fd_in, STDIN_FILENO) == -1) {
-            perror("dup2");
-            exit(EXIT_FAILURE);
-        }
-        close(fd_in); // Close original input fd
+        handle_dup_and_close(fd_in, STDIN_FILENO);
+        // if (dup2(fd_in, STDIN_FILENO) == -1) {
+        //     perror("dup2");
+        //     exit(EXIT_FAILURE);
+        // }
+        // close(fd_in); // Close original input fd
     }
 
     // Setup output redirection or pipe
     if (command->next_sibling != NULL) {
-        dup2(pipefds[WRITE_END], STDOUT_FILENO); // Duplicate write end to stdout
+        //dup2(pipefds[WRITE_END], STDOUT_FILENO); // Duplicate write end to stdout
+        handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
+        
         close(pipefds[READ_END]); // Close unused read end
-        close(pipefds[WRITE_END]); // Close original write end
+        //close(pipefds[WRITE_END]); // Close original write end
     } else {
+        // This is the last command in the pipeline
         // Redirect output to the file specified in output_fd
         if (output_fd != -3) {
-            if (dup2(output_fd, STDOUT_FILENO) == -1) {
-                perror("dup2");
-                exit(EXIT_FAILURE);
-            }
-            close(output_fd); // Close output_fd after redirection
+            handle_dup_and_close(output_fd, STDOUT_FILENO);
+            // if (dup2(output_fd, STDOUT_FILENO) == -1) {
+            //     perror("dup2");
+            //     exit(EXIT_FAILURE);
+            // }
+            // close(output_fd); // Close output_fd after redirection
         }
     }
 
@@ -265,6 +297,8 @@ void ft_executor(t_ast_node *ast_tree, char **envp)
     int fd_in = 0;  // Initial input file descriptor (stdin)
     int pipefds[2]; // Pipe file descriptors (in and out)
     pid_t pid;
+    pid_t last_pid = -1; // PID of the last child process
+    int status;
 
     commands = ast_tree->first_child;
 
@@ -293,11 +327,27 @@ void ft_executor(t_ast_node *ast_tree, char **envp)
                 close(pipefds[WRITE_END]); // Close write end in parent
                 fd_in = pipefds[READ_END]; // Save read end for next command's input
             }
+            last_pid = pid;
             // Move to the next command
             commands = commands->next_sibling;
         }
     }
 
-    // Wait for all child processes to finish
+// Wait for all child processes and capture the exit status of the last one
+    while (waitpid(last_pid, &status, 0) == -1) {
+        if (errno != EINTR) {
+            perror("waitpid");
+            exit(EXIT_FAILURE);
+        }
+    }
+    //checs if the child process terminated normally
+    if (WIFEXITED(status)) {
+        int exit_status = WEXITSTATUS(status);
+        printf("Last command exited with status: %d\n", exit_status);
+    } else {
+        printf("Last command did not exit normally\n");
+    }
+
+    // Wait for all other child processes to finish
     while (wait(NULL) > 0);
 }
