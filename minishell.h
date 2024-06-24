@@ -107,6 +107,8 @@ typedef struct ast_keys
 //	t_ast_node	*reverse_node;
 }	t_ast_keys;
 
+typedef int (*t_function_pointer)(t_ast_node *);
+
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
 t_Token_node	*token_last(t_Token_node **tokens);
@@ -146,4 +148,5 @@ void			redirects_arguments(t_Token_node **token,
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_executor(t_ast_node *commands, char **envp);
+int 			builtiner(t_ast_node *command);
 #endif
