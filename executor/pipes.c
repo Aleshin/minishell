@@ -120,31 +120,6 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 		argv = NULL;
         exit(EXIT_FAILURE);
     }
-
-}
-
-void write_string_to_file(const char *filename, const char *content) {
-    // Open the file (create if it doesn't exist, truncate if it does)
-    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-    if (fd == -1) {
-        perror("Error opening file");
-        return;
-    }
-
-    // Write the content to the file
-    ssize_t bytes_written = write(fd, content, sizeof(char) * ft_strlen(content));
-    if (bytes_written == -1) {
-        perror("Error writing to file");
-        close(fd);
-        return;
-    }
-
-    // Close the file
-    if (close(fd) == -1) {
-        perror("Error closing file");
-    } else {
-        printf("Content written to file successfully.\n");
-    }
 }
 
 void handle_dup_and_close(int old_fd, int new_fd) {
