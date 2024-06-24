@@ -127,6 +127,31 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
+int	rule_word(t_Input **input, t_Token_node **token)
+{
+	int	i;
+
+	i = (*input)->token_start;
+	while ((*input)->string[i] != '\0')
+	{
+		if (((*input)->string[i] > '0' && (*input)->string[i] < '9')
+			|| ((*input)->string[i] > 'A' && (*input)->string[i] < 'Z')
+			|| ((*input)->string[i] > 'a' && (*input)->string[i] < 'z')
+			|| (*input)->string[i] == '_')
+			(*input)->current_char = ++i;
+		else
+			break ;
+	}
+	if ((*input)->token_start != (*input)->current_char)
+	{
+		(*input)->current_token_type = var;
+		if (token_add(token, input) == 1)
+			return (1);
+		return (0);
+	}
+	return (1);
+}
+
 int	rule_lexem(t_Input **input, t_Token_node **token)
 {
 	(*input)->current_token_type = lexem;

@@ -68,7 +68,14 @@ int	tokenizer_double_quotes(t_Token_node **token)
 	}
 	token_temp = input_substring->token;
 	if (token_temp->next_token)
+	{
+		if (*token == token_temp)
+		{
 		delete_token(&token_temp);
+		*token = token_temp;
+		} else
+			delete_token(&token_temp);
+	}
 	token_temp->type = SINGLE_QUOTED_STRING;
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);
