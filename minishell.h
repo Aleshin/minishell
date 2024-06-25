@@ -109,6 +109,8 @@ typedef struct ast_keys
 
 typedef int (*t_function_pointer)(t_ast_node *);
 
+// signals
+void			setup_signal_handlers();
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
 t_Token_node	*token_last(t_Token_node **tokens);
