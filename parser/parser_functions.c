@@ -82,20 +82,3 @@ t_ast_node	*rule_command(t_Token_node **token)
 	free(ast_keys);
 	return (reverse_node);
 }
-
-void	redirects_arguments(t_Token_node **token, t_ast_keys **ast_keys)
-{
-	t_ast_node	*reverse_node;
-
-	reverse_node = rule_redirect_recursive(token, ast_keys);
-	if (reverse_node != NULL)
-		add_child_node((*ast_keys)->redirects, reverse_node);
-	reverse_node = rule_argument_recursive(token, ast_keys);
-	if (reverse_node != NULL)
-	{
-		add_child_node((*ast_keys)->arguments, reverse_node);
-		redirects_arguments(token, ast_keys);
-	}
-	(*ast_keys)->redirects->param = (*ast_keys)->redirects_num;
-	(*ast_keys)->arguments->param = (*ast_keys)->arguments_num;
-}

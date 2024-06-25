@@ -17,18 +17,15 @@ int	terminal_type(t_Input **input)
 	int	token_type;
 
 	i = (*input)->current_char;
-	if ((*input)->string[i] == '$')
-		token_type = var;
-	else
 	if ((*input)->string[i] == '|')
 		token_type = PIPE;
 	else
-	if ((*input)->string[i] == '<')
-		token_type = redirect_in;
+		if ((*input)->string[i] == '<')
+			token_type = redirect_in;
 	else
-	if ((*input)->string[i] == '>')
-		token_type = redirect_out;
-		else
+		if ((*input)->string[i] == '>')
+			token_type = redirect_out;
+	else
 		return (-1);
 	return (token_type);
 }
@@ -47,7 +44,7 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 	(*input)->current_token_type = token_type;
 		if (token_add(token, input) == 1)
 			return (1);
-	return(0);
+	return (0);
 }
 
 int	rule_quotes_helper(t_Input **input, t_Token_node **token)
@@ -71,8 +68,10 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 	(*input)->token_start++;
 	while ((*input)->string[i] != '\0')
 	{
-		if (((*input)->string[i] == '\'' && (*input)->current_token_type == SINGLE_QUOTED_STRING)
-		|| ((*input)->string[i] == '"' && (*input)->current_token_type == DOUBLE_QUOTED_STRING))
+		if (((*input)->string[i] == '\''
+			&& (*input)->current_token_type == SINGLE_QUOTED_STRING)
+		|| ((*input)->string[i] == '"'
+			&& (*input)->current_token_type == DOUBLE_QUOTED_STRING))
 			break ;
 		i++;
 	}
@@ -127,31 +126,6 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
-int	rule_word(t_Input **input, t_Token_node **token)
-{
-	int	i;
-
-	i = (*input)->token_start;
-	while ((*input)->string[i] != '\0')
-	{
-		if (((*input)->string[i] > '0' && (*input)->string[i] < '9')
-			|| ((*input)->string[i] > 'A' && (*input)->string[i] < 'Z')
-			|| ((*input)->string[i] > 'a' && (*input)->string[i] < 'z')
-			|| (*input)->string[i] == '_')
-			(*input)->current_char = ++i;
-		else
-			break ;
-	}
-	if ((*input)->token_start != (*input)->current_char)
-	{
-		(*input)->current_token_type = var;
-		if (token_add(token, input) == 1)
-			return (1);
-		return (0);
-	}
-	return (1);
-}
-
 int	rule_lexem(t_Input **input, t_Token_node **token)
 {
 	(*input)->current_token_type = lexem;
@@ -175,7 +149,12 @@ int	tokenizer(t_Input **input, t_Token_node **token)
 					tokenizer_double_quotes(token);
 				}
 				else
-					rule_lexem(input, token);
+				{
+					if (rule_var(input, token))
+					{
+						rule_lexem(input, token);
+					}
+				}
 			}
 		}
 	}
