@@ -260,7 +260,7 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
         }
     }
 
-    // Execute the command
+
     ft_exec_command(command, envp);
     perror("execvp");
     exit(EXIT_FAILURE);

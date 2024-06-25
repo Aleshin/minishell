@@ -70,6 +70,16 @@ typedef enum SymbolType
 #define READ_END 0
 #define WRITE_END 1
 
+//декларируем структуру списка переменых среды
+typedef struct t_list 
+{
+  char *name;
+  char *value;
+  //int export; //1 or 0, when you call export it indicates that env is exported to child process
+  struct t_list *next;
+} t_env;
+
+
 typedef struct Input
 {
 	int					token_start;

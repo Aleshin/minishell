@@ -72,8 +72,13 @@ int	main(int argc, char **argv, char **envp)
 	current_token = token;
 	ast_root = rule_command_line(&current_token, ast_root);
 	print_ast_tree(ast_root, 0);
-	builtiner(ast_root->first_child);
-//	ft_executor(ast_root, envp);
+	//builtiner(ast_root->first_child);
+	        // Check if the command is a builtin and execute it if true
+    if (builtiner(ast_root->first_child) == 0) {
+        exit(EXIT_SUCCESS); // Exit the child process after executing the builtin
+    }
+	
+	ft_executor(ast_root, envp);
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10
