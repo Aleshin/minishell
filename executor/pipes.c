@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "./minishell.h"
 
-static void free_arr(char **arr)
+void free_arr(char **arr)
 {
     int i = 0;
     while (arr[i])
@@ -102,7 +102,6 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 	
 	if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) 
         exit(EXIT_FAILURE);
-
 	path = ft_find_abs_path(commands->first_child->next_sibling->value);
     if (path == NULL) 
 	{
@@ -121,7 +120,6 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
         exit(EXIT_FAILURE);
     }
 }
-
 void handle_dup_and_close(int old_fd, int new_fd) {
     if (dup2(old_fd, new_fd) == -1) {
         perror("dup2");
@@ -231,36 +229,26 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
         pipefds[WRITE_END] = output_fd;
 
     // Redirect input if fd_in is valid
-    if (fd_in != 0) {
+    if (fd_in != 0)
         handle_dup_and_close(fd_in, STDIN_FILENO);
-        // if (dup2(fd_in, STDIN_FILENO) == -1) {
-        //     perror("dup2");
-        //     exit(EXIT_FAILURE);
-        // }
-        // close(fd_in); // Close original input fd
-    }
 
     // Setup output redirection or pipe
     if (command->next_sibling != NULL) {
-        //dup2(pipefds[WRITE_END], STDOUT_FILENO); // Duplicate write end to stdout
+        // Duplicate write end to stdout
         handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
         
         close(pipefds[READ_END]); // Close unused read end
-        //close(pipefds[WRITE_END]); // Close original write end
     } else {
         // This is the last command in the pipeline
         // Redirect output to the file specified in output_fd
-        if (output_fd != -3) {
+        if (output_fd != -3) 
             handle_dup_and_close(output_fd, STDOUT_FILENO);
-            // if (dup2(output_fd, STDOUT_FILENO) == -1) {
-            //     perror("dup2");
-            //     exit(EXIT_FAILURE);
-            // }
-            // close(output_fd); // Close output_fd after redirection
-        }
     }
 
-
+    if (builtiner(command) == 0)
+    {
+        exit(EXIT_SUCCESS);
+    }
     ft_exec_command(command, envp);
     perror("execvp");
     exit(EXIT_FAILURE);
