@@ -160,10 +160,17 @@ void			redirects_arguments(t_Token_node **token,
 					t_ast_keys **ast_keys);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
-void			ft_executor(t_ast_node *commands, char **envp);
-int 			builtiner(t_ast_node *command, char **envp);
+void			ft_executor(t_ast_node *commands, t_env **env);
+
+int 			builtiner(t_ast_node *command, t_env **env);
 //helper functions
 char			**cmd_to_argv(t_ast_node *cmd);
 void			free_arr(char **arr);
 int				ft_strcmp(const char *s1, const char *s2);
+t_env *envp_to_linked_list(char **envp);
+char **linked_list_to_envp(t_env **env);
+void lst_dealloc(t_env **head);
+
+void print_env(t_env **env);
+
 #endif

@@ -95,10 +95,11 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	return (argv);
 }
 //function that checks path and if it exists execute execve
-void ft_exec_command(t_ast_node	*commands, char **envp)
+void ft_exec_command(t_ast_node	*commands, t_env **env_var)
 {
 	char *path;
 	char **argv;
+    char **upd_envvar = linked_list_to_envp(env_var);
 	
 	if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) 
         exit(EXIT_FAILURE);
@@ -112,14 +113,16 @@ void ft_exec_command(t_ast_node	*commands, char **envp)
 	argv = cmd_to_argv(commands->first_child->next_sibling);
 	
 	//execve(path, argv, env  var);
-	if (execve(path, argv, envp) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
+	if (execve(path, argv, upd_envvar) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
     { 
 		perror("execve");
 		free_arr(argv);
+        free_arr(upd_envvar);
 		argv = NULL;
         exit(EXIT_FAILURE);
     }
 }
+
 void handle_dup_and_close(int old_fd, int new_fd) {
     if (dup2(old_fd, new_fd) == -1) {
         perror("dup2");
@@ -212,7 +215,7 @@ int output_redir(t_ast_node *commands) {
 }
 
 
-void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp) 
+void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_list) 
 {
     // Handle input redirection
     int input_fd = input_redir(command); 
@@ -245,16 +248,16 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    // if (builtiner(command, envp) == 0)
-    // {
-    //     exit(EXIT_SUCCESS);
-    // }
-    ft_exec_command(command, envp);
+    if (builtiner(command, env_list) == 0)
+    {
+        exit(EXIT_SUCCESS);
+    }
+    ft_exec_command(command, env_list);
     perror("execvp");
     exit(EXIT_FAILURE);
 }
 
-void ft_executor(t_ast_node *ast_tree, char **envp) 
+void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
     t_ast_node *commands; // Commands list
     int fd_in = 0;  // Initial input file descriptor (stdin)
@@ -280,7 +283,7 @@ void ft_executor(t_ast_node *ast_tree, char **envp)
         }
         if (pid == 0) {
             // Child process changes in and out fd accordingly
-            ft_child_process(fd_in, pipefds, commands, envp);
+            ft_child_process(fd_in, pipefds, commands, env_list);
         } else {
             // Parent process
             if (fd_in != 0) {

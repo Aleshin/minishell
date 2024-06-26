@@ -45,9 +45,12 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	setup_signal_handlers();
-	t_env *environment_list;
+	t_env *environment_list; 
 	
 	environment_list = envp_to_linked_list(envp);
+	if (!environment_list) {
+    	return 1;
+    }
 	
 	while (1)
 	{

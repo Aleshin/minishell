@@ -73,12 +73,9 @@ void ft_env(char **envp) {
     }
 }
 
-int	builtiner(t_ast_node *command, char **envp)
+int	builtiner(t_ast_node *command, t_env **env_list)
 {
-	//declare struct t_env to convert **envp to linked list
-	//t_env *environment_list;
-	
-	//environment_list = envp_to_linked_list(envp);
+
 	if (ft_strcmp(command->first_child->next_sibling->value, "echo"))
 		ft_echo(command); //PROTOTYPE
 	else if (ft_strcmp(command->first_child->next_sibling->value, "cd"))
@@ -90,14 +87,11 @@ int	builtiner(t_ast_node *command, char **envp)
 	else if (ft_strcmp(command->first_child->next_sibling->value, "unset"))
 		ft_cd(command);//remove_node(lst, argv[1]);
 	else if (ft_strcmp(command->first_child->next_sibling->value, "env"))
-		ft_env(envp);//in process
+		print_env(env_list);//in process maybe with &
 	else if (ft_strcmp(command->first_child->next_sibling->value, "exit"))
 		ft_cd(command);//TO DO
 	else
 		return (1);
 
-	// Convert the linked list back to envp
-	// Free the old envp and update with the new one
-	// Free the environment list
 	return (0);
 }

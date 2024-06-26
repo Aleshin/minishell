@@ -158,10 +158,10 @@ int list_len(t_env *env)
     return i;
 }
 
-char *linked_list_to_envp(t_env *env)
+char **linked_list_to_envp(t_env **env)
 {
     int i = 0;
-    int len = list_len(env);
+    int len = list_len(*env);
     char **arr_of_words = malloc((len + 1) * sizeof(char *));
     if (arr_of_words == NULL)
     {
@@ -169,10 +169,12 @@ char *linked_list_to_envp(t_env *env)
         return NULL;
     }
 
-    while (env != NULL)
+    t_env *current = *env; // Start at the head of the linked list
+
+    while (current != NULL)
     {
         // Allocate space for the "key=value" string
-        char *env_string = malloc(strlen(env->name) + strlen(env->value) + 2);
+        char *env_string = malloc(strlen(current->name) + strlen(current->value) + 2);
         if (env_string == NULL)
         {
             perror("malloc");
@@ -182,10 +184,10 @@ char *linked_list_to_envp(t_env *env)
         }
         
         // Format "key=value"
-        ft_strjoin(env->name, "=", env->value);
+        sprintf(env_string, "%s=%s", current->name, current->value);
         arr_of_words[i++] = env_string;
         
-        env = env->next;
+        current = current->next; // Move to the next element in the linked list
     }
     
     // Null-terminate the array
@@ -195,9 +197,9 @@ char *linked_list_to_envp(t_env *env)
 
 
 //печать списка (поменять принтф на что то другое)
-void print_env(t_env *env)
+void print_env(t_env **env)
 {
-    t_env *curr = env;
+    t_env *curr = *env;
 
     while (curr != NULL) 
     {
@@ -267,7 +269,7 @@ void ft_export(t_env **lst, char *str)
     if (new_val == NULL || !check_varname(new_val[0]))
     {
         //to check if there is a name, maybe later I dont need it
-        put_error_fd("export", str, "not a valid identifier");
+        printf("export %s not a valid identifier", str);
         return ;
     }
     //maybe add here: if no '=' return
@@ -318,35 +320,35 @@ void ft_export(t_env **lst, char *str)
 //generic function for exec
 
 
-int main (int argc, char **argv, char **envp)
-{
-char *buf;
-    //int id;
-    (void)argc;
-    (void)argv;
-    //(void)envp;
-    t_env *environment_list = envp_to_linked_list(envp);
-    while (1) 
-    {
-        buf = readline("$> "); // Prompt for input command./
-        if (buf == NULL || strcmp(buf, "exit") == 0) 
-        {
-            // If user enters exit or closes input (Ctrl+D), exit the loop
-            free(buf);
-            break;
-        }
-        // Split buf into command and arguments  init_parse_tree(buf);
-        char *command = strtok(buf, " ");
-        char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
-        args[0] = command;
-        args[1] = strtok(NULL, " ");
-        args[2] = NULL; // NULL terminate the array
+// int main (int argc, char **argv, char **envp)
+// {
+// char *buf;
+//     //int id;
+//     (void)argc;
+//     (void)argv;
+//     //(void)envp;
+//     t_env *environment_list = envp_to_linked_list(envp);
+//     while (1) 
+//     {
+//         buf = readline("$> "); // Prompt for input command./
+//         if (buf == NULL || strcmp(buf, "exit") == 0) 
+//         {
+//             // If user enters exit or closes input (Ctrl+D), exit the loop
+//             free(buf);
+//             break;
+//         }
+//         // Split buf into command and arguments  init_parse_tree(buf);
+//         char *command = strtok(buf, " ");
+//         char **args = malloc(sizeof(char *) * 3); // assuming maximum 2 argument REVISAR
+//         args[0] = command;
+//         args[1] = strtok(NULL, " ");
+//         args[2] = NULL; // NULL terminate the array
        
-        ft_env(&environment_list, args);
-        free(args); // Free the memory allocated for args
-        free(buf);  // Free the memory allocated for buf
-    }
-    //here I need to clean nvironment_list when I dont need it anymore
-    lst_dealloc(&environment_list);
-    return 0;
-}
+//         ft_env(&environment_list, args);
+//         free(args); // Free the memory allocated for args
+//         free(buf);  // Free the memory allocated for buf
+//     }
+//     //here I need to clean nvironment_list when I dont need it anymore
+//     lst_dealloc(&environment_list);
+//     return 0;
+// }
