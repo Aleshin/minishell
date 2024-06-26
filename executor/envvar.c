@@ -1,34 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <strings.h>
-#include "libft/libft.h"
-#include <unistd.h>
-#include <string.h>
-#include <sys/wait.h>
-#include <readline/readline.h>
-#include <readline/history.h>
 #include "minishell.h"
-
-// //декларируем структуру списка переменых среды
-// typedef struct t_list 
-// {
-//   char *name;
-//   char *value;
-//   //int export; //1 or 0, when you call export it indicates that env is exported to child process
-//   struct t_list *next;
-// } t_env;
-
-//функция для очистки массива строк
-void free_arr(char **arr)
-{
-    int i = 0;
-    while (arr[i])
-    {
-        free(arr[i]);
-        i++;
-    }
-    free(arr);
-}
 
 //функция делит каждую строку массива на 2 строки(до и после первого '=')
 char **split_env(char *env, char c) //c == '='
@@ -48,7 +18,6 @@ char **split_env(char *env, char c) //c == '='
     {
         return NULL;
     }
-        
     //размер строки после знака =
     len_after = size - len_before - 1;
     res[0] = malloc(sizeof(char) * len_before + 1);
@@ -74,8 +43,6 @@ char **split_env(char *env, char c) //c == '='
     res[1][i] = '\0';
     return (res);
 }
-
-
 
 t_env	*ft_lstnew_env(char *name, char *value)
 {
@@ -328,26 +295,26 @@ void ft_export(t_env **lst, char *str)
 }
 
 //общая функция для модификации переменных среды, maybe i dont need it after
-void ft_env(t_env **lst, char **argv)
-{
-    if ((*lst) != NULL)
-	{
-		if (!ft_strcmp(argv[0], "unset") && argv[1])
-        {
-           remove_node(lst, argv[1]);
-           //printf("unsetted\n"); som env I should unset 2 times. Why?
-        }
-        else if (!ft_strcmp(argv[0], "env") && !argv[1])
-            print_env(*lst);
-        else if (!ft_strcmp(argv[0], "export")) ///what it does exactly?
-        {
-            ft_export(lst, argv[1]);
-        }
+// void ft_env(char **argv, t_env **lst, )
+// {
+//     if ((*lst) != NULL)
+// 	{
+// 		if (!ft_strcmp(argv[0], "unset") && argv[1])
+//         {
+//            remove_node(lst, argv[1]);
+//            //printf("unsetted\n"); som env I should unset 2 times. Why?
+//         }
+//         else if (!ft_strcmp(argv[0], "env") && !argv[1])
+//             print_env(*lst);
+//         else if (!ft_strcmp(argv[0], "export")) ///what it does exactly?
+//         {
+//             ft_export(lst, argv[1]);
+//         }
             
-        else
-            put_error_fd(argv[0], argv[1], "No such file or directory");
-	}
-}
+//         else
+//             put_error_fd(argv[0], argv[1], "No such file or directory");
+// 	}
+// }
 //generic function for exec
 
 

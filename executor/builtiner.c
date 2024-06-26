@@ -63,7 +63,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
-int	builtiner(t_ast_node *command)
+int	builtiner(t_ast_node *command, char **envp)
 {
 	if (ft_strcmp(command->first_child->next_sibling->value, "echo"))
 		ft_echo(command);
@@ -74,9 +74,9 @@ int	builtiner(t_ast_node *command)
 	else if (ft_strcmp(command->first_child->next_sibling->value, "export"))
 		ft_cd(command);
 	else if (ft_strcmp(command->first_child->next_sibling->value, "unset"))
-		ft_cd(command);
+		ft_cd(command);//remove_node(lst, argv[1]);
 	else if (ft_strcmp(command->first_child->next_sibling->value, "env"))
-		ft_cd(command);
+		ft_env(command->first_child->next_sibling->value);//in process
 	else if (ft_strcmp(command->first_child->next_sibling->value, "exit"))
 		ft_cd(command);
 	else

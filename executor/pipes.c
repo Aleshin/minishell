@@ -245,7 +245,7 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    if (builtiner(command) == 0)
+    if (builtiner(command, envp) == 0)
     {
         exit(EXIT_SUCCESS);
     }
