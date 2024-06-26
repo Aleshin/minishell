@@ -25,13 +25,13 @@ int	twin_redirects(t_Token_node **token)
 	if ((*token)->next_token != NULL)
 	{
 		if ((*token)->type == redirect_in
-		&& (*token)->next_token->type == redirect_in)
+			&& (*token)->next_token->type == redirect_in)
 		{
 			(*token)->type = heredoc;
 			join_next_token(token);
 		}
 		if ((*token)->type == redirect_out
-		&& (*token)->next_token->type == redirect_out)
+			&& (*token)->next_token->type == redirect_out)
 		{
 			(*token)->type = redirect_out_add;
 			join_next_token(token);
@@ -43,9 +43,9 @@ int	twin_redirects(t_Token_node **token)
 int	expand_redirects(t_Token_node **token)
 {
 	if ((*token)->next_token != NULL
-	&& ((*token)->type == redirect_in
-	|| (*token)->type == redirect_out
-	|| (*token)->type == redirect_out_add))
+		&& ((*token)->type == redirect_in
+			|| (*token)->type == redirect_out
+			|| (*token)->type == redirect_out_add))
 	{
 		if ((*token)->next_token->type != lexem)
 			return (1);
@@ -61,37 +61,17 @@ int	expand_heredoc(t_Token_node **token)
 	char	*value_temp;
 
 	if ((*token)->next_token != NULL
-	&& (*token)->type == heredoc)
+		&& (*token)->type == heredoc)
 	{
 		if ((*token)->next_token->type != lexem)
 			return (1);
 		(*token)->next_token->type = (*token)->type;
 		value_temp = (*token)->next_token->value;
-		(*token)->next_token->value = heredoc_stdin((*token)->next_token->value);
+		(*token)->next_token->value
+			= heredoc_stdin((*token)->next_token->value);
 		(*token)->next_token->type = DOUBLE_QUOTED_STRING;
 		tokenizer_double_quotes(&(*token)->next_token);
 		(*token)->next_token->type = heredoc;
-		free(value_temp);
-		delete_token(token);
-		token = &(*token)->next_token;
-	}
-	return (0);
-}
-
-int	expand_var(t_Token_node **token)
-{
-	char	*value_temp;
-
-	if ((*token)->next_token != NULL
-	&& (*token)->type == var)
-	{
-		if ((*token)->next_token->type != lexem)
-			return (1);
-		value_temp = (*token)->next_token->value;
-		if (getenv((*token)->next_token->value) == NULL)
-			(*token)->next_token->value = ft_strdup("");
-		else
-			(*token)->next_token->value = ft_strdup(getenv((*token)->next_token->value));
 		free(value_temp);
 		delete_token(token);
 		token = &(*token)->next_token;
@@ -134,7 +114,7 @@ int	double_quotes_remover(t_Token_node **token)
 			if ((*token_temp)->next_token->type == DOUBLE_QUOTED_STRING)
 			{
 				delete_token(&(*token_temp)->next_token);
-				break;
+				break ;
 			}
 			join_next_token(token_temp);
 //			token_temp = &(*token_temp)->next_token;
@@ -153,7 +133,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 	while (*token_temp != NULL)
 	{
 		if (ws_remover(token_temp) == 1)
-			break;
+			break ;
 		twin_redirects(token_temp);
 		if (quotes_remover(token_temp) && *token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
@@ -165,13 +145,8 @@ int	lexer(t_Input **input, t_Token_node **token)
 			return (1);
 		if (expand_heredoc(token_temp) == 1)
 			return (1);
-		if (expand_var(token_temp) == 1)
-			return (1);
-//		if (double_quotes_remover(token_temp) == 1)
-//			return (1);
 		if (*token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
 	}
-//	token_temp = token;
 	return (0);
 }

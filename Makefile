@@ -4,8 +4,10 @@ LDFLAGS = -L./libft -lft -lreadline
 INCLUDES = -I./libft -I.
 
 SRC = minishell.c ./lexer/token_functions.c ./lexer/tokenizer_functions.c ./lexer/lexer_functions.c\
- ./lexer/tokenizer_substring.c ./parser/ast_structure.c ./parser/parser_functions.c ./parser/command_functions.c\
-./parser/redirect_functions.c ./executor/pipes.c ./executor/builtiner.c
+ ./lexer/tokenizer_substring.c  ./lexer/tokenizer_variables.c\
+ ./parser/ast_structure.c ./parser/parser_functions.c ./parser/command_functions.c\
+ ./executor/pipes.c ./executor/builtiner.c\
+  signals.c
 OBJ = $(SRC:.c=.o)
 NAME = minishell
 

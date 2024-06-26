@@ -119,6 +119,8 @@ typedef struct ast_keys
 
 typedef int (*t_function_pointer)(t_ast_node *);
 
+// signals
+void			setup_signal_handlers();
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
 t_Token_node	*token_last(t_Token_node **tokens);
@@ -132,14 +134,15 @@ int				print_tokens(t_Token_node *token_temp);
 // lexer functions
 char			*heredoc_stdin(char *delimiter);
 int				rule_terminals(t_Input **input, t_Token_node **token);
-int				rule_word(t_Input **input, t_Token_node **token);
+//int				rule_word(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);
 int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_quotes(t_Input **input, t_Token_node **token);
-int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
+//int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
 int				tokenizer(t_Input **input, t_Token_node **token);
 int				tokenizer_double_quotes(t_Token_node **token);
-int				expand_var(t_Token_node **token);
+//int				expand_var(t_Token_node **token);
+int				rule_var(t_Input **input, t_Token_node **token);
 int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);

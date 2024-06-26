@@ -45,48 +45,48 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	(void)envp;
-	buf = readline("$> "); // Prompt for input command
-	if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
-	// If user enters exit or closes input (Ctrl+D), exit the loop
+	setup_signal_handlers();
+	while (1)
 	{
-		free(buf);
-		return (0);
-	}
-	token = (t_Token_node *)malloc(sizeof(t_Token_node));
-	if (!token)
-		return (1);
-	token->next_token = NULL;
-	token->prev_token = NULL;
-	token->type = commandLine;
-	token->value = buf;
-	input = input_init(&token);
-	if (lexer(&input, &token) == 1)
-	{
-		free(buf);
-		free(input);
+		buf = readline("$> "); // Prompt for input command
+		if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
+		// If user enters exit or closes input (Ctrl+D), exit the loop
+		{
+			free(buf);
+			return (0);
+		}
+		add_history(buf);
+		token = (t_Token_node *)malloc(sizeof(t_Token_node));
+		if (!token)
+			return (1);
+		token->next_token = NULL;
+		token->prev_token = NULL;
+		token->type = commandLine;
+		token->value = buf;
+		input = input_init(&token);
+		if (lexer(&input, &token) == 1)
+		{
+			free(buf);
+			free(input);
+			free_tokens(&token);
+			return (1);
+		}
+		//	print_tokens(token);
+		ast_root = create_ast_node(commandLine, input->string);
+		current_token = token;
+		ast_root = rule_command_line(&current_token, ast_root);
+//		print_ast_tree(ast_root, 0);
+//		builtiner(ast_root->first_child);
+		ft_executor(ast_root, envp);
+		free_ast(&ast_root);
 		free_tokens(&token);
-		return (1);
+		free (buf);
+		free (input);
 	}
-//	print_tokens(token);
-	ast_root = create_ast_node(commandLine, input->string);
-	current_token = token;
-	ast_root = rule_command_line(&current_token, ast_root);
-	print_ast_tree(ast_root, 0);
-	//builtiner(ast_root->first_child);
-	        // Check if the command is a builtin and execute it if true
-    if (builtiner(ast_root->first_child) == 0) {
-        exit(EXIT_SUCCESS); // Exit the child process after executing the builtin
-    }
-	
-	ft_executor(ast_root, envp);
+		return (0);
+}
 // examples for testing
 // du ./ | sort -n | tail -10
 // ls -l | sort -k 5 -n | tail -10
 // cat minishell.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
 // ps aux | awk '{print $1}' | sort | uniq -c | sort -nr
-	free_ast(&ast_root);
-	free_tokens(&token);
-	free (buf);
-	free (input);
-	return (0);
-}
