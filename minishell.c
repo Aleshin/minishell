@@ -44,8 +44,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	(void)envp;
 	setup_signal_handlers();
+	t_env *environment_list;
+	
+	environment_list = envp_to_linked_list(envp);
+	
 	while (1)
 	{
 		buf = readline("$> "); // Prompt for input command
@@ -76,8 +79,8 @@ int	main(int argc, char **argv, char **envp)
 		current_token = token;
 		ast_root = rule_command_line(&current_token, ast_root);
 //		print_ast_tree(ast_root, 0);
-//		builtiner(ast_root->first_child);
-		ft_executor(ast_root, envp);
+//		builtiner(ast_root->first_child); moved before executor
+		ft_executor(ast_root, &environment_list);
 		free_ast(&ast_root);
 		free_tokens(&token);
 		free (buf);

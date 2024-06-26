@@ -245,10 +245,10 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, char **envp
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    if (builtiner(command, envp) == 0)
-    {
-        exit(EXIT_SUCCESS);
-    }
+    // if (builtiner(command, envp) == 0)
+    // {
+    //     exit(EXIT_SUCCESS);
+    // }
     ft_exec_command(command, envp);
     perror("execvp");
     exit(EXIT_FAILURE);

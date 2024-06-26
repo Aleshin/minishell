@@ -63,23 +63,41 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
+void ft_env(char **envp) {
+	int i;
+	i = 0;
+	while (envp[i] != NULL)
+    {
+        printf("%s\n", envp[i]);
+		i++;
+    }
+}
+
 int	builtiner(t_ast_node *command, char **envp)
 {
+	//declare struct t_env to convert **envp to linked list
+	//t_env *environment_list;
+	
+	//environment_list = envp_to_linked_list(envp);
 	if (ft_strcmp(command->first_child->next_sibling->value, "echo"))
-		ft_echo(command);
+		ft_echo(command); //PROTOTYPE
 	else if (ft_strcmp(command->first_child->next_sibling->value, "cd"))
-		ft_cd(command);
+		ft_cd(command); //TO DO
 	else if (ft_strcmp(command->first_child->next_sibling->value, "pwd"))
-		ft_pwd();
+		ft_pwd(); //PROTOTYPE
 	else if (ft_strcmp(command->first_child->next_sibling->value, "export"))
-		ft_cd(command);
+		ft_cd(command); //TO DO
 	else if (ft_strcmp(command->first_child->next_sibling->value, "unset"))
 		ft_cd(command);//remove_node(lst, argv[1]);
 	else if (ft_strcmp(command->first_child->next_sibling->value, "env"))
-		ft_env(command->first_child->next_sibling->value);//in process
+		ft_env(envp);//in process
 	else if (ft_strcmp(command->first_child->next_sibling->value, "exit"))
-		ft_cd(command);
+		ft_cd(command);//TO DO
 	else
 		return (1);
+
+	// Convert the linked list back to envp
+	// Free the old envp and update with the new one
+	// Free the environment list
 	return (0);
 }
