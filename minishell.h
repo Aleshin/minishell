@@ -87,6 +87,7 @@ typedef struct Input
 	t_SymbolType		current_token_type;
 	char				*string;
 	struct Token_node	*token;
+	t_env				*env;
 }	t_Input;
 
 typedef struct Token_node
@@ -161,7 +162,7 @@ void			redirects_arguments(t_Token_node **token,
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_executor(t_ast_node *commands, t_env **env);
-
+int				ft_strcmp(const char *s1, const char *s2);
 int 			builtiner(t_ast_node *command, t_env **env);
 //helper functions
 char			**cmd_to_argv(t_ast_node *cmd);

@@ -50,15 +50,26 @@ int	detect_var(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
-int	expand_var(t_Token_node **token)
+char	*ft_getenv(t_Input *input, char *value)
+{
+	while (input->env->next != NULL)
+	{
+		if (ft_strcmp(input->env->name, value))
+			return (input->env->value);
+		input->env = input->env->next;
+	}
+	return (NULL);
+}
+
+int	expand_var(t_Input *input, t_Token_node **token)
 {
 	char	*value_temp;
 
 	value_temp = (*token)->value;
-	if (getenv((*token)->value) == NULL)
+	if (ft_getenv(input, (*token)->value) == NULL)
 		(*token)->value = ft_strdup("");
 	else
-		(*token)->value = ft_strdup(getenv((*token)->value));
+		(*token)->value = ft_strdup(ft_getenv(input, (*token)->value));
 	free(value_temp);
 	return (0);
 }
@@ -70,7 +81,7 @@ int	rule_var(t_Input **input, t_Token_node **token)
 	if (detect_var(input, token))
 		return (1);
 	token_temp = token_last(token);
-	expand_var(&token_temp);
+	expand_var(*input, &token_temp);
 	(*token)->type = SINGLE_QUOTED_STRING;
 	return (0);
 }

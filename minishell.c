@@ -70,6 +70,8 @@ int	main(int argc, char **argv, char **envp)
 		token->type = commandLine;
 		token->value = buf;
 		input = input_init(&token);
+		input->env = environment_list;
+		printf("env %s\n", input->env->value);
 		if (lexer(&input, &token) == 1)
 		{
 			free(buf);
