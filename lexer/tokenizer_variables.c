@@ -82,6 +82,6 @@ int	rule_var(t_Input **input, t_Token_node **token)
 		return (1);
 	token_temp = token_last(token);
 	expand_var(*input, &token_temp);
-	(*token)->type = SINGLE_QUOTED_STRING;
+	token_temp->type = SINGLE_QUOTED_STRING;
 	return (0);
 }
