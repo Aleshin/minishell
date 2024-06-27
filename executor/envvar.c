@@ -158,35 +158,28 @@ int list_len(t_env *env)
     return i;
 }
 
-char **linked_list_to_envp(t_env **env)
-{
+char **linked_list_to_envp(t_env **env) {
     int i = 0;
     int len = list_len(*env);
     char **arr_of_words = malloc((len + 1) * sizeof(char *));
-    if (arr_of_words == NULL)
-    {
+    if (arr_of_words == NULL) {
         perror("malloc");
         return NULL;
     }
 
     t_env *current = *env; // Start at the head of the linked list
 
-    while (current != NULL)
-    {
-        // Allocate space for the "key=value" string
-        char *env_string = malloc(strlen(current->name) + strlen(current->value) + 2);
-        if (env_string == NULL)
-        {
+    while (current != NULL) {
+        // Allocate space for the "key=value" string using ft_strjoin
+        char *env_string = ft_strjoin(current->name, "=", current->value);
+        if (env_string == NULL) {
             perror("malloc");
             // Free already allocated strings and array
             free_arr(arr_of_words);
             return NULL;
         }
-        
-        // Format "key=value"
-        sprintf(env_string, "%s=%s", current->name, current->value);
+
         arr_of_words[i++] = env_string;
-        
         current = current->next; // Move to the next element in the linked list
     }
     
@@ -280,7 +273,7 @@ void ft_export(t_env **lst, char *str)
         if (!ft_strcmp(new_val[0], curr->name))
         {
             free(curr->value);
-            curr->value = strdup(new_val[1]);
+            curr->value = ft_strdup(new_val[1]);
             return ;
         }
         curr = curr->next;
