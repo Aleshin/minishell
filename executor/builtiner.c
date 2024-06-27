@@ -63,15 +63,6 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
-void ft_env(char **envp) {
-	int i;
-	i = 0;
-	while (envp[i] != NULL)
-    {
-        printf("%s\n", envp[i]);
-		i++;
-    }
-}
 
 int	builtiner(t_ast_node *command, t_env **env_list)
 {
@@ -85,13 +76,13 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	else if (ft_strcmp(command->first_child->next_sibling->value, "export"))
 		ft_cd(command); //TO DO
 	else if (ft_strcmp(command->first_child->next_sibling->value, "unset"))
-		ft_cd(command);//remove_node(lst, argv[1]);
+		remove_node(env_list, command->first_child->next_sibling->value);
 	else if (ft_strcmp(command->first_child->next_sibling->value, "env"))
 		print_env(env_list);//in process maybe with &
 	else if (ft_strcmp(command->first_child->next_sibling->value, "exit"))
 		ft_cd(command);//TO DO
 	else
-		return (1);
+		return (1); //comand is not a builtin
 
 	return (0);
 }

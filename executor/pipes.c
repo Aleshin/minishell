@@ -247,11 +247,6 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
         if (output_fd != -3) 
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
-
-    if (builtiner(command, env_list) == 0)
-    {
-        exit(EXIT_SUCCESS);
-    }
     ft_exec_command(command, env_list);
     perror("execvp");
     exit(EXIT_FAILURE);
@@ -275,6 +270,16 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
                 perror("pipe");
                 exit(EXIT_FAILURE);
             }
+        }
+        if (builtiner(commands, env_list) == 0)
+        {
+            if(commands->next_sibling != NULL)
+            {
+                //close write end in parent
+                close(pipefds[WRITE_END]);
+                fd_in = pipefds[READ_END];
+            }
+            commands = commands->next_sibling;
         }
         pid = fork();
         if (pid == -1) {

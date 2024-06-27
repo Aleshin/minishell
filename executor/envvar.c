@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-//функция делит каждую строку массива на 2 строки(до и после первого '=')
+//split string to *arr[2] (before and after first '=')
 char **split_env(char *env, char c) //c == '='
 {
     int len_before = 0;
@@ -10,15 +10,14 @@ char **split_env(char *env, char c) //c == '='
     char **res = malloc(sizeof(char *) * 2);
     if (NULL == res)
         return NULL;
-    //размер строки до знака =
+    //string size before =
     while (env[len_before] != c && env[len_before] != '\0')
         len_before++;
-    //this is only fornow maybe
     if (len_before == 0)
     {
         return NULL;
     }
-    //размер строки после знака =
+    //string size after =
     len_after = size - len_before - 1;
     res[0] = malloc(sizeof(char) * len_before + 1);
     res[1] = malloc(sizeof(char) * len_after + 1);
