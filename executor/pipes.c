@@ -95,32 +95,35 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	return (argv);
 }
 //function that checks path and if it exists execute execve
-void ft_exec_command(t_ast_node	*commands, t_env **env_var)
-{
-	char *path;
-	char **argv;
+void ft_exec_command(t_ast_node *commands, t_env **env_var) {
+    char *path;
+    char **argv;
     char **upd_envvar = linked_list_to_envp(env_var);
-	
-	if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) 
-        exit(EXIT_FAILURE);
-	path = ft_find_abs_path(commands->first_child->next_sibling->value);
-    if (path == NULL) 
-	{
-		print_error(commands->first_child->next_sibling->value);
-        //fprintf(stderr, "Command not found: %s\n", commands->first_child->value);
+    
+    if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) {
         exit(EXIT_FAILURE);
     }
-	argv = cmd_to_argv(commands->first_child->next_sibling);
-	
-	//execve(path, argv, env  var);
-	if (execve(path, argv, upd_envvar) == -1) ///NULL stands for inherit env from the calling process, e.g. minishell
-    { 
-		perror("execve");
-		free_arr(argv);
-        free_arr(upd_envvar);
-		argv = NULL;
+    path = ft_find_abs_path(commands->first_child->next_sibling->value);
+    if (path == NULL) {
+        print_error(commands->first_child->next_sibling->value);
         exit(EXIT_FAILURE);
     }
+    argv = cmd_to_argv(commands->first_child->next_sibling);
+
+    if (is_builtin(commands->first_child->next_sibling->value)) {
+        builtiner(commands, env_var);
+    } else {
+        // Execute the command using execve
+        if (execve(path, argv, upd_envvar) == -1) {
+            perror("execve");
+            free_arr(argv);
+            free_arr(upd_envvar);
+            exit(EXIT_FAILURE);
+        }
+    }
+
+    free_arr(argv);
+    free_arr(upd_envvar);
 }
 
 void handle_dup_and_close(int old_fd, int new_fd) {
@@ -247,21 +250,52 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
         if (output_fd != -3) 
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
+
+    // if (builtiner(command, env_list) == 0)
+    // {
+    //     exit(EXIT_SUCCESS);
+    // }
     ft_exec_command(command, env_list);
     perror("execvp");
     exit(EXIT_FAILURE);
 }
 
-void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
-{
-    t_ast_node *commands; // Commands list
+void ft_executor(t_ast_node *ast_tree, t_env **env_list) {
+    t_ast_node *commands = ast_tree->first_child;
     int fd_in = 0;  // Initial input file descriptor (stdin)
     int pipefds[2]; // Pipe file descriptors (in and out)
     pid_t pid;
     pid_t last_pid = -1; // PID of the last child process
     int status;
+    char *cmd = commands->first_child->next_sibling->value;
 
-    commands = ast_tree->first_child;
+    if (commands->next_sibling == NULL && is_builtin(cmd)) {
+        // Only one command in the list and it's a builtin
+
+        // Set up input redirection if needed
+        int input_fd = input_redir(commands);
+        if (input_fd != -3) {
+            if (input_fd != STDIN_FILENO) {
+                handle_dup_and_close(input_fd, STDIN_FILENO);
+            }
+        }
+
+        // Set up output redirection if needed
+        int output_fd = output_redir(commands);
+        if (output_fd != -3) {
+            if (output_fd != STDOUT_FILENO) {
+                handle_dup_and_close(output_fd, STDOUT_FILENO);
+            }
+        }
+
+        // Execute the built-in command directly in the parent process
+        builtiner(commands, env_list);
+
+        // Return from function after executing the built-in command
+        exit(EXIT_SUCCESS);
+    }
+
+    // More than one command or not a built-in command case
 
     while (commands != NULL) {
         // Create pipe only if there is another command after this one
@@ -271,16 +305,6 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
                 exit(EXIT_FAILURE);
             }
         }
-        if (builtiner(commands, env_list) == 0)
-        {
-            if(commands->next_sibling != NULL)
-            {
-                //close write end in parent
-                close(pipefds[WRITE_END]);
-                fd_in = pipefds[READ_END];
-            }
-            commands = commands->next_sibling;
-        }
         pid = fork();
         if (pid == -1) {
             perror("fork");
@@ -288,7 +312,33 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
         }
         if (pid == 0) {
             // Child process changes in and out fd accordingly
-            ft_child_process(fd_in, pipefds, commands, env_list);
+            if (fd_in != 0) {
+                if (fd_in != STDIN_FILENO) {
+                    close(STDIN_FILENO); // Close current stdin if not standard input
+                    if (dup2(fd_in, STDIN_FILENO) == -1) {
+                        perror("dup2");
+                        exit(EXIT_FAILURE);
+                    }
+                    close(fd_in); // Close old input fd after duplication
+                }
+            }
+
+            // Set up output redirection if needed
+            int output_fd = output_redir(commands);
+            if (output_fd != -3) {
+                if (output_fd != STDOUT_FILENO) {
+                    close(STDOUT_FILENO); // Close current stdout if not standard output
+                    if (dup2(output_fd, STDOUT_FILENO) == -1) {
+                        perror("dup2");
+                        exit(EXIT_FAILURE);
+                    }
+                    close(output_fd); // Close old output fd after duplication
+                }
+            }
+
+            // Execute the command in the child process
+            ft_child_process(0, pipefds, commands, env_list);
+            exit(EXIT_SUCCESS); // Exit child process
         } else {
             // Parent process
             if (fd_in != 0) {
@@ -298,20 +348,20 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
                 close(pipefds[WRITE_END]); // Close write end in parent
                 fd_in = pipefds[READ_END]; // Save read end for next command's input
             }
-            last_pid = pid;
-            // Move to the next command
-            commands = commands->next_sibling;
+            last_pid = pid; // Store last child PID
+            commands = commands->next_sibling; // Move to the next command
         }
     }
 
-// Wait for all child processes and capture the exit status of the last one
+    // Wait for all child processes to finish
     while (waitpid(last_pid, &status, 0) == -1) {
         if (errno != EINTR) {
             perror("waitpid");
             exit(EXIT_FAILURE);
         }
     }
-    //checs if the child process terminated normally
+
+    // Check if the last child process terminated normally
     if (WIFEXITED(status)) {
         int exit_status = WEXITSTATUS(status);
         printf("Last command exited with status: %d\n", exit_status);
@@ -322,3 +372,4 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     // Wait for all other child processes to finish
     while (wait(NULL) > 0);
 }
+

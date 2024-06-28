@@ -63,26 +63,46 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return (1);
 }
 
+int is_builtin(char *command) {
+    if (ft_strncmp(command, "echo", 4) == 0 ||
+        ft_strncmp(command, "cd", 2) == 0 ||
+        ft_strncmp(command, "pwd", 3) == 0 ||
+        ft_strncmp(command, "export", 6) == 0 ||
+        ft_strncmp(command, "unset", 5) == 0 ||
+        ft_strncmp(command, "env", 3) == 0 ||
+        ft_strncmp(command, "exit", 4) == 0) {
+        return 1; // Command is a built-in
+    }
+    return 0; // Command is not a built-in
+}
 
-int	builtiner(t_ast_node *command, t_env **env_list)
+int builtiner(t_ast_node *command, t_env **env_list) {
+    char *cmd = command->first_child->next_sibling->value;
+
+    if (ft_strncmp(cmd, "echo", 4) == 0) {
+        ft_echo(command); // Handle echo command
+    } else if (ft_strncmp(cmd, "cd", 2) == 0) {
+        ft_cd(command); // Handle cd command
+    } else if (ft_strncmp(cmd, "pwd", 3) == 0) {
+        ft_pwd(); // Handle pwd command
+    } else if (ft_strncmp(cmd, "export", 6) == 0) {
+        ft_echo(command); // Handle export command
+    } else if (ft_strncmp(cmd, "unset", 5) == 0) {
+        remove_node(env_list, cmd); // Handle unset command
+    } else if (ft_strncmp(cmd, "env", 3) == 0) {
+        print_env(env_list); // Handle env command
+    } else if (ft_strncmp(cmd, "exit", 4) == 0) {
+        ft_echo(command); // Handle exit command
+    } else {
+        return 1; // Command is not a built-in
+    }
+
+    return 0; // Command is a built-in
+}
+
+void execute_builtin_parent(t_ast_node *commands, t_env **env_list)
 {
-
-	if (ft_strcmp(command->first_child->next_sibling->value, "echo"))
-		ft_echo(command); //PROTOTYPE
-	else if (ft_strcmp(command->first_child->next_sibling->value, "cd"))
-		ft_cd(command); //TO DO
-	else if (ft_strcmp(command->first_child->next_sibling->value, "pwd"))
-		ft_pwd(); //PROTOTYPE
-	else if (ft_strcmp(command->first_child->next_sibling->value, "export"))
-		ft_cd(command); //TO DO
-	else if (ft_strcmp(command->first_child->next_sibling->value, "unset"))
-		remove_node(env_list, command->first_child->next_sibling->value);
-	else if (ft_strcmp(command->first_child->next_sibling->value, "env"))
-		print_env(env_list);//in process maybe with &
-	else if (ft_strcmp(command->first_child->next_sibling->value, "exit"))
-		ft_cd(command);//TO DO
-	else
-		return (1); //comand is not a builtin
-
-	return (0);
+	if (commands->next_sibling == NULL)
+		builtiner(commands, env_list);
+	
 }

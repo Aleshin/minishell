@@ -164,6 +164,7 @@ int				print_ast_tree(t_ast_node *ast_node, int level);
 void			ft_executor(t_ast_node *commands, t_env **env);
 int				ft_strcmp(const char *s1, const char *s2);
 int 			builtiner(t_ast_node *command, t_env **env);
+int is_builtin(char *command);
 //builtins
 void remove_node(t_env **lst, char *name);
 //helper functions
