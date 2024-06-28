@@ -251,13 +251,17 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    // if (builtiner(command, env_list) == 0)
-    // {
-    //     exit(EXIT_SUCCESS);
-    // }
-    ft_exec_command(command, env_list);
-    perror("execvp");
-    exit(EXIT_FAILURE);
+    if (is_builtin(command->value))
+    {
+        builtiner(command, env_list);
+    }
+    else
+    {
+        ft_exec_command(command, env_list);
+        perror("execvp");
+        exit(EXIT_FAILURE);
+    }
+
 }
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) {
@@ -267,7 +271,10 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list) {
     pid_t pid;
     pid_t last_pid = -1; // PID of the last child process
     int status;
-    char *cmd = commands->first_child->next_sibling->value;
+    char *cmd;
+    
+    if (commands->first_child->next_sibling->value != NULL)
+        cmd = commands->first_child->next_sibling->value;
 
     if (commands->next_sibling == NULL && is_builtin(cmd)) {
         // Only one command in the list and it's a builtin

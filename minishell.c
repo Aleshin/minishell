@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **envp)
 		ast_root = create_ast_node(commandLine, input->string);
 		current_token = token;
 		ast_root = rule_command_line(&current_token, ast_root);
-//		print_ast_tree(ast_root, 0);
+		print_ast_tree(ast_root, 0);
 //		builtiner(ast_root->first_child); moved before executor
 		ft_executor(ast_root, &environment_list);
 		free_ast(&ast_root);
