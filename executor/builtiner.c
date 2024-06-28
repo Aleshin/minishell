@@ -96,13 +96,7 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     } else {
         return 1; // Command is not a built-in
     }
-
     return 0; // Command is a built-in
 }
 
-void execute_builtin_parent(t_ast_node *commands, t_env **env_list)
-{
-	if (commands->next_sibling == NULL)
-		builtiner(commands, env_list);
-	
-}
+
