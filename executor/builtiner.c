@@ -13,7 +13,7 @@
 
 int	ft_echo(t_ast_node *command)
 {
-	printf("command \"%s\" output \"%s\"\n", command->first_child->next_sibling->value, command->first_child->next_sibling->next_sibling->first_child->value);
+	printf("command \"%s\" output \"\"\n", command->first_child->next_sibling->value);
 	return (0);
 }
 

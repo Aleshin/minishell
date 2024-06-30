@@ -269,25 +269,54 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     }
 }
 
+//void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
 void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
 {
     // Handle input redirection
-    int input_fd = input_redir(command); 
-
+    int input_fd = input_redir(command);
+    if (input_fd == -1) {
+        perror("Error in input_redir");
+        exit(EXIT_FAILURE);
+    } else if (input_fd != -3) { // Check if input redirection is needed
+        if (dup2(input_fd, STDIN_FILENO) == -1) {
+            perror("dup2 input");
+            exit(EXIT_FAILURE);
+        }
+        close(input_fd); // Close original input_fd after successful dup2
+    }
+    
     // Handle output redirection
     int output_fd = output_redir(command);
+    if (output_fd == -1) {
+        perror("Error in output_redir");
+        exit(EXIT_FAILURE);
+    } else if (output_fd != -3) { // Check if output redirection is needed
+        if (dup2(output_fd, STDOUT_FILENO) == -1) {
+            perror("dup2 output");
+            exit(EXIT_FAILURE);
+        }
+        close(output_fd); // Close original output_fd after successful dup2
+    }
 
-    // redirect input if input_fd is valid
-    if (input_fd != -3)
-        handle_dup_and_close(input_fd, STDIN_FILENO);
-    
-    // redirect output if input_fd is valid
-    if (output_fd != 0)
-        handle_dup_and_close(output_fd, STDOUT_FILENO);
-
+    // Execute the built-in command
     builtiner(command, env_list);
 }
 
+// int is_builtin(char *command) {
+//     if (ft_strcmp(command, "echo") == 1) {
+//         return 1; // Command is a built-in
+//     }
+//     return 0; // Command is not a built-in
+// }
+
+// void ft_handle_builtin(t_ast_node *command) {
+//     // Placeholder for handling builtin commands
+//     printf("Executing builtin command: %s\n", command->value);
+//     // Implement logic to handle "echo" builtin command here
+//     if (command->first_child != NULL) {
+//         printf("Output: %s\n", command->first_child->value);
+//     }
+// }
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
@@ -300,12 +329,14 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
 
     commands = ast_tree->first_child;
 
-    if (commands != NULL && commands->next_sibling == NULL && is_builtin(commands->value))
-    {
+    // Initial check for a single builtin command "echo"
+    if (commands != NULL && commands->next_sibling == NULL && !is_builtin(commands->value)) {
+        //printf("It is a builtin echo\n");
         ft_handle_builtin(commands, env_list);
+        return;
     }
 
-    while (commands != NULL) {
+    while (commands != NULL) { 
         // Create pipe only if there is another command after this one
         if (commands->next_sibling != NULL) {
             if (pipe(pipefds) == -1) {
