@@ -18,12 +18,12 @@ ast_tree
 			redirect 1: ast_tree.first_child.first_child.first_child
 			redirect 2: ast_tree.first_child.first_child.first_child.next_sibling
 			...
-		exec: ast_tree.first_child.next_sibling
-		args (num of args): ast_tree.first_child.next_sibling.next_sibling
-			arg 1: ast_tree.first_child.next_sibling..next_sibling.first_child
-			arg 2: ast_tree.first_child.next_sibling..next_sibling.first_child.next_sibling
+		exec: ast_tree.first_child.first_child.next_sibling
+		args (num of args): ast_tree.first_child.first_child.next_sibling.next_sibling
+			arg 1: ast_tree.first_child.first_child.next_sibling.next_sibling.first_child
+			arg 2: ast_tree.first_child.first_child.next_sibling.next_sibling.first_child.next_sibling
 			...
-	command 2: ast_tree.next_sibling
+	command 2: ast_tree.first_child.next_sibling
 	...
 */
 #ifndef MINISHELL_H
@@ -162,9 +162,8 @@ void			redirects_arguments(t_Token_node **token,
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_executor(t_ast_node *commands, t_env **env);
-int				ft_strcmp(const char *s1, const char *s2);
 int 			builtiner(t_ast_node *command, t_env **env);
-int is_builtin(char *command);
+int				is_builtin(t_ast_node *command);
 //builtins
 void remove_node(t_env **lst, char *name);
 //helper functions

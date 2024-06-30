@@ -9,6 +9,7 @@
 /*   Updated: 2024/06/12 21:38:25 by emikhayl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "./minishell.h"
 
 void free_arr(char **arr)
@@ -105,12 +106,6 @@ void ft_exec_command(t_ast_node *commands, t_env **env_var) {
         exit(EXIT_FAILURE);
     }
 
-    // Check if the command is a built-in
-    if (is_builtin(commands->first_child->next_sibling->value)) {
-        builtiner(commands, env_var);
-        return; // Ensure we do not proceed to execve
-    }
-
     // Handle external commands
     path = ft_find_abs_path(commands->first_child->next_sibling->value);
     if (path == NULL) {
@@ -197,8 +192,7 @@ int output_redir(t_ast_node *commands) {
     t_ast_node *current_redirect = redirects->first_child;
 
     while (current_redirect != NULL) {
-        if (current_redirect->type == redirect_out || current_redirect->type == redirect_out_add) 
-        {
+        if (current_redirect->type == redirect_out || current_redirect->type == redirect_out_add) {
             if (file != -3) {
                 close(file); // Close previous file descriptor if any
             }
@@ -216,7 +210,7 @@ int output_redir(t_ast_node *commands) {
             if (file == -1) {
                 perror("Error opening file for output redirection");
                 exit(EXIT_FAILURE);
-            }   
+            }
         }
         current_redirect = current_redirect->next_sibling;
     }
@@ -227,7 +221,7 @@ int output_redir(t_ast_node *commands) {
 void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_list) 
 {
     // Handle input redirection
-    int input_fd = input_redir(command); 
+    int input_fd = input_redir(command);
 
     // Handle output redirection
     int output_fd = output_redir(command);
@@ -235,10 +229,6 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     // Use input_fd as fd_in if it's not -3
     if (input_fd != -3)
         fd_in = input_fd;
-    
-    // Use output_fd as fd_in if it's not -3
-    if (output_fd != -3)
-        pipefds[WRITE_END] = output_fd;
 
     // Redirect input if fd_in is valid
     if (fd_in != 0)
@@ -248,7 +238,6 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     if (command->next_sibling != NULL) {
         // Duplicate write end to stdout
         handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
-        
         close(pipefds[READ_END]); // Close unused read end
     } else {
         // This is the last command in the pipeline
@@ -257,16 +246,11 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    if (is_builtin(command->value))
-    {
-        builtiner(command, env_list);
-    }
-    else
-    {
-        ft_exec_command(command, env_list);
-        perror("execvp");
-        exit(EXIT_FAILURE);
-    }
+    // Execute the command (external or builtin)
+    
+    ft_exec_command(command, env_list);
+
+    //exit(EXIT_FAILURE); // In case the exec fails
 }
 
 //void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
@@ -302,21 +286,6 @@ void ft_handle_builtin(t_ast_node *command, t_env **env_list)
     builtiner(command, env_list);
 }
 
-// int is_builtin(char *command) {
-//     if (ft_strcmp(command, "echo") == 1) {
-//         return 1; // Command is a built-in
-//     }
-//     return 0; // Command is not a built-in
-// }
-
-// void ft_handle_builtin(t_ast_node *command) {
-//     // Placeholder for handling builtin commands
-//     printf("Executing builtin command: %s\n", command->value);
-//     // Implement logic to handle "echo" builtin command here
-//     if (command->first_child != NULL) {
-//         printf("Output: %s\n", command->first_child->value);
-//     }
-// }
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
@@ -328,13 +297,6 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     int status;
 
     commands = ast_tree->first_child;
-
-    // Initial check for a single builtin command "echo"
-    if (commands != NULL && commands->next_sibling == NULL && !is_builtin(commands->value)) {
-        //printf("It is a builtin echo\n");
-        ft_handle_builtin(commands, env_list);
-        return;
-    }
 
     while (commands != NULL) { 
         // Create pipe only if there is another command after this one
@@ -367,14 +329,14 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
         }
     }
 
-// Wait for all child processes and capture the exit status of the last one
+    // Wait for all child processes and capture the exit status of the last one
     while (waitpid(last_pid, &status, 0) == -1) {
         if (errno != EINTR) {
             perror("waitpid");
             exit(EXIT_FAILURE);
         }
     }
-    //checs if the child process terminated normally
+    // Check if the child process terminated normally
     if (WIFEXITED(status)) {
         int exit_status = WEXITSTATUS(status);
         printf("Last command exited with status: %d\n", exit_status);
@@ -385,4 +347,3 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     // Wait for all other child processes to finish
     while (wait(NULL) > 0);
 }
-

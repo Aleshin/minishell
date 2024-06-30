@@ -11,10 +11,29 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	ft_echo(t_ast_node *command)
+int ft_echo(t_ast_node *command)
 {
-	printf("command \"%s\" output \"\"\n", command->first_child->next_sibling->value);
-	return (0);
+    t_ast_node *exec = command->first_child->next_sibling;
+    t_ast_node *num_args = exec->next_sibling;
+    t_ast_node *args;
+    //printf("exec is %s , num args is %d\n", exec->value, num_args->param);
+
+    if (exec != NULL && num_args->param < 1) {
+        printf("command \"%s\"\n", exec->value);
+    } else if (exec != NULL && num_args->param > 0)
+    {
+        args = command->first_child->next_sibling->next_sibling->first_child;
+        printf("command \"%s\" ", exec->value);
+        while(args != NULL)
+        {
+            printf("%s ", args->value);
+            if (args->next_sibling == NULL)
+                printf("\n");
+            args = args->next_sibling;
+        }
+    }
+
+    return 0; // Return success code
 }
 
 int	ft_cd(t_ast_node *command)
@@ -39,59 +58,54 @@ void ft_pwd()
         free(buffer);
 		exit(EXIT_FAILURE);
 	}
-	printf("MY PWD PRINTS THIS %s/n", buffer);
+	printf("MY PWD PRINTS THIS %s\n", buffer);
 	free(buffer);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-	int	n;
 
-	i = 0;
-	n = ft_strlen(s2);
-	if (ft_strlen(s1) > ft_strlen(s2))
-		n = ft_strlen(s1);
-	while ((*s1 || *s2) && i < n)
-	{
-		if (*s1 != *s2)
-			return (0);
-		s1++;
-		s2++;
-		i++;
-	}
-	return (1);
-}
-
-int is_builtin(char *command) {
-    if (ft_strncmp(command, "echo", 4) == 0 ||
-        ft_strncmp(command, "cd", 2) == 0 ||
-        ft_strncmp(command, "pwd", 3) == 0 ||
-        ft_strncmp(command, "export", 6) == 0 ||
-        ft_strncmp(command, "unset", 5) == 0 ||
-        ft_strncmp(command, "env", 3) == 0 ||
-        ft_strncmp(command, "exit", 4) == 0) {
-        return 1; // Command is a built-in
+//1 is a builtin, 0 is not
+int is_builtin(t_ast_node *command) {
+    char *exec = command->first_child->next_sibling->value;
+    if (!*exec)
+    {
+        perror("no exec");
+        return -2;//error no exec
     }
+    if (ft_strcmp(exec, "echo") == 0 ||
+        ft_strcmp(exec, "cd") == 0 ||
+        ft_strcmp(exec, "pwd") == 0 ||
+        ft_strcmp(exec, "export") == 0 ||
+        ft_strcmp(exec, "unset") == 0 ||
+        ft_strcmp(exec, "env") == 0 ||
+        ft_strcmp(exec, "exit") == 0) 
+        {
+            return 1; // Command is a built-in
+        }
     return 0; // Command is not a built-in
 }
 
+//returns 0 if command is a builtin and 1 if it is not
 int builtiner(t_ast_node *command, t_env **env_list) {
-    char *cmd = command->first_child->next_sibling->value;
-
-    if (ft_strncmp(cmd, "echo", 4) == 0) {
+    if (!command)
+    {
+        perror("no exec");
+        return -2;//error no exec
+    }
+    char *exec = command->first_child->next_sibling->value;
+    
+    if (ft_strcmp(exec, "echo") == 0) {
         ft_echo(command); // Handle echo command
-    } else if (ft_strncmp(cmd, "cd", 2) == 0) {
-        ft_cd(command); // Handle cd command
-    } else if (ft_strncmp(cmd, "pwd", 3) == 0) {
+    } else if (ft_strcmp(exec, "cd") == 0) {
+        ft_echo(command);; // Handle cd command
+    } else if (ft_strcmp(exec, "pwd") == 0) {
         ft_pwd(); // Handle pwd command
-    } else if (ft_strncmp(cmd, "export", 6) == 0) {
+    } else if (ft_strcmp(exec, "export") == 0) {
         ft_echo(command); // Handle export command
-    } else if (ft_strncmp(cmd, "unset", 5) == 0) {
-        remove_node(env_list, cmd); // Handle unset command
-    } else if (ft_strncmp(cmd, "env", 3) == 0) {
+    } else if (ft_strcmp(exec, "unset") == 0) {
+        ft_echo(command);; // Handle unset command
+    } else if (ft_strcmp(exec, "env") == 0) {
         print_env(env_list); // Handle env command
-    } else if (ft_strncmp(cmd, "exit", 4) == 0) {
+    } else if (ft_strcmp(exec, "exit") == 0) {
         ft_echo(command); // Handle exit command
     } else {
         return 1; // Command is not a built-in
