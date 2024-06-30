@@ -86,17 +86,14 @@ int is_builtin(t_ast_node *command) {
 
 //returns 0 if command is a builtin and 1 if it is not
 int builtiner(t_ast_node *command, t_env **env_list) {
-    if (!command)
-    {
-        perror("no exec");
-        return -2;//error no exec
-    }
+    
+    (void)env_list;
     char *exec = command->first_child->next_sibling->value;
     
     if (ft_strcmp(exec, "echo") == 0) {
         ft_echo(command); // Handle echo command
     } else if (ft_strcmp(exec, "cd") == 0) {
-        ft_echo(command);; // Handle cd command
+        ft_echo(command); // Handle cd command
     } else if (ft_strcmp(exec, "pwd") == 0) {
         ft_pwd(); // Handle pwd command
     } else if (ft_strcmp(exec, "export") == 0) {
@@ -104,7 +101,7 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     } else if (ft_strcmp(exec, "unset") == 0) {
         ft_echo(command);; // Handle unset command
     } else if (ft_strcmp(exec, "env") == 0) {
-        print_env(env_list); // Handle env command
+        ft_echo(command); // Handle env command
     } else if (ft_strcmp(exec, "exit") == 0) {
         ft_echo(command); // Handle exit command
     } else {
@@ -112,5 +109,38 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     }
     return 0; // Command is a built-in
 }
+
+// //void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
+// void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
+// {
+//     // Handle input redirection
+//     int input_fd = input_redir(command);
+//     if (input_fd == -1) {
+//         perror("Error in input_redir");
+//         exit(EXIT_FAILURE);
+//     } else if (input_fd != -3) { // Check if input redirection is needed
+//         if (dup2(input_fd, STDIN_FILENO) == -1) {
+//             perror("dup2 input");
+//             exit(EXIT_FAILURE);
+//         }
+//         close(input_fd); // Close original input_fd after successful dup2
+//     }
+    
+//     // Handle output redirection
+//     int output_fd = output_redir(command);
+//     if (output_fd == -1) {
+//         perror("Error in output_redir");
+//         exit(EXIT_FAILURE);
+//     } else if (output_fd != -3) { // Check if output redirection is needed
+//         if (dup2(output_fd, STDOUT_FILENO) == -1) {
+//             perror("dup2 output");
+//             exit(EXIT_FAILURE);
+//         }
+//         close(output_fd); // Close original output_fd after successful dup2
+//     }
+
+//     // Execute the built-in command
+//     builtiner(command, env_list);
+// }
 
 

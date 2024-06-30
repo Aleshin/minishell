@@ -222,18 +222,14 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
 {
     // Handle input redirection
     int input_fd = input_redir(command);
-
     // Handle output redirection
     int output_fd = output_redir(command);
-
     // Use input_fd as fd_in if it's not -3
     if (input_fd != -3)
         fd_in = input_fd;
-
     // Redirect input if fd_in is valid
     if (fd_in != 0)
         handle_dup_and_close(fd_in, STDIN_FILENO);
-
     // Setup output redirection or pipe
     if (command->next_sibling != NULL) {
         // Duplicate write end to stdout
@@ -246,46 +242,20 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-    // Execute the command (external or builtin)
-    
-    ft_exec_command(command, env_list);
-
-    //exit(EXIT_FAILURE); // In case the exec fails
-}
-
-//void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
-void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
-{
-    // Handle input redirection
-    int input_fd = input_redir(command);
-    if (input_fd == -1) {
-        perror("Error in input_redir");
-        exit(EXIT_FAILURE);
-    } else if (input_fd != -3) { // Check if input redirection is needed
-        if (dup2(input_fd, STDIN_FILENO) == -1) {
-            perror("dup2 input");
-            exit(EXIT_FAILURE);
-        }
-        close(input_fd); // Close original input_fd after successful dup2
+    // Execute the command (external) if there is an executable command && !is_builtin(command)
+    if (command->first_child->next_sibling != NULL) {
+        ft_exec_command(command, env_list);
+    } 
+    // else if (command->first_child->next_sibling != NULL && is_builtin(command))
+    // {
+    //     builtiner(command, env_list);
+    // }
+    else
+    {
+        // If there is no executable command, exit successfully
+        exit(EXIT_SUCCESS);
     }
-    
-    // Handle output redirection
-    int output_fd = output_redir(command);
-    if (output_fd == -1) {
-        perror("Error in output_redir");
-        exit(EXIT_FAILURE);
-    } else if (output_fd != -3) { // Check if output redirection is needed
-        if (dup2(output_fd, STDOUT_FILENO) == -1) {
-            perror("dup2 output");
-            exit(EXIT_FAILURE);
-        }
-        close(output_fd); // Close original output_fd after successful dup2
-    }
-
-    // Execute the built-in command
-    builtiner(command, env_list);
 }
-
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
