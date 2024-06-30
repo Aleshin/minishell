@@ -13,22 +13,28 @@
 
 int ft_echo(t_ast_node *command)
 {
+    if (command == NULL || command->first_child == NULL || command->first_child->next_sibling == NULL) {
+        return -23; // Error code indicating invalid command structure
+    }
+    
     t_ast_node *exec = command->first_child->next_sibling;
     t_ast_node *num_args = exec->next_sibling;
     t_ast_node *args;
-    //printf("exec is %s , num args is %d\n", exec->value, num_args->param);
 
-    if (exec != NULL && num_args->param < 1) {
+    if (!exec->value) {
+        return -23;
+    }
+
+    if (num_args != NULL && num_args->param < 1) {
         printf("command \"%s\"\n", exec->value);
-    } else if (exec != NULL && num_args->param > 0)
-    {
-        args = command->first_child->next_sibling->next_sibling->first_child;
+    } else if (num_args != NULL && num_args->param > 0) {
+        args = num_args->first_child;
         printf("command \"%s\" ", exec->value);
-        while(args != NULL)
-        {
+        while (args != NULL) {
             printf("%s ", args->value);
-            if (args->next_sibling == NULL)
+            if (args->next_sibling == NULL) {
                 printf("\n");
+            }
             args = args->next_sibling;
         }
     }
@@ -86,10 +92,17 @@ int is_builtin(t_ast_node *command) {
 
 //returns 0 if command is a builtin and 1 if it is not
 int builtiner(t_ast_node *command, t_env **env_list) {
+    if (command == NULL || command->first_child == NULL || command->first_child->next_sibling == NULL) {
+        return -1; // Error code indicating invalid command structure
+    }
     
     (void)env_list;
     char *exec = command->first_child->next_sibling->value;
-    
+
+    if (!exec || !*exec) {
+        return -1;
+    }
+
     if (ft_strcmp(exec, "echo") == 0) {
         ft_echo(command); // Handle echo command
     } else if (ft_strcmp(exec, "cd") == 0) {
@@ -99,7 +112,7 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     } else if (ft_strcmp(exec, "export") == 0) {
         ft_echo(command); // Handle export command
     } else if (ft_strcmp(exec, "unset") == 0) {
-        ft_echo(command);; // Handle unset command
+        ft_echo(command); // Handle unset command
     } else if (ft_strcmp(exec, "env") == 0) {
         ft_echo(command); // Handle env command
     } else if (ft_strcmp(exec, "exit") == 0) {
