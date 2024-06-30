@@ -71,7 +71,6 @@ int	main(int argc, char **argv, char **envp)
 		token->value = buf;
 		input = input_init(&token);
 		input->env = environment_list;
-		printf("env %s\n", input->env->value);
 		if (lexer(&input, &token) == 1)
 		{
 			free(buf);
@@ -84,7 +83,7 @@ int	main(int argc, char **argv, char **envp)
 		current_token = token;
 		ast_root = rule_command_line(&current_token, ast_root);
 		print_ast_tree(ast_root, 0);
-//		builtiner(ast_root->first_child); moved before executor
+//		builtiner(ast_root->first_child, &environment_list);// moved before executor
 		ft_executor(ast_root, &input->env);
 		free_ast(&ast_root);
 		free_tokens(&token);

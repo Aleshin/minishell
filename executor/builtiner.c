@@ -13,7 +13,7 @@
 
 int	ft_echo(t_ast_node *command)
 {
-	printf("command \"%s\" output \"%s\"\n", command->first_child->next_sibling->value, command->first_child->next_sibling->next_sibling->first_child->value);
+	printf("command \"%s\"\n", command->first_child->next_sibling->value);
 	return (0);
 }
 
@@ -43,34 +43,14 @@ void ft_pwd()
 	free(buffer);
 }
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	int	i;
-	int	n;
-
-	i = 0;
-	n = ft_strlen(s2);
-	if (ft_strlen(s1) > ft_strlen(s2))
-		n = ft_strlen(s1);
-	while ((*s1 || *s2) && i < n)
-	{
-		if (*s1 != *s2)
-			return (0);
-		s1++;
-		s2++;
-		i++;
-	}
-	return (1);
-}
-
 int is_builtin(char *command) {
-    if (ft_strncmp(command, "echo", 4) == 0 ||
-        ft_strncmp(command, "cd", 2) == 0 ||
-        ft_strncmp(command, "pwd", 3) == 0 ||
-        ft_strncmp(command, "export", 6) == 0 ||
-        ft_strncmp(command, "unset", 5) == 0 ||
-        ft_strncmp(command, "env", 3) == 0 ||
-        ft_strncmp(command, "exit", 4) == 0) {
+    if (ft_strcmp(command, "echo") == 0 ||
+        ft_strcmp(command, "cd") == 0 ||
+        ft_strcmp(command, "pwd") == 0 ||
+        ft_strcmp(command, "export") == 0 ||
+        ft_strcmp(command, "unset") == 0 ||
+        ft_strcmp(command, "env") == 0 ||
+        ft_strcmp(command, "exit") == 0) {
         return 1; // Command is a built-in
     }
     return 0; // Command is not a built-in
@@ -79,19 +59,19 @@ int is_builtin(char *command) {
 int builtiner(t_ast_node *command, t_env **env_list) {
     char *cmd = command->first_child->next_sibling->value;
 
-    if (ft_strncmp(cmd, "echo", 4) == 0) {
+    if (ft_strcmp(cmd, "echo") == 0) {
         ft_echo(command); // Handle echo command
-    } else if (ft_strncmp(cmd, "cd", 2) == 0) {
+    } else if (ft_strcmp(cmd, "cd") == 0) {
         ft_cd(command); // Handle cd command
-    } else if (ft_strncmp(cmd, "pwd", 3) == 0) {
+    } else if (ft_strcmp(cmd, "pwd") == 0) {
         ft_pwd(); // Handle pwd command
-    } else if (ft_strncmp(cmd, "export", 6) == 0) {
+    } else if (ft_strcmp(cmd, "export") == 0) {
         ft_echo(command); // Handle export command
-    } else if (ft_strncmp(cmd, "unset", 5) == 0) {
+    } else if (ft_strcmp(cmd, "unset") == 0) {
         remove_node(env_list, cmd); // Handle unset command
-    } else if (ft_strncmp(cmd, "env", 3) == 0) {
+    } else if (ft_strcmp(cmd, "env") == 0) {
         print_env(env_list); // Handle env command
-    } else if (ft_strncmp(cmd, "exit", 4) == 0) {
+    } else if (ft_strcmp(cmd, "exit") == 0) {
         ft_echo(command); // Handle exit command
     } else {
         return 1; // Command is not a built-in
