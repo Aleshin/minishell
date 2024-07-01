@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			free(buf);
 			lst_dealloc(&environment_list);
+			write (1, "exit\n", 5);
 			return (0);
 		}
 		add_history(buf);
