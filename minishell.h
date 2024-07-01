@@ -133,6 +133,7 @@ int				join_next_token(t_Token_node **token);
 int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
 int				print_tokens(t_Token_node *token_temp);
+char			*ft_getenv(t_Input *input, char *value);
 // lexer functions
 char			*heredoc_stdin(char *delimiter);
 int				rule_terminals(t_Input **input, t_Token_node **token);
