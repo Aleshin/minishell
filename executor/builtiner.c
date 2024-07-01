@@ -44,10 +44,9 @@ int ft_pwd()
 //1 is a builtin, 0 is not
 int is_builtin(t_ast_node *command) {
     char *exec = command->first_child->next_sibling->value;
-    if (!*exec)
+    if (!exec)
     {
-        perror("no exec");
-        return -2;//error no exec
+        return 0;
     }
     if (ft_strcmp(exec, "echo") == 0 ||
         ft_strcmp(exec, "cd") == 0 ||
