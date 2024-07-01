@@ -53,9 +53,10 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		buf = readline("$> "); // Prompt for input command
-		if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
+		if (buf == NULL || ft_strcmp(buf, "exit") == 0)
 		// If user enters exit or closes input (Ctrl+D), exit the loop
 		{
+			lst_dealloc(&environment_list);
 			free(buf);
 			return (0);
 		}
@@ -72,9 +73,10 @@ int	main(int argc, char **argv, char **envp)
 		ast_root = create_ast_node(commandLine, input->string);
 		current_token = token;
 		ast_root = rule_command_line(&current_token, ast_root);
-		print_ast_tree(ast_root, 0);
-		//builtiner(ast_root->first_child, &input->env);
-		ft_executor(ast_root, &input->env);
+		//print_ast_tree(ast_root, 0);
+
+		if (ft_handle_builtin(ast_root, &input->env) == 0)
+			ft_executor(ast_root, &input->env);
 		free_all(&ast_root, &token, &input, &buf);
 	}
 	return (0);

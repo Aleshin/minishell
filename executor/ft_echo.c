@@ -17,7 +17,7 @@ int echo_n(char *first_arg)
     return 1;
 }
 
-void ft_echo(t_ast_node *command) {
+int ft_echo(t_ast_node *command) {
     t_ast_node *exec;
     t_ast_node *num_args;
     t_ast_node *args;
@@ -25,7 +25,7 @@ void ft_echo(t_ast_node *command) {
     int no_newline = 0; // Flag for the -n option
 
     if (command == NULL || command->first_child->next_sibling == NULL) {
-        return ; // Error code indicating no command or no exec
+        return (-1); // Error code indicating no command or no exec
     }
 
     exec = command->first_child->next_sibling;
@@ -53,7 +53,7 @@ void ft_echo(t_ast_node *command) {
     // Print newline if -n flag is not set
     if (!no_newline) 
         ft_putendl_fd("", STDOUT_FILENO);
-    exit(EXIT_SUCCESS); // Return success code or 1???
+    return (1); // Return success code or 1???
 }
 
 /*TESTS

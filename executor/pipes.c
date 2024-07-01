@@ -241,7 +241,7 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
         if (output_fd != -3) 
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
-
+    
     // Execute the command (external or builtin)
     if (builtiner(command, env_list) != 0) 
     {
@@ -254,29 +254,47 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             ft_putstr_fd("No command provided to execute\n", 2);
             exit(EXIT_SUCCESS);
         }
-        exit(EXIT_SUCCESS);
+        //exit(EXIT_SUCCESS);
     }
 }
 
-void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
+//if == 0 no builtin
+int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
-    // Handle output redirection
-    int output_fd = output_redir(command);
-    if (output_fd == -1) {
-        perror("Error in output_redir");
-        exit(EXIT_FAILURE);
-    } else if (output_fd != -3) { // Check if output redirection is needed
-        if (dup2(output_fd, STDOUT_FILENO) == -1) {
-            perror("dup2 output");
-            exit(EXIT_FAILURE);
-        }
-        close(output_fd); // Close original output_fd after successful dup2
+    t_ast_node *commands;
+    commands = ast_tree->first_child;
+
+    if (!commands->first_child->next_sibling && commands->first_child->param > 0)
+        return (0); // Avoid segmentation fault
+
+    // Save the original stdout file descriptor
+    int original_stdout = dup(STDOUT_FILENO);
+    if (original_stdout == -1) {
+        perror("dup");
+        exit(EXIT_FAILURE);//to check
     }
 
-    // Execute the built-in command
-    builtiner(command, env_list);
-}
+    // Handle output redirection
+    int out = output_redir(commands);
+    if (out != -3) {
+        handle_dup_and_close(out, STDOUT_FILENO);
+    }
 
+    // Execute built-in command
+    if (commands != NULL && commands->first_child != NULL && commands->next_sibling == NULL && is_builtin(commands)) 
+    {
+        builtiner(commands, env_list);
+
+        // Restore stdout
+        handle_dup_and_close(original_stdout, STDOUT_FILENO);
+        return (1);
+    }
+
+    // Restore stdout if built-in command was not executed
+    handle_dup_and_close(original_stdout, STDOUT_FILENO);
+
+    return (0);
+}
 
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
@@ -289,18 +307,6 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     int status;
 
     commands = ast_tree->first_child;
-    if (!commands)
-        return ;
-
-    // Check if there is only one command and it is a built-in
-    if (commands != NULL &&                  // Ensure commands is not NULL
-        commands->first_child != NULL &&     // Ensure the command has a first child
-        commands->next_sibling == NULL &&    // Ensure there is no next command (i.e., only one command)
-        is_builtin(commands))                // Check if the command is a built-in
-    {
-        ft_handle_builtin(commands, env_list);
-    }
-
 
     while (commands != NULL) { 
         // Create pipe only if there is another command after this one

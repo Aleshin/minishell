@@ -165,9 +165,12 @@ int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_executor(t_ast_node *commands, t_env **env);
 int 			builtiner(t_ast_node *command, t_env **env);
-int 			is_builtin(char *command);
 //builtins
+int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
 void 			remove_node(t_env **lst, char *name);
+int 			is_builtin(t_ast_node *command);
+int 			ft_echo(t_ast_node *command);
+
 //helper functions
 char			**cmd_to_argv(t_ast_node *cmd);
 void			free_arr(char **arr);

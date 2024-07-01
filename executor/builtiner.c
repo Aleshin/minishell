@@ -19,7 +19,7 @@
 // 	return (0);
 // }
 
-void ft_pwd()
+int ft_pwd()
 {
 	size_t size = 1024;
     char *buffer = malloc(size);
@@ -37,7 +37,7 @@ void ft_pwd()
 	}
 	ft_putendl_fd(buffer, STDOUT_FILENO);
 	free(buffer);
-    exit(EXIT_SUCCESS); //if not infinite loop in builtiner
+    return(1); //if not infinite loop in builtiner
 }
 
 
@@ -54,8 +54,7 @@ int is_builtin(t_ast_node *command) {
         ft_strcmp(exec, "pwd") == 0 ||
         ft_strcmp(exec, "export") == 0 ||
         ft_strcmp(exec, "unset") == 0 ||
-        ft_strcmp(exec, "env") == 0 ||
-        ft_strcmp(exec, "exit") == 0) 
+        ft_strcmp(exec, "env") == 0)
         {
             return 1; // Command is a built-in
         }
