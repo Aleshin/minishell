@@ -54,7 +54,7 @@ char	*ft_getenv(t_Input *input, char *value)
 {
 	while (input->env->next != NULL)
 	{
-		if (ft_strcmp(input->env->name, value))
+		if (!ft_strcmp(input->env->name, value))
 			return (input->env->value);
 		input->env = input->env->next;
 	}
