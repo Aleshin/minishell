@@ -53,10 +53,11 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		buf = readline("$> "); // Prompt for input command
-		if (buf == NULL || ft_strncmp(buf, "exit", ft_strlen(buf)) == 0)
+		if (buf == NULL || ft_strcmp(buf, "exit") == 0)
 		// If user enters exit or closes input (Ctrl+D), exit the loop
 		{
 			free(buf);
+			lst_dealloc(&environment_list);
 			return (0);
 		}
 		add_history(buf);
