@@ -292,8 +292,15 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     if (!commands)
         return ;
 
-    if (commands != NULL && commands->first_child != NULL && is_builtin(commands))
+    // Check if there is only one command and it is a built-in
+    if (commands != NULL &&                  // Ensure commands is not NULL
+        commands->first_child != NULL &&     // Ensure the command has a first child
+        commands->next_sibling == NULL &&    // Ensure there is no next command (i.e., only one command)
+        is_builtin(commands))                // Check if the command is a built-in
+    {
         ft_handle_builtin(commands, env_list);
+    }
+
 
     while (commands != NULL) { 
         // Create pipe only if there is another command after this one
