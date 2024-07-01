@@ -47,6 +47,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	setup_signal_handlers();
+	disable_ctrl_backslash();
 	environment_list = envp_to_linked_list(envp);
 	if (!environment_list)
 		return (1);
