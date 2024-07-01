@@ -19,7 +19,8 @@ char	*heredoc_stdin(char *delimiter)
 
 	buf = (char *)malloc(sizeof(char));
 	*buf = '\0';
-	while ((line = readline("$>")) != NULL)
+	line = readline("$>");
+	while (line != NULL)
 	{
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
 		{
@@ -31,7 +32,7 @@ char	*heredoc_stdin(char *delimiter)
 		free(buf_temp);
 		free(line);
 	}
-return (NULL);
+	return (NULL);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -41,17 +42,14 @@ int	main(int argc, char **argv, char **envp)
 	t_Token_node	*token;
 	t_Token_node	*current_token;
 	t_ast_node		*ast_root;
+	t_env			*environment_list;
 
 	(void)argc;
 	(void)argv;
 	setup_signal_handlers();
-	t_env *environment_list; 
-	
 	environment_list = envp_to_linked_list(envp);
-	if (!environment_list) {
-    	return 1;
-    }
-	
+	if (!environment_list)
+		return (1);
 	while (1)
 	{
 		buf = readline("$> "); // Prompt for input command
@@ -62,36 +60,35 @@ int	main(int argc, char **argv, char **envp)
 			return (0);
 		}
 		add_history(buf);
-		token = (t_Token_node *)malloc(sizeof(t_Token_node));
-		if (!token)
-			return (1);
-		token->next_token = NULL;
-		token->prev_token = NULL;
-		token->type = commandLine;
-		token->value = buf;
+		token = token_init(&buf);
 		input = input_init(&token);
 		input->env = environment_list;
-		printf("env %s\n", input->env->value);
 		if (lexer(&input, &token) == 1)
 		{
-			free(buf);
-			free(input);
-			free_tokens(&token);
+			free_all(&ast_root, &token, &input, &buf);
 			return (1);
 		}
 		//	print_tokens(token);
 		ast_root = create_ast_node(commandLine, input->string);
 		current_token = token;
 		ast_root = rule_command_line(&current_token, ast_root);
-		print_ast_tree(ast_root, 0);
+//		print_ast_tree(ast_root, 0);
 //		builtiner(ast_root->first_child); moved before executor
 		ft_executor(ast_root, &input->env);
-		free_ast(&ast_root);
-		free_tokens(&token);
-		free (buf);
-		free (input);
+		free_all(&ast_root, &token, &input, &buf);
 	}
-		return (0);
+	return (0);
+}
+
+int	free_all(t_ast_node **ast_root, t_Token_node **token,
+			t_Input **input, char **buf)
+{
+	if (*ast_root)
+		free_ast(ast_root);
+	free(*buf);
+	free_tokens(token);
+	free(*input);
+	return (1);
 }
 // examples for testing
 // du ./ | sort -n | tail -10

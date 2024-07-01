@@ -124,6 +124,7 @@ typedef int (*t_function_pointer)(t_ast_node *);
 void			setup_signal_handlers();
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
+t_Token_node 	*token_init(char **buf);
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
 int				token_add(t_Token_node **tokens, t_Input **input);
@@ -164,17 +165,17 @@ int				print_ast_tree(t_ast_node *ast_node, int level);
 void			ft_executor(t_ast_node *commands, t_env **env);
 int				ft_strcmp(const char *s1, const char *s2);
 int 			builtiner(t_ast_node *command, t_env **env);
-int is_builtin(char *command);
+int 			is_builtin(char *command);
 //builtins
-void remove_node(t_env **lst, char *name);
+void 			remove_node(t_env **lst, char *name);
 //helper functions
 char			**cmd_to_argv(t_ast_node *cmd);
 void			free_arr(char **arr);
 int				ft_strcmp(const char *s1, const char *s2);
-t_env *envp_to_linked_list(char **envp);
-char **linked_list_to_envp(t_env **env);
-void lst_dealloc(t_env **head);
-
-void print_env(t_env **env);
+t_env 			*envp_to_linked_list(char **envp);
+char 			**linked_list_to_envp(t_env **env);
+void 			lst_dealloc(t_env **head);
+int				free_all(t_ast_node **ast_root, t_Token_node **token, t_Input **input, char **buf);
+void 			print_env(t_env **env);
 
 #endif
