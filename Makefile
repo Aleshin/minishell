@@ -7,7 +7,7 @@ SRC = minishell.c ./lexer/token_functions.c ./lexer/tokenizer_functions.c ./lexe
  ./lexer/tokenizer_substring.c  ./lexer/tokenizer_variables.c\
  ./parser/ast_structure.c ./parser/parser_functions.c ./parser/command_functions.c\
  ./executor/pipes.c ./executor/builtiner.c\
-  signals.c ./executor/envvar.c
+  signals.c ./executor/envvar.c ./executor/ft_echo.c
 OBJ = $(SRC:.c=.o)
 NAME = minishell
 

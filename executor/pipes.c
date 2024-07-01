@@ -242,7 +242,6 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             handle_dup_and_close(output_fd, STDOUT_FILENO);
     }
 
-
     // Execute the command (external or builtin)
     if (builtiner(command, env_list) != 0) 
     {
@@ -252,25 +251,33 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
             ft_exec_command(command, env_list);
         } else {
             // No executable command provided
-            ft_putstr_fd("Error: No command provided to execute\n", 2);
+            ft_putstr_fd("No command provided to execute\n", 2);
             exit(EXIT_SUCCESS);
         }
+        exit(EXIT_SUCCESS);
+    }
+}
+
+void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
+{
+    // Handle output redirection
+    int output_fd = output_redir(command);
+    if (output_fd == -1) {
+        perror("Error in output_redir");
+        exit(EXIT_FAILURE);
+    } else if (output_fd != -3) { // Check if output redirection is needed
+        if (dup2(output_fd, STDOUT_FILENO) == -1) {
+            perror("dup2 output");
+            exit(EXIT_FAILURE);
+        }
+        close(output_fd); // Close original output_fd after successful dup2
     }
 
-    // // Execute the command (external) if there is an executable command && !is_builtin(command)
-    // if (command->first_child->next_sibling != NULL) {
-    //     ft_exec_command(command, env_list);
-    // } 
-    // // else if (command->first_child->next_sibling != NULL && is_builtin(command))
-    // // {
-    // //     builtiner(command, env_list);
-    // // }
-    // else
-    // {
-    //     // If there is no executable command, exit successfully
-    //     exit(EXIT_SUCCESS);
-    // }
+    // Execute the built-in command
+    builtiner(command, env_list);
 }
+
+
 
 void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
@@ -282,6 +289,11 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list)
     int status;
 
     commands = ast_tree->first_child;
+    if (!commands)
+        return ;
+
+    if (commands != NULL && commands->first_child != NULL && is_builtin(commands))
+        ft_handle_builtin(commands, env_list);
 
     while (commands != NULL) { 
         // Create pipe only if there is another command after this one

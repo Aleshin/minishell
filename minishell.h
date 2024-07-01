@@ -165,6 +165,7 @@ void			ft_executor(t_ast_node *commands, t_env **env);
 int 			builtiner(t_ast_node *command, t_env **env);
 int				is_builtin(t_ast_node *command);
 //builtins
+void ft_echo(t_ast_node *command);
 void remove_node(t_env **lst, char *name);
 //helper functions
 char			**cmd_to_argv(t_ast_node *cmd);

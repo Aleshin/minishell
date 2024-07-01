@@ -11,42 +11,13 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int ft_echo(t_ast_node *command)
-{
-    if (command == NULL || command->first_child == NULL || command->first_child->next_sibling == NULL) {
-        return -23; // Error code indicating invalid command structure
-    }
-    
-    t_ast_node *exec = command->first_child->next_sibling;
-    t_ast_node *num_args = exec->next_sibling;
-    t_ast_node *args;
+//PWD=/Users/ekaterinamikaylova/Desktop/minishell
+// int	ft_cd(t_ast_node *command, t_env **env_list)
+// {
+// 	//
 
-    if (!exec->value) {
-        return -23;
-    }
-
-    if (num_args != NULL && num_args->param < 1) {
-        printf("command \"%s\"\n", exec->value);
-    } else if (num_args != NULL && num_args->param > 0) {
-        args = num_args->first_child;
-        printf("command \"%s\" ", exec->value);
-        while (args != NULL) {
-            printf("%s ", args->value);
-            if (args->next_sibling == NULL) {
-                printf("\n");
-            }
-            args = args->next_sibling;
-        }
-    }
-
-    return 0; // Return success code
-}
-
-int	ft_cd(t_ast_node *command)
-{
-	printf("command \"%s\"\n", command->first_child->next_sibling->value);
-	return (0);
-}
+// 	return (0);
+// }
 
 void ft_pwd()
 {
@@ -54,8 +25,8 @@ void ft_pwd()
     char *buffer = malloc(size);
 
     if (buffer == NULL) {
-        perror("Unable to allocate buffer");
-        exit(EXIT_FAILURE);
+        perror("Unable to allocate buffer with malloc");
+        exit(EXIT_FAILURE);;
     }
 
     // Get the current working directory
@@ -64,8 +35,9 @@ void ft_pwd()
         free(buffer);
 		exit(EXIT_FAILURE);
 	}
-	printf("MY PWD PRINTS THIS %s\n", buffer);
+	ft_putendl_fd(buffer, STDOUT_FILENO);
 	free(buffer);
+    exit(EXIT_SUCCESS); //if not infinite loop in builtiner
 }
 
 
@@ -104,56 +76,21 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     }
 
     if (ft_strcmp(exec, "echo") == 0) {
-        ft_echo(command); // Handle echo command
+        ft_echo(command); // YES
     } else if (ft_strcmp(exec, "cd") == 0) {
-        ft_echo(command); // Handle cd command
+        write(1,"my CD ", 6); // Handle cd command
     } else if (ft_strcmp(exec, "pwd") == 0) {
-        ft_pwd(); // Handle pwd command
+        write(1,"my PWD ", 7);
+        ft_pwd(); // YES
     } else if (ft_strcmp(exec, "export") == 0) {
         ft_echo(command); // Handle export command
     } else if (ft_strcmp(exec, "unset") == 0) {
         ft_echo(command); // Handle unset command
     } else if (ft_strcmp(exec, "env") == 0) {
-        ft_echo(command); // Handle env command
-    } else if (ft_strcmp(exec, "exit") == 0) {
-        ft_echo(command); // Handle exit command
+        write(1,"my ENV ", 7);
+        print_env(env_list); // Handle env command
     } else {
         return 1; // Command is not a built-in
     }
     return 0; // Command is a built-in
 }
-
-// //void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
-// void ft_handle_builtin(t_ast_node *command, t_env **env_list) 
-// {
-//     // Handle input redirection
-//     int input_fd = input_redir(command);
-//     if (input_fd == -1) {
-//         perror("Error in input_redir");
-//         exit(EXIT_FAILURE);
-//     } else if (input_fd != -3) { // Check if input redirection is needed
-//         if (dup2(input_fd, STDIN_FILENO) == -1) {
-//             perror("dup2 input");
-//             exit(EXIT_FAILURE);
-//         }
-//         close(input_fd); // Close original input_fd after successful dup2
-//     }
-    
-//     // Handle output redirection
-//     int output_fd = output_redir(command);
-//     if (output_fd == -1) {
-//         perror("Error in output_redir");
-//         exit(EXIT_FAILURE);
-//     } else if (output_fd != -3) { // Check if output redirection is needed
-//         if (dup2(output_fd, STDOUT_FILENO) == -1) {
-//             perror("dup2 output");
-//             exit(EXIT_FAILURE);
-//         }
-//         close(output_fd); // Close original output_fd after successful dup2
-//     }
-
-//     // Execute the built-in command
-//     builtiner(command, env_list);
-// }
-
-
