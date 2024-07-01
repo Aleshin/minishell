@@ -193,9 +193,11 @@ void print_env(t_env **env)
 {
     t_env *curr = *env;
 
-    while (curr != NULL) 
+    while (curr != NULL)
     {
-        printf("%s=%s\n", curr->name, curr->value); // Print each environment variable
+        ft_putstr_fd(curr->name, STDOUT_FILENO);
+        ft_putstr_fd("=", STDOUT_FILENO);
+        ft_putendl_fd(curr->value, STDOUT_FILENO);
         curr = curr->next;
     }
 }
