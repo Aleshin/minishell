@@ -11,14 +11,6 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-//PWD=/Users/ekaterinamikaylova/Desktop/minishell
-// int	ft_cd(t_ast_node *command, t_env **env_list)
-// {
-// 	//
-
-// 	return (0);
-// }
-
 int ft_pwd()
 {
 	size_t size = 1024;
@@ -81,12 +73,12 @@ int builtiner(t_ast_node *command, t_env **env_list) {
         write(1,"my PWD ", 7);
         ft_pwd(); // YES
     } else if (ft_strcmp(exec, "export") == 0) {
-        ft_echo(command); // Handle export command
+        ft_echo(command); // YES
     } else if (ft_strcmp(exec, "unset") == 0) {
-        ft_echo(command); // Handle unset command
+        ft_unset(env_list, command); // Handle unset command
     } else if (ft_strcmp(exec, "env") == 0) {
-        write(1,"my ENV ", 7);
-        print_env(env_list); // Handle env command
+        write(1,"my env ", 7);
+        print_env(env_list); // YES
     } else {
         return 1; // Command is not a built-in
     }

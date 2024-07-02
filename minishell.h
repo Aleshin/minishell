@@ -43,6 +43,7 @@ ast_tree
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
+# include <string.h>
 
 typedef enum SymbolType
 {
@@ -165,20 +166,53 @@ int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 void			ft_executor(t_ast_node *commands, t_env **env);
 int 			builtiner(t_ast_node *command, t_env **env);
+
+//redirections
+int input_redir(t_ast_node *commands);
+int output_redir(t_ast_node *commands);
+void handle_dup_and_close(int old_fd, int new_fd);
+
 //builtins
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
-void 			remove_node(t_env **lst, char *name);
 int 			is_builtin(t_ast_node *command);
 int 			ft_echo(t_ast_node *command);
+t_env	*ft_lstnew_env(char *name, char *value);
+void ft_unset(t_env **list, t_ast_node *command);
+
+//exec_helpers
+void			free_arr(char **arr);
+char	*ft_find_abs_path(char *command);
+char			**cmd_to_argv(t_ast_node *cmd);
+void ft_exec_command(t_ast_node *commands, t_env **env_var);
+
+//envvar_helpers FULL
+char **split_env(char *env, char c);
+int check_varname(char *str);
+char 			**linked_list_to_envp(t_env **env);
+t_env 			*envp_to_linked_list(char **envp);
+void free_env_node(t_env *node);
+void lst_dealloc(t_env **head);
+
+//envvar FULL
+t_env	*ft_lstnew_env(char *name, char *value);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+void print_env(t_env **env);
+void remove_node(t_env **lst, char *name);
+void ft_export(t_env **lst, char *str);
+int list_len(t_env *env);
+
+int list_len(t_env *env);
 
 //helper functions
-char			**cmd_to_argv(t_ast_node *cmd);
-void			free_arr(char **arr);
 int				ft_strcmp(const char *s1, const char *s2);
-t_env 			*envp_to_linked_list(char **envp);
-char 			**linked_list_to_envp(t_env **env);
+
 void 			lst_dealloc(t_env **head);
 int				free_all(t_ast_node **ast_root, t_Token_node **token, t_Input **input, char **buf);
 void 			print_env(t_env **env);
+
+//errors
+void	print_error(char *command);
+void ft_perror(char *str);
+void ft_shell_error(char *cmd, char *error);
 
 #endif
