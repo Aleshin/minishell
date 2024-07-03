@@ -20,7 +20,7 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	int	i;
 	char	*tmp;
 
-	path = ft_getenv("PATH", env_list);//
+	path = ft_getenv(env_list, "PATH");//
 	arr = ft_split(path, ':');
 	path_to_command = NULL;
 	i = 0;
@@ -77,7 +77,7 @@ void ft_exec_command(t_ast_node *commands, t_env **env_var)
     }
 
     // Handle external commands
-    path = ft_find_abs_path(commands->first_child->next_sibling->value, env_var);
+    path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
     if (path == NULL) {
         ft_shell_error(commands->first_child->next_sibling->value, "command not found");
         exit(EXIT_FAILURE);
