@@ -205,12 +205,12 @@ void print_env(t_env **env);
 void remove_node(t_env **lst, char *name);
 int list_len(t_env *env);
 //sort
-void print_sorted_list(t_env *head);
+int ft_print_sorted(t_env *lst);
 
 //ft_export
 t_env	*ft_lstnew_env(char *name, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
-int ft_export(t_env **lst, char *str);
+int ft_export(t_env **lst, t_ast_node *cmd);
 
 
 //helper functions

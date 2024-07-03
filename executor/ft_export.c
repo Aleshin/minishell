@@ -44,24 +44,22 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 
 //export IN PROGRESS
 //export without args same as env but alphabetically.
-int ft_export(t_env **lst, char *str)
+int ft_export(t_env **lst, t_ast_node *cmd)
 {
-    t_env *curr;
-    char **new_val; //export NEW=xxx
-
-    curr = lst;
-    *new_val = split_env(str, '=');
-    if (str == NULL && new_val[1] == NULL)
+    char *str = cmd->first_child->first_child->next_sibling->next_sibling->value;
+    t_env *curr = *lst;
+    char **new_val = split_env(str, '=');
+    if (str == NULL)
     {
-        void bubble_sort(t_env **lst);
-        print_env(lst);
+        ft_print_sorted(*lst);
+        return (0);
     }
     //"" or export <no = no val>
     if (new_val == NULL || new_val[0] == NULL || new_val[1] == NULL || !check_varname(new_val[0]))
     {
         //to check if there is a name, maybe later I dont need it
         ft_export_error("export", "not a valid identifier");
-        ft_export(lst, "?=1"); //add ?=1
+        //ft_export(lst, "?=1"); //add ?=1
         return (1);
     }
     //maybe add here: if no '=' return
@@ -73,7 +71,7 @@ int ft_export(t_env **lst, char *str)
         {
             free(curr->value);
             curr->value = ft_strdup(new_val[1]);
-            return ;
+            return 0;
         }
         curr = curr->next;
     }
@@ -84,6 +82,8 @@ int ft_export(t_env **lst, char *str)
     {
         perror("Memory allocation failed for node"); 
         free_env_node(new_node);
+        return 1;
     }
     ft_lstadd_back_env(lst, new_node);
+    return (0);
 }
