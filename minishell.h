@@ -43,7 +43,8 @@ ast_tree
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
-#include <termios.h>
+# include <termios.h>
+# include <string.h>
 
 typedef enum SymbolType
 {

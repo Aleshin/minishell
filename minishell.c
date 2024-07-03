@@ -57,7 +57,6 @@ int	main(int argc, char **argv, char **envp)
 		if (buf == NULL || ft_strcmp(buf, "exit") == 0)
 		// If user enters exit or closes input (Ctrl+D), exit the loop
 		{
-			lst_dealloc(&environment_list);
 			free(buf);
 			lst_dealloc(&environment_list);
 			write (1, "exit\n", 5);

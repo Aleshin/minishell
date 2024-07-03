@@ -121,10 +121,10 @@ int ft_exit_status(pid_t last_pid)
         // Check if the child process terminated normally
         if (WIFEXITED(status)) {
             int exit_status = WEXITSTATUS(status);
-            printf("Last command exited with status: %d\n", exit_status);
+            //printf("Last command exited with status: %d\n", exit_status);
             return exit_status; // Return the exit status of the last command
         } else {
-            printf("Last command did not exit normally\n");
+            //printf("Last command did not exit normally\n");
             return -1; // Indicate abnormal termination
         }
     }
