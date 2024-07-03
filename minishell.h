@@ -204,7 +204,8 @@ void lst_dealloc(t_env **head);
 void print_env(t_env **env);
 void remove_node(t_env **lst, char *name);
 int list_len(t_env *env);
-
+//sort
+void print_sorted_list(t_env *head);
 
 //ft_export
 t_env	*ft_lstnew_env(char *name, char *value);
