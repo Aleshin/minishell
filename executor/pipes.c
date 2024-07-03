@@ -133,7 +133,7 @@ int ft_exit_status(pid_t last_pid)
 }
 
 
-void ft_executor(t_ast_node *ast_tree, t_env **env_list) 
+void ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input  
 {
     t_ast_node *commands; // Commands list
     int fd_in = 0;  // Initial input file descriptor (stdin)

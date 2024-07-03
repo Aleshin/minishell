@@ -11,6 +11,9 @@
         "tuple": "c",
         "vector": "c",
         "chrono": "c",
-        "type_traits": "c"
+        "type_traits": "c",
+        "minishell.h": "c",
+        "string.h": "c",
+        "errno.h": "c"
     }
 }

@@ -181,9 +181,12 @@ int 			ft_echo(t_ast_node *command);
 t_env	*ft_lstnew_env(char *name, char *value);
 void ft_unset(t_env **list, t_ast_node *command);
 
+
+
+
 //exec_helpers
 void			free_arr(char **arr);
-char	*ft_find_abs_path(char *command);
+char	*ft_find_abs_path(char *command, t_env *env_list);
 char			**cmd_to_argv(t_ast_node *cmd);
 void ft_exec_command(t_ast_node *commands, t_env **env_var);
 
@@ -196,14 +199,18 @@ void free_env_node(t_env *node);
 void lst_dealloc(t_env **head);
 
 //envvar FULL
-t_env	*ft_lstnew_env(char *name, char *value);
-void	ft_lstadd_back_env(t_env **lst, t_env *new);
+
+
 void print_env(t_env **env);
 void remove_node(t_env **lst, char *name);
-void ft_export(t_env **lst, char *str);
 int list_len(t_env *env);
 
-int list_len(t_env *env);
+
+//ft_export
+t_env	*ft_lstnew_env(char *name, char *value);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+int ft_export(t_env **lst, char *str);
+
 
 //helper functions
 int				ft_strcmp(const char *s1, const char *s2);
@@ -217,5 +224,6 @@ void	print_error(char *command);
 void ft_perror(char *str);
 void ft_shell_error(char *cmd, char *error);
 void ft_sintax_error(char *cmd);
+void ft_export_error(char *cmd, char *error);
 
 #endif
