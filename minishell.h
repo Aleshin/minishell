@@ -43,7 +43,7 @@ ast_tree
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
-# include <string.h>
+#include <termios.h>
 
 typedef enum SymbolType
 {
@@ -123,6 +123,7 @@ typedef int (*t_function_pointer)(t_ast_node *);
 
 // signals
 void			setup_signal_handlers();
+void disable_ctrl_backslash();
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
 t_Token_node 	*token_init(char **buf);

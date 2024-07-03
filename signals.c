@@ -18,7 +18,7 @@ void sigint_handler(int signum)
 	// new line and prompt
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
-//	rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
@@ -26,10 +26,6 @@ void sigint_handler(int signum)
 void sigquit_handler(int signum)
 {
 	(void)signum;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-//	rl_replace_line("", 0);
-	rl_redisplay();
 }
 
 void setup_signal_handlers()
@@ -44,4 +40,13 @@ void setup_signal_handlers()
 	sigemptyset(&signal.sa_mask);
 	signal.sa_flags = SA_RESTART;
 	sigaction(SIGQUIT, &signal, NULL);
+}
+
+void disable_ctrl_backslash()
+{
+	struct termios term;
+
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_cc[VQUIT] = _POSIX_VDISABLE;
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
