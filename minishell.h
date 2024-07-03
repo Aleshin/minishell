@@ -216,5 +216,6 @@ void 			print_env(t_env **env);
 void	print_error(char *command);
 void ft_perror(char *str);
 void ft_shell_error(char *cmd, char *error);
+void ft_sintax_error(char *cmd);
 
 #endif

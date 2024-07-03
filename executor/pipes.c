@@ -81,6 +81,7 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
         command->first_child->next_sibling == NULL || 
         command->next_sibling != NULL || !is_builtin(command))
     {
+        ft_sintax_error(ast_tree->value);
         return (0); // Not a single built-in command
     }
 
