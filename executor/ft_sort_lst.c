@@ -1,9 +1,11 @@
 #include "minishell.h"
 
 int ft_print_sorted(t_env *lst) {
+    
     char **arr;
     int len;
-
+    if (!lst)
+        return (1);
     arr = linked_list_to_envp(&lst);
     if (!arr)
         return 0;

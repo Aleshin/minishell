@@ -73,6 +73,7 @@ int builtiner(t_ast_node *command, t_env **env_list) {
         write(1,"my PWD ", 7);
         ft_pwd(); // YES
     } else if (ft_strcmp(exec, "export") == 0) {
+        //printf("---%s\n", command->first_child->next_sibling->value);
         ft_export(env_list, command); // YES
     } else if (ft_strcmp(exec, "unset") == 0) {
         ft_unset(env_list, command); // Handle unset command

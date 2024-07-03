@@ -210,7 +210,7 @@ int ft_print_sorted(t_env *lst);
 //ft_export
 t_env	*ft_lstnew_env(char *name, char *value);
 void	ft_lstadd_back_env(t_env **lst, t_env *new);
-int ft_export(t_env **lst, t_ast_node *cmd);
+int ft_export(t_env **lst, t_ast_node *command);
 
 
 //helper functions
