@@ -21,38 +21,63 @@ int check_varname(char *str) //1 yes 0 no
 }
 
 //split string to *arr[2] (before and after first '=')
-char **split_env(char *env, char c) //c == '='
+char **split_env(char *env, char c) // c == '='
 {
-    int len_before = 0;
-    int len_after = 0;
-    int i = 0;
-    int size = ft_strlen(env); 
-    char **res = malloc(sizeof(char *) * 2);
-    if (NULL == res)
+    int len_before;
+    int len_after;
+    int i;
+    int size;
+    char **res;
+    
+    len_before = 0;
+    len_after = 0;
+    
+    size = ft_strlen(env); 
+    res = malloc(sizeof(char *) * 2);
+    if (res == NULL)
         return NULL;
-    //string size before =
+
+    // string size before =
     while (env[len_before] != c && env[len_before] != '\0')
         len_before++;
-    if (len_before == 0)
+
+    // If there is no '=', return NULL
+    if (env[len_before] == '\0')
     {
+        free(res);
         return NULL;
     }
-    //string size after =
-    len_after = size - len_before - 1;
-    res[0] = malloc(sizeof(char) * len_before + 1);
-    res[1] = malloc(sizeof(char) * len_after + 1);
-    if (res[0] == NULL || res[1] == NULL)
+
+    // Allocate memory for the name part
+    res[0] = malloc(sizeof(char) * (len_before + 1));
+    if (res[0] == NULL)
     {
-        free_arr(res);
+        free(res);
         return NULL;
-    }    
+    }
+
+    // Copy the name part
+    i = 0;
     while (i < len_before)
     {
         res[0][i] = env[i];
         i++;
     }
     res[0][i] = '\0';
-    i++;
+
+    // Calculate the length after '='
+    len_after = size - len_before - 1;
+    
+    // Allocate memory for the value part
+    res[1] = malloc(sizeof(char) * (len_after + 1));
+    if (res[1] == NULL)
+    {
+        free(res[0]);
+        free(res);
+        return NULL;
+    }
+
+    // Copy the value part
     i = 0;
     while (i < len_after)
     {
@@ -60,8 +85,22 @@ char **split_env(char *env, char c) //c == '='
         i++;
     }
     res[1][i] = '\0';
-    return (res);
+
+    return res;
 }
+
+// Function to calculate the length of a string
+size_t ft_strlen(const char *str)
+{
+    size_t len = 0;
+    while (str[len] != '\0')
+    {
+        len++;
+    }
+    return len;
+}
+
+
 
 char **linked_list_to_envp(t_env **env) {
     int i = 0;

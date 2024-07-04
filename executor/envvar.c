@@ -47,18 +47,23 @@ void remove_node(t_env **lst, char *name)
     }
 }
 
-void ft_unset(t_env **list, t_ast_node *command) 
+int ft_unset(t_env **list, t_ast_node *command) 
 {
     t_ast_node *cur_arg;
 
     cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-    if (!cur_arg)
-        return ;
+    if (!check_varname(cur_arg->value))
+    {
+        ft_env_error(command->first_child->next_sibling->value, cur_arg->value, "not a valid identifier");
+        return (1);
+    }
+        
 
     while (cur_arg != NULL) {
         remove_node(list, cur_arg->value);
         cur_arg = cur_arg->next_sibling;
     }
+    return (0);
 }
 
 int list_len(t_env *env)

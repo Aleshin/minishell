@@ -179,7 +179,7 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
 int 			is_builtin(t_ast_node *command);
 int 			ft_echo(t_ast_node *command);
 t_env	*ft_lstnew_env(char *name, char *value);
-void ft_unset(t_env **list, t_ast_node *command);
+int ft_unset(t_env **list, t_ast_node *command);
 
 
 
@@ -225,6 +225,6 @@ void	print_error(char *command);
 void ft_perror(char *str);
 void ft_shell_error(char *cmd, char *error);
 void ft_sintax_error(char *cmd);
-void ft_export_error(char *cmd, char *error);
+void ft_env_error(char *cmd, char *arg, char *error);
 
 #endif

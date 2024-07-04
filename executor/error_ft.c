@@ -30,10 +30,12 @@ void ft_cmd_error(char *arg)
 }
 
 //bash: export: `1fff=': not a valid identifier
-void ft_export_error(char *cmd, char *error)
+void ft_env_error(char *cmd, char *arg, char *error)
 {
     ft_putstr_fd("minishell: ", STDERR_FILENO);
     ft_putstr_fd(cmd, STDERR_FILENO);
+    ft_putstr_fd(": ", STDERR_FILENO);
+    ft_putstr_fd(arg, STDERR_FILENO);
     ft_putstr_fd(": ", STDERR_FILENO);
     ft_putendl_fd(error, STDERR_FILENO);
 }
