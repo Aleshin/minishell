@@ -32,6 +32,27 @@ int ft_pwd()
     return(1); //if not infinite loop in builtiner
 }
 
+int ft_cd(t_env **env_lst, t_ast_node *command)
+{
+    (void)env_lst;
+    //char *path = "/path/to/directory";
+    char *path;
+    
+    if (command->first_child->next_sibling->next_sibling->param == 0) //check_arg function
+        return (0);
+
+    path = command->first_child->next_sibling->next_sibling->first_child->value;
+    if (!path)
+        return(0);
+
+
+    // if (chdir(path) == 0)
+    // {
+
+    // }
+    return(0);
+}
+
 
 //1 is a builtin, 0 is not
 int is_builtin(t_ast_node *command) {
@@ -68,7 +89,7 @@ int builtiner(t_ast_node *command, t_env **env_list) {
     if (ft_strcmp(exec, "echo") == 0) {
         ft_echo(command); // YES
     } else if (ft_strcmp(exec, "cd") == 0) {
-        write(1,"my CD ", 6); // Handle cd command
+        ft_cd(env_list, command); // Handle cd command
     } else if (ft_strcmp(exec, "pwd") == 0) {
         write(1,"my PWD ", 7);
         ft_pwd(); // YES

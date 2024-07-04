@@ -12,8 +12,7 @@ void ft_shell_error(char *cmd, char *error)
 //bash: syntax error near unexpected token `|'
 void ft_sintax_error(char *cmd)
 {
-    ft_putstr_fd("minishell: ", STDERR_FILENO);
-    
+    ft_putstr_fd("minishell: ", STDERR_FILENO);  
     ft_putstr_fd("syntax error near unexpected token ", STDERR_FILENO);
     ft_putstr_fd("`", STDERR_FILENO);
     ft_putstr_fd(cmd, STDERR_FILENO);

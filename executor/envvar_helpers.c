@@ -1,23 +1,25 @@
 #include "minishell.h"
 
-int check_varname(char *str) //1 yes 0 no
+int check_varname(char *str) // 1 for yes, 0 for no
 {
-    int res;
-    
-    res = 1;
-    
-    while(*str == ' ' || *str == '\t')
-            str++;
-    if (ft_isdigit(*str))
+    // Check if string is empty
+    if (*str == '\0')
         return 0;
-    while(*str != '=')
+
+    // Check the first character (not int nor _)
+    if (!(ft_isalpha(*str) || *str == '_'))
+        return 0;
+    str++;
+
+    // Check the rest of the characters
+    while (*str != '\0')
     {
-        if (ft_isalpha(*str) || ft_isdigit(*str) || *str == '_')
-            str++;
-        else if (*str == ' ' || *str == '\t')
+        if (!(ft_isalpha(*str) || ft_isdigit(*str) || *str == '_'))
             return 0;
+        str++;
     }
-    return (res);
+
+    return 1;
 }
 
 //split string to *arr[2] (before and after first '=')

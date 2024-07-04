@@ -166,7 +166,7 @@ void			redirects_arguments(t_Token_node **token,
 					t_ast_keys **ast_keys);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
-void			ft_executor(t_ast_node *commands, t_env **env);
+int			ft_executor(t_ast_node *commands, t_env **env);
 int 			builtiner(t_ast_node *command, t_env **env);
 
 //redirections

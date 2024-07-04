@@ -75,13 +75,13 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
     t_ast_node *command;
     command = ast_tree->first_child;
-
+        
     // Check if there is only one command and it is a built-in
     if (command == NULL || command->first_child == NULL || 
         command->first_child->next_sibling == NULL || 
         command->next_sibling != NULL || !is_builtin(command))
     {
-        ft_sintax_error(ast_tree->value);
+        //ft_sintax_error(ast_tree->value);
         return (0); // Not a single built-in command
     }
 
@@ -89,7 +89,7 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
     int original_stdout = dup(STDOUT_FILENO);
     if (original_stdout == -1) {
         perror("dup");
-        exit(EXIT_FAILURE);
+        return(-1);
     }
 
     // Handle output redirection
@@ -116,7 +116,7 @@ int ft_exit_status(pid_t last_pid)
         while (waitpid(last_pid, &status, 0) == -1) {
             if (errno != EINTR) {
                 perror("waitpid");
-                exit(EXIT_FAILURE);
+                return(-2);
             }
         }
         // Check if the child process terminated normally
@@ -133,7 +133,7 @@ int ft_exit_status(pid_t last_pid)
 }
 
 
-void ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input  
+int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input  
 {
     t_ast_node *commands; // Commands list
     int fd_in = 0;  // Initial input file descriptor (stdin)
@@ -151,13 +151,13 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
         if (commands->next_sibling != NULL) {
             if (pipe(pipefds) == -1) {
                 perror("pipe");
-                exit(EXIT_FAILURE);
+                return(-1);
             }
         }
         pid = fork();
         if (pid == -1) {
             perror("fork");
-            exit(EXIT_FAILURE);
+            return(-1);
         }
         if (pid == 0) {
             // Child process changes in and out fd accordingly
@@ -183,4 +183,5 @@ void ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
 
     // Wait for all other child processes to finish
     while (wait(NULL) > 0);
+    return (0);
 }
