@@ -112,11 +112,11 @@ int ft_exit_status(pid_t last_pid)
     int status;
 
     // Wait for the last child process and capture its exit status
-    if (last_pid != -1) {
+    if (last_pid != -1) { //if it == -1 there is no child process
         while (waitpid(last_pid, &status, 0) == -1) {
             if (errno != EINTR) {
                 perror("waitpid");
-                return(-2);
+                return(-1);
             }
         }
         // Check if the child process terminated normally
@@ -129,7 +129,7 @@ int ft_exit_status(pid_t last_pid)
             return -1; // Indicate abnormal termination
         }
     }
-    return -1; // Return -1 if there was no child process
+    return -1; // Return -1 if there was no child process,
 }
 
 
@@ -141,6 +141,7 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
     pid_t pid;
     pid_t last_pid = -1; // PID of the last child process
     int last_exit_status;
+  
     commands = ast_tree->first_child;
 
     while (commands != NULL) 
@@ -179,6 +180,10 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
 
     // Handle the exit status of the last command --->$?
     last_exit_status = ft_exit_status(last_pid);
+    //char *status = ft_itoa(last_exit_status);
+    //char *value = ft_strjoin("?", "=", status);
+    //ft_export_node(env_list, value); //here write ft to modify ?=status   
+    
     printf("last exit status is %d\n", last_exit_status);
 
     // Wait for all other child processes to finish

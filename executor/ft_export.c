@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emikhayl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 23:09:47 by emikhayl          #+#    #+#             */
+/*   Updated: 2024/07/05 23:09:50 by emikhayl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 t_env	*ft_lstnew_env(char *name, char *value)
@@ -94,6 +106,9 @@ int ft_export_node(t_env **lst, char *cur_arg)
     if (!check_varname(new_val[0]))
     {
         ft_env_error("export", cur_arg, "not a valid identifier");
+        free(new_val[0]);  // Free allocated memory
+        free(new_val[1]);
+        free(new_val);
         return (1);
     }
 
@@ -104,6 +119,8 @@ int ft_export_node(t_env **lst, char *cur_arg)
         if (!new_val[1])
         {
             perror("Memory allocation failed for value");
+            free(new_val[0]);  // Free allocated memory
+            free(new_val);
             return (1);
         }
     }
@@ -116,6 +133,9 @@ int ft_export_node(t_env **lst, char *cur_arg)
         if (new_node == NULL)
         {
             perror("Memory allocation failed for node");
+            free(new_val[0]);  // Free allocated memory
+            free(new_val[1]);
+            free(new_val);
             return (1);
         }
         ft_lstadd_back_env(lst, new_node);
@@ -123,9 +143,14 @@ int ft_export_node(t_env **lst, char *cur_arg)
     else if (env_exist_result == -1)
     {
         // Memory allocation error inside check_env_exist
+        free(new_val[0]);  // Free allocated memory
+        free(new_val[1]);
+        free(new_val);
         return (1);
     }
-
+    free(new_val[0]);  // Free allocated memory
+    free(new_val[1]);
+    free(new_val);
     return (0);
 }
 
@@ -134,7 +159,7 @@ int ft_export(t_env **lst, t_ast_node *command)
     t_ast_node *cur_arg;
 
     cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-    
+    printf("export %p\n", *lst);
     
     if (command->first_child->next_sibling->next_sibling->param == 0)
     {

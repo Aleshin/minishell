@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   exec_helpers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: emikhayl <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/05 23:08:49 by emikhayl          #+#    #+#             */
+/*   Updated: 2024/07/05 23:08:54 by emikhayl         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void free_arr(char **arr)
@@ -72,11 +84,13 @@ int ft_exec_command(t_ast_node *commands, t_env **env_var)
 {
     char *path;
     char **argv;
-    char **upd_envvar = linked_list_to_envp(env_var);
+    char **upd_envvar;
 
-    // Check for invalid command structure
+    upd_envvar = linked_list_to_envp(env_var);
+	// Check for invalid command structure
     if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) {
         //exit(EXIT_FAILURE);
+		free_arr(upd_envvar);
         return 1;
     }
 
@@ -84,12 +98,12 @@ int ft_exec_command(t_ast_node *commands, t_env **env_var)
     path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
     if (path == NULL) 
 	{
-        perror("path");
-		printf("errno number: %d\n", errno);
-        printf("errno message: %s\n", strerror(errno)); 
+        //perror("path");
+		// printf("errno number: %d\n", errno);
+        // printf("errno message: %s\n", strerror(errno)); 
 		ft_shell_error(commands->first_child->next_sibling->value, "command not found");
         free_arr(upd_envvar);
-		return(1);
+		return(127);
     }
 
     argv = cmd_to_argv(commands->first_child->next_sibling);
@@ -100,7 +114,8 @@ int ft_exec_command(t_ast_node *commands, t_env **env_var)
 		printf("errno number: %d\n", errno);
         printf("errno message: %s\n", strerror(errno)); 
         free_arr(argv);
-        free_arr(upd_envvar);
+		if (!upd_envvar)
+        	free_arr(upd_envvar);
         return(1);
     }
 
