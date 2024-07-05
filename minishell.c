@@ -66,19 +66,23 @@ int	main(int argc, char **argv, char **envp)
 		token = token_init(&buf);
 		input = input_init(&token);
 		input->env = environment_list;
-		if (lexer(&input, &token) == 1)
+		if (lexer(&input, &token) == 0)
 		{
+			//	print_tokens(token);
+			ast_root = create_ast_node(commandLine, input->string);
+			current_token = token;
+			ast_root = rule_command_line(&current_token, ast_root);
+			print_ast_tree(ast_root, 0);
+	//		builtiner(ast_root->first_child); moved before executor
+	//		ft_executor(ast_root, &input->env);
 			free_all(&ast_root, &token, &input, &buf);
-			return (1);
 		}
-		//	print_tokens(token);
-		ast_root = create_ast_node(commandLine, input->string);
-		current_token = token;
-		ast_root = rule_command_line(&current_token, ast_root);
-		print_ast_tree(ast_root, 0);
-//		builtiner(ast_root->first_child); moved before executor
-		ft_executor(ast_root, &input->env);
-		free_all(&ast_root, &token, &input, &buf);
+		else
+		{
+			free_tokens(&token);
+			free(input);
+			free(buf);
+		}
 	}
 	return (0);
 }
@@ -86,10 +90,13 @@ int	main(int argc, char **argv, char **envp)
 int	free_all(t_ast_node **ast_root, t_Token_node **token,
 			t_Input **input, char **buf)
 {
+	(void)token;
+	(void)ast_root;
 	if (*ast_root)
 		free_ast(ast_root);
 	free(*buf);
-	free_tokens(token);
+//	if (*token)
+//		free_tokens(token);
 	free(*input);
 	return (1);
 }

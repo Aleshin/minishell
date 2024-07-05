@@ -123,6 +123,18 @@ int	double_quotes_remover(t_Token_node **token)
 	return (0);
 }
 
+int	syntax_checker(t_Token_node **token)
+{
+	if ((*token)->type == PIPE
+	&& ((*token)->next_token == NULL
+		|| (*token)->prev_token == NULL))
+	{
+		ft_putstr_fd("syntax error near unexpected token `|'\n", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
+}
+
 int	lexer(t_Input **input, t_Token_node **token)
 {
 	t_Token_node	**token_temp;
@@ -141,6 +153,8 @@ int	lexer(t_Input **input, t_Token_node **token)
 	token_temp = token;
 	while (*token_temp != NULL)
 	{
+		if (syntax_checker(token_temp) == 1)
+			return (1);
 		if (expand_redirects(token_temp) == 1)
 			return (1);
 		if (expand_heredoc(token_temp) == 1)
