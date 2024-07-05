@@ -83,7 +83,7 @@ int	main(int argc, char **argv, char **envp)
 		if (ft_handle_builtin(ast_root, &input->env) == 0)
 			ft_executor(ast_root, &input->env);
 		
-		free_all(&ast_root, &token, &input, &buf);
+//		free_all(&ast_root, &token, &input, &buf);
 	}
 	return (0);
 }
@@ -91,11 +91,12 @@ int	main(int argc, char **argv, char **envp)
 int	free_all(t_ast_node **ast_root, t_Token_node **token,
 			t_Input **input, char **buf)
 {
+	(void)input;
 	if (*ast_root)
 		free_ast(ast_root);
 	free(*buf);
 	free_tokens(token);
-	free(*input);
+//	free(*input);
 	return (1);
 }
 // examples for testing
