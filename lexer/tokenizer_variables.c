@@ -50,13 +50,13 @@ int	detect_var(t_Input **input, t_Token_node **token)
 	return (1);
 }
 
-char	*ft_getenv(t_Input *input, char *value)
+char	*ft_getenv(t_env *env, char *value)
 {
-	while (input->env->next != NULL)
+	while (env->next != NULL)
 	{
-		if (!ft_strcmp(input->env->name, value))
-			return (input->env->value);
-		input->env = input->env->next;
+		if (!ft_strcmp(env->name, value))
+			return (env->value);
+		env = env->next;
 	}
 	return (NULL);
 }
@@ -66,10 +66,10 @@ int	expand_var(t_Input *input, t_Token_node **token)
 	char	*value_temp;
 
 	value_temp = (*token)->value;
-	if (ft_getenv(input, (*token)->value) == NULL)
+	if (ft_getenv(input->env, (*token)->value) == NULL)
 		(*token)->value = ft_strdup("");
 	else
-		(*token)->value = ft_strdup(ft_getenv(input, (*token)->value));
+		(*token)->value = ft_strdup(ft_getenv(input->env, (*token)->value));
 	free(value_temp);
 	return (0);
 }

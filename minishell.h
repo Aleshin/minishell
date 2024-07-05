@@ -43,7 +43,8 @@ ast_tree
 # include <sys/types.h>
 # include <dirent.h>
 # include <signal.h>
-#include <termios.h>
+# include <termios.h>
+# include <string.h>
 
 typedef enum SymbolType
 {
@@ -135,7 +136,7 @@ int				join_next_token(t_Token_node **token);
 int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
 int				print_tokens(t_Token_node *token_temp);
-char			*ft_getenv(t_Input *input, char *value);
+char			*ft_getenv(t_env *env, char *value);
 // lexer functions
 char			*heredoc_stdin(char *delimiter);
 int				rule_terminals(t_Input **input, t_Token_node **token);
@@ -165,19 +166,65 @@ void			redirects_arguments(t_Token_node **token,
 					t_ast_keys **ast_keys);
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
-void			ft_executor(t_ast_node *commands, t_env **env);
+int			ft_executor(t_ast_node *commands, t_env **env);
 int 			builtiner(t_ast_node *command, t_env **env);
-int 			is_builtin(char *command);
+
+//redirections
+int input_redir(t_ast_node *commands);
+int output_redir(t_ast_node *commands);
+void handle_dup_and_close(int old_fd, int new_fd);
+
 //builtins
-void 			remove_node(t_env **lst, char *name);
-//helper functions
-char			**cmd_to_argv(t_ast_node *cmd);
+int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
+int 			is_builtin(t_ast_node *command);
+int 			ft_echo(t_ast_node *command);
+t_env	*ft_lstnew_env(char *name, char *value);
+int ft_unset(t_env **list, t_ast_node *command);
+
+
+
+
+//exec_helpers
 void			free_arr(char **arr);
-int				ft_strcmp(const char *s1, const char *s2);
-t_env 			*envp_to_linked_list(char **envp);
+char	*ft_find_abs_path(char *command, t_env *env_list);
+char			**cmd_to_argv(t_ast_node *cmd);
+void ft_exec_command(t_ast_node *commands, t_env **env_var);
+
+//envvar_helpers FULL
+char **split_env(char *env, char c);
+int check_varname(char *str);
 char 			**linked_list_to_envp(t_env **env);
+t_env 			*envp_to_linked_list(char **envp);
+void free_env_node(t_env *node);
+void lst_dealloc(t_env **head);
+
+//envvar FULL
+
+
+void print_env(t_env **env);
+void remove_node(t_env **lst, char *name);
+int list_len(t_env *env);
+//sort
+int ft_print_sorted(t_env *lst);
+
+//ft_export
+t_env	*ft_lstnew_env(char *name, char *value);
+void	ft_lstadd_back_env(t_env **lst, t_env *new);
+int ft_export(t_env **lst, t_ast_node *command);
+
+
+//helper functions
+int				ft_strcmp(const char *s1, const char *s2);
+
 void 			lst_dealloc(t_env **head);
 int				free_all(t_ast_node **ast_root, t_Token_node **token, t_Input **input, char **buf);
 void 			print_env(t_env **env);
+
+//errors
+void	print_error(char *command);
+void ft_perror(char *str);
+void ft_shell_error(char *cmd, char *error);
+void ft_sintax_error(char *cmd);
+void ft_env_error(char *cmd, char *arg, char *error);
 
 #endif
