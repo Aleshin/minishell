@@ -189,7 +189,7 @@ int ft_export_node(t_env **lst, char *cur_arg);
 void			free_arr(char **arr);
 char	*ft_find_abs_path(char *command, t_env *env_list);
 char			**cmd_to_argv(t_ast_node *cmd);
-void ft_exec_command(t_ast_node *commands, t_env **env_var);
+int ft_exec_command(t_ast_node *commands, t_env **env_var);
 
 //envvar_helpers FULL
 char **split_env(char *env, char c);

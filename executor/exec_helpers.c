@@ -11,7 +11,7 @@ void free_arr(char **arr)
     free(arr);
 }
 
-// Function to find the absolute path of a command
+// Return pointer to path or NULL
 char	*ft_find_abs_path(char *command, t_env *env_list)
 {
 	char	*path;
@@ -48,7 +48,11 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 	argc = cmd->next_sibling->param + 1; // receive args num from "args" node
 	argv = (char **)malloc((argc + 1) * sizeof(char *)); //allocate memory for 2d-array
 	if (argv == NULL)
+	{
 		ft_perror("Failed to allocate memory for argv");
+		return NULL; //??????
+	}
+		
 	
 	i = 0;
 	argv[i++] = cmd->value;
@@ -64,7 +68,7 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 }
 
 //function that checks path and if it exists execute execve
-void ft_exec_command(t_ast_node *commands, t_env **env_var)
+int ft_exec_command(t_ast_node *commands, t_env **env_var)
 {
     char *path;
     char **argv;
@@ -73,14 +77,19 @@ void ft_exec_command(t_ast_node *commands, t_env **env_var)
     // Check for invalid command structure
     if (commands == NULL || commands->first_child == NULL || commands->first_child->next_sibling == NULL) {
         //exit(EXIT_FAILURE);
-        return ;
+        return 1;
     }
 
     // Handle external commands
     path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
-    if (path == NULL) {
-        ft_shell_error(commands->first_child->next_sibling->value, "command not found");
-        exit(EXIT_FAILURE);
+    if (path == NULL) 
+	{
+        perror("path");
+		printf("errno number: %d\n", errno);
+        printf("errno message: %s\n", strerror(errno)); 
+		ft_shell_error(commands->first_child->next_sibling->value, "command not found");
+        free_arr(upd_envvar);
+		return(1);
     }
 
     argv = cmd_to_argv(commands->first_child->next_sibling);
@@ -88,11 +97,14 @@ void ft_exec_command(t_ast_node *commands, t_env **env_var)
     // Execute the command using execve
     if (execve(path, argv, upd_envvar) == -1) {
         perror("execve");
+		printf("errno number: %d\n", errno);
+        printf("errno message: %s\n", strerror(errno)); 
         free_arr(argv);
         free_arr(upd_envvar);
-        exit(EXIT_FAILURE);
+        return(1);
     }
 
     free_arr(argv);
     free_arr(upd_envvar);
+	return(1);
 }
