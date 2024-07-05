@@ -180,6 +180,7 @@ int 			is_builtin(t_ast_node *command);
 int 			ft_echo(t_ast_node *command);
 t_env	*ft_lstnew_env(char *name, char *value);
 int ft_unset(t_env **list, t_ast_node *command);
+int ft_export_node(t_env **lst, char *cur_arg);
 
 
 
@@ -201,7 +202,6 @@ void lst_dealloc(t_env **head);
 //envvar FULL
 
 
-void print_env(t_env **env);
 void remove_node(t_env **lst, char *name);
 int list_len(t_env *env);
 //sort
@@ -218,7 +218,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 
 void 			lst_dealloc(t_env **head);
 int				free_all(t_ast_node **ast_root, t_Token_node **token, t_Input **input, char **buf);
-void 			print_env(t_env **env);
+int			print_env(t_env **env);
 
 //errors
 void	print_error(char *command);

@@ -53,7 +53,7 @@ int ft_echo(t_ast_node *command) {
     // Print newline if -n flag is not set
     if (!no_newline) 
         ft_putendl_fd("", STDOUT_FILENO);
-    return (1); // Return success code or 1???
+    return (0); // Return success code or 1???
 }
 
 /*TESTS

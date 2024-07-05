@@ -22,19 +22,23 @@ int ft_pwd()
     }
 
     // Get the current working directory
-    if (getcwd(buffer, size) == NULL) {
+    if (getcwd(buffer, size) == NULL) 
+    {
         perror("getcwd error");
         free(buffer);
-		exit(EXIT_FAILURE);
+		return(-1);
 	}
 	ft_putendl_fd(buffer, STDOUT_FILENO);
 	free(buffer);
-    return(1); //if not infinite loop in builtiner
+    return(0);
 }
 
 int ft_cd(t_env **env_lst, t_ast_node *command)
 {
-    (void)env_lst;
+    size_t size = 1024;
+    char *buffer = malloc(size);
+    
+    
     //char *path = "/path/to/directory";
     char *path;
     
@@ -46,10 +50,21 @@ int ft_cd(t_env **env_lst, t_ast_node *command)
         return(0);
 
 
-    // if (chdir(path) == 0)
-    // {
-
-    // }
+    if (chdir(path) == 0)
+    {
+        perror("cd");
+        return -1;
+    }
+    
+    //get PWD
+    if (getcwd(buffer, size) == NULL) 
+    {
+        perror("getcwd error");
+        free(buffer);
+		return(-1);
+	}
+    // Update the PWD environment variable
+    ft_export_node(env_lst, buffer);    
     return(0);
 }
 

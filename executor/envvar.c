@@ -2,7 +2,7 @@
 
 //печать списка (поменять принтф на что то другое)
 //env
-void print_env(t_env **env)
+int print_env(t_env **env)
 {
     t_env *curr = *env;
 
@@ -13,6 +13,7 @@ void print_env(t_env **env)
         ft_putendl_fd(curr->value, STDOUT_FILENO);
         curr = curr->next;
     }
+    return(0);
 }
 
 //удаляет нодб если lst->name == name
