@@ -71,10 +71,10 @@ int	main(int argc, char **argv, char **envp)
 			//	print_tokens(token);
 			ast_root = create_ast_node(commandLine, input->string);
 			current_token = token;
-			ast_root = rule_command_line(&current_token, ast_root);
+//			ast_root = rule_command_line(&current_token, ast_root);
 			print_ast_tree(ast_root, 0);
-	//		builtiner(ast_root->first_child); moved before executor
-	//		ft_executor(ast_root, &input->env);
+			builtiner(ast_root->first_child);// moved before executor
+			ft_executor(ast_root, &input->env);
 			free_all(&ast_root, &token, &input, &buf);
 		}
 		else

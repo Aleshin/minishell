@@ -18,9 +18,9 @@ int	rule_word(t_Input **input)
 	i = (*input)->token_start;
 	while ((*input)->string[i] != '\0')
 	{
-		if (((*input)->string[i] > '0' && (*input)->string[i] < '9')
-			|| ((*input)->string[i] > 'A' && (*input)->string[i] < 'Z')
-			|| ((*input)->string[i] > 'a' && (*input)->string[i] < 'z')
+		if (((*input)->string[i] >= '0' && (*input)->string[i] <= '9')
+			|| ((*input)->string[i] >= 'A' && (*input)->string[i] <= 'Z')
+			|| ((*input)->string[i] >= 'a' && (*input)->string[i] <= 'z')
 			|| (*input)->string[i] == '_')
 			(*input)->current_char = ++i;
 		else
@@ -52,7 +52,7 @@ int	detect_var(t_Input **input, t_Token_node **token)
 
 char	*ft_getenv(t_env *env, char *value)
 {
-	while (env->next != NULL)
+	while (env != NULL)
 	{
 		if (!ft_strcmp(env->name, value))
 			return (env->value);
