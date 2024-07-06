@@ -146,7 +146,7 @@ int	tokenizer(t_Input **input, t_Token_node **token)
 			{
 				if (!rule_quotes(input, token))
 				{
-					tokenizer_double_quotes(token);
+					tokenizer_double_quotes(input, token);
 				}
 				else
 				{
