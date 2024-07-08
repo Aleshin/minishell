@@ -43,6 +43,7 @@ int	main(int argc, char **argv, char **envp)
 	t_Token_node	*current_token;
 	t_ast_node		*ast_root;
 	t_env			*environment_list;
+	int				err_no;
 
 	(void)argc;
 	(void)argv;
@@ -66,9 +67,10 @@ int	main(int argc, char **argv, char **envp)
 		token = token_init(&buf);
 		input = input_init(&token);
 		input->env = environment_list;
-		if (lexer(&input, &token) == 0)
+		err_no = lexer(&input, &token);
+		if ( err_no == 0)
 		{
-			//	print_tokens(token);
+//			print_tokens(token);
 			ast_root = create_ast_node(commandLine, input->string);
 			current_token = token;
 			ast_root = rule_command_line(&current_token, ast_root);
@@ -79,9 +81,11 @@ int	main(int argc, char **argv, char **envp)
 		}
 		else
 		{
+//			free_all(&ast_root, &token, &input, &buf);
 			free_tokens(&token);
 			free(input);
-			free(buf);
+			if (err_no != -1)
+				free(buf);
 		}
 	}
 	return (0);
@@ -92,12 +96,17 @@ int	free_all(t_ast_node **ast_root, t_Token_node **token,
 {
 	(void)token;
 	(void)ast_root;
-	if (*ast_root)
+	(void)buf;
+	(void)input;
+
+	if (ast_root)
 		free_ast(ast_root);
-	free(*buf);
-//	if (*token)
-//		free_tokens(token);
-	free(*input);
+	if (token)
+		free_tokens(token);
+	if (buf)
+		free(*buf);
+	if (input)
+		free(*input);
 	return (1);
 }
 // examples for testing
