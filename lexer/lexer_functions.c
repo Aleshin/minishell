@@ -56,7 +56,7 @@ int	expand_redirects(t_Token_node **token)
 	return (0);
 }
 
-int	expand_heredoc(t_Token_node **token)
+int	expand_heredoc(t_Input **input, t_Token_node **token)
 {
 	char	*value_temp;
 
@@ -70,7 +70,7 @@ int	expand_heredoc(t_Token_node **token)
 		(*token)->next_token->value
 			= heredoc_stdin((*token)->next_token->value);
 		(*token)->next_token->type = DOUBLE_QUOTED_STRING;
-		tokenizer_double_quotes(&(*token)->next_token);
+		tokenizer_double_quotes(input, &(*token)->next_token);
 		(*token)->next_token->type = heredoc;
 		free(value_temp);
 		delete_token(token);
@@ -123,6 +123,18 @@ int	double_quotes_remover(t_Token_node **token)
 	return (0);
 }
 
+int	syntax_checker(t_Token_node **token)
+{
+	if ((*token)->type == PIPE
+	&& ((*token)->next_token == NULL
+		|| (*token)->prev_token == NULL))
+	{
+		ft_putstr_fd("syntax error near unexpected token `|'\n", STDERR_FILENO);
+		return (1);
+	}
+	return (0);
+}
+
 int	lexer(t_Input **input, t_Token_node **token)
 {
 	t_Token_node	**token_temp;
@@ -141,9 +153,11 @@ int	lexer(t_Input **input, t_Token_node **token)
 	token_temp = token;
 	while (*token_temp != NULL)
 	{
+		if (syntax_checker(token_temp) == 1)
+			return (1);
 		if (expand_redirects(token_temp) == 1)
 			return (1);
-		if (expand_heredoc(token_temp) == 1)
+		if (expand_heredoc(input, token_temp) == 1)
 			return (1);
 		if (*token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;

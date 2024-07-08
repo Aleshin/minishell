@@ -40,8 +40,7 @@ t_Token_node *token_init(char **buf)
 	return (token);
 }
 
-
-int	tokenizer_double_quotes(t_Token_node **token)
+int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 {
 	t_Input			*input_substring;
 	t_Token_node	*token_temp;
@@ -50,6 +49,7 @@ int	tokenizer_double_quotes(t_Token_node **token)
 	if (token_temp->type != DOUBLE_QUOTED_STRING)
 		return (1);
 	input_substring = input_init(&token_temp);
+	input_substring->env = (*input)->env;
 	if (!input_substring)
 		return (1);
 	while (input_substring->string[input_substring->current_char] != '\0')
