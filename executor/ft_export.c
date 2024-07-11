@@ -91,7 +91,7 @@ int ft_export_node(t_env **lst, char *cur_arg)
     new_node = NULL;
     new_val = NULL;
 
-    new_val = split_env(cur_arg, '=');
+    new_val = ft_split_global(cur_arg, '=');
 
     if (!new_val)
     {
@@ -159,7 +159,7 @@ int ft_export(t_env **lst, t_ast_node *command)
     t_ast_node *cur_arg;
 
     cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-    printf("export %p\n", *lst);
+    //printf("export %p\n", *lst);
     
     if (command->first_child->next_sibling->next_sibling->param == 0)
     {

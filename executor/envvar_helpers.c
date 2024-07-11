@@ -35,72 +35,47 @@ int check_varname(char *str) // 1 for yes, 0 for no
 }
 
 //split string to *arr[2] (before and after first '=')
-char **split_env(char *env, char c) // c == '='
-{
-    int len_before;
-    int len_after;
-    int i;
-    int size;
-    char **res;
-    
-    len_before = 0;
-    len_after = 0;
-    
-    size = ft_strlen(env); 
-    res = malloc(sizeof(char *) * 2);
-    if (res == NULL)
+char **ft_split_global(const char *s, char c) {
+    char **arr_of_words;
+    const char *separator;
+    size_t size_word;
+
+    // Allocate memory for 2 elements + NULL terminator
+    arr_of_words = (char **)malloc(3 * sizeof(char *));
+    if (!arr_of_words)
         return NULL;
 
-    // string size before =
-    while (env[len_before] != c && env[len_before] != '\0')
-        len_before++;
+    separator = strchr(s, c);
 
-    // If there is no '=', return NULL
-    if (env[len_before] == '\0')
-    {
-        free(res);
+    // If no separator is found, return NULL
+    if (!separator) {
+        free(arr_of_words);
         return NULL;
     }
 
-    // Allocate memory for the name part
-    res[0] = malloc(sizeof(char) * (len_before + 1));
-    if (res[0] == NULL)
-    {
-        free(res);
+    // Allocate and copy the part before the separator
+    size_word = separator - s;
+    arr_of_words[0] = ft_substr(s, 0, size_word);
+    if (!arr_of_words[0]) {
+        free(arr_of_words);
         return NULL;
     }
 
-    // Copy the name part
-    i = 0;
-    while (i < len_before)
-    {
-        res[0][i] = env[i];
-        i++;
+    // Allocate and copy the part after the separator
+    if (*(separator + 1) == '\0') {
+        arr_of_words[1] = strdup("");
+    } else {
+        arr_of_words[1] = strdup(separator + 1);
     }
-    res[0][i] = '\0';
-
-    // Calculate the length after '='
-    len_after = size - len_before - 1;
-    
-    // Allocate memory for the value part
-    res[1] = malloc(sizeof(char) * (len_after + 1));
-    if (res[1] == NULL)
-    {
-        free(res[0]);
-        free(res);
+    if (!arr_of_words[1]) {
+        free(arr_of_words[0]);
+        free(arr_of_words);
         return NULL;
     }
 
-    // Copy the value part
-    i = 0;
-    while (i < len_after)
-    {
-        res[1][i] = env[len_before + 1 + i];
-        i++;
-    }
-    res[1][i] = '\0';
+    arr_of_words[2] = NULL; // NULL terminator for the array
 
-    return res;
+    return arr_of_words;
 }
 
 // Function to calculate the length of a string
@@ -154,7 +129,7 @@ t_env *envp_to_linked_list(char **envp)
     while (envp[i] != NULL)
     {
         //сплит каждой строки на 2
-        char **arr = split_env(envp[i], '=');
+        char **arr = ft_split_global(envp[i], '=');
         //создаем новый нод с этими строками
         t_env *new_node = ft_lstnew_env(arr[0], arr[1]);
         if (new_node == NULL)

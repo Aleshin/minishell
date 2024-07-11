@@ -192,7 +192,7 @@ char			**cmd_to_argv(t_ast_node *cmd);
 int ft_exec_command(t_ast_node *commands, t_env **env_var);
 
 //envvar_helpers FULL
-char **split_env(char *env, char c);
+char **ft_split_global(const char *s, char c) ;
 int check_varname(char *str);
 char 			**linked_list_to_envp(t_env **env);
 t_env 			*envp_to_linked_list(char **envp);
