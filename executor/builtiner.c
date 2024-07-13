@@ -101,7 +101,6 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 		ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{
-		write(1, "my PWD ", 7);
 		ft_pwd();
 	}
 	else if (ft_strcmp(exec, "export") == 0)
@@ -110,7 +109,6 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 		ft_unset(env_list, command);
 	else if (ft_strcmp(exec, "env") == 0)
 	{
-		write(1, "my env ", 7);
 		print_env(env_list);
 	}
 	else

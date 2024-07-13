@@ -89,8 +89,6 @@ int ft_export_node(t_env **lst, char *cur_arg)
     int env_exist_result;
 
     new_node = NULL;
-    new_val = NULL;
-
     new_val = ft_split_global(cur_arg, '=');
 
     if (!new_val)

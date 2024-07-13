@@ -16,12 +16,12 @@ int ft_print_sorted(t_env *lst) {
     
     char **arr;
     int len;
+    
     if (!lst)
         return (1);
     arr = linked_list_to_envp(&lst);
     if (!arr)
         return 0;
-
     len = list_len(lst);
 
     // Bubble sort algorithm to sort arr using while loops
@@ -42,9 +42,14 @@ int ft_print_sorted(t_env *lst) {
 
     // Print the sorted array using a while loop
     i = 0;
-    while (i < len) {
-        ft_putstr_fd("declare -x ", STDOUT_FILENO);
-        ft_putendl_fd(arr[i], STDOUT_FILENO);
+    while (i < len) 
+    {
+        if (arr[i][0] != '$')
+        {
+            ft_putstr_fd("declare -x ", STDOUT_FILENO);
+            ft_putendl_fd(arr[i], STDOUT_FILENO);            
+        }
+
         i++;
     }
 
