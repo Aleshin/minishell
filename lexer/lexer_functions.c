@@ -127,7 +127,8 @@ int	syntax_checker(t_Token_node **token)
 {
 	if ((*token)->type == PIPE
 	&& ((*token)->next_token == NULL
-		|| (*token)->prev_token == NULL))
+		|| (*token)->prev_token == NULL
+		|| ((*token)->next_token != NULL && (*token)->next_token->type == PIPE)))
 	{
 		ft_putstr_fd("syntax error near unexpected token `|'\n", STDERR_FILENO);
 		return (1);
@@ -140,7 +141,8 @@ int	lexer(t_Input **input, t_Token_node **token)
 	t_Token_node	**token_temp;
 
 	token_temp = token;
-	tokenizer(input, token_temp);
+	if (tokenizer(input, token_temp) == -1)
+		return (-1);
 	token_temp = token;
 	while (*token_temp != NULL)
 	{

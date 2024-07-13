@@ -138,6 +138,8 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 
 int	tokenizer(t_Input **input, t_Token_node **token)
 {
+	if ((*input)->string[0] == '\0')
+		return (-1);
 	while ((*input)->string[(*input)->current_char] != '\0')
 	{
 		if (rule_terminals (input, token))
