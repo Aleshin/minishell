@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-int ft_print_sorted(t_env *lst) {
-    
+int ft_print_sorted(t_env *lst) 
+{    
     char **arr;
     int len;
     
@@ -23,14 +23,15 @@ int ft_print_sorted(t_env *lst) {
     if (!arr)
         return 0;
     len = list_len(lst);
-
     // Bubble sort algorithm to sort arr using while loops
     int i = 0;
-    while (i < len - 1) {
+    while (i < len - 1) 
+    {
         int j = 0;
-        while (j < len - i - 1) {
-            if (ft_strcmp(arr[j], arr[j + 1]) > 0) {
-                // Swap arr[j] and arr[j + 1]
+        while (j < len - i - 1) 
+        {
+            if (ft_strcmp(arr[j], arr[j + 1]) > 0) 
+            {
                 char *temp = arr[j];
                 arr[j] = arr[j + 1];
                 arr[j + 1] = temp;
@@ -39,7 +40,6 @@ int ft_print_sorted(t_env *lst) {
         }
         i++;
     }
-
     // Print the sorted array using a while loop
     i = 0;
     while (i < len) 
@@ -49,12 +49,9 @@ int ft_print_sorted(t_env *lst) {
             ft_putstr_fd("declare -x ", STDOUT_FILENO);
             ft_putendl_fd(arr[i], STDOUT_FILENO);            
         }
-
         i++;
     }
-
     // Free allocated memory for arr
     free_arr(arr); // Assuming arr was allocated dynamically
-
-    return 1; // Indicates success
+    return (1); // Indicates success
 }

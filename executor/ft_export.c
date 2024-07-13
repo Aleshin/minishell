@@ -26,11 +26,10 @@ t_env	*ft_lstnew_env(char *name, char *value)
         return (NULL);
     }
     new->value = ft_strdup(value);
-	if (new->name == NULL) 
+	if (new->value == NULL) 
     {
         free(new->name);
         free(new); // Free allocated t_env structure
-        
         return (NULL);
     }
     new->next = NULL;
@@ -53,10 +52,6 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 		list->next = new;
 	}
 }
-
-//export IN PROGRESS
-//export without args same as env but alphabetically.
-//export
 
 int check_env_exist(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
 {
@@ -104,12 +99,9 @@ int ft_export_node(t_env **lst, char *cur_arg)
     if (!check_varname(new_val[0]))
     {
         ft_env_error("export", cur_arg, "not a valid identifier");
-        free(new_val[0]);  // Free allocated memory
-        free(new_val[1]);
-        free(new_val);
+        free_arr(new_val);  // Free allocated memory
         return (1);
     }
-
     // If no value is provided, set the value to an empty string
     if (new_val[1] == NULL)
     {
@@ -122,18 +114,14 @@ int ft_export_node(t_env **lst, char *cur_arg)
             return (1);
         }
     }
-
     env_exist_result = check_env_exist(new_val[0], new_val[1], *lst);
-
     if (env_exist_result == 0)
     {
         new_node = ft_lstnew_env(new_val[0], new_val[1]);
         if (new_node == NULL)
         {
             perror("Memory allocation failed for node");
-            free(new_val[0]);  // Free allocated memory
-            free(new_val[1]);
-            free(new_val);
+            free_arr(new_val);  // Free allocated memory
             return (1);
         }
         ft_lstadd_back_env(lst, new_node);
@@ -141,14 +129,10 @@ int ft_export_node(t_env **lst, char *cur_arg)
     else if (env_exist_result == -1)
     {
         // Memory allocation error inside check_env_exist
-        free(new_val[0]);  // Free allocated memory
-        free(new_val[1]);
-        free(new_val);
+        free_arr(new_val);  // Free allocated memory
         return (1);
     }
-    free(new_val[0]);  // Free allocated memory
-    free(new_val[1]);
-    free(new_val);
+    free_arr(new_val);  // Free allocated memory
     return (0);
 }
 
