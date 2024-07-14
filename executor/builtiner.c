@@ -89,8 +89,8 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 {
 	char	*exec;
 
-	if (command == NULL || command->first_child == NULL ||
-		command->first_child->next_sibling == NULL)
+	if (command == NULL || command->first_child == NULL
+    || command->first_child->next_sibling == NULL)
 		return (-1);
 	exec = command->first_child->next_sibling->value;
 	if (!exec || !*exec)
@@ -98,7 +98,8 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	if (ft_strcmp(exec, "echo") == 0)
 		ft_echo(command);
 	else if (ft_strcmp(exec, "cd") == 0)
-		ft_cd(env_list, command);
+		//printf("Here goes cd command\n");
+        ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{
 		ft_pwd();

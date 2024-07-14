@@ -13,7 +13,8 @@
 #include "minishell.h"
 
 //varname can start 
-int	check_varname(char *str) // 1 for yes, 0 for no
+//flag 1 for export, 0 for unset
+int	check_varname(char *str, int flag) // 1 for yes, 0 for no
 {
 	if (*str == '\0')
 		return (0);
@@ -24,8 +25,7 @@ int	check_varname(char *str) // 1 for yes, 0 for no
     // Check the rest of the characters
 	while (*str != '\0')
 	{
-		if (!(ft_isalpha(*str) || ft_isdigit(*str) || *str == '_')
-			|| *str == '=')
+		if (!(ft_isalpha(*str) || ft_isdigit(*str) || *str == '_' || (flag && *str == '=')))
 			return (0);
 		str++;
 	}
