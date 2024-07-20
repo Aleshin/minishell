@@ -65,7 +65,7 @@ int ft_print_sorted(t_env *lst)
     free_arr(arr); // Assuming arr was allocated dynamically
     return (1); // Indicates success
 }
-
+//function to set last exit code. it 
 void set_exit_code(t_env **lst, int code)
 {
    char *key;
