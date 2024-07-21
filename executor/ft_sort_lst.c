@@ -73,7 +73,7 @@ void set_exit_code(t_env **lst, int code)
    t_env *new_node;
 
    key = "?";
-   value = ft_itoa(code);
+   value = ft_itoa(code); //malloc
    if (value == NULL)
    {
     perror("Malloc failed in itoa");
@@ -89,8 +89,10 @@ void set_exit_code(t_env **lst, int code)
             free(value);
             return ;
         }
+        free (value);
         ft_lstadd_back_env(lst, new_node);
     }
     else
         free(value);
 }
+

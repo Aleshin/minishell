@@ -55,14 +55,8 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     {
         builtiner(command, env_list);
     } else if (command->first_child->next_sibling != NULL)
-    {
         ft_exec_command(command, env_list);
-    } else
-    {
-        // No executable command provided
-        ft_putstr_fd("No command provided to execute\n", 2);
-        exit(EXIT_SUCCESS);
-    }
+  
     // Restore original stdin and stdout file descriptors
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);

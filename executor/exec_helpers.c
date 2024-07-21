@@ -81,40 +81,55 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 }
 
 //function that checks path and if it exists execute execve
-int	ft_exec_command(t_ast_node *commands, t_env **env_var)
+int ft_exec_command(t_ast_node *commands, t_env **env_var)
 {
-	char	*path;
-	char	**argv;
-	char	**upd_envvar;
+    char *path;
+    char **argv;
+    char **upd_envvar;
 
-	upd_envvar = linked_list_to_envp(env_var);
-	// Check for invalid command structure
-	if (commands == NULL || commands->first_child == NULL
-		|| commands->first_child->next_sibling == NULL)
-	{
-		free_arr(upd_envvar);
-		return (1);
-	}
-	// Handle external commands
-	path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
-	if (path == NULL)
-	{
-		ft_shell_error(commands->first_child->next_sibling->value, "command not found");
-		free_arr(upd_envvar);
-		return (127);
-	}
-	argv = cmd_to_argv(commands->first_child->next_sibling);
-	if (execve(path, argv, upd_envvar) == -1)
-	{
-		perror("execve");
-		printf("errno number: %d\n", errno);
-		printf("errno message: %s\n", strerror(errno));
-		free_arr(argv);
-		if (!upd_envvar)
-			free_arr(upd_envvar);
-		return (1);
-	}
-	free_arr(argv);
-	free_arr(upd_envvar);
-	return (1);
+    // Convert the environment list to an array of strings
+    upd_envvar = linked_list_to_envp(env_var);
+
+    // Check for invalid command structure
+    if (commands == NULL || commands->first_child == NULL
+        || commands->first_child->next_sibling == NULL)
+    {
+        free_arr(upd_envvar);
+        return (1);
+    }
+
+    // Find the absolute path of the command
+    path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
+    if (path == NULL)
+    {
+        // Command not found; set exit code to 127
+		ft_shell_error(commands->first_child->next_sibling->value, " EXEC command not found");
+        ft_export_node(env_var, "?=127");
+		//set_exit_code(env_var, 127); // Update the status
+        free_arr(upd_envvar);
+        return (1);
+    }
+
+    // Convert command arguments
+    argv = cmd_to_argv(commands->first_child->next_sibling);
+
+    // Execute the command
+    if (execve(path, argv, upd_envvar) == -1)
+    {
+        // execve failed; print error
+        perror("execve");
+        printf("errno number: %d\n", errno);
+        printf("errno message: %s\n", strerror(errno));
+        
+        // Clean up and set exit code
+        free_arr(argv);
+        free_arr(upd_envvar);
+        set_exit_code(env_var, 126); // Command not executable
+        return (1);
+    }
+
+    // Clean up resources
+    free_arr(argv);
+    free_arr(upd_envvar);
+    return (0); // Command executed successfully
 }
