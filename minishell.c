@@ -52,7 +52,7 @@ int	main(int argc, char **argv, char **envp)
 	environment_list = envp_to_linked_list(envp);
 	if (!environment_list)
 		return (1);
-	set_exit_code(&environment_list, 0);
+	//set_exit_code(&environment_list, 0);
 	while (1)
 	{
 		buf = readline("$> "); // Prompt for input command

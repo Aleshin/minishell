@@ -104,8 +104,8 @@ int ft_exec_command(t_ast_node *commands, t_env **env_var)
     {
         // Command not found; set exit code to 127
 		ft_shell_error(commands->first_child->next_sibling->value, " EXEC command not found");
-        ft_export_node(env_var, "?=127");
-		//set_exit_code(env_var, 127); // Update the status
+        //ft_export_node(env_var, "?=127");
+		set_exit_code(env_var, 127); // Update the status
         free_arr(upd_envvar);
         return (1);
     }

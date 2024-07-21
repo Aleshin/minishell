@@ -56,7 +56,6 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
         builtiner(command, env_list);
     } else if (command->first_child->next_sibling != NULL)
         ft_exec_command(command, env_list);
-  
     // Restore original stdin and stdout file descriptors
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);
@@ -133,11 +132,10 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
     pid_t last_pid = -1; // PID of the last child process
     int last_exit_status;
   
+    set_exit_code(env_list, 0);
     commands = ast_tree->first_child;
     while (commands != NULL)
     { 
-        // Check for syntax errors within the loop
-
         // Create pipe only if there is another command after this one
         if (commands->next_sibling != NULL)
         {
