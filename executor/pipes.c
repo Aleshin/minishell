@@ -11,8 +11,8 @@
 /* ************************************************************************** */
 
 #include "./minishell.h"
-
-int ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_list) 
+//child process does not exit!!!!
+void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_list) 
 {
     // Save original stdin and stdout file descriptors
     int status = 0;
@@ -20,13 +20,15 @@ int ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_
     if (original_stdout == -1)
     {
         perror("dup");
-        return (-1);
+        exit(EXIT_FAILURE);
+        //return (-1);
     }
     int original_stdin = dup(STDIN_FILENO);
     if (original_stdin == -1)
     {
         perror("dup");
-        return (-1);
+        exit(EXIT_FAILURE);
+        //return (-1);
     }
     int input_fd = input_redir(command);
     int output_fd = output_redir(command);
@@ -60,7 +62,9 @@ int ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_
     // Restore original stdin and stdout file descriptors
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);
-    return (status);; // Ensure the child process exits
+    printf ("TEST %d", status);
+    exit(EXIT_SUCCESS);
+    //return (status); // Ensure the child process exits
 }
 
 //returns 0 if no builtin or no exec
@@ -155,7 +159,8 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
         if (pid == 0)
         {
             // Child process changes in and out fd accordingly
-            exit_code = ft_child_process(fd_in, pipefds, commands, env_list);
+            //exit_code = ft_child_process(fd_in, pipefds, commands, env_list);
+            ft_child_process(fd_in, pipefds, commands, env_list);
         } else
         {
             // Parent process

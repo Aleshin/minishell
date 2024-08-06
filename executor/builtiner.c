@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//success 0, error 1
 int	ft_pwd(void)
 {
 	char	*buffer;
@@ -22,7 +23,7 @@ int	ft_pwd(void)
 	if (buffer == NULL)
 	{
 		perror("getcwd error");
-		return (-1);
+		return (1);
 	}
 	// Output the current working directory
 	ft_putendl_fd(buffer, STDOUT_FILENO);
@@ -31,32 +32,33 @@ int	ft_pwd(void)
 	return (0);
 }
 
+//success 0, error -1 and errno
 int	ft_cd(t_env **env_lst, t_ast_node *command)
 {
-	size_t	size;
 	char	*buffer;
 	char	*path;
+	int	err;
 
-	size = 1024;
-	buffer = malloc(size);
+	buffer = NULL;
 	// Check for the argument
 	if (command->first_child->next_sibling->next_sibling->param == 0)
 		return (0);
 	path = command->first_child->next_sibling->next_sibling->first_child->value;
 	if (!path)
-		return (0);
-	if (chdir(path) == -1)
+		return (0); //what to return here?
+	if (chdir(path) != 0)
 	{
 		perror("cd");
-		free(buffer);
-		return (-1);
+		err = errno;
+		return (err);
 	}
 	// Get PWD
-	if (getcwd(buffer, size) == NULL)
+	buffer = getcwd(NULL, 0);
+	if (buffer == NULL)
 	{
 		perror("getcwd error");
-		free(buffer);
-		return (-1);
+		err = errno;
+		return (errno);
 	}
 	// Update the PWD environment variable
 	ft_export_node(env_lst, buffer);
