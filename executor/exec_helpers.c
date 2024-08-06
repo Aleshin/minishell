@@ -81,7 +81,7 @@ char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
 }
 
 //function that checks path and if it exists execute execve
-int ft_exec_command(t_ast_node *commands, t_env **env_var)
+void ft_exec_command(t_ast_node *commands, t_env **env_var)
 {
     char *path;
     char **argv;
@@ -94,7 +94,8 @@ int ft_exec_command(t_ast_node *commands, t_env **env_var)
         || commands->first_child->next_sibling == NULL)
     {
         free_arr(upd_envvar);
-        return (1);
+        exit(1);
+		//return (1);
     }
 
     // Find the absolute path of the command

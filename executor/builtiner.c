@@ -75,7 +75,7 @@ int	is_builtin(t_ast_node *command)
 	if (!exec)
 		return (0);
 	if (ft_strcmp(exec, "echo") == 0
-		|| ft_strcmp(exec, "cd") == 0
+		|| ft_strcmp(exec, "my_cd") == 0
 		|| ft_strcmp(exec, "pwd") == 0
 		|| ft_strcmp(exec, "export") == 0
 		|| ft_strcmp(exec, "unset") == 0
@@ -99,7 +99,7 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 		return (-1);
 	if (ft_strcmp(exec, "echo") == 0)
 		ft_echo(command);
-	else if (ft_strcmp(exec, "cd") == 0)
+	else if (ft_strcmp(exec, "my_cd") == 0)
 		//printf("Here goes cd command\n");
         ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)

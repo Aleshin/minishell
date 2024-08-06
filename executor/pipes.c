@@ -62,7 +62,7 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     // Restore original stdin and stdout file descriptors
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);
-    printf ("TEST %d", status);
+    printf ("TEST %d\n", status);
     exit(EXIT_SUCCESS);
     //return (status); // Ensure the child process exits
 }
