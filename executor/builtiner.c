@@ -37,7 +37,7 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 {
 	char	*buffer;
 	char	*path;
-	int	err;
+	int	err = 0;
 
 	buffer = NULL;
 	// Check for the argument
@@ -63,7 +63,7 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 	// Update the PWD environment variable
 	ft_export_node(env_lst, buffer);
 	free(buffer);
-	return (0);
+	return (err);
 }
 
 // 1 if it is a builtin, 0 if not
@@ -90,6 +90,9 @@ int	is_builtin(t_ast_node *command)
 int	builtiner(t_ast_node *command, t_env **env_list)
 {
 	char	*exec;
+	int exit_code;
+
+	exit_code = 0;
 
 	if (command == NULL || command->first_child == NULL
     || command->first_child->next_sibling == NULL)
@@ -98,23 +101,21 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	if (!exec || !*exec)
 		return (-1);
 	if (ft_strcmp(exec, "echo") == 0)
-		ft_echo(command);
+		exit_code = ft_echo(command);
 	else if (ft_strcmp(exec, "my_cd") == 0)
 		//printf("Here goes cd command\n");
-        ft_cd(env_list, command);
+        exit_code = ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{
-		ft_pwd();
+		exit_code = ft_pwd();
 	}
 	else if (ft_strcmp(exec, "export") == 0)
-		ft_export(env_list, command);
+		exit_code = ft_export(env_list, command);
 	else if (ft_strcmp(exec, "unset") == 0)
-		ft_unset(env_list, command);
+		exit_code = ft_unset(env_list, command);
 	else if (ft_strcmp(exec, "env") == 0)
 	{
-		print_env(env_list);
+		exit_code = print_env(env_list);
 	}
-	else
-		return (1);
-	return (0);
+	return (exit_code);
 }
