@@ -26,7 +26,7 @@ int	echo_n(char *first_arg)
 	}
 	return (1);
 }
-
+//return 0 ok, 
 int	ft_echo(t_ast_node *command)
 {
 	t_ast_node	*num_args;

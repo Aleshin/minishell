@@ -71,17 +71,17 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     //return (status); // Ensure the child process exits
 }
 
-//returns 0 if no builtin or no exec
+//returns 0 if no builtin
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
     t_ast_node *command;
+    int exit_code;
     command = ast_tree->first_child;  
     // Check if there is only one command and it is a built-in
     if (command == NULL || command->first_child == NULL || 
         command->first_child->next_sibling == NULL || 
         command->next_sibling != NULL || !is_builtin(command))
     {
-        //ft_sintax_error(ast_tree->value);
         return (0); // Not a single built-in command
     }
     // Save the original stdout file descriptor
@@ -96,9 +96,10 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
     if (out != -3)
         handle_dup_and_close(out, STDOUT_FILENO);
     // Execute the built-in command
-    builtiner(command, env_list);
+    exit_code = builtiner(command, env_list);
     // Restore stdout
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
+    set_exit_code(env_list, exit_code);
     return (1); // Built-in command was handled
 }
 

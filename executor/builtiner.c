@@ -44,8 +44,8 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 	if (command->first_child->next_sibling->next_sibling->param == 0)
 		return (0);
 	path = command->first_child->next_sibling->next_sibling->first_child->value;
-	if (!path)
-		return (0); //what to return here?
+	// if (!path)
+	// 	return (0); //what to return here?
 	if (chdir(path) != 0)
 	{
 		perror("cd");
@@ -86,10 +86,13 @@ int	is_builtin(t_ast_node *command)
 	return (0); // Command is not a built-in
 }
 
-// returns 0 if command is a builtin and 1 if it is not
+// returns 0 if all ok and error code in case of err
 int	builtiner(t_ast_node *command, t_env **env_list)
 {
 	char	*exec;
+	int 	exit_code;
+
+	exit_code = 0;
 
 	if (command == NULL || command->first_child == NULL
     || command->first_child->next_sibling == NULL)
@@ -98,23 +101,21 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	if (!exec || !*exec)
 		return (-1);
 	if (ft_strcmp(exec, "echo") == 0)
-		ft_echo(command);
+		exit_code = ft_echo(command);
 	else if (ft_strcmp(exec, "my_cd") == 0)
 		//printf("Here goes cd command\n");
-        ft_cd(env_list, command);
+        exit_code = ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{
-		ft_pwd();
+		exit_code = ft_pwd();
 	}
 	else if (ft_strcmp(exec, "export") == 0)
-		ft_export(env_list, command);
+		exit_code = ft_export(env_list, command);
 	else if (ft_strcmp(exec, "unset") == 0)
-		ft_unset(env_list, command);
+		exit_code = ft_unset(env_list, command);
 	else if (ft_strcmp(exec, "env") == 0)
 	{
-		print_env(env_list);
+		exit_code = print_env(env_list);
 	}
-	else
-		return (1);
-	return (0);
+	return (exit_code);
 }
