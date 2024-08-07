@@ -1,0 +1,26 @@
+total 464
+drwxr-xr-x  25 ekaterinamikaylova  staff     800 Aug  7 16:20 .
+drwx------@ 24 ekaterinamikaylova  staff     768 Aug  5 17:05 ..
+-rw-r--r--   1 ekaterinamikaylova  staff    8196 Jul  5 18:33 .DS_Store
+drwxr-xr-x   5 ekaterinamikaylova  staff     160 Jul  5 18:33 .antlr
+drwxr-xr-x  15 ekaterinamikaylova  staff     480 Aug  7 14:48 .git
+drwxr-xr-x   6 ekaterinamikaylova  staff     192 Aug  7 14:48 .vscode
+drwxr-xr-x  11 ekaterinamikaylova  staff     352 Jul  5 18:33 Docs
+-rw-r--r--   1 ekaterinamikaylova  staff     999 Jul  5 18:33 Makefile
+drwxr-xr-x   5 ekaterinamikaylova  staff     160 Jul  5 18:33 basic
+-rw-r--r--   1 ekaterinamikaylova  staff      32 Jul  5 18:33 data.txt
+drwxr-xr-x  26 ekaterinamikaylova  staff     832 Aug  7 16:19 executor
+-rw-r--r--   1 ekaterinamikaylova  staff       4 Aug  7 16:12 file
+-rw-r--r--   1 ekaterinamikaylova  staff    1188 Jul  5 18:33 grammar.g4
+drwxr-xr-x  12 ekaterinamikaylova  staff     384 Aug  7 15:54 lexer
+drwxr-xr-x  85 ekaterinamikaylova  staff    2720 Aug  7 15:54 libft
+-rwxr-xr-x   1 ekaterinamikaylova  staff  164488 Aug  7 16:19 minishell
+-rw-r--r--   1 ekaterinamikaylova  staff    3180 Aug  7 16:14 minishell.c
+-rw-r--r--   1 ekaterinamikaylova  staff    7267 Jul 21 03:29 minishell.h
+-rw-r--r--   1 ekaterinamikaylova  staff    8896 Aug  7 16:16 minishell.o
+drwxr-xr-x   8 ekaterinamikaylova  staff     256 Aug  7 15:54 parser
+drwxr-xr-x  13 ekaterinamikaylova  staff     416 Jul  5 18:33 proto
+-rw-r--r--   1 ekaterinamikaylova  staff    1675 Jul  5 18:33 signals.c
+-rw-r--r--   1 ekaterinamikaylova  staff    5928 Aug  7 15:54 signals.o
+-rw-r--r--   1 ekaterinamikaylova  staff    1524 Jul 13 21:56 test
+-rw-r--r--   1 ekaterinamikaylova  staff       0 Aug  7 16:20 testfile

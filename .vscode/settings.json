@@ -15,6 +15,8 @@
         "minishell.h": "c",
         "string.h": "c",
         "errno.h": "c",
-        "__locale": "c"
+        "__locale": "c",
+        "types.h": "c",
+        "wait.h": "c"
     }
 }

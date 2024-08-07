@@ -221,4 +221,8 @@ void			ft_sintax_error(char *cmd);
 void			ft_env_error(char *cmd, char *arg, char *error);
 void			set_exit_code(t_env **lst, int code);
 
+
+
+int ft_export_status(t_env **lst, char *value);
+
 #endif

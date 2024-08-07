@@ -20,12 +20,12 @@ int print_env(t_env **env)
 
     while (curr != NULL)
     {
-        if (ft_strcmp(curr->name,"?") != 0)
-        {
+        // if (ft_strcmp(curr->name,"?") != 0)
+        // {
             ft_putstr_fd(curr->name, STDOUT_FILENO);
             ft_putstr_fd("=", STDOUT_FILENO);
             ft_putendl_fd(curr->value, STDOUT_FILENO);
-        }
+        //}
         curr = curr->next;
     }
     return(0);
