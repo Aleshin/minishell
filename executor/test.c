@@ -47,3 +47,42 @@ int main(void) {
 
     return 0;
 }
+
+
+int ft_exec_command(t_ast_node *commands, t_env **env_var)
+{
+    char *path;
+    char **argv;
+    char **upd_envvar;
+    // Convert the environment list to an array of strings
+    upd_envvar = linked_list_to_envp(env_var);
+
+    // Check for invalid command structure
+    if (commands == NULL || commands->first_child == NULL
+        || commands->first_child->next_sibling == NULL)
+    {
+        free_arr(upd_envvar);
+        return(1);
+    }
+
+    // Find the absolute path of the command
+    path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
+
+    // Convert command arguments
+    argv = cmd_to_argv(commands->first_child->next_sibling);
+	
+    // Execute the command
+    if (execve(path, argv, upd_envvar) == -1)
+    {
+        // execve failed; print error
+		perror("execve");
+        printf("errno number: %d\n", errno);
+        printf("errno message: %s\n", strerror(errno));
+        
+        // Clean up and set exit code
+        free_arr(argv);
+        free_arr(upd_envvar);
+        set_exit_code(env_var, 126); // Command not executable
+        return (errno);
+    }
+}

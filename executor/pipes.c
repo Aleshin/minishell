@@ -63,7 +63,11 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);
     printf ("TEST %d\n", status);
-    exit(EXIT_SUCCESS);
+    if (status == 13 || status == 8)  //check this
+        status = 126;
+    else if (status == 2 || status == 14)
+        status = 127;
+    exit(status);
     //return (status); // Ensure the child process exits
 }
 
@@ -130,7 +134,7 @@ int ft_exit_status(pid_t last_pid)
 
 int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input  
 {
-    int exit_code = 0;
+    //int exit_code = 0;
     t_ast_node *commands; // Commands list
     int fd_in = 0;  // Initial input file descriptor (stdin)
     int pipefds[2]; // Pipe file descriptors (in and out)
@@ -181,11 +185,9 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
 
     // Handle the exit status of the last command --->$?
     last_exit_status = ft_exit_status(last_pid);
-    //char *status = ft_itoa(last_exit_status);
-    //char *value = ft_strjoin("?", "=", status);
-    //ft_export_node(env_list, value); //here write ft to modify ?=status   
+
     printf("last exit status is %d\n", last_exit_status);
-    set_exit_code(env_list, exit_code);
+    set_exit_code(env_list, last_exit_status);
     // Wait for all other child processes to finish
     while (wait(NULL) > 0);
     return (0);
