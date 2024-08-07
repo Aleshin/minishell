@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 #include "./minishell.h"
 
-int	rule_word(t_Input **input)
+int	rule_var_word(t_Input **input)
 {
 	int	i;
 
@@ -23,8 +23,11 @@ int	rule_word(t_Input **input)
 			|| ((*input)->string[i] >= 'a' && (*input)->string[i] <= 'z')
 			|| (*input)->string[i] == '_')
 			(*input)->current_char = ++i;
-		else
+		else if ((*input)->string[i] >= '?')
+		{
+			(*input)->current_char = ++i;
 			break ;
+		}
 	}
 	return (0);
 }
@@ -38,7 +41,7 @@ int	detect_var(t_Input **input, t_Token_node **token)
 				return (1);
 		(*input)->current_char++;
 		(*input)->token_start = (*input)->current_char;
-		rule_word(input);
+		rule_var_word(input);
 		if ((*input)->token_start != (*input)->current_char)
 		{
 			(*input)->current_token_type = var;
