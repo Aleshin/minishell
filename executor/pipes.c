@@ -121,7 +121,7 @@ int ft_exit_status(pid_t last_pid)
         {
             int exit_status = WEXITSTATUS(status);
             //printf("Last command exited with status: %d\n", exit_status);
-            return exit_status; // Return the exit status of the last command
+            return (exit_status); // Return the exit status of the last command
         } else
         {
             //printf("Last command did not exit normally\n");
@@ -132,16 +132,16 @@ int ft_exit_status(pid_t last_pid)
 }
 
 
-int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input  
+int ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
-    //int exit_code = 0;
-    t_ast_node *commands; // Commands list
+    t_ast_node *commands;
     int fd_in = 0;  // Initial input file descriptor (stdin)
     int pipefds[2]; // Pipe file descriptors (in and out)
     pid_t pid;
-    pid_t last_pid = -1; // PID of the last child process
+    pid_t last_pid; // PID of the last child process
     int last_exit_status;
   
+    last_pid = -1;
     commands = ast_tree->first_child;
     while (commands != NULL)
     { 
@@ -163,11 +163,11 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
         if (pid == 0)
         {
             // Child process changes in and out fd accordingly
-            //exit_code = ft_child_process(fd_in, pipefds, commands, env_list);
             ft_child_process(fd_in, pipefds, commands, env_list);
-        } else
+        } 
+        else
         {
-            // Parent process
+        // Parent process
             if (fd_in != 0)
             {
                 close(fd_in); // Close the old input fd
@@ -179,14 +179,11 @@ int ft_executor(t_ast_node *ast_tree, t_env **env_list) //change to T_input
             }
             last_pid = pid;     
         }
-        // Move to the next command, can be also inside parent process
         commands = commands->next_sibling;
     }
-
     // Handle the exit status of the last command --->$?
     last_exit_status = ft_exit_status(last_pid);
-
-    printf("last exit status is %d\n", last_exit_status);
+    printf("------> last exit status is %d\n", last_exit_status);
     set_exit_code(env_list, last_exit_status);
     // Wait for all other child processes to finish
     while (wait(NULL) > 0);
