@@ -6,7 +6,7 @@
 /*   By: emikhayl <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 23:07:15 by emikhayl          #+#    #+#             */
-/*   Updated: 2024/07/05 23:07:26 by emikhayl         ###   ########.fr       */
+/*   Updated: 2024/08/08 22:52:52 by emikhayl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 //печать списка (поменять принтф на что то другое)
 //env
-int print_env(t_env **env)
+int	print_env(t_env **env)
 {
-    t_env *curr = *env;
+    t_env	*curr = *env;
 
-    while (curr != NULL)
-    {
-        if (ft_strcmp(curr->name,"?") != 0)
-        {
-            ft_putstr_fd(curr->name, STDOUT_FILENO);
-            ft_putstr_fd("=", STDOUT_FILENO);
-            ft_putendl_fd(curr->value, STDOUT_FILENO);
-        }
-        curr = curr->next;
-    }
-    return(0);
+	while (curr != NULL)
+	{
+		if (ft_strcmp(curr->name,"?") != 0)
+		{
+			ft_putstr_fd(curr->name, STDOUT_FILENO);
+			ft_putstr_fd("=", STDOUT_FILENO);
+			ft_putendl_fd(curr->value, STDOUT_FILENO);
+		}
+		curr = curr->next;
+	}
+	return(0);
 }
 
 //удаляет нодб если lst->name == name
