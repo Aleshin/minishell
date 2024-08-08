@@ -61,7 +61,9 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 		return (errno);
 	}
 	// Update the PWD environment variable
-	ft_export_node(env_lst, buffer);
+	upd_envvar("PWD", buffer, *env_lst);
+	//ft_export_node(env_lst, buffer);
+	
 	free(buffer);
 	return (err);
 }
@@ -116,6 +118,5 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	{
 		exit_code = print_env(env_list);
 	}
-	return (exit_code);
 	return (exit_code);
 }

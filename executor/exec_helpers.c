@@ -34,6 +34,8 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	int		i;
 	char	*tmp;
 
+	if (access(command, F_OK) != -1)
+		return(command);
 	path = ft_getenv(env_list, "PATH");
 	arr = ft_split(path, ':');
 	path_to_command = NULL;
@@ -41,7 +43,8 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	while (arr[i])
 	{
 		tmp = ft_strjoin(arr[i], "/", command);
-		if (access(tmp, F_OK | X_OK) != -1)
+		//removed X_OK
+		if (access(tmp, F_OK) != -1)
 		{
 			path_to_command = tmp;
 			break ;
