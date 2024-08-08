@@ -150,5 +150,5 @@ int ft_export(t_env **lst, t_ast_node *command)
             cur_arg = cur_arg->next_sibling;
         }
     }
-    return (1);
+    return (0);
 }

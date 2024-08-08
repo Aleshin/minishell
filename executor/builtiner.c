@@ -75,7 +75,7 @@ int	is_builtin(t_ast_node *command)
 	if (!exec)
 		return (0);
 	if (ft_strcmp(exec, "echo") == 0
-		|| ft_strcmp(exec, "my_cd") == 0
+		|| ft_strcmp(exec, "cd") == 0
 		|| ft_strcmp(exec, "pwd") == 0
 		|| ft_strcmp(exec, "export") == 0
 		|| ft_strcmp(exec, "unset") == 0
@@ -86,24 +86,23 @@ int	is_builtin(t_ast_node *command)
 	return (0); // Command is not a built-in
 }
 
-// returns 0 if command is a builtin and 1 if it is not
+// returns 0 or err code or -1 if 
 int	builtiner(t_ast_node *command, t_env **env_list)
 {
 	char	*exec;
 	int exit_code;
 
 	exit_code = 0;
-
 	if (command == NULL || command->first_child == NULL
     || command->first_child->next_sibling == NULL)
-		return (-1);
+		return (1);
 	exec = command->first_child->next_sibling->value;
 	if (!exec || !*exec)
-		return (-1);
+		return (1);
+	//only return 0 in case of success
 	if (ft_strcmp(exec, "echo") == 0)
 		exit_code = ft_echo(command);
-	else if (ft_strcmp(exec, "my_cd") == 0)
-		//printf("Here goes cd command\n");
+	else if (ft_strcmp(exec, "cd") == 0) //???? TODO
         exit_code = ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{

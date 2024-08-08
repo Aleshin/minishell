@@ -62,7 +62,7 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
     // Restore original stdin and stdout file descriptors
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     handle_dup_and_close(original_stdin, STDIN_FILENO);
-    printf ("TEST %d\n", status);
+    printf ("Last child status is %d\n", status);
     if (status == 13 || status == 8)  //check this
         status = 126;
     else if (status == 2 || status == 14)
@@ -76,7 +76,10 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
     t_ast_node *command;
-    command = ast_tree->first_child;  
+    command = ast_tree->first_child;
+    int err_code;
+
+    err_code = 0;
     // Check if there is only one command and it is a built-in
     if (command == NULL || command->first_child == NULL || 
         command->first_child->next_sibling == NULL || 
@@ -97,7 +100,8 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
     if (out != -3)
         handle_dup_and_close(out, STDOUT_FILENO);
     // Execute the built-in command
-    builtiner(command, env_list);
+    err_code = builtiner(command, env_list);
+    set_exit_code(env_list, err_code);
     // Restore stdout
     handle_dup_and_close(original_stdout, STDOUT_FILENO);
     return (1); // Built-in command was handled

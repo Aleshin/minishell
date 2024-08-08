@@ -72,7 +72,7 @@ int ft_unset(t_env **list, t_ast_node *command)
         if (!check_varname(cur_arg->value, 0))
         {
             ft_env_error("unset", cur_arg->value, "not a valid identifier");
-            return (0); //in mac is 1;
+            return (1); //in mac is 1;
         }
         remove_node(list, cur_arg->value);
         cur_arg = cur_arg->next_sibling;
