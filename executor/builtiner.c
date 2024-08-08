@@ -72,7 +72,7 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 int	is_builtin(t_ast_node *command)
 {
 	char	*exec;
-
+//	delete all before / like usr/bin/cd ---> cd
 	exec = command->first_child->next_sibling->value;
 	if (!exec)
 		return (0);
@@ -104,7 +104,7 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	//only return 0 in case of success
 	if (ft_strcmp(exec, "echo") == 0)
 		exit_code = ft_echo(command);
-	else if (ft_strcmp(exec, "cd") == 0) //???? TODO
+	else if (ft_strcmp(exec, "cd") == 0) //???? TODO should work with relative and abs path
         exit_code = ft_cd(env_list, command);
 	else if (ft_strcmp(exec, "pwd") == 0)
 	{
