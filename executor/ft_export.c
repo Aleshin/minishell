@@ -105,12 +105,12 @@ int ft_export_node(t_env **lst, char *cur_arg)
 {
     t_env *new_node;
     char **new_val;
-    // Check if the variable name is valid
-    // if (check_varname(cur_arg, 1) == 0)
-    // {
-    //     ft_env_error("export", cur_arg, "not a valid identifier");
-    //     return (1);
-    // }
+    //Check if the variable name is valid
+    if (check_varname(cur_arg, 1) == 0)
+    {
+        ft_env_error("export", cur_arg, "not a valid identifier");
+        return (1);
+    }
     new_node = NULL;
     new_val = get_name_val(cur_arg);
     if (new_val == NULL)
