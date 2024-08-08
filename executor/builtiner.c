@@ -44,8 +44,8 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 	if (command->first_child->next_sibling->next_sibling->param == 0)
 		return (0);
 	path = command->first_child->next_sibling->next_sibling->first_child->value;
-	if (!path)
-		return (0); //what to return here?
+	// if (!path)
+	// 	return (0); //what to return here?
 	if (chdir(path) != 0)
 	{
 		perror("cd");
@@ -116,5 +116,6 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	{
 		exit_code = print_env(env_list);
 	}
+	return (exit_code);
 	return (exit_code);
 }

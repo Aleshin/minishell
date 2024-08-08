@@ -72,7 +72,8 @@ void ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
 }
 
 
-//returns 0 if no builtin or no exec
+
+//returns 0 if no builtin
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
     t_ast_node *command;
@@ -85,7 +86,6 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
         command->first_child->next_sibling == NULL || 
         command->next_sibling != NULL || !is_builtin(command))
     {
-        //ft_sintax_error(ast_tree->value);
         return (0); // Not a single built-in command
     }
     // Save the original stdout file descriptor
