@@ -16,23 +16,23 @@ t_env	*ft_lstnew_env(char *name, char *value)
 {
 	t_env	*new;
 
-    new = malloc(sizeof(t_env));
-    if (new == NULL)
+	new = malloc(sizeof(t_env));
+	if (new == NULL)
 		return (NULL);
 	new->name = ft_strdup(name);
-    if (new->name == NULL) 
-    {
-        free(new); // Free allocated t_env structure
-        return (NULL);
-    }
-    new->value = ft_strdup(value);
-	if (new->value == NULL) 
-    {
-        free(new->name);
-        free(new); // Free allocated t_env structure
-        return (NULL);
-    }
-    new->next = NULL;
+	if (new->name == NULL)
+	{
+		free(new); // Free allocated t_env structure
+		return (NULL);
+	}
+	new->value = ft_strdup(value);
+	if (new->value == NULL)
+	{
+		free(new->name);
+		free(new); // Free allocated t_env structure
+		return (NULL);
+	}
+	new->next = NULL;
 	return (new);
 }
 
@@ -52,103 +52,104 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 		list->next = new;
 	}
 }
-//check if name exists and if exists only changes value
-int upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
-{
-    t_env *curr;
 
-    curr = lst;
-    while (curr != NULL)
-    {
+//check if name exists and if exists only changes value
+int	upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
+{
+	t_env	*curr;
+
+	curr = lst;
+	while (curr != NULL)
+	{
         //if name exists, change value
-        if (!ft_strcmp(name, curr->name))
-        {
-            free(curr->value);
-            curr->value = ft_strdup(value);
-            if (curr->value == NULL)
-            {
-                perror("Memory allocation failed");
-                return (-1);
-            }
-            return (1);
-        }
-        curr = curr->next;
-    }
-    return (0);
+		if (!ft_strcmp(name, curr->name))
+		{
+			free(curr->value);
+			curr->value = ft_strdup(value);
+			if (curr->value == NULL)
+			{
+				perror("Memory allocation failed");
+				return (-1);
+			}
+			return (1);
+		}
+		curr = curr->next;
+	}
+	return (0);
 }
+
 //function returns NULL if there is no = 
 //and name_val arr with valid name and value, if there is no value it sets val to ""
-char **get_name_val(char *cur_arg)
+char	**get_name_val(char *cur_arg)
 {
-    char **name_val;
+	char	**name_val;
 
-    name_val = ft_split_global(cur_arg, '=');
+	name_val = ft_split_global(cur_arg, '=');
     //case no =
-    if (!name_val)
-        return NULL;  
-    // If no value is provided, set the value to an empty string
-    if (name_val[1] == NULL)
-    {
-        name_val[1] = ft_strdup("");
-        if (!name_val[1])
-        {
-            perror("Memory allocation failed for value");
-            free(name_val[0]);
-            free(name_val);
-            return (NULL);
-        }
-    }
-    return(name_val);
+	if (!name_val)
+		return NULL;
+// If no value is provided, set the value to an empty string
+	if (name_val[1] == NULL)
+	{
+		name_val[1] = ft_strdup("");
+		if (!name_val[1])
+		{
+			perror("Memory allocation failed for value");
+			free(name_val[0]);
+			free(name_val);
+			return (NULL);
+		}
+	}
+	return (name_val);
 }
 
-int ft_export_node(t_env **lst, char *cur_arg)
+int	ft_export_node(t_env **lst, char *cur_arg)
 {
-    t_env *new_node;
-    char **new_val;
+	t_env	*new_node;
+	char	**new_val;
     //Check if the variable name is valid
-    if (check_varname(cur_arg, 1) == 0)
-    {
-        ft_env_error("export", cur_arg, "not a valid identifier");
-        return (1);
-    }
-    new_node = NULL;
-    new_val = get_name_val(cur_arg);
-    if (new_val == NULL)
-        return (1);
-
-    if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
-    {
-        new_node = ft_lstnew_env(new_val[0], new_val[1]);
-        if (new_node == NULL)
-        {
-            perror("Memory allocation failed for node");
-            free_arr(new_val);  // Free allocated memory
-            return (1);
-        }
-        ft_lstadd_back_env(lst, new_node);
-    }
-    free_arr(new_val);  // Free allocated memory
-    return (0);
+	if (check_varname(cur_arg, 1) == 0)
+	{
+		ft_env_error("export", cur_arg, "not a valid identifier");
+		return (1);
+	}
+	new_node = NULL;
+	new_val = get_name_val(cur_arg);
+	if (new_val == NULL)
+		return (1);
+	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
+	{
+		new_node = ft_lstnew_env(new_val[0], new_val[1]);
+		if (new_node == NULL)
+		{
+			perror("Memory allocation failed for node");
+			free_arr(new_val);
+			return (1);
+		}
+		ft_lstadd_back_env(lst, new_node);
+	}
+	free_arr(new_val);
+	return (0);
 }
 
-int ft_export(t_env **lst, t_ast_node *command)
+int	ft_export(t_env **lst, t_ast_node *command)
 {
-    t_ast_node *cur_arg;
+	t_ast_node	*cur_arg;
 
-    cur_arg = command->first_child->next_sibling->next_sibling->first_child;    
+	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
     //export with no args
-    if (command->first_child->next_sibling->next_sibling->param == 0)
-    {
-        ft_print_sorted(*lst);
-        return (0);
-    }
-    else
-    {        
-        while(cur_arg != NULL) 
-        {
-            ft_export_node(lst, cur_arg->value);
-            cur_arg = cur_arg->next_sibling;
-        }
-    }
-    return (0);
+	if (command->first_child->next_sibling->next_sibling->param == 0)
+	{
+		ft_print_sorted(*lst);
+		return (0);
+	}
+	else
+	{
+		while (cur_arg != NULL)
+		{
+			ft_export_node(lst, cur_arg->value);
+			cur_arg = cur_arg->next_sibling;
+		}
+	}
+	return (0);
 }
