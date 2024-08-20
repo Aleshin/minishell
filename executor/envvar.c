@@ -17,11 +17,12 @@ int	print_env(t_env **env)
 	t_env	*curr;
 
 	curr = *env;
+	printf ("Hean in env is %s\n", (*env)->name);
 	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->name, "?") != 0)
 		{
-            ft_putstr_fd(curr->name, STDOUT_FILENO);
+			ft_putstr_fd(curr->name, STDOUT_FILENO);
 			ft_putstr_fd("=", STDOUT_FILENO);
 			ft_putendl_fd(curr->value, STDOUT_FILENO);
 		}
@@ -30,40 +31,66 @@ int	print_env(t_env **env)
 	return (0);
 }
 
-void remove_node(t_env **lst, char *name)
+// void remove_node(t_env **lst, char *name)
+// {
+//     if (*lst == NULL)
+//         return;
+
+//     t_env *head = *lst;
+
+//     // If the head node needs to be deleted
+//     if (strcmp(head->name, name) == 0)
+//     {
+//         *lst = head->next; // Update the head of the list globally
+//         free_env_node(head);
+//         return;
+//     }
+
+//     // Traverse the list to find and remove the node
+//     t_env *prev = head;
+//     t_env *curr = head->next;
+//     while (curr != NULL)
+//     {
+//         if (strcmp(curr->name, name) == 0)
+//         {
+//             prev->next = curr->next;
+//             free_env_node(curr);
+//             return;
+//         }
+//         prev = curr;
+//         curr = curr->next;
+//     }
+// }
+
+void	remove_node(t_env **lst, char *name)
 {
-    if (*lst == NULL)
-        return ;
+	t_env	*tmp;
+	t_env	*curr;
 
-    t_env *head = *lst;
-
-    // Delete first node
-    if (!ft_strcmp(head->name, name))
-    {
-        printf("Attempting to remove node with name: %s\n", name);
-        printf("Head node name: %s\n", head->name);
-        
-        *lst = head->next; 
-        free_env_node(head);
-        printf("new head node name: %s\n", (*lst)->name);
-        return;
-    }
-    // Delete in the middle or last
-    t_env *prev = head;
-    t_env *curr = head->next;
-    while (curr != NULL)
-    {
-        if (!ft_strcmp(curr->name, name))
-        {
-            prev->next = curr->next;
-            free_env_node(curr);
-            return;
-        }
-        prev = curr;
-        curr = curr->next;
-    }
+	if (*lst == NULL)
+		return ;
+	if (!ft_strcmp((*lst)->name, name))
+	{
+		tmp = *lst;
+		*lst = (*lst)->next;
+		free_env_node(tmp);
+		return ;
+	}
+	curr = *lst;
+	while (curr->next != NULL)
+	{
+		if (!ft_strcmp(curr->next->name, name))
+		{
+			tmp = curr->next;
+			curr->next = curr->next->next;
+			free_env_node(tmp);
+			return ;
+		}
+		curr = curr->next;
+	}
 }
 
+// Updated ft_unset function
 int	ft_unset(t_env **list, t_ast_node *command)
 {
 	t_ast_node	*cur_arg;
@@ -79,6 +106,8 @@ int	ft_unset(t_env **list, t_ast_node *command)
 		remove_node(list, cur_arg->value);
 		cur_arg = cur_arg->next_sibling;
 	}
+	printf("Environment after unset:\n");
+	print_env(list);
 	return (0);
 }
 

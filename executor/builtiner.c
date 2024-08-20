@@ -72,8 +72,8 @@ int	is_builtin(t_ast_node *command)
 		|| ft_strcmp(exec, "cd") == 0
 		|| ft_strcmp(exec, "pwd") == 0
 		|| ft_strcmp(exec, "export") == 0
-		|| ft_strcmp(exec, "unset") == 0
-		|| ft_strcmp(exec, "env") == 0)
+		|| ft_strcmp(exec, "my_unset") == 0
+		|| ft_strcmp(exec, "my_env") == 0)
 	{
 		return (1);
 	}
@@ -103,9 +103,9 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	}
 	else if (ft_strcmp(exec, "export") == 0)
 		exit_code = ft_export(env_list, command);
-	else if (ft_strcmp(exec, "unset") == 0)
+	else if (ft_strcmp(exec, "my_unset") == 0)
 		exit_code = ft_unset(env_list, command);
-	else if (ft_strcmp(exec, "env") == 0)
+	else if (ft_strcmp(exec, "my_env") == 0)
 	{
 		exit_code = print_env(env_list);
 	}
