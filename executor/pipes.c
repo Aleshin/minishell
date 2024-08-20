@@ -145,11 +145,11 @@ int	ft_exit_status(pid_t last_pid)
 int	ft_executor(t_ast_node *ast_tree, t_env **env_list) 
 {
 	t_ast_node	*commands;
-	int		fd_in;  // Initial input file descriptor (stdin)
-	int		pipefds[2]; // Pipe file descriptors (in and out)
+	int			fd_in;  // Initial input file descriptor (stdin)
+	int			pipefds[2]; // Pipe file descriptors (in and out)
 	pid_t		pid;
 	pid_t		last_pid; // PID of the last child process
-	int		last_exit_status;
+	int			last_exit_status;
 
 	fd_in = 0;
 	last_pid = -1;
@@ -188,7 +188,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 				close(pipefds[WRITE_END]); // Close write end in parent
 				fd_in = pipefds[READ_END]; // Save read end for next command's input
 			}
-		last_pid = pid;     
+			last_pid = pid;     
  		}
 		commands = commands->next_sibling;
 	}

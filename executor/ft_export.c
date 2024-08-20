@@ -87,7 +87,7 @@ char	**get_name_val(char *cur_arg)
 	name_val = ft_split_global(cur_arg, '=');
     //case no =
 	if (!name_val)
-		return NULL;
+		return (NULL);
 // If no value is provided, set the value to an empty string
 	if (name_val[1] == NULL)
 	{
