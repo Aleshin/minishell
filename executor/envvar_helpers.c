@@ -115,7 +115,7 @@ t_env	*envp_to_linked_list(char **envp)
 
 void	free_env_node(t_env *node)
 {
-	if (node != NULL)
+	if (node == NULL)
 		return ;
 	free(node->name);
 	free(node->value);
