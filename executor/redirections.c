@@ -17,8 +17,8 @@ int	input_redir(t_ast_node *commands)
 	int			file;
 	t_ast_node	*redirects;
 	t_ast_node	*current_redirect;
-    ssize_t         n;
-    int         pipefd[2];
+	ssize_t		n;
+	int			pipefd[2];
 
 	redirects = commands->first_child;
 	if (redirects == 0)
@@ -46,7 +46,7 @@ int	input_redir(t_ast_node *commands)
 				exit(EXIT_FAILURE);
 			}
 			n = write(pipefd[WRITE_END],
-					current_redirect->value, 
+					current_redirect->value,
 					ft_strlen(current_redirect->value));
 			if (n == -1)
 			{

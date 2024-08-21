@@ -61,6 +61,7 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 }
 
 // 1 if it is a builtin, 0 if not
+//HERE TO CHECK IF EXEC IS A VALID BUILTIN
 int	is_builtin(t_ast_node *command)
 {
 	char	*exec;
@@ -110,4 +111,38 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 		exit_code = print_env(env_list);
 	}
 	return (exit_code);
+}
+
+//checks if the command is valid absolute path /usr/bin/ls, return 0
+//if it is not valid access set errno
+int ft_path_ok(char *command)
+{
+    if (access(command, F_OK) == -1)
+        return (127);  // File does not exist
+    if (access(command, X_OK) == -1)
+	{
+        if (errno == EACCES)
+            return (126);  // No execute permission
+		else if (errno == ENOTDIR)
+            return (126);  // Component of the path is not a directory
+        return (1);  // General error (other reasons)
+    }
+    return (0);  // Success: file exists and is executable
+}
+
+//to check if it is possible to have / at the end
+//extracts string after last /
+char *extract_exec(char *command)
+{
+	char	*ptr_start;
+
+	if (ft_path_ok(command) != 0)
+		return (NULL);
+	while (*command)
+	{
+		if (*command == '/')
+			ptr_start = command + 1;
+		command++;
+	}
+	return (ptr_start);
 }

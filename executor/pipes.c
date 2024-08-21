@@ -11,8 +11,9 @@
 /* ************************************************************************** */
 
 #include "./minishell.h"
-//child process does not exit!!!!
-void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env_list)
+
+void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
+	t_env **env_list)
 {
 	int	status;
 	int	original_stdout;
@@ -56,6 +57,7 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command, t_env **env
 			handle_dup_and_close(output_fd, STDOUT_FILENO);
 	}
     // Execute the command (external or builtin)
+	//TO DO HERE TO CHECK IF THE COMMAND IS ABSOLUTE PATH
 	if (is_builtin(command))
 	{
 		status = builtiner(command, env_list);
@@ -113,6 +115,7 @@ int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 int	ft_exit_status(pid_t last_pid)
 {
 	int	status;
+	int	exit_status;
     // Wait for the last child process and capture its exit status
 	if (last_pid != -1)
 	{
@@ -128,9 +131,8 @@ int	ft_exit_status(pid_t last_pid)
         // Check if the child process terminated normally
 		if (WIFEXITED(status))
 		{
-			int exit_status = WEXITSTATUS(status);
-            //printf("Last command exited with status: %d\n", exit_status);
-			return (exit_status); // Return the exit status of the last command
+			exit_status = WEXITSTATUS(status);
+			return (exit_status);
 		}
 		else
 		{
@@ -142,22 +144,22 @@ int	ft_exit_status(pid_t last_pid)
 }
 
 
-int	ft_executor(t_ast_node *ast_tree, t_env **env_list) 
+int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
-	t_ast_node	*commands;
-	int			fd_in;  // Initial input file descriptor (stdin)
-	int			pipefds[2]; // Pipe file descriptors (in and out)
+	t_ast_node	*command;
+	int		fd_in;// Initial input file descriptor (stdin)
+	int		pipefds[2];// Pipe file descriptors (in and out)
 	pid_t		pid;
 	pid_t		last_pid; // PID of the last child process
-	int			last_exit_status;
+	int		last_exit_status;
 
 	fd_in = 0;
 	last_pid = -1;
-	commands = ast_tree->first_child;
-	while (commands != NULL)
+	command = ast_tree->first_child;
+	while (command != NULL)
 	{
         // Create pipe only if there is another command after this one
-		if (commands->next_sibling != NULL)
+		if (command->next_sibling != NULL)
 		{
 			if (pipe(pipefds) == -1)
 			{
@@ -174,7 +176,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 		if (pid == 0)
 		{
             // Child process changes in and out fd accordingly
-			ft_child_process(fd_in, pipefds, commands, env_list);
+			ft_child_process(fd_in, pipefds, command, env_list);
 		}
 		else
 		{
@@ -183,14 +185,14 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 			{
 				close(fd_in); // Close the old input fd
 			}
-			if (commands->next_sibling != NULL)
+			if (command->next_sibling != NULL)
 			{
 				close(pipefds[WRITE_END]); // Close write end in parent
 				fd_in = pipefds[READ_END]; // Save read end for next command's input
 			}
 			last_pid = pid;     
  		}
-		commands = commands->next_sibling;
+		command = command->next_sibling;
 	}
     // Handle the exit status of the last command --->$?
 	last_exit_status = ft_exit_status(last_pid);
