@@ -231,7 +231,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!list)
 		return (1);
 	print_env(list);
-    remove_node(&list, "MallocNanoZone");
+    remove_node(&list, "USER");
     printf("after deletion------------->\n");
     print_env(list);
     lst_dealloc(&list);

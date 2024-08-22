@@ -12,12 +12,13 @@
 
 #include "minishell.h"
 
-int	print_env(t_env *env)
+int	print_env(t_env **env)
 {
 	t_env	*curr;
 
-	curr = env;
-	printf ("Head in env is %s\n", curr->name);
+	curr = *env;
+	//printf ("Head in env is %s\n", curr->name);
+	printf ("Puntero en print env is %p\n", *env);
 	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->name, "?") != 0)
@@ -68,11 +69,18 @@ void	remove_node(t_env **lst, char *name)
 	if (*lst == NULL)
 		return ;
 	if (!ft_strcmp((*lst)->name, name))
-	{
+	{		
 		tmp = *lst;
 		*lst = (*lst)->next;
+		printf("Puntero TMP %p\n", tmp);
+		printf("Puntero LST %p\n", *lst);
+		printf("Puntero **LST %p\n", lst);
 		free_env_node(tmp);
-		printf("New head is %s\n", (*lst)->name);
+		tmp = NULL;
+        if (*lst != NULL)
+            printf("New head is %s con direccion %p\n", (*lst)->name, *lst);
+        else
+            printf("List is now empty.\n");
 		return ;
 	}
 	curr = *lst;
@@ -106,7 +114,7 @@ int ft_unset(t_env **list, t_ast_node *command)
         remove_node(list, cur_arg->value);
         cur_arg = cur_arg->next_sibling;
     }
-    //print_env(*list);
+    print_env(list);
     return (0);
 }
 
