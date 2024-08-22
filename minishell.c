@@ -49,6 +49,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	setup_signal_handlers();
 	disable_ctrl_backslash();
+	t_env **env_ptr = &environment_list;
 	environment_list = envp_to_linked_list(envp);
 	if (!environment_list)
 		return (1);
@@ -67,7 +68,7 @@ int	main(int argc, char **argv, char **envp)
 		add_history(buf);
 		token = token_init(&buf);
 		input = input_init(&token);
-		input->env = environment_list;
+		input->env = *env_ptr;
 		err_no = lexer(&input, &token);
 		if ( err_no == 0)
 		{
@@ -76,9 +77,8 @@ int	main(int argc, char **argv, char **envp)
 			current_token = token;
 			ast_root = rule_command_line(&current_token, ast_root);
 			//print_ast_tree(ast_root, 0);
-			// if (ft_handle_builtin(ast_root, &input->env) == 0)
-			// 	ft_executor(ast_root, &input->env);
-			ft_handle_builtin(ast_root, &input->env);
+			if (ft_handle_builtin(ast_root, env_ptr) == 0)
+				ft_executor(ast_root, env_ptr);
 			free_all(&ast_root, &token, &input, &buf);
 		}
 		else

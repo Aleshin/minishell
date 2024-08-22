@@ -114,7 +114,7 @@ int ft_unset(t_env **list, t_ast_node *command)
         remove_node(list, cur_arg->value);
         cur_arg = cur_arg->next_sibling;
     }
-    print_env(list);
+    //print_env(list);
     return (0);
 }
 
