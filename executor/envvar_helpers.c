@@ -115,11 +115,13 @@ t_env	*envp_to_linked_list(char **envp)
 
 void	free_env_node(t_env *node)
 {
-	if (node == NULL)
-		return ;
-	free(node->name);
-	free(node->value);
-	free(node);
+	if (node != NULL)
+	{
+		free(node->name);
+		free(node->value);
+		free(node);
+	}
+
 }
 
 void	lst_dealloc(t_env **head)

@@ -59,6 +59,8 @@ int	upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
 	t_env	*curr;
 
 	curr = lst;
+	if (!curr)
+		return (-1);
 	while (curr != NULL)
 	{
         //if name exists, change value

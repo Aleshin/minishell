@@ -12,19 +12,17 @@
 
 #include "minishell.h"
 
-int	print_env(t_env **env)
+int	print_env(t_env *env)
 {
 	t_env	*curr;
 
-	curr = *env;
-	printf ("Hean in env is %s\n", (*env)->name);
+	curr = env;
+	printf ("Head in env is %s\n", curr->name);
 	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->name, "?") != 0)
 		{
-			ft_putstr_fd(curr->name, STDOUT_FILENO);
-			ft_putstr_fd("=", STDOUT_FILENO);
-			ft_putendl_fd(curr->value, STDOUT_FILENO);
+			printf("%s=%s\n", curr->name, curr->value);
 		}
 		curr = curr->next;
 	}
@@ -74,6 +72,7 @@ void	remove_node(t_env **lst, char *name)
 		tmp = *lst;
 		*lst = (*lst)->next;
 		free_env_node(tmp);
+		printf("New head is %s\n", (*lst)->name);
 		return ;
 	}
 	curr = *lst;
@@ -86,29 +85,29 @@ void	remove_node(t_env **lst, char *name)
 			free_env_node(tmp);
 			return ;
 		}
-		curr = curr->next;
+		else
+			curr = curr->next;
 	}
 }
 
 // Updated ft_unset function
-int	ft_unset(t_env **list, t_ast_node *command)
+int ft_unset(t_env **list, t_ast_node *command)
 {
-	t_ast_node	*cur_arg;
+    t_ast_node *cur_arg;
 
-	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-	while (cur_arg != NULL)
-	{
-		if (!check_varname(cur_arg->value, 0))
-		{
-			ft_env_error("unset", cur_arg->value, "not a valid identifier");
-			return (1);
-		}
-		remove_node(list, cur_arg->value);
-		cur_arg = cur_arg->next_sibling;
-	}
-	printf("Environment after unset:\n");
-	print_env(list);
-	return (0);
+    cur_arg = command->first_child->next_sibling->next_sibling->first_child;
+    while (cur_arg != NULL)
+    {
+        if (!check_varname(cur_arg->value, 0))
+        {
+            ft_env_error("unset", cur_arg->value, "not a valid identifier");
+            return (1);
+        }
+        remove_node(list, cur_arg->value);
+        cur_arg = cur_arg->next_sibling;
+    }
+    //print_env(*list);
+    return (0);
 }
 
 int	list_len(t_env *env)
