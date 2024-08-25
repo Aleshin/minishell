@@ -129,7 +129,7 @@ t_env	*envp_to_linked_list(char **envp)
 		if (new_node == NULL && head != NULL)
 		{
 			perror("Memory allocation failed for env_node");
-			lst_dealloc(&head);
+//			lst_dealloc(&head);
 			return (NULL);
 		}
 		ft_lstadd_back_env(&head, new_node);

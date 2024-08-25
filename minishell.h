@@ -231,7 +231,6 @@ int				upd_envvar(char *name, char *value, t_env *lst);
 
 // helper functions
 int				ft_strcmp(const char *s1, const char *s2);
-void			lst_dealloc(t_env **head);
 int				free_all(t_ast_node **ast_root, t_Token_node **token,
 					t_Input **input, char **buf);
 int				print_env(t_env **env);
