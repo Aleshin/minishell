@@ -18,6 +18,8 @@ char	*heredoc_stdin(char *delimiter)
 	char	*buf_temp;
 
 	buf = (char *)malloc(sizeof(char));
+	if (!buf)
+		return (NULL);
 	*buf = '\0';
 	line = readline("$>");
 	while (line != NULL)
@@ -31,6 +33,7 @@ char	*heredoc_stdin(char *delimiter)
 		buf = ft_strjoin(buf_temp, line, "\n");
 		free(buf_temp);
 		free(line);
+		line = readline("$>");
 	}
 	return (NULL);
 }
