@@ -20,7 +20,7 @@ t_ast_node	*rule_executable(t_Token_node **token) // bottom of tree
 		return (NULL);
 	if ((*token)->type == lexem)
 	{
-		ast_node = create_ast_node(executable, (*token)->value); // return exec node to command function
+		ast_node = create_ast_node(executable, (*token)->value);
 		*token = (*token)->next_token;
 	}
 	return (ast_node);

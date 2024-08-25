@@ -3,8 +3,8 @@ CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 LDFLAGS = -L./libft -lft -lreadline
 INCLUDES = -I./libft -I.
 
-SRC = minishell.c ./lexer/token_functions.c ./lexer/tokenizer_functions.c ./lexer/lexer_functions.c\
- ./lexer/tokenizer_substring.c  ./lexer/tokenizer_variables.c\
+SRC = minishell.c ./lexer/token_functions.c ./lexer/token_functions1.c ./lexer/tokenizer_functions.c ./lexer/lexer_functions.c\
+ ./lexer/removers.c ./lexer/expanders.c ./lexer/tokenizer_substring.c ./lexer/quotes_functions.c ./lexer/tokenizer_variables.c\
  ./parser/ast_structure.c ./parser/parser_functions.c ./parser/command_functions.c\
  ./executor/pipes.c ./executor/builtiner.c\
   signals.c ./executor/envvar.c ./executor/ft_echo.c ./executor/error_ft.c ./executor/redirections.c\

@@ -15,20 +15,17 @@ t_ast_node	*rule_command_line(t_Token_node **token, t_ast_node *ast_node)
 {
 	t_ast_node	*reverse_node;
 
-	reverse_node = rule_command(token); // Command line -> Command
+	reverse_node = rule_command(token);
 	if (reverse_node != NULL)
 	{
-		add_child_node(ast_node, reverse_node); // Add command node with exec node with or no args
+		add_child_node(ast_node, reverse_node);
 		if (*token == NULL)
 			return (ast_node);
 		ast_node->param++;
 		if ((*token)->type == PIPE)
 		{
-// Next 2 lines add token "pipe" to AST-tree
-//			reverse_node = create_ast_node(PIPE, (*token)->value);
-//			add_child_node(ast_node, reverse_node); // add pipe token
 			*token = (*token)->next_token;
-			ast_node = rule_command_line(token, ast_node); // Recursive Command line -> Command line
+			ast_node = rule_command_line(token, ast_node);
 		}
 	}
 	return (ast_node);
@@ -74,7 +71,7 @@ t_ast_node	*rule_command(t_Token_node **token)
 	ast_keys->arguments_num = 0;
 	reverse_node = rule_redirect_recursive(token, &ast_keys);
 	command_init(&ast_keys, &reverse_node);
-	reverse_node = rule_executable(token); // Command -> Executable
+	reverse_node = rule_executable(token);
 	command_init(&ast_keys, &reverse_node);
 	if (ast_keys->arguments != NULL)
 		redirects_arguments(token, &ast_keys);

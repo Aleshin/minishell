@@ -26,7 +26,7 @@ t_Input	*input_init(t_Token_node **token)
 	return (input);
 }
 
-t_Token_node *token_init(char **buf)
+t_Token_node	*token_init(char **buf)
 {
 	t_Token_node	*token;
 

@@ -72,7 +72,7 @@ typedef enum SymbolType
 # define READ_END 0
 # define WRITE_END 1
 
-//декларируем структуру списка переменых среды
+//env structure
 typedef struct t_list
 {
 	char		*name;
@@ -120,6 +120,17 @@ typedef struct ast_keys
 
 typedef int	(*t_function_pointer)(t_ast_node *);
 
+typedef struct main_structure
+{
+	char			*buf;
+	t_Input			*input;
+	t_Token_node	*token;
+	t_Token_node	*current_token;
+	t_ast_node		*ast_root;
+	t_env			*environment_list;
+	int				err_no;
+}	t_main;
+
 // signals
 void			setup_signal_handlers(void);
 void			disable_ctrl_backslash(void);
@@ -140,8 +151,13 @@ char			*heredoc_stdin(char *delimiter);
 int				rule_terminals(t_Input **input, t_Token_node **token);
 //int				rule_word(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);
+int				ws_remover(t_Token_node **token);
+int				quotes_remover(t_Token_node **token);
+int				double_quotes_remover(t_Token_node **token);
 int				rule_lexem(t_Input **input, t_Token_node **token);
 int				rule_quotes(t_Input **input, t_Token_node **token);
+int				expand_redirects(t_Token_node **token);
+int				expand_heredoc(t_Input **input, t_Token_node **token);
 //int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
 int				tokenizer(t_Input **input, t_Token_node **token);
 int				tokenizer_double_quotes(t_Input **input, t_Token_node **token);
