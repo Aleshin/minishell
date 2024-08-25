@@ -34,81 +34,48 @@ char	*heredoc_stdin(char *delimiter)
 	}
 	return (NULL);
 }
-/*
-int	init_lexer(t_main main_str)
+
+int	parse_exec(t_main *main_str)
 {
-	return (lexer(main_str.input, main_str.token));
+//	print_tokens(token);
+	main_str->ast_root = create_ast_node(commandLine, main_str->input->string);
+	main_str->current_token = main_str->token;
+	main_str->ast_root
+		= rule_command_line(&main_str->current_token, main_str->ast_root);
+	print_ast_tree(main_str->ast_root, 0);
+	if (ft_handle_builtin(main_str->ast_root, &main_str->input->env) == 0)
+		ft_executor(main_str->ast_root, &main_str->input->env);
+	free_all(&main_str->ast_root, &main_str->token,
+		&main_str->input, &main_str->buf);
+	return (0);
 }
-*/
+
 int	main(int argc, char **argv, char **envp)
 {
-	t_env			*environment_list;
 	int				err_no;
 	t_main			main_str;
 
 	(void)argc;
 	(void)argv;
-	setup_signal_handlers();
-	disable_ctrl_backslash();
-	environment_list = envp_to_linked_list(envp);
-	if (!environment_list)
+	if (init_start(&main_str, envp))
 		return (1);
-	set_exit_code(&environment_list, 0);
 	while (1)
 	{
 		main_str.buf = readline("$> ");
 		if (main_str.buf == NULL || ft_strcmp(main_str.buf, "exit") == 0)
 		{
 			free(main_str.buf);
-			lst_dealloc(&environment_list);
+			lst_dealloc(&main_str.environment_list);
 			write (1, "exit\n", 5);
 			return (0);
 		}
-		add_history(main_str.buf);
-		main_str.token = token_init(&main_str.buf);
-		main_str.input = input_init(&main_str.token);
-		main_str.input->env = environment_list;
-//		err_no = init_lexer(&main_str);
-		err_no = lexer(&main_str.input, &main_str.token);
+		err_no = init_lexer(&main_str);
 		if (err_no == 0)
-		{
-//			print_tokens(token);
-			main_str.ast_root = create_ast_node(commandLine, main_str.input->string);
-			main_str.current_token = main_str.token;
-			main_str.ast_root = rule_command_line(&main_str.current_token, main_str.ast_root);
-			print_ast_tree(main_str.ast_root, 0);
-			if (ft_handle_builtin(main_str.ast_root, &main_str.input->env) == 0)
-				ft_executor(main_str.ast_root, &main_str.input->env);
-			free_all(&main_str.ast_root, &main_str.token, &main_str.input, &main_str.buf);
-		}
+			parse_exec(&main_str);
 		else
-		{
-//			free_all(&ast_root, &token, &input, &buf);
-			free_tokens(&main_str.token);
-			free(main_str.input);
-			if (err_no != -1)
-				free(main_str.buf);
-		}
+			free_noerr(&main_str, err_no);
 	}
 	return (0);
-}
-
-int	free_all(t_ast_node **ast_root, t_Token_node **token,
-			t_Input **input, char **buf)
-{
-	(void)token;
-	(void)ast_root;
-	(void)buf;
-	(void)input;
-	if (ast_root)
-		free_ast(ast_root);
-	if (token)
-		free_tokens(token);
-	if (buf)
-		free(*buf);
-	if (input)
-		free(*input);
-	return (1);
 }
 // examples for testing
 // du ./ | sort -n | tail -10

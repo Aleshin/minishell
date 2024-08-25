@@ -75,8 +75,8 @@ typedef enum SymbolType
 //env structure
 typedef struct t_list
 {
-	char		*name;
-	char		*value;
+	char			*name;
+	char			*value;
 	struct t_list	*next;
 }	t_env;
 
@@ -134,6 +134,12 @@ typedef struct main_structure
 // signals
 void			setup_signal_handlers(void);
 void			disable_ctrl_backslash(void);
+// init & finish
+int				init_start(t_main *main_str, char **envp);
+int				init_lexer(t_main *main_str);
+int				free_noerr(t_main *main_str, int err_no);
+int				free_all(t_ast_node **ast_root, t_Token_node **token,
+					t_Input **input, char **buf);
 // token structure functions
 t_Input			*input_init(t_Token_node **token);
 t_Token_node	*token_init(char **buf);
@@ -226,7 +232,8 @@ int				upd_envvar(char *name, char *value, t_env *lst);
 // helper functions
 int				ft_strcmp(const char *s1, const char *s2);
 void			lst_dealloc(t_env **head);
-int				free_all(t_ast_node **ast_root, t_Token_node **token, t_Input **input, char **buf);
+int				free_all(t_ast_node **ast_root, t_Token_node **token,
+					t_Input **input, char **buf);
 int				print_env(t_env **env);
 
 // errors
@@ -236,9 +243,5 @@ void			ft_shell_error(char *cmd, char *error);
 void			ft_sintax_error(char *cmd);
 void			ft_env_error(char *cmd, char *arg, char *error);
 void			set_exit_code(t_env **lst, int code);
-
-
-
-int ft_export_status(t_env **lst, char *value);
-
+int				ft_export_status(t_env **lst, char *value);
 #endif
