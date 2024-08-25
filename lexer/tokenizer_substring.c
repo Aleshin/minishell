@@ -40,6 +40,20 @@ t_Token_node	*token_init(char **buf)
 	return (token);
 }
 
+void	del_token(t_Token_node **token_temp, t_Token_node **token)
+{
+	if ((*token_temp)->next_token)
+	{
+		if (*token == *token_temp)
+		{
+			delete_token(token_temp);
+			*token = *token_temp;
+		}
+		else
+			delete_token(token_temp);
+	}
+}
+
 int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 {
 	t_Input			*input_substring;
@@ -58,16 +72,7 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 			rule_lexem(&input_substring, &token_temp);
 	}
 	token_temp = input_substring->token;
-	if (token_temp->next_token)
-	{
-		if (*token == token_temp)
-		{
-			delete_token(&token_temp);
-			*token = token_temp;
-		}
-		else
-			delete_token(&token_temp);
-	}
+	del_token(&token_temp, token);
 	token_temp->type = SINGLE_QUOTED_STRING;
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);

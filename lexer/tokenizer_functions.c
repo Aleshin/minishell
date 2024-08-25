@@ -88,29 +88,27 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 
 int	tokenizer(t_Input **input, t_Token_node **token)
 {
-	int	i;
-
 	if ((*input)->string[0] == '\0')
 		return (-1);
 	while ((*input)->string[(*input)->current_char] != '\0')
 	{
-		if ((i = rule_terminals (input, token)))
+		if (rule_terminals (input, token))
 		{
-			if ((i = rule_ws(input, token)))
+			if (rule_ws(input, token))
 			{
-				if (!(i = rule_quotes(input, token)))
+				if (!rule_quotes(input, token))
 				{
-					i = tokenizer_double_quotes(input, token);
+					tokenizer_double_quotes(input, token);
 				}
 				else
 				{
-					if ((i = rule_var(input, token)))
+					if (rule_var(input, token))
 					{
-						i = rule_lexem(input, token);
+						rule_lexem(input, token);
 					}
 				}
 			}
 		}
 	}
-	return (i);
+	return (0);
 }
