@@ -41,8 +41,8 @@ int	expand_heredoc(t_Input **input, t_Token_node **token)
 		value_temp = (*token)->next_token->value;
 		(*token)->next_token->value
 			= heredoc_stdin((*token)->next_token->value);
-		(*token)->next_token->type = SINGLE_QUOTED_STRING;
-		tokenizer_double_quotes(input, &(*token)->next_token);
+//		(*token)->next_token->type = DOUBLE_QUOTED_STRING;
+//		tokenizer_double_quotes(input, &(*token)->next_token);
 		(*token)->next_token->type = heredoc;
 		free(value_temp);
 		delete_token(token);
