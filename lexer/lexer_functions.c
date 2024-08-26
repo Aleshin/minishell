@@ -11,15 +11,6 @@
 /* ************************************************************************** */
 #include "./minishell.h"
 
-int	ws_remover(t_Token_node **token)
-{
-	if ((*token)->type == WS)
-		delete_token(token);
-	if (*token == NULL)
-		return (1);
-	return (0);
-}
-
 int	twin_redirects(t_Token_node **token)
 {
 	if ((*token)->next_token != NULL)
@@ -40,98 +31,32 @@ int	twin_redirects(t_Token_node **token)
 	return (0);
 }
 
-int	expand_redirects(t_Token_node **token)
-{
-	if ((*token)->next_token != NULL
-		&& ((*token)->type == redirect_in
-			|| (*token)->type == redirect_out
-			|| (*token)->type == redirect_out_add))
-	{
-		if ((*token)->next_token->type != lexem)
-			return (1);
-		(*token)->next_token->type = (*token)->type;
-		delete_token(token);
-		token = &(*token)->next_token;
-	}
-	return (0);
-}
-
-int	expand_heredoc(t_Input **input, t_Token_node **token)
-{
-	char	*value_temp;
-
-	if ((*token)->next_token != NULL
-		&& (*token)->type == heredoc)
-	{
-		if ((*token)->next_token->type != lexem)
-			return (1);
-		(*token)->next_token->type = (*token)->type;
-		value_temp = (*token)->next_token->value;
-		(*token)->next_token->value
-			= heredoc_stdin((*token)->next_token->value);
-		(*token)->next_token->type = DOUBLE_QUOTED_STRING;
-		tokenizer_double_quotes(input, &(*token)->next_token);
-		(*token)->next_token->type = heredoc;
-		free(value_temp);
-		delete_token(token);
-		token = &(*token)->next_token;
-	}
-	return (0);
-}
-
-int	quotes_remover(t_Token_node **token)
-{
-	t_Token_node	**token_temp;
-
-	token_temp = token;
-	if ((*token_temp)->type == SINGLE_QUOTED_STRING)
-			(*token_temp)->type = lexem;
-	if (((*token_temp)->next_token != NULL)
-		&& (((*token_temp)->type == lexem
-				&& (*token_temp)->next_token->type == SINGLE_QUOTED_STRING)
-			|| ((*token_temp)->type == SINGLE_QUOTED_STRING
-				&& (*token_temp)->next_token->type == lexem)
-			|| ((*token_temp)->type == lexem
-				&& (*token_temp)->next_token->type == lexem)))
-	{
-		(*token_temp)->type = lexem;
-		join_next_token(token_temp);
-		return (0);
-	}	
-	return (1);
-}
-
-int	double_quotes_remover(t_Token_node **token)
-{
-	t_Token_node	**token_temp;
-
-	token_temp = token;
-	if ((*token_temp)->type == DOUBLE_QUOTED_STRING)
-	{
-		delete_token(token_temp);
-		while (*token_temp != NULL && (*token_temp)->next_token != NULL)
-		{
-			if ((*token_temp)->next_token->type == DOUBLE_QUOTED_STRING)
-			{
-				delete_token(&(*token_temp)->next_token);
-				break ;
-			}
-			join_next_token(token_temp);
-//			token_temp = &(*token_temp)->next_token;
-		}
-	}
-	return (0);
-}
-
 int	syntax_checker(t_Token_node **token)
 {
 	if ((*token)->type == PIPE
-	&& ((*token)->next_token == NULL
-		|| (*token)->prev_token == NULL
-		|| ((*token)->next_token != NULL && (*token)->next_token->type == PIPE)))
+		&& ((*token)->next_token == NULL
+			|| (*token)->prev_token == NULL
+			|| ((*token)->next_token != NULL
+				&& (*token)->next_token->type == PIPE)))
 	{
 		ft_putstr_fd("syntax error near unexpected token `|'\n", STDERR_FILENO);
 		return (1);
+	}
+	return (0);
+}
+
+int	expander(t_Input **input, t_Token_node **token_temp)
+{
+	while (*token_temp != NULL)
+	{
+		if (syntax_checker(token_temp) == 1)
+			return (1);
+		if (expand_redirects(token_temp) == 1)
+			return (1);
+		if (expand_heredoc(input, token_temp) == 1)
+			return (1);
+		if (*token_temp != NULL)
+			token_temp = &(*token_temp)->next_token;
 	}
 	return (0);
 }
@@ -153,16 +78,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 			token_temp = &(*token_temp)->next_token;
 	}
 	token_temp = token;
-	while (*token_temp != NULL)
-	{
-		if (syntax_checker(token_temp) == 1)
-			return (1);
-		if (expand_redirects(token_temp) == 1)
-			return (1);
-		if (expand_heredoc(input, token_temp) == 1)
-			return (1);
-		if (*token_temp != NULL)
-			token_temp = &(*token_temp)->next_token;
-	}
+	if (expander(input, token_temp))
+		return (1);
 	return (0);
 }

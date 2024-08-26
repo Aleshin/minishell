@@ -20,7 +20,7 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 	if (!node)
 		return (NULL);
 	node->type = type;
-	node->value = ft_strdup(value); // Create char array for value
+	node->value = ft_strdup(value);
 	node->param = 0;
 	node->first_child = NULL;
 	node->next_sibling = NULL;
@@ -33,14 +33,14 @@ void	add_child_node(t_ast_node *parent, t_ast_node *child)
 
 	if (parent->first_child == NULL)
 	{
-		parent->first_child = child; // If no child add it
+		parent->first_child = child;
 	}
 	else
 	{
 		current = parent->first_child;
 		while (current->next_sibling != NULL)
-			current = current->next_sibling; // Move to last sibling
-		current->next_sibling = child; // Add last sibling
+			current = current->next_sibling;
+		current->next_sibling = child;
 	}
 }
 

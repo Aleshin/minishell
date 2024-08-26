@@ -18,6 +18,8 @@ char	*heredoc_stdin(char *delimiter)
 	char	*buf_temp;
 
 	buf = (char *)malloc(sizeof(char));
+	if (!buf)
+		return (NULL);
 	*buf = '\0';
 	line = readline("$>");
 	while (line != NULL)
@@ -31,85 +33,52 @@ char	*heredoc_stdin(char *delimiter)
 		buf = ft_strjoin(buf_temp, line, "\n");
 		free(buf_temp);
 		free(line);
+		line = readline("$>");
 	}
 	return (NULL);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	parse_exec(t_main *main_str)
 {
-	char			*buf;
-	t_Input			*input;
-	t_Token_node	*token;
-	t_Token_node	*current_token;
-	t_ast_node		*ast_root;
-	t_env			*environment_list;
-	int				err_no;
-
-	(void)argc;
-	(void)argv;
-	setup_signal_handlers();
-	disable_ctrl_backslash();
-	t_env **env_ptr = &environment_list;
-	environment_list = envp_to_linked_list(envp);
-	if (!environment_list)
-		return (1);
-	set_exit_code(&environment_list, 0);
-	while (1)
-	{
-		buf = readline("$> "); // Prompt for input command
-		if (buf == NULL || ft_strcmp(buf, "exit") == 0)
-		// If user enters exit or closes input (Ctrl+D), exit the loop
-		{
-			free(buf);
-			lst_dealloc(&environment_list);
-			write (1, "exit\n", 5);
-			return (0);
-		}
-		add_history(buf);
-		token = token_init(&buf);
-		input = input_init(&token);
-		input->env = *env_ptr;
-		err_no = lexer(&input, &token);
-		if ( err_no == 0)
-		{
-//			print_tokens(token);
-			ast_root = create_ast_node(commandLine, input->string);
-			current_token = token;
-			ast_root = rule_command_line(&current_token, ast_root);
-			//print_ast_tree(ast_root, 0);
-			if (ft_handle_builtin(ast_root, env_ptr) == 0)
-				ft_executor(ast_root, env_ptr);
-			free_all(&ast_root, &token, &input, &buf);
-		}
-		else
-		{
-//			free_all(&ast_root, &token, &input, &buf);
-			free_tokens(&token);
-			free(input);
-			if (err_no != -1)
-				free(buf);
-		}
-	}
+//	print_tokens(token);
+	main_str->ast_root = create_ast_node(commandLine, main_str->input->string);
+	main_str->current_token = main_str->token;
+	main_str->ast_root
+		= rule_command_line(&main_str->current_token, main_str->ast_root);
+	print_ast_tree(main_str->ast_root, 0);
+	if (ft_handle_builtin(main_str->ast_root, &main_str->environment_list) == 0)
+		ft_executor(main_str->ast_root, &main_str->environment_list);
+	free_all(&main_str->ast_root, &main_str->token,
+		&main_str->input, &main_str->buf);
 	return (0);
 }
 
-int	free_all(t_ast_node **ast_root, t_Token_node **token,
-			t_Input **input, char **buf)
+int	main(int argc, char **argv, char **envp)
 {
-	(void)token;
-	(void)ast_root;
-	(void)buf;
-	(void)input;
+	int				err_no;
+	t_main			main_str;
 
-	if (ast_root)
-		free_ast(ast_root);
-	if (token)
-		free_tokens(token);
-	if (buf)
-		free(*buf);
-	if (input)
-		free(*input);
-	return (1);
+	(void)argc;
+	(void)argv;
+	if (init_start(&main_str, envp))
+		return (1);
+	while (1)
+	{
+		main_str.buf = readline("$> ");
+		if (main_str.buf == NULL || ft_strcmp(main_str.buf, "exit") == 0)
+		{
+			free(main_str.buf);
+			lst_dealloc(&main_str.environment_list);
+			write (1, "exit\n", 5);
+			return (0);
+		}
+		err_no = init_lexer(&main_str);
+		if (err_no == 0)
+			parse_exec(&main_str);
+		else
+			free_noerr(&main_str, err_no);
+	}
+	return (0);
 }
 // examples for testing
 // du ./ | sort -n | tail -10
