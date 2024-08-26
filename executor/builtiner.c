@@ -94,6 +94,14 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 	exec = command->first_child->next_sibling->value;
 	if (!exec || !*exec)
 		return (1);
+		//if path exist return executable after / if no / return as is
+	if (ft_path_ok(exec) == 0)
+	{
+		exec = extract_exec(exec);
+		printf("exec is %s\n", exec);
+	}
+	else
+		exit_code = ft_path_ok(exec);
 	if (ft_strcmp(exec, "echo") == 0)
 		exit_code = ft_echo(command);
 	else if (ft_strcmp(exec, "cd") == 0)
@@ -136,6 +144,8 @@ char *extract_exec(char *command)
 {
 	char	*ptr_start;
 
+
+	ptr_start = command;
 	if (ft_path_ok(command) != 0)
 		return (NULL);
 	while (*command)

@@ -228,6 +228,8 @@ t_env			*ft_lstnew_env(char *name, char *value);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 int				ft_export(t_env **lst, t_ast_node *command);
 int				upd_envvar(char *name, char *value, t_env *lst);
+char			*extract_exec(char *command);
+int				ft_path_ok(char *command);
 
 // helper functions
 int				ft_strcmp(const char *s1, const char *s2);

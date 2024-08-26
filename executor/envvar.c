@@ -17,8 +17,6 @@ int	print_env(t_env **env)
 	t_env	*curr;
 
 	curr = *env;
-	//printf ("Head in env is %s\n", curr->name);
-	printf ("Puntero en print env is %p\n", *env);
 	while (curr != NULL)
 	{
 		if (ft_strcmp(curr->name, "?") != 0)
@@ -29,37 +27,6 @@ int	print_env(t_env **env)
 	}
 	return (0);
 }
-
-// void remove_node(t_env **lst, char *name)
-// {
-//     if (*lst == NULL)
-//         return;
-
-//     t_env *head = *lst;
-
-//     // If the head node needs to be deleted
-//     if (strcmp(head->name, name) == 0)
-//     {
-//         *lst = head->next; // Update the head of the list globally
-//         free_env_node(head);
-//         return;
-//     }
-
-//     // Traverse the list to find and remove the node
-//     t_env *prev = head;
-//     t_env *curr = head->next;
-//     while (curr != NULL)
-//     {
-//         if (strcmp(curr->name, name) == 0)
-//         {
-//             prev->next = curr->next;
-//             free_env_node(curr);
-//             return;
-//         }
-//         prev = curr;
-//         curr = curr->next;
-//     }
-// }
 
 void	remove_node(t_env **lst, char *name)
 {
@@ -72,15 +39,8 @@ void	remove_node(t_env **lst, char *name)
 	{		
 		tmp = *lst;
 		*lst = (*lst)->next;
-		printf("Puntero TMP %p\n", tmp);
-		printf("Puntero LST %p\n", *lst);
-		printf("Puntero **LST %p\n", lst);
 		free_env_node(tmp);
 		tmp = NULL;
-        if (*lst != NULL)
-            printf("New head is %s con direccion %p\n", (*lst)->name, *lst);
-        else
-            printf("List is now empty.\n");
 		return ;
 	}
 	curr = *lst;
@@ -114,7 +74,6 @@ int ft_unset(t_env **list, t_ast_node *command)
         remove_node(list, cur_arg->value);
         cur_arg = cur_arg->next_sibling;
     }
-    //print_env(list);
     return (0);
 }
 
