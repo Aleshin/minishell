@@ -156,6 +156,8 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 	fd_in = 0;
 	last_pid = -1;
 	command = ast_tree->first_child;
+	if (command->value[0] == '\0')
+		return (-1);
 	while (command != NULL)
 	{
         // Create pipe only if there is another command after this one
