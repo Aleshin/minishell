@@ -62,6 +62,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (init_start(&main_str, envp))
 		return (1);
+	rl_bind_key('\t', rl_insert);
 	while (1)
 	{
 		main_str.buf = readline("$> ");
