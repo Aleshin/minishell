@@ -157,12 +157,14 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 	last_pid = -1;
 	command = ast_tree->first_child;
 	//ast_tree.first_child.first_child.next_sibling   EXECUTABLE
-	if (command->first_child->next_sibling->value[0] == '\0')
+	//printf("command is %s\n", command->first_child->next_sibling->value);
+	
+	if (!command || !command->first_child->next_sibling || command->first_child->next_sibling->value[0] == '\0')
 	{
 		set_exit_code(env_list, 127);
 		return (-1);
 	}
-		
+	
 	while (command != NULL)
 	{
         // Create pipe only if there is another command after this one
