@@ -92,7 +92,7 @@ int	tokenizer(t_Input **input, t_Token_node **token)
 		return (-1);
 	while ((*input)->string[(*input)->current_char] != '\0')
 	{
-		if (rule_terminals (input, token))
+		if (rule_terminals(input, token))
 		{
 			if (rule_ws(input, token))
 			{

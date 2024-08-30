@@ -136,13 +136,13 @@ void			setup_signal_handlers(void);
 void			disable_ctrl_backslash(void);
 // init & finish
 int				init_start(t_main *main_str, char **envp);
+t_Input			*input_init(t_Token_node **token);
+t_Token_node	*token_init(char **buf);
 int				init_lexer(t_main *main_str);
 int				free_noerr(t_main *main_str, int err_no);
 int				free_all(t_ast_node **ast_root, t_Token_node **token,
 					t_Input **input, char **buf);
 // token structure functions
-t_Input			*input_init(t_Token_node **token);
-t_Token_node	*token_init(char **buf);
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
 int				token_add(t_Token_node **tokens, t_Input **input);
@@ -152,23 +152,26 @@ int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
 int				print_tokens(t_Token_node *token_temp);
 char			*ft_getenv(t_env *env, char *value);
-// lexer functions
-char			*heredoc_stdin(char *delimiter);
+//tokenizer functions
 int				rule_terminals(t_Input **input, t_Token_node **token);
-//int				rule_word(t_Input **input, t_Token_node **token);
+int				rule_lexem(t_Input **input, t_Token_node **token);
+int				rule_quotes(t_Input **input, t_Token_node **token);
+int				rule_var(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);
+int				tokenizer(t_Input **input, t_Token_node **token);
+int				tokenizer_double_quotes(t_Input **input, t_Token_node **token);
+//remover functions
 int				ws_remover(t_Token_node **token);
 int				quotes_remover(t_Token_node **token);
 int				double_quotes_remover(t_Token_node **token);
-int				rule_lexem(t_Input **input, t_Token_node **token);
-int				rule_quotes(t_Input **input, t_Token_node **token);
+//expander functions
+int				twin_redirects(t_Token_node **token);
 int				expand_redirects(t_Token_node **token);
+char			*heredoc_stdin(char *delimiter);
 int				expand_heredoc(t_Input **input, t_Token_node **token);
-//int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
-int				tokenizer(t_Input **input, t_Token_node **token);
-int				tokenizer_double_quotes(t_Input **input, t_Token_node **token);
-//int				expand_var(t_Token_node **token);
-int				rule_var(t_Input **input, t_Token_node **token);
+int				expand_var(t_Input *input, t_Token_node **token);
+int				expander(t_Input **input, t_Token_node **token_temp);
+// lexer functions
 int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);

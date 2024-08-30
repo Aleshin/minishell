@@ -53,7 +53,7 @@ int	rule_quotes(t_Input **input, t_Token_node **token)
 
 	i = rule_quotes_helper(input, token);
 	if (i == -1)
-		return (1);
+		return (-1);
 	if (i > (*input)->current_char)
 	{
 		(*input)->current_char = i;
