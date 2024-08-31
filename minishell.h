@@ -48,25 +48,25 @@ ast_tree
 
 typedef enum SymbolType
 {
-	commandLine,
-	command,
-	executable,
-	arguments,
-	argument,
-	WORD,
-	SINGLE_QUOTED_STRING,
-	DOUBLE_QUOTED_STRING,
-	PIPE,
-	redirects,
-	redirect_in,
-	heredoc,
-	redirect_out,
-	redirect_out_add,
-	var,
-	WS,
-	lexem,
-	terminals,
-	SYMBOL_UNKNOWN
+	commandLine,			// 0
+	command,				// 1
+	executable,				// 2
+	arguments,				// 3
+	argument,				// 4
+	WORD,					// 5
+	SINGLE_QUOTED_STRING,	// 6
+	DOUBLE_QUOTED_STRING,	// 7
+	PIPE,					// 8
+	redirects,				// 9
+	redirect_in,			// 10
+	heredoc,				// 11
+	redirect_out,			// 12
+	redirect_out_add,		// 13
+	var,					// 14
+	WS,						// 15
+	lexem,					// 16
+	terminals,				// 17
+	SYMBOL_UNKNOWN			// 18
 }	t_SymbolType;
 
 # define READ_END 0

@@ -24,17 +24,20 @@ int	rule_var_word(t_Input **input)
 			|| ((*input)->string[i] >= 'a' && (*input)->string[i] <= 'z')
 			|| (*input)->string[i] == '_')
 			(*input)->current_char = ++i;
-		else if ((*input)->string[i] >= '?')
+		else if ((*input)->string[i] == '?')
 		{
 			(*input)->current_char = ++i;
 			break ;
 		}
+		else
+			break ;
 	}
 	return (0);
 }
 //close and add previous lexem-token
 //parse the var's name
 //If name isn't empty add var-token
+
 int	detect_var(t_Input **input, t_Token_node **token)
 {
 	if ((*input)->string[(*input)->current_char] == '$')
@@ -50,6 +53,7 @@ int	detect_var(t_Input **input, t_Token_node **token)
 			(*input)->current_token_type = var;
 			if (token_add(token, input) == 1)
 				return (1);
+			(*input)->token_start = (*input)->current_char;
 			return (0);
 		}
 	}
@@ -57,6 +61,7 @@ int	detect_var(t_Input **input, t_Token_node **token)
 }
 //find var name in env-list end return it's value
 //if no return NULL
+
 char	*ft_getenv(t_env *env, char *value)
 {
 	while (env != NULL)
@@ -69,6 +74,7 @@ char	*ft_getenv(t_env *env, char *value)
 }
 //change name in var-token to it's value
 //If no set var-token value to ""
+
 int	expand_var(t_Input *input, t_Token_node **token)
 {
 	char	*value_temp;
@@ -82,6 +88,7 @@ int	expand_var(t_Input *input, t_Token_node **token)
 	return (0);
 }
 //assembly all previous functions to detect and expand var
+
 int	rule_var(t_Input **input, t_Token_node **token)
 {
 	t_Token_node	*token_temp;
