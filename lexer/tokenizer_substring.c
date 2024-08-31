@@ -39,8 +39,8 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 		return (1);
 	while (input_substring->string[input_substring->current_char] != '\0')
 	{
-			if (rule_var(&input_substring, &token_temp))
-				rule_lexem(&input_substring, &token_temp);
+		if (rule_var(&input_substring, &token_temp))
+			rule_lexem(&input_substring, &token_temp);
 	}
 	token_temp = input_substring->token;
 	del_token(&token_temp, token);

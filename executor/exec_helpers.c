@@ -37,6 +37,8 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	if (access(command, F_OK) != -1)
 		return (command);
 	path = ft_getenv(env_list, "PATH");
+	if (path == NULL)
+		return (NULL);
 	arr = ft_split(path, ':');
 	path_to_command = NULL;
 	i = 0;

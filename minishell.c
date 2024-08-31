@@ -21,7 +21,7 @@ char	*heredoc_stdin(char *delimiter)
 	if (!buf)
 		return (NULL);
 	*buf = '\0';
-	line = readline("$> ");
+	line = readline("> ");
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
@@ -33,7 +33,7 @@ char	*heredoc_stdin(char *delimiter)
 		buf = ft_strjoin(buf_temp, line, "\n");
 		free(buf_temp);
 		free(line);
-		line = readline("$> ");
+		line = readline("> ");
 	}
 	return (NULL);
 }

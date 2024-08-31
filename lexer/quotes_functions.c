@@ -61,7 +61,7 @@ int	rule_quotes(t_Input **input, t_Token_node **token)
 			return (1);
 		(*input)->token_start++;
 		(*input)->current_char++;
-		tokenizer_double_quotes(input,token);
+		tokenizer_double_quotes(input, token);
 		return (0);
 	}
 	return (1);
