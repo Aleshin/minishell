@@ -21,7 +21,7 @@ char	*heredoc_stdin(char *delimiter)
 	if (!buf)
 		return (NULL);
 	*buf = '\0';
-	line = readline("$>");
+	line = readline("$> ");
 	while (line != NULL)
 	{
 		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
@@ -33,19 +33,18 @@ char	*heredoc_stdin(char *delimiter)
 		buf = ft_strjoin(buf_temp, line, "\n");
 		free(buf_temp);
 		free(line);
-		line = readline("$>");
+		line = readline("$> ");
 	}
 	return (NULL);
 }
 
 int	parse_exec(t_main *main_str)
 {
-//	print_tokens(token);
 	main_str->ast_root = create_ast_node(commandLine, main_str->input->string);
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	//print_ast_tree(main_str->ast_root, 0);
+//	print_ast_tree(main_str->ast_root, 0);
 	if (ft_handle_builtin(main_str->ast_root, &main_str->environment_list) == 0)
 		ft_executor(main_str->ast_root, &main_str->environment_list);
 	free_all(&main_str->ast_root, &main_str->token,
@@ -62,6 +61,7 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (init_start(&main_str, envp))
 		return (1);
+	rl_bind_key('\t', rl_insert);
 	while (1)
 	{
 		main_str.buf = readline("$> ");

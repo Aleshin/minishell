@@ -48,25 +48,25 @@ ast_tree
 
 typedef enum SymbolType
 {
-	commandLine,
-	command,
-	executable,
-	arguments,
-	argument,
-	WORD,
-	SINGLE_QUOTED_STRING,
-	DOUBLE_QUOTED_STRING,
-	PIPE,
-	redirects,
-	redirect_in,
-	heredoc,
-	redirect_out,
-	redirect_out_add,
-	var,
-	WS,
-	lexem,
-	terminals,
-	SYMBOL_UNKNOWN
+	commandLine,			// 0
+	command,				// 1
+	executable,				// 2
+	arguments,				// 3
+	argument,				// 4
+	WORD,					// 5
+	SINGLE_QUOTED_STRING,	// 6
+	DOUBLE_QUOTED_STRING,	// 7
+	PIPE,					// 8
+	redirects,				// 9
+	redirect_in,			// 10
+	heredoc,				// 11
+	redirect_out,			// 12
+	redirect_out_add,		// 13
+	var,					// 14
+	WS,						// 15
+	lexem,					// 16
+	terminals,				// 17
+	SYMBOL_UNKNOWN			// 18
 }	t_SymbolType;
 
 # define READ_END 0
@@ -136,13 +136,13 @@ void			setup_signal_handlers(void);
 void			disable_ctrl_backslash(void);
 // init & finish
 int				init_start(t_main *main_str, char **envp);
+t_Input			*input_init(t_Token_node **token);
+t_Token_node	*token_init(char **buf);
 int				init_lexer(t_main *main_str);
 int				free_noerr(t_main *main_str, int err_no);
 int				free_all(t_ast_node **ast_root, t_Token_node **token,
 					t_Input **input, char **buf);
 // token structure functions
-t_Input			*input_init(t_Token_node **token);
-t_Token_node	*token_init(char **buf);
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
 int				token_add(t_Token_node **tokens, t_Input **input);
@@ -152,23 +152,26 @@ int				delete_token(t_Token_node **token);
 void			free_tokens(t_Token_node **head);
 int				print_tokens(t_Token_node *token_temp);
 char			*ft_getenv(t_env *env, char *value);
-// lexer functions
-char			*heredoc_stdin(char *delimiter);
+//tokenizer functions
 int				rule_terminals(t_Input **input, t_Token_node **token);
-//int				rule_word(t_Input **input, t_Token_node **token);
+int				rule_lexem(t_Input **input, t_Token_node **token);
+int				rule_quotes(t_Input **input, t_Token_node **token);
+int				rule_var(t_Input **input, t_Token_node **token);
 int				rule_ws(t_Input **input, t_Token_node **token);
+int				tokenizer(t_Input **input, t_Token_node **token);
+int				tokenizer_double_quotes(t_Input **input, t_Token_node **token);
+//remover functions
 int				ws_remover(t_Token_node **token);
 int				quotes_remover(t_Token_node **token);
 int				double_quotes_remover(t_Token_node **token);
-int				rule_lexem(t_Input **input, t_Token_node **token);
-int				rule_quotes(t_Input **input, t_Token_node **token);
+//expander functions
+int				twin_redirects(t_Token_node **token);
 int				expand_redirects(t_Token_node **token);
+char			*heredoc_stdin(char *delimiter);
 int				expand_heredoc(t_Input **input, t_Token_node **token);
-//int				rule_symbol_unknown(t_Input **input, t_Token_node **token);
-int				tokenizer(t_Input **input, t_Token_node **token);
-int				tokenizer_double_quotes(t_Input **input, t_Token_node **token);
-//int				expand_var(t_Token_node **token);
-int				rule_var(t_Input **input, t_Token_node **token);
+int				expand_var(t_Input *input, t_Token_node **token);
+int				expander(t_Input **input, t_Token_node **token_temp);
+// lexer functions
 int				lexer(t_Input **input, t_Token_node **token);
 //ast structure functions
 t_ast_node		*create_ast_node(t_SymbolType type, const char *value);

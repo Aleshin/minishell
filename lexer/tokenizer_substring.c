@@ -11,35 +11,6 @@
 /* ************************************************************************** */
 #include "./minishell.h"
 
-t_Input	*input_init(t_Token_node **token)
-{
-	t_Input		*input;
-
-	input = (t_Input *)malloc(sizeof(t_Input));
-	if (!input)
-		return (NULL);
-	input->current_char = 0;
-	input->token_start = 0;
-	input->current_token_type = (*token)->type;
-	input->string = (*token)->value;
-	input->token = *token;
-	return (input);
-}
-
-t_Token_node	*token_init(char **buf)
-{
-	t_Token_node	*token;
-
-	token = (t_Token_node *)malloc(sizeof(t_Token_node));
-	if (!token)
-		return (NULL);
-	token->next_token = NULL;
-	token->prev_token = NULL;
-	token->type = commandLine;
-	token->value = *buf;
-	return (token);
-}
-
 void	del_token(t_Token_node **token_temp, t_Token_node **token)
 {
 	if ((*token_temp)->next_token)
@@ -68,8 +39,8 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 		return (1);
 	while (input_substring->string[input_substring->current_char] != '\0')
 	{
-		if (rule_var(&input_substring, &token_temp))
-			rule_lexem(&input_substring, &token_temp);
+			if (rule_var(&input_substring, &token_temp))
+				rule_lexem(&input_substring, &token_temp);
 	}
 	token_temp = input_substring->token;
 	del_token(&token_temp, token);
