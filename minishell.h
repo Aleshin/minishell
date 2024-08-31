@@ -174,6 +174,7 @@ int				expander(t_Input **input, t_Token_node **token_temp);
 // lexer functions
 int				lexer(t_Input **input, t_Token_node **token);
 // ast structure functions
+t_ast_node		*create_ast_node(t_SymbolType type, const char *value);
 void			add_child_node(t_ast_node *parent, t_ast_node *child);
 void			free_ast(t_ast_node **node);
 // parser functions
