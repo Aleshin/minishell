@@ -45,7 +45,6 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	while (arr[i])
 	{
 		tmp = ft_strjoin(arr[i], "/", command);
-		//removed X_OK
 		if (access(tmp, F_OK) != -1)
 		{
 			path_to_command = tmp;
@@ -58,13 +57,12 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	return (path_to_command);
 }
 
-char	**cmd_to_argv(t_ast_node *cmd) //"exec" node inside "command" node
+char	**cmd_to_argv(t_ast_node *cmd)
 {
 	int		argc;
 	int		i;
 	char	**argv;
 
-	//recieve args from "args" node
 	argc = cmd->next_sibling->param + 1;
 	argv = (char **)malloc((argc + 1) * sizeof(char *));
 	if (argv == NULL)
@@ -91,36 +89,21 @@ int	ft_exec_command(t_ast_node *commands, t_env **env_var)
 	char	*path;
 	char	**argv;
 	char	**upd_envvar;
-    //Convert the environment list to an array of strings
+
 	upd_envvar = linked_list_to_envp(env_var);
-    // Check for invalid command structure
 	if (commands == NULL || commands->first_child == NULL
 		|| commands->first_child->next_sibling == NULL)
 	{
 		free_arr(upd_envvar);
 		return (1);
 	}
-
-    // Find the absolute path of the command
-	path = ft_find_abs_path(commands->first_child->next_sibling->value, *env_var);
-    // if (path == NULL)
-    // {
-    //     // Command not found; set exit code to 127
-	// 	//ft_shell_error(commands->first_child->next_sibling->value, " EXEC command not found");
-    //     free_arr(upd_envvar);
-    //     //return (127);
-    // }
-
-    // Convert command arguments
+	path = ft_find_abs_path(commands->first_child->next_sibling->value,
+			*env_var);
 	argv = cmd_to_argv(commands->first_child->next_sibling);
-	
-    // Execute the command
 	if (execve(path, argv, upd_envvar) == -1)
 	{
-        // execve failed; print error return errno, if success not return anything
 		perror("execve");
 		printf("errno number: %d\n", errno);
-        // Clean up and set exit code
 		free_arr(argv);
 		free_arr(upd_envvar);
 		return (errno);

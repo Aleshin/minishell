@@ -22,14 +22,14 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	new->name = ft_strdup(name);
 	if (new->name == NULL)
 	{
-		free(new); // Free allocated t_env structure
+		free(new);
 		return (NULL);
 	}
 	new->value = ft_strdup(value);
 	if (new->value == NULL)
 	{
 		free(new->name);
-		free(new); // Free allocated t_env structure
+		free(new);
 		return (NULL);
 	}
 	new->next = NULL;
@@ -54,7 +54,7 @@ void	ft_lstadd_back_env(t_env **lst, t_env *new)
 }
 
 //check if name exists and if exists only changes value
-int	upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
+int	upd_envvar(char *name, char *value, t_env *lst)
 {
 	t_env	*curr;
 
@@ -63,7 +63,6 @@ int	upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
 		return (-1);
 	while (curr != NULL)
 	{
-        //if name exists, change value
 		if (!ft_strcmp(name, curr->name))
 		{
 			free(curr->value);
@@ -81,16 +80,15 @@ int	upd_envvar(char *name, char *value, t_env *lst) // 1 if exists, 0 if not
 }
 
 //function returns NULL if there is no = 
-//and name_val arr with valid name and value, if there is no value it sets val to ""
+//and name_val arr with valid name and value,
+//if there is no value it sets val to ""
 char	**get_name_val(char *cur_arg)
 {
 	char	**name_val;
 
 	name_val = ft_split_global(cur_arg, '=');
-    //case no =
 	if (!name_val)
 		return (NULL);
-// If no value is provided, set the value to an empty string
 	if (name_val[1] == NULL)
 	{
 		name_val[1] = ft_strdup("");
@@ -109,7 +107,7 @@ int	ft_export_node(t_env **lst, char *cur_arg)
 {
 	t_env	*new_node;
 	char	**new_val;
-    //Check if the variable name is valid
+
 	if (check_varname(cur_arg, 1) == 0)
 	{
 		ft_env_error("export", cur_arg, "not a valid identifier");
@@ -139,7 +137,6 @@ int	ft_export(t_env **lst, t_ast_node *command)
 	t_ast_node	*cur_arg;
 
 	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-    //export with no args
 	if (command->first_child->next_sibling->next_sibling->param == 0)
 	{
 		ft_print_sorted(*lst);

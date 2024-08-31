@@ -121,7 +121,6 @@ void	free_env_node(t_env *node)
 		free(node->value);
 		free(node);
 	}
-
 }
 
 void	lst_dealloc(t_env **head)
