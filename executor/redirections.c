@@ -12,13 +12,35 @@
 
 #include "./minishell.h"
 
+void	ft_heredoc(const char *value, int *file)
+{
+	int			pipefd[2];
+	ssize_t		n;
+
+    // Create a pipe
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+    // Write the heredoc value to the write end of the pipe
+	n = write(pipefd[WRITE_END], value, strlen(value));
+	if (n == -1)
+	{
+		perror("write");
+		exit(EXIT_FAILURE);
+	}
+    // Close the write end of the pipe
+	close(pipefd[WRITE_END]);
+    // Return the read end of the pipe
+	*file = pipefd[READ_END];
+}
+
 int	input_redir(t_ast_node *commands)
 {
 	int			file;
 	t_ast_node	*redirects;
 	t_ast_node	*current_redirect;
-	ssize_t		n;
-	int			pipefd[2];
 
 	redirects = commands->first_child;
 	if (redirects == 0)
@@ -34,29 +56,38 @@ int	input_redir(t_ast_node *commands)
 			file = open(current_redirect->value, O_RDONLY);
 			if (file == -1)
 			{
-				ft_perror("Error opening file for input redirection");
+				ft_shell_error(current_redirect->value,
+					"No such file or directory");
 				exit(EXIT_FAILURE);
 			}
 		}
 		else if (current_redirect->type == heredoc)
-		{
-			if (pipe(pipefd) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}
-			n = write(pipefd[WRITE_END],
-					current_redirect->value,
-					ft_strlen(current_redirect->value));
-			if (n == -1)
-			{
-				perror("write");
-				exit(EXIT_FAILURE);
-			}
-			close(pipefd[WRITE_END]);
-			file = pipefd[READ_END];
-		}
+			ft_heredoc(current_redirect->value, &file);
 		current_redirect = current_redirect->next_sibling;
+	}
+	return (file);
+}
+
+int open_output_file(t_ast_node *current_redirect, int current_file)
+{
+	int	file;
+	int	flags;
+
+    // Close the current file if it's already open
+	if (current_file != -3)
+		close(current_file);
+    // Set flags based on redirection type
+	flags = O_WRONLY | O_CREAT;
+	if (current_redirect->type == redirect_out_add)
+		flags |= O_APPEND;
+	else
+		flags |= O_TRUNC;
+    // Attempt to open the file
+	file = open(current_redirect->value, flags, 0644);
+	if (file == -1)
+	{
+		ft_shell_error(current_redirect->value, "No such file or directory");
+		exit(EXIT_FAILURE);
 	}
 	return (file);
 }
@@ -65,7 +96,6 @@ int	input_redir(t_ast_node *commands)
 int	output_redir(t_ast_node *commands)
 {
 	int			file;
-	int			flags;
 	t_ast_node	*redirects;
 	t_ast_node	*current_redirect;
 
@@ -79,19 +109,7 @@ int	output_redir(t_ast_node *commands)
 		if (current_redirect->type == redirect_out
 			|| current_redirect->type == redirect_out_add)
 		{
-			if (file != -3)
-				close(file);
-			flags = O_WRONLY | O_CREAT;
-			if (current_redirect->type == redirect_out_add)
-				flags |= O_APPEND;
-			else
-				flags |= O_TRUNC;
-			file = open(current_redirect->value, flags, 0644);
-			if (file == -1)
-			{
-				perror("Error opening file for output redirection");
-				exit(EXIT_FAILURE);
-			}
+			file = open_output_file(current_redirect, file);
 		}
 		current_redirect = current_redirect->next_sibling;
 	}
