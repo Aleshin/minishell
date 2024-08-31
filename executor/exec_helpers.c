@@ -102,8 +102,9 @@ int	ft_exec_command(t_ast_node *commands, t_env **env_var)
 	argv = cmd_to_argv(commands->first_child->next_sibling);
 	if (execve(path, argv, upd_envvar) == -1)
 	{
-		perror("execve");
-		printf("errno number: %d\n", errno);
+		//perror("execve");
+		// printf("errno number: %d\n", errno);
+	
 		free_arr(argv);
 		free_arr(upd_envvar);
 		return (errno);
