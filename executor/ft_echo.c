@@ -17,7 +17,7 @@ int	echo_n(char *first_arg)
 {
 	if (first_arg == NULL || *first_arg != '-')
 		return (0);
-	first_arg++; // Skip the initial '-'
+	first_arg++;
 	while (*first_arg)
 	{
 		if (*first_arg != 'n')
@@ -26,6 +26,7 @@ int	echo_n(char *first_arg)
 	}
 	return (1);
 }
+
 //return 0 ok, can not fail (to check!)
 int	ft_echo(t_ast_node *command)
 {
@@ -36,24 +37,21 @@ int	ft_echo(t_ast_node *command)
 	num_args = command->first_child->next_sibling->next_sibling;
 	args = num_args->first_child;
 	no_newline = 0;
-	// Check if the first argument is "-n" or any sequence of "-n"
 	if (num_args != NULL && num_args->param > 0 && echo_n(args->value))
 	{
 		no_newline = 1;
 		args = args->next_sibling;
 	}
-	// Print the command and its arguments
 	while (args != NULL)
 	{
 		ft_putstr_fd(args->value, STDOUT_FILENO);
 		if (args->next_sibling != NULL)
-			ft_putstr_fd(" ", STDOUT_FILENO); // Print space between arguments
+			ft_putstr_fd(" ", STDOUT_FILENO);
 		args = args->next_sibling;
 	}
-    // Print newline if -n flag is not set
 	if (!no_newline)
 		ft_putendl_fd("", STDOUT_FILENO);
-	return (0); // Return success code
+	return (0);
 }
 
 /*TESTS

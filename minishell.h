@@ -211,7 +211,7 @@ char			*ft_find_abs_path(char *command, t_env *env_list);
 char			**cmd_to_argv(t_ast_node *cmd);
 int				ft_exec_command(t_ast_node *commands, t_env **env_var);
 
-// envvar_helpers FULL
+// envvar_helpers
 char			**ft_split_global(const char *s, char c);
 int				check_varname(char *str, int flag);
 char			**linked_list_to_envp(t_env **env);
@@ -219,7 +219,7 @@ t_env			*envp_to_linked_list(char **envp);
 void			free_env_node(t_env *node);
 void			lst_dealloc(t_env **head);
 
-// envvar FULL
+// envvar
 void			remove_node(t_env **lst, char *name);
 int				list_len(t_env *env);
 

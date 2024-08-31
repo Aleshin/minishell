@@ -77,7 +77,6 @@ void	set_exit_code(t_env **lst, int code)
 		perror("Malloc failed in itoa");
 		return ;
 	}
-	new_node = NULL;
 	if (!upd_envvar(key, value, *lst))
 	{
 		new_node = ft_lstnew_env(key, value);
