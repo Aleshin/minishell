@@ -79,19 +79,17 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 //returns 0 if no builtin
 int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
+	t_ast_node	*command;
 	int			err_code;
 	int			original_stdout;
 	int			out;
 
+	command = ast_tree->first_child;
 	err_code = 0;
     // Check if there is only one command and it is a built-in
-	//ast_tree->first_child - command 1
-	//ast_tree->first_child->first_child - redirect (is always 0 or NUM)
-	//ast_tree->first_child->first_child->next_sibling - exec
-	//ast_tree->first_child->next_sibling - command 2
-	if (ast_tree->first_child == NULL
-		|| ast_tree->first_child->first_child->next_sibling == NULL 
-		|| ast_tree->first_child->next_sibling != NULL || !is_builtin(ast_tree->first_child))
+	if (command == NULL || command->first_child == NULL 
+		|| command->first_child->next_sibling == NULL 
+		|| command->next_sibling != NULL || !is_builtin(command))
 	{
 		return (0); // Not a single built-in command
 	}
@@ -103,11 +101,11 @@ int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 		return (-1);
 	}
     // Handle output redirection
-	out = output_redir(ast_tree->first_child);
+	out = output_redir(command);
 	if (out != -3)
 		handle_dup_and_close(out, STDOUT_FILENO);
     // Execute the built-in command
-	err_code = builtiner(ast_tree->first_child, env_list);
+	err_code = builtiner(command, env_list);
 	set_exit_code(env_list, err_code);
     // Restore stdout
 	handle_dup_and_close(original_stdout, STDOUT_FILENO);
@@ -161,7 +159,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 	//ast_tree.first_child.first_child.next_sibling   EXECUTABLE
 	//printf("command is %s\n", command->first_child->next_sibling->value);
 	
-	if (!command || !command->first_child->next_sibling || command->first_child->next_sibling->value[0] == '\0')
+	if (!command->first_child->next_sibling)
 	{
 		set_exit_code(env_list, 127);
 		return (-1);
