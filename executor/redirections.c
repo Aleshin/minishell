@@ -12,7 +12,7 @@
 
 #include "./minishell.h"
 
-int	input_redir(t_ast_node *commands)
+int	input_redir(t_ast_node *command)
 {
 	int			file;
 	t_ast_node	*redirects;
@@ -20,7 +20,7 @@ int	input_redir(t_ast_node *commands)
 	ssize_t		n;
 	int			pipefd[2];
 
-	redirects = commands->first_child;
+	redirects = command->first_child;
 	if (redirects == 0)
 		return (-3);
 	file = -3;
@@ -62,7 +62,8 @@ int	input_redir(t_ast_node *commands)
 }
 
 // OUTPUT REDIRECTIONS
-int	output_redir(t_ast_node *commands)
+//command is ast_tree->first_child
+int	output_redir(t_ast_node *command)
 {
 	int			file;
 	int			flags;
@@ -70,9 +71,11 @@ int	output_redir(t_ast_node *commands)
 	t_ast_node	*current_redirect;
 
 	file = -3;
-	redirects = commands->first_child;
-	if (redirects == NULL)
+	
+	redirects = command->first_child;
+	if (redirects->param == 0)
 		return (-3);
+	
 	current_redirect = redirects->first_child;
 	while (current_redirect != NULL)
 	{
@@ -95,16 +98,23 @@ int	output_redir(t_ast_node *commands)
 		}
 		current_redirect = current_redirect->next_sibling;
 	}
+	printf("FILE IS %d\n", file);
 	return (file);
 }
 
 void	handle_dup_and_close(int old_fd, int new_fd)
 {
-	if (dup2(old_fd, new_fd) == -1)
-	{
-		perror("dup2");
-		close(old_fd);
-		exit(EXIT_FAILURE);
-	}
+	printf("DUP AND CLOSE 1\n");
+	// if (dup2(old_fd, new_fd) == -1)
+	// {
+	// 	printf("DUP AND CLOSE 2\n");
+	// 	perror("dup2");
+	// 	close(old_fd);
+	// 	exit(EXIT_FAILURE);
+	// }
+	printf("%d, %d\n", old_fd, new_fd);
+	dup2(old_fd, new_fd);
+	printf("%d, %d\n", old_fd, new_fd);
+	printf("DUP AND CLOSE 3\n");
 	close(old_fd);
 }

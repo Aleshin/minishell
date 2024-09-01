@@ -66,6 +66,8 @@ int	is_builtin(t_ast_node *command)
 {
 	char	*exec;
 
+	//ast_tree.first_child.first_child.next_sibling EXEC
+	//
 	exec = command->first_child->next_sibling->value;
 	if (!exec)
 		return (0);
