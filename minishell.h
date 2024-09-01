@@ -102,7 +102,7 @@ typedef struct ast_node
 {
 	t_SymbolType	type;
 	char			*value; // string for symbol
-	int				param; // number of pipes or args
+	int				param; // number of pipes, redirects or args
 	struct ast_node	*first_child; // Child' pointer
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
