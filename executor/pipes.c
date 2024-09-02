@@ -66,12 +66,29 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
     printf(">>>>>>>++++++++++++++++>>>>>>>>>>>>>>>\n");
 	// Execute the command (external or builtin)
 	//TO DO HERE TO CHECK IF THE COMMAND IS ABSOLUTE PATH
-	if (is_builtin(command))
-	{
-		status = builtiner(command, env_list);
-	}
-	else if (command->first_child->next_sibling != NULL)
-		status = ft_exec_command(command, env_list);
+	//command is ast_tree.first_child is command 1
+	//command->first_child->next_sibling is EXEC
+	    // Ensure command and its members are valid before use
+    if (command && command->first_child && command->first_child->next_sibling) {
+        if (is_builtin(command)) {
+            status = builtiner(command, env_list);
+        } else if (command->first_child->next_sibling->value != NULL && 
+                   (command->first_child->next_sibling->value[0] != '\0' || 
+                    command->first_child->param != 0)) {
+            status = ft_exec_command(command, env_list);
+        }
+    } else {
+        fprintf(stderr, "No valid command found\n");
+        status = 1; // or any other error code you use to indicate failure
+    }
+	// if (is_builtin(command))
+	// {
+	// 	status = builtiner(command, env_list);
+	// }
+	// else if (command->first_child->next_sibling != NULL
+	// 		|| (command->first_child->next_sibling->value[0] == '\0'
+	// 		&& command->first_child->param != 0) )
+	// 	status = ft_exec_command(command, env_list);
     // Restore original stdin and stdout file descriptors
 	handle_dup_and_close(original_stdout, STDOUT_FILENO);
 	handle_dup_and_close(original_stdin, STDIN_FILENO);

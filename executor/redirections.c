@@ -105,15 +105,14 @@ int	output_redir(t_ast_node *command)
 void	handle_dup_and_close(int old_fd, int new_fd)
 {
 	printf("DUP AND CLOSE 1\n");
-	// if (dup2(old_fd, new_fd) == -1)
-	// {
-	// 	printf("DUP AND CLOSE 2\n");
-	// 	perror("dup2");
-	// 	close(old_fd);
-	// 	exit(EXIT_FAILURE);
-	// }
+	if (dup2(old_fd, new_fd) == -1)
+	{
+		printf("DUP AND CLOSE 2\n");
+		perror("dup2");
+		close(old_fd);
+		exit(EXIT_FAILURE);
+	}
 	printf("%d, %d\n", old_fd, new_fd);
-	dup2(old_fd, new_fd);
 	printf("%d, %d\n", old_fd, new_fd);
 	printf("DUP AND CLOSE 3\n");
 	close(old_fd);
