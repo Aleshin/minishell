@@ -18,7 +18,6 @@ int	lexer(t_Input **input, t_Token_node **token)
 	token_temp = token;
 	if (tokenizer(input, token_temp) == -1)
 		return (-1);
-//	print_tokens(*token);
 	token_temp = token;
 	while (*token_temp != NULL)
 	{
@@ -31,5 +30,6 @@ int	lexer(t_Input **input, t_Token_node **token)
 	token_temp = token;
 	if (expander(input, token_temp))
 		return (1);
+//	print_tokens(*token);
 	return (0);
 }
