@@ -1,0 +1,449 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [99]
+|  CMD: ->cd
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [100]
+|  CMD: ->pwd
+| cd ""
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic$
+| /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3059453==ERROR: AddressSanitizer: attempting double-free on 0x602000003b70 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #7 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7fbc33d71e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003b70 is located 0 bytes inside of 1-byte region [0x602000003b70,0x602000003b71)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #6 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3059453==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [101]
+|  CMD: ->cd " "<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd:  : No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->cd:  : No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [102]
+|  CMD: ->cd "" ""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: too many arguments$<-
+|
+|--- COMPARED STR:
+| ->cd: too many arguments<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3059535==ERROR: AddressSanitizer: attempting double-free on 0x6020000039b0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #7 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7f6d59e1ee3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x6020000039b0 is located 0 bytes inside of 1-byte region [0x6020000039b0,0x6020000039b1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #6 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3059535==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [103]
+|  CMD: ->cd / non_existent<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: too many arguments$<-
+|
+|--- COMPARED STR:
+| ->cd: too many arguments<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [106]
+|  CMD: ->cd ' / '<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd:  / : No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->cd:  / : No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [110]
+|  CMD: ->cd file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: file: Not a directory$<-
+|
+|--- COMPARED STR:
+| ->cd: file: Not a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: Not a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [111]
+|  CMD: ->cd file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: file: Not a directory$<-
+|
+|--- COMPARED STR:
+| ->cd: file: Not a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: Not a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [112]
+|  CMD: ->cd file/non_existent<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: file/non_existent: Not a directory$<-
+|
+|--- COMPARED STR:
+| ->cd: file/non_existent: Not a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: Not a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [113]
+|  CMD: ->cd ~
+| cd non_exist<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 2: cd: non_exist: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->cd: non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: No such file or directory$
+| cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [115]
+|  CMD: ->cd ~
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [116]
+|  CMD: ->cd ..
+| cd ~
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell$<-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [118]
+|  CMD: ->cd testdirtest<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: testdirtest: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->cd: testdirtest: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [119]
+|  CMD: ->cd 255chars255chars255chars255char255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: 255chars255chars255chars255char255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->cd: 255chars255chars255chars255char255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars255chars: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [120]
+|  CMD: ->cd 256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd: 256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars: File name too long$<-
+|
+|--- COMPARED STR:
+| ->cd: 256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars256chars: File name too long<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cd: File name too long$<-
+|
+---------------------------------------------<
+

@@ -1,0 +1,96 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [206]
+|  CMD: ->""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: : command not found$<-
+|
+|--- COMPARED STR:
+| ->: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3064028==ERROR: AddressSanitizer: attempting double-free on 0x602000003a30 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f6173b15d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #10 0x7f6173b15e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #11 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003a30 is located 0 bytes inside of 1-byte region [0x602000003a30,0x602000003a31)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #4 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #5 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #6 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #7 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #8 0x7f6173b15d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cc7e5 in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc7e5)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f6173b15d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3064028==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [207]
+|  CMD: ->" "<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  : command not found$<-
+|
+|--- COMPARED STR:
+| -> : command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+

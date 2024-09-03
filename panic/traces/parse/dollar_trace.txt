@@ -1,0 +1,517 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [122]
+|  CMD: ->echo $<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3060436==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003917 at pc 0x0000004cdeac bp 0x7ffc91bd9550 sp 0x7ffc91bd9548$
+| READ of size 1 at 0x602000003917 thread T0$
+|     #0 0x4cdeab in rule_lexem (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cdeab)$
+|     #1 0x4ce12e in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce12e)$
+|     #2 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #3 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #4 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #5 0x7f19ec68cd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f19ec68ce3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003917 is located 0 bytes to the right of 7-byte region [0x602000003910,0x602000003917)$
+| allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x7f19ec9ccbac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cdeab) in rule_lexem$
+| Shadow bytes around the buggy address:$
+|   0x0c047fff86d0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa$
+|   0x0c047fff86e0: fa fa fd fa fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff86f0: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff8700: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff8710: fa fa fd fd fa fa fd fd fa fa fd fd fa fa 00 00$
+| =>0x0c047fff8720: fa fa[07]fa fa fa 00 04 fa fa 07 fa fa fa 05 fa$
+|   0x0c047fff8730: fa fa 02 fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8740: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8750: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8760: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8770: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+| Shadow byte legend (one shadow byte represents 8 application bytes):$
+|   Addressable:           00$
+|   Partially addressable: 01 02 03 04 05 06 07 $
+|   Heap left redzone:       fa$
+|   Freed heap region:       fd$
+|   Stack left redzone:      f1$
+|   Stack mid redzone:       f2$
+|   Stack right redzone:     f3$
+|   Stack after return:      f5$
+|   Stack use after scope:   f8$
+|   Global redzone:          f9$
+|   Global init order:       f6$
+|   Poisoned by user:        f7$
+|   Container overflow:      fc$
+|   Array cookie:            ac$
+|   Intra object redzone:    bb$
+|   ASan internal:           fe$
+|   Left alloca redzone:     ca$
+|   Right alloca redzone:    cb$
+|   Shadow gap:              cc$
+| ==3060436==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [123]
+|  CMD: ->echo hi$<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3060477==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003919 at pc 0x0000004cdeac bp 0x7ffeb0417090 sp 0x7ffeb0417088$
+| READ of size 1 at 0x602000003919 thread T0$
+|     #0 0x4cdeab in rule_lexem (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cdeab)$
+|     #1 0x4ce12e in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce12e)$
+|     #2 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #3 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #4 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #5 0x7f07ed540d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f07ed540e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003919 is located 0 bytes to the right of 9-byte region [0x602000003910,0x602000003919)$
+| allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x7f07ed880bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cdeab) in rule_lexem$
+| Shadow bytes around the buggy address:$
+|   0x0c047fff86d0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa$
+|   0x0c047fff86e0: fa fa fd fa fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff86f0: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff8700: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd$
+|   0x0c047fff8710: fa fa fd fd fa fa fd fd fa fa fd fd fa fa 00 00$
+| =>0x0c047fff8720: fa fa 00[01]fa fa 00 04 fa fa 00 01 fa fa 05 fa$
+|   0x0c047fff8730: fa fa 02 fa fa fa 03 fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8740: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8750: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8760: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+|   0x0c047fff8770: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa$
+| Shadow byte legend (one shadow byte represents 8 application bytes):$
+|   Addressable:           00$
+|   Partially addressable: 01 02 03 04 05 06 07 $
+|   Heap left redzone:       fa$
+|   Freed heap region:       fd$
+|   Stack left redzone:      f1$
+|   Stack mid redzone:       f2$
+|   Stack right redzone:     f3$
+|   Stack after return:      f5$
+|   Stack use after scope:   f8$
+|   Global redzone:          f9$
+|   Global init order:       f6$
+|   Poisoned by user:        f7$
+|   Container overflow:      fc$
+|   Array cookie:            ac$
+|   Intra object redzone:    bb$
+|   ASan internal:           fe$
+|   Left alloca redzone:     ca$
+|   Right alloca redzone:    cb$
+|   Shadow gap:              cc$
+| ==3060477==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [125]
+|  CMD: ->echo $/<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$/$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [126]
+|  CMD: ->echo "'$'"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->''$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [127]
+|  CMD: ->echo $'\n' | cat -e<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$$
+| $$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->\n'$$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [128]
+|  CMD: ->echo $'\r' | cat -e<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->^M$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->\r'$$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [129]
+|  CMD: ->echo $'\t' | cat -e<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->	$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->\t'$$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [136]
+|  CMD: ->echo $USER"$PATH"$PWD"USER"$PATH"$PWD"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->saleshin /Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic USER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [142]
+|  CMD: ->$TMPENVVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [143]
+|  CMD: ->$TMPENVVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: EcHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->EcHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [145]
+|  CMD: ->echo $TMPENVVAR hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->-n -n hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [146]
+|  CMD: ->echo $A"$B"$C"A"$B"$C"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz Abar baz $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo  bar baz  Abar  baz $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [148]
+|  CMD: ->echo $A"$B"$C"A"$B"$C"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz Abar baz $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo  bar baz  Abar  baz $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [150]
+|  CMD: ->echo $A<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [151]
+|  CMD: ->echo $A$B<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [152]
+|  CMD: ->echo $A$B$C<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [153]
+|  CMD: ->echo $A$B$C$AA<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->foo bar baz $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+

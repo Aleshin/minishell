@@ -1,0 +1,836 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [156]
+|  CMD: ->echo "'$'"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->''$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [168]
+|  CMD: ->'echo' 'hi' ''<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [170]
+|  CMD: ->"""echo" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3062483==ERROR: AddressSanitizer: attempting double-free on 0x6020000039f0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7fd0d7401d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #10 0x7fd0d7401e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #11 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x6020000039f0 is located 0 bytes inside of 1-byte region [0x6020000039f0,0x6020000039f1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #4 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #5 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #6 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #7 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #8 0x7fd0d7401d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cc7e5 in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc7e5)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7fd0d7401d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3062483==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [172]
+|  CMD: ->"echo" "hi"""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3062565==ERROR: AddressSanitizer: attempting double-free on 0x602000003a90 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #7 0x7f1ca2978d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7f1ca2978e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003a90 is located 0 bytes inside of 1-byte region [0x602000003a90,0x602000003a91)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #6 0x7f1ca2978d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f1ca2978d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3062565==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [173]
+|  CMD: ->"echo" "hi" ""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3062606==ERROR: AddressSanitizer: attempting double-free on 0x602000003ab0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #7 0x7f2055b44d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7f2055b44e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003ab0 is located 0 bytes inside of 1-byte region [0x602000003ab0,0x602000003ab1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #6 0x7f2055b44d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f2055b44d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3062606==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [175]
+|  CMD: ->'echo' "hi"'' " ' "' "' "" ''''''""<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi  '  "  $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3062688==ERROR: AddressSanitizer: attempting double-free on 0x602000003ab0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #7 0x7f39eecaad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7f39eecaae3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x602000003ab0 is located 0 bytes inside of 1-byte region [0x602000003ab0,0x602000003ab1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #6 0x7f39eecaad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f39eecaad8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3062688==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [176]
+|  CMD: ->echo hi"hi" hi'h"i'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hihi hih"i$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->i"hi i'h"i$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [179]
+|  CMD: ->echo "hi"t"hi"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hithi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi "hi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [180]
+|  CMD: ->" echo"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [181]
+|  CMD: ->' echo'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [182]
+|  CMD: ->""echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3062984==ERROR: AddressSanitizer: attempting double-free on 0x6020000039f0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f624b0f9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #10 0x7f624b0f9e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #11 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x6020000039f0 is located 0 bytes inside of 1-byte region [0x6020000039f0,0x6020000039f1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #4 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #5 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #6 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #7 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #8 0x7f624b0f9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cc7e5 in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc7e5)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f624b0f9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3062984==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [183]
+|  CMD: ->" "echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [185]
+|  CMD: ->' 'echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1:  echo: command not found$<-
+|
+|--- COMPARED STR:
+| -> echo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [187]
+|  CMD: ->""""""""""echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->=================================================================$
+| ==3063195==ERROR: AddressSanitizer: attempting double-free on 0x6020000039b0 in thread T0:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #4 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f4fa44b0d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #10 0x7f4fa44b0e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #11 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| 0x6020000039b0 is located 0 bytes inside of 1-byte region [0x6020000039b0,0x6020000039b1)$
+| freed by thread T0 here:$
+|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
+|     #3 0x4d0ed3 in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0ed3)$
+|     #4 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #5 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #6 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #7 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #8 0x7f4fa44b0d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| previously allocated by thread T0 here:$
+|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
+|     #3 0x4cc7e5 in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc7e5)$
+|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
+|     #9 0x7f4fa44b0d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
+| ==3063195==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [188]
+|  CMD: ->"e"'c'h"o" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [189]
+|  CMD: ->ec""ho hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [190]
+|  CMD: ->ec""h''o hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [191]
+|  CMD: ->EcHo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: EcHo: command not found$<-
+|
+|--- COMPARED STR:
+| ->EcHo: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [192]
+|  CMD: ->ECHO hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [193]
+|  CMD: ->"ECHO" hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [194]
+|  CMD: ->'ECHO' hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: ECHO: command not found$<-
+|
+|--- COMPARED STR:
+| ->ECHO: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [198]
+|  CMD: ->echo $" t hi t "<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->" t hi t$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [199]
+|  CMD: ->echo $' t hi t '<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> t hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->' t hi t$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [200]
+|  CMD: ->echo $' r hi t '<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -> r hi t $<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->' r hi t$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [203]
+|  CMD: ->echo $ANA_VAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->. hi, this is the hardest" Ana "test$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->. hi, this is the hardest" Ana "test $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+

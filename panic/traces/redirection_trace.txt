@@ -1,0 +1,730 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [274]
+|  CMD: ->> no_cmd_file
+| cat no_cmd_file
+| rm no_cmd_file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: no_cmd_file: No such file or directory$
+| rm: cannot remove 'no_cmd_file': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [275]
+|  CMD: ->>> no_cmd_test
+| cat no_cmd_test
+| rm no_cmd_test<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: no_cmd_test: No such file or directory$
+| rm: cannot remove 'no_cmd_test': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [276]
+|  CMD: ->echo hola | > filepipe
+| cat filepipe
+| rm filepipe<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->AddressSanitizer:DEADLYSIGNAL$
+| =================================================================$
+| ==3068671==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d5a88 bp 0x7ffe4b4484c0 sp 0x7ffe4b448480 T0)$
+| ==3068671==The signal is caused by a READ memory access.$
+| ==3068671==Hint: address points to the zero page.$
+|     #0 0x4d5a88 in is_builtin (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88)$
+|     #1 0x4d4b6a in ft_child_process (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d4b6a)$
+|     #2 0x4d538b in ft_executor (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d538b)$
+|     #3 0x4cb6b9 in parse_exec (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb6b9)$
+|     #4 0x4cb94c in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb94c)$
+|     #5 0x7fdc3d5ddd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7fdc3d5dde3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| $
+| AddressSanitizer can not provide additional info.$
+| SUMMARY: AddressSanitizer: SEGV (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88) in is_builtin$
+| ==3068671==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [277]
+|  CMD: ->> file_first | > file_second
+| cat file_first
+| cat file_second
+| rm file_first
+| rm file_second<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: file_first: No such file or directory$
+| cat: file_second: No such file or directory$
+| rm: cannot remove 'file_first': No such file or directory$
+| rm: cannot remove 'file_second': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [318]
+|  CMD: ->echo hi 0< file
+| rm file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file: No such file or directory$
+| rm: cannot remove 'file': No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->file: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi 0$<-
+|
+|--- STDERR:
+| ->rm: cannot remove 'file': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [319]
+|  CMD: ->bash 4> outpfile
+| echo hola >&4
+| cat outpfile
+| rm outpfile<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hola$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: 4: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [320]
+|  CMD: ->echo hi > testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [321]
+|  CMD: ->echo hi >> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [322]
+|  CMD: ->echo hi 2> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [323]
+|  CMD: ->echo hi 2>> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [324]
+|  CMD: ->echo hi > testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [325]
+|  CMD: ->echo hi >> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [326]
+|  CMD: ->echo hi 2> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [327]
+|  CMD: ->echo hi 2>> testfolder<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: testfolder: Is a directory$<-
+|
+|--- COMPARED STR:
+| ->testfolder: Is a directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Is a directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [328]
+|  CMD: ->echo > file hi
+| cat file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file: Permission denied$
+| cat: file: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->file: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [329]
+|  CMD: ->echo >> file2 hi
+| cat file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file2: Permission denied$
+| cat: file2: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->file2: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [330]
+|  CMD: ->> file echo hi
+| cat file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file: Permission denied$
+| cat: file: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->file: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [331]
+|  CMD: ->>> file3 echo hi
+| cat file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file3: Permission denied$
+| cat: file3: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->file3: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for output redirection: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [334]
+|  CMD: ->cat < nonexist<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: nonexist: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->nonexist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for input redirection: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [335]
+|  CMD: ->cat < $USER<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: saleshin: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->saleshin: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for input redirection: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [336]
+|  CMD: ->cat < file3<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: file3: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->file3: Permission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->Error opening file for input redirection: Permission denied$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [337]
+|  CMD: ->echo hi 2> error_outp < non_exist<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [338]
+|  CMD: ->echo hi < non_exist > wrong
+| ls
+| rm wrong<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->bash: line 1: non_exist: No such file or directory$
+| rm: cannot remove 'wrong': No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$
+| wrong$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [339]
+|  CMD: ->< non_exist echo hi > wrong
+| ls
+| rm wrong<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->bash: line 1: non_exist: No such file or directory$
+| rm: cannot remove 'wrong': No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$
+| wrong$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [340]
+|  CMD: ->> correct echo hi < non_exist
+| ls
+| rm correct<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| correct$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->bash: line 1: non_exist: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->non_exist: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| correct$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
