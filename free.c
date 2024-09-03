@@ -37,3 +37,18 @@ int	free_all(t_ast_node **ast_root, t_Token_node **token,
 		free(*input);
 	return (1);
 }
+
+void	free_tokens(t_Token_node **head)
+{
+	t_Token_node	*current;
+	t_Token_node	*next;
+
+	current = *head;
+	while (current != NULL)
+	{
+		next = current->next_token;
+		free(current->value);
+		free(current);
+		current = next;
+	}
+}

@@ -1,0 +1,600 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [35]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [36]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| TESTVAR=$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [37]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| TESTVAR=$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [38]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| TESTVAR=value$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [39]
+|  CMD: ->export TESTVAR
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [40]
+|  CMD: ->export TESTVAR=
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$
+| TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [41]
+|  CMD: ->export TESTVAR=""
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| ->minishell: export: ESTVAR=": not a valid identifier$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [42]
+|  CMD: ->export TESTVAR="value"
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=2$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| ->minishell: export: ESTVAR="value: not a valid identifier$<-
+|
+---------------------------------------------<
+

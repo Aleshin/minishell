@@ -44,11 +44,8 @@ int	parse_exec(t_main *main_str)
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	//print_ast_tree(main_str->ast_root, 0);
-
-	if (main_str->ast_root->first_child == NULL
-		|| (main_str->ast_root->first_child->first_child->next_sibling
-		&& main_str->ast_root->first_child->first_child->next_sibling->value[0] == '\0'))
+//	print_ast_tree(main_str->ast_root, 0);
+	if (main_str->ast_root->first_child == NULL)
 	{
 	free_all(&main_str->ast_root, &main_str->token,
 		&main_str->input, &main_str->buf);

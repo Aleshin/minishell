@@ -1,0 +1,602 @@
+
+**************************************************************
+*                          CARE!                             *
+*                                                            * 
+* This tester doesnt work if ur readline prompt have '\n'    *
+*                                                            *
+**************************************************************
+
+---------------------------------------------> test [377]
+|  CMD: ->mkdir testdirtest
+| cd testdirtest
+| bash
+| cd .. && rm -rf testdirtest && exit
+| pwd
+| cd .
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic/testdirtest$
+| /home/saleshin/Projects/minishell/mpanic/testdirtest/.$<-
+|
+|--- STDERR:
+| ->cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->ieving current directory: getcwd: cannot access parent directories: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->getcwd error: No such file or directory$
+| getcwd error: No such file or directory$
+| getcwd error: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [380]
+|  CMD: ->cd-<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: cd-: command not found$<-
+|
+|--- COMPARED STR:
+| ->cd-: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [381]
+|  CMD: ->mkdir testdir
+| cd testdir
+| pwd
+| cd ..
+| pwd
+| rm -rf testdir
+| cd -<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic/testdir$
+| /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| ->bash: line 7: cd: /home/saleshin/Projects/minishell/mpanic/testdir: No such file or directory$<-
+|
+|--- COMPARED STR:
+| ->cd: /home/saleshin/Projects/minishell/mpanic/testdir: No such file or directory<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic/testdir$
+| /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [382]
+|  CMD: ->cd
+| pwd
+| cd -
+| pwd<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin$
+| /home/saleshin/Projects/minishell/mpanic$
+| /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin/Projects/minishell/mpanic$
+| /home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| ->cd: No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [383]
+|  CMD: ->echo ~<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/saleshin$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [384]
+|  CMD: ->env | grep PWD
+| cd testdirtest
+| env | grep PWD
+| unset PWD
+| cd ..
+| env | grep PWD<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->PWD=/home/saleshin/Projects/minishell/mpanic$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| PWD=/home/saleshin/Projects/minishell/mpanic/testdirtest$
+| OLDPWD=/home/saleshin/Projects/minishell/mpanic$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$
+| SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic/testdirtest$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$
+| SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [385]
+|  CMD: ->env | grep PWD
+| cd testdirtest
+| env | grep PWD
+| export PWD=nosensedir
+| cd ..
+| env | grep PWD<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->PWD=/home/saleshin/Projects/minishell/mpanic$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| PWD=/home/saleshin/Projects/minishell/mpanic/testdirtest$
+| OLDPWD=/home/saleshin/Projects/minishell/mpanic$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| OLDPWD=nosensedir$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$
+| SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic/testdirtest$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$
+| SHELL=/bin/zsh$
+| SESSION_MANAGER=local/car11s5.42barcelona.com:@/tmp/.ICE-unix/2981241,unix/car11s5.42barcelona.com:/tmp/.ICE-unix/2981241$
+| QT_ACCESSIBILITY=1$
+| COLORTERM=truecolor$
+| XDG_CONFIG_DIRS=/etc/xdg/xdg-ubuntu:/etc/xdg$
+| SSH_AGENT_LAUNCHER=gnome-keyring$
+| XDG_SESSION_PATH=/org/freedesktop/DisplayManager/Session5$
+| XDG_MENU_PREFIX=gnome-$
+| GNOME_DESKTOP_SESSION_ID=this-is-deprecated$
+| GTK_IM_MODULE=ibus$
+| SSH_AUTH_SOCK=/run/user/101139/keyring/ssh$
+| XMODIFIERS=@im=ibus$
+| DESKTOP_SESSION=ubuntu$
+| FT_HOOK_NAME=login-user$
+| GTK_MODULES=gail:atk-bridge$
+| FT_HOOK_PATHNAME=login-user.d$
+| PWD=/home/saleshin/Projects/minishell/mpanic$
+| KRB5CCNAME=FILE:/tmp/krb5cc_101139_xuFht6$
+| TMPENVVAR=-n -n$
+| LOGNAME=saleshin$
+| XDG_SESSION_DESKTOP=ubuntu$
+| XDG_SESSION_TYPE=x11$
+| GPG_AGENT_INFO=/run/user/101139/gnupg/S.gpg-agent:0:1$
+| SYSTEMD_EXEC_PID=2981262$
+| XAUTHORITY=/home/saleshin/.Xauthority$
+| XDG_GREETER_DATA_DIR=/var/lib/lightdm-data/saleshin$
+| HOME=/home/saleshin$
+| IM_CONFIG_PHASE=1$
+| LANG=en_US.UTF-8$
+| ANA_VAR=. hi, this is the hardest" Ana "test $
+| XDG_CURRENT_DESKTOP=ubuntu:GNOME$
+| VTE_VERSION=6800$
+| XDG_SEAT_PATH=/org/freedesktop/DisplayManager/Seat0$
+| GNOME_TERMINAL_SCREEN=/org/gnome/Terminal/screen/357eec8a_77da_4651_8b90_7b3a46464dc2$
+| EXPATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| XDG_SESSION_CLASS=user$
+| TERM=xterm-256color$
+| LIBVIRT_DEFAULT_URI=qemu:///system$
+| USER=saleshin$
+| GNOME_TERMINAL_SERVICE=:1.91$
+| DISPLAY=:0$
+| SHLVL=$
+| QT_IM_MODULE=ibus$
+| XDG_RUNTIME_DIR=/run/user/101139$
+| DOCKER_HOST=unix:///run/user/101139/docker.sock$
+| XDG_DATA_DIRS=/usr/share/ubuntu:/usr/share/gnome:/usr/local/share:/usr/share:/var/lib/snapd/desktop$
+| PATH=/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$
+| MACADDRESS=18:7e:b9:06:8c:36$
+| GDMSESSION=ubuntu$
+| DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/101139/bus$
+| OLDPWD=/home/saleshin/Projects/minishell$
+| _=./minishell$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [386]
+|  CMD: ->echo hi <> file
+| ls
+| rm file<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$
+| >$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| file$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->>$
+| >>$
+| &4$
+| a.out$
+| cleaner$
+| cleaner.c$
+| echo$
+| minishell$
+| mpanic.sh$
+| README.md$
+| test$
+| traces$<-
+|
+|--- STDERR:
+| ->rm: cannot remove 'file': No such file or directory$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [387]
+|  CMD: ->echo this is the file > file
+| echo this is not the file > file2
+| cat < file 3< file2<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->this is the file$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: 3: No such file or directory$<-
+|
+---------------------------------------------<
+

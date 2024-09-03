@@ -29,12 +29,6 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 {
 	int	i;
 
-	if ((*input)->current_token_type == lexem)
-	{
-		if (token_add(token, input) == 1)
-			return (-1);
-		(*input)->token_start = (*input)->current_char;
-	}
 	i = (*input)->current_char;
 	if ((*input)->string[i] == '\'')
 		(*input)->current_token_type = SINGLE_QUOTED_STRING;
@@ -42,6 +36,12 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 		(*input)->current_token_type = DOUBLE_QUOTED_STRING;
 	else
 		return (i);
+	if ((*input)->current_token_type == lexem)
+	{
+		if (token_add(token, input) == 1)
+			return (-1);
+		(*input)->token_start = (*input)->current_char;
+	}
 	i++;
 	(*input)->token_start++;
 	return (end_quotes_finder(input, i));
