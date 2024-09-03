@@ -73,7 +73,7 @@ int	is_builtin(t_ast_node *command)
 
     exec = command->first_child->next_sibling->value;
     if (!exec || exec[0] == '\0')
-        return (0);
+		return (0);
 	if (ft_strcmp(exec, "echo") == 0
 		|| ft_strcmp(exec, "cd") == 0
 		|| ft_strcmp(exec, "pwd") == 0

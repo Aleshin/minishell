@@ -44,7 +44,6 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	if (fd_in != 0)
 		handle_dup_and_close(fd_in, STDIN_FILENO);
     // Setup output redirection or pipe
-	//printf("}}}}}}}}}}}}}}}}}}}}}}}\n");
 	if (command && command->next_sibling != NULL)
 	{
 		// Duplicate write end to stdout
@@ -57,13 +56,9 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
         // Redirect output to the file specified in output_fd
 		if (output_fd != -3)
 		{
-			printf("HELLO FROM CHILD PROCESS\n");
 			handle_dup_and_close(output_fd, STDOUT_FILENO);
 		}
-			
-		printf("++>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>\n");
 	}
-    printf(">>>>>>>++++++++++++++++>>>>>>>>>>>>>>>\n");
 	// Execute the command (external or builtin)
 	//TO DO HERE TO CHECK IF THE COMMAND IS ABSOLUTE PATH
 	//command is ast_tree.first_child is command 1
@@ -78,7 +73,7 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
             status = ft_exec_command(command, env_list);
         }
     } else {
-        fprintf(stderr, "No valid command found\n");
+        //fprintf(stderr, "No valid command found\n");
         status = 1; // or any other error code you use to indicate failure
     }
 	// if (is_builtin(command))
@@ -179,8 +174,6 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 	fd_in = 0;
 	last_pid = -1;
 
-	printf("ft_executor +++++++++===================++++++++++++++++++\n");
-	printf("redir is %d\n", ast_tree->first_child->first_child->param);
 	//ast_tree.first_child.first_child.next_sibling - EXEC
 	
 	//can recieve from handle_builtin this: EXEC == NULL
@@ -191,7 +184,6 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 	// 	set_exit_code(env_list, 127);
 	// 	return (-1);
 	// }
-	printf("HI\n");
 
 	while (ast_tree->first_child != NULL)
 	{
