@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minishell.h"
+//detects 1-symbol terminals |, < and >
 
 int	terminal_type(t_Input **input)
 {
@@ -29,6 +30,8 @@ int	terminal_type(t_Input **input)
 		return (-1);
 	return (token_type);
 }
+//check if its 1-symbol terminal then add terminal token
+//add previous opened lexem-token if need
 
 int	rule_terminals(t_Input **input, t_Token_node **token)
 {
@@ -46,6 +49,9 @@ int	rule_terminals(t_Input **input, t_Token_node **token)
 		return (1);
 	return (0);
 }
+//check if it ws-symbol then start, check continues
+//ws-symbols and add ws-token
+//add previous opened lexem-token if need
 
 int	rule_ws(t_Input **input, t_Token_node **token)
 {
@@ -75,6 +81,8 @@ int	rule_ws(t_Input **input, t_Token_node **token)
 	}
 	return (1);
 }
+//every other symbols detects as "lexem". Function starts lexem-token
+//and add lexem-token when input ends
 
 int	rule_lexem(t_Input **input, t_Token_node **token)
 {
@@ -85,6 +93,10 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 			return (1);
 	return (0);
 }
+//check every rule one by one for current char
+//all undefined chars goes to lexem-symbol
+//As a result of tokenizer we have low-level list of tokens with
+//terminals |, < and >, '- and "-strings, expanded vars and lexem-tokens
 
 int	tokenizer(t_Input **input, t_Token_node **token)
 {

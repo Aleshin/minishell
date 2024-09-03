@@ -41,24 +41,3 @@ int	quotes_remover(t_Token_node **token)
 	}
 	return (1);
 }
-
-int	double_quotes_remover(t_Token_node **token)
-{
-	t_Token_node	**token_temp;
-
-	token_temp = token;
-	if ((*token_temp)->type == DOUBLE_QUOTED_STRING)
-	{
-		delete_token(token_temp);
-		while (*token_temp != NULL && (*token_temp)->next_token != NULL)
-		{
-			if ((*token_temp)->next_token->type == DOUBLE_QUOTED_STRING)
-			{
-				delete_token(&(*token_temp)->next_token);
-				break ;
-			}
-			join_next_token(token_temp);
-		}
-	}
-	return (0);
-}

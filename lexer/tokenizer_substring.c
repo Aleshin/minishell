@@ -18,7 +18,7 @@ int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 	value = ft_strdup((*token_temp)->value);
 	free((*token)->value);
 	(*token)->value = value;
-	(*token)->type = SINGLE_QUOTED_STRING;
+	(*token)->type = lexem;
 	free_tokens(token_temp);
 	return (0);
 }
@@ -30,7 +30,6 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 
 	if ((*token)->type != DOUBLE_QUOTED_STRING)
 		return (1);
-	print_tokens(*token);
 	token_temp = token_init(&(*token)->value);
 	input_substring = input_init(&token_temp);
 	if (!input_substring)
@@ -44,7 +43,7 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);
 	token_change(token, &token_temp);
-	print_tokens(*token);
+//	print_tokens(*token);
 	free(input_substring);
 	return (0);
 }
