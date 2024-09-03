@@ -56,18 +56,3 @@ int	print_tokens(t_Token_node *token_temp)
 	}
 	return (0);
 }
-
-void	free_tokens(t_Token_node **head)
-{
-	t_Token_node	*current;
-	t_Token_node	*next;
-
-	current = *head;
-	while (current != NULL)
-	{
-		next = current->next_token;
-		free(current->value);
-		free(current);
-		current = next;
-	}
-}
