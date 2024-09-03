@@ -13,7 +13,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -24,7 +24,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -39,8 +39,8 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$
-| /home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$
+| /home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -51,46 +51,46 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3059453==ERROR: AddressSanitizer: attempting double-free on 0x602000003b70 in thread T0:$
-|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
-|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
-|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
-|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
-|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
-|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #7 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #8 0x7fbc33d71e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
-|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| ==483913==ERROR: AddressSanitizer: attempting double-free on 0x6020000042b0 in thread T0:$
+|     #0 0x49a022 in free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #7 0x7fc4d6da7d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7fc4d6da7e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/emikhayl/Desktop/Minishell/panic/minishell+0x41f3c4)$
 | $
-| 0x602000003b70 is located 0 bytes inside of 1-byte region [0x602000003b70,0x602000003b71)$
+| 0x6020000042b0 is located 0 bytes inside of 1-byte region [0x6020000042b0,0x6020000042b1)$
 | freed by thread T0 here:$
-|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
-|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
-|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
-|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
-|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #6 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #0 0x49a022 in free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #6 0x7fc4d6da7d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
 | $
 | previously allocated by thread T0 here:$
-|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
-|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
-|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
-|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
-|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
-|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
-|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
-|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #9 0x7fbc33d71d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #9 0x7fc4d6da7d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
 | $
-| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
-| ==3059453==ABORTING$<-
+| SUMMARY: AddressSanitizer: double-free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022) in free$
+| ==483913==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -139,42 +139,42 @@
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3059535==ERROR: AddressSanitizer: attempting double-free on 0x6020000039b0 in thread T0:$
-|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
-|     #1 0x4d48b6 in free_tokens (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d48b6)$
-|     #2 0x4cfdb4 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfdb4)$
-|     #3 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
-|     #4 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
-|     #5 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #6 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #7 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #8 0x7f6d59e1ee3f in __libc_start_main csu/../csu/libc-start.c:392:3$
-|     #9 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| ==483995==ERROR: AddressSanitizer: attempting double-free on 0x6020000040f0 in thread T0:$
+|     #0 0x49a022 in free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022)$
+|     #1 0x4d48b6 in free_tokens (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d48b6)$
+|     #2 0x4cfdb4 in token_change (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cfdb4)$
+|     #3 0x4d0302 in tokenizer_double_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0302)$
+|     #4 0x4ce227 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce227)$
+|     #5 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #6 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #7 0x7fcaf1953d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #8 0x7fcaf1953e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #9 0x41f3c4 in _start (/home/emikhayl/Desktop/Minishell/panic/minishell+0x41f3c4)$
 | $
-| 0x6020000039b0 is located 0 bytes inside of 1-byte region [0x6020000039b0,0x6020000039b1)$
+| 0x6020000040f0 is located 0 bytes inside of 1-byte region [0x6020000040f0,0x6020000040f1)$
 | freed by thread T0 here:$
-|     #0 0x49a022 in free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022)$
-|     #1 0x4cfce1 in token_change (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cfce1)$
-|     #2 0x4d0302 in tokenizer_double_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0302)$
-|     #3 0x4ce227 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce227)$
-|     #4 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #5 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #6 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #0 0x49a022 in free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022)$
+|     #1 0x4cfce1 in token_change (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cfce1)$
+|     #2 0x4d0302 in tokenizer_double_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0302)$
+|     #3 0x4ce227 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce227)$
+|     #4 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #5 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #6 0x7fcaf1953d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
 | $
 | previously allocated by thread T0 here:$
-|     #0 0x49a28d in malloc (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a28d)$
-|     #1 0x4cc186 in make_token_value (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc186)$
-|     #2 0x4cc478 in copy_substring (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc478)$
-|     #3 0x4cca5a in token_add (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cca5a)$
-|     #4 0x4d0dcc in rule_quotes (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d0dcc)$
-|     #5 0x4ce102 in tokenizer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce102)$
-|     #6 0x4ce194 in lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4ce194)$
-|     #7 0x4cc069 in init_lexer (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cc069)$
-|     #8 0x4cb936 in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb936)$
-|     #9 0x7f6d59e1ed8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4cc186 in make_token_value (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc186)$
+|     #2 0x4cc478 in copy_substring (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc478)$
+|     #3 0x4cca5a in token_add (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cca5a)$
+|     #4 0x4d0dcc in rule_quotes (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d0dcc)$
+|     #5 0x4ce102 in tokenizer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce102)$
+|     #6 0x4ce194 in lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4ce194)$
+|     #7 0x4cc069 in init_lexer (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cc069)$
+|     #8 0x4cb936 in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb936)$
+|     #9 0x7fcaf1953d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
 | $
-| SUMMARY: AddressSanitizer: double-free (/home/saleshin/Projects/minishell/mpanic/minishell+0x49a022) in free$
-| ==3059535==ABORTING$<-
+| SUMMARY: AddressSanitizer: double-free (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a022) in free$
+| ==483995==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -331,7 +331,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -342,7 +342,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-
@@ -357,7 +357,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -368,7 +368,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell$<-
+| ->/home/emikhayl/Desktop/Minishell$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-

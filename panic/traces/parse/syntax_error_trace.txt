@@ -20,13 +20,101 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| -><-
+| ->$
+| =================================================================$
+| ==489393==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f8c67865d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 168 byte(s) leaked in 8 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -320,29 +408,170 @@
 |--- COMPARED STR:
 | ->syntax error near unexpected token <-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->AddressSanitizer:DEADLYSIGNAL$
+| ->$
 | =================================================================$
-| ==3065338==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d5a88 bp 0x7ffedb6f0220 sp 0x7ffedb6f01e0 T0)$
-| ==3065338==The signal is caused by a READ memory access.$
-| ==3065338==Hint: address points to the zero page.$
-|     #0 0x4d5a88 in is_builtin (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88)$
-|     #1 0x4d4b6a in ft_child_process (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d4b6a)$
-|     #2 0x4d538b in ft_executor (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d538b)$
-|     #3 0x4cb6b9 in parse_exec (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb6b9)$
-|     #4 0x4cb94c in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb94c)$
-|     #5 0x7f90ee486d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f90ee486e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
-|     #7 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| ==489907==ERROR: LeakSanitizer: detected memory leaks$
 | $
-| AddressSanitizer can not provide additional info.$
-| SUMMARY: AddressSanitizer: SEGV (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88) in is_builtin$
-| ==3065338==ABORTING$<-
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #3 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 2 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #4 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fc5573a9d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 292 byte(s) leaked in 14 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -361,29 +590,170 @@
 |--- COMPARED STR:
 | ->syntax error near unexpected token <-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->AddressSanitizer:DEADLYSIGNAL$
+| ->$
 | =================================================================$
-| ==3065383==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d5a88 bp 0x7fff0cb1e700 sp 0x7fff0cb1e6c0 T0)$
-| ==3065383==The signal is caused by a READ memory access.$
-| ==3065383==Hint: address points to the zero page.$
-|     #0 0x4d5a88 in is_builtin (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88)$
-|     #1 0x4d4b6a in ft_child_process (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d4b6a)$
-|     #2 0x4d538b in ft_executor (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d538b)$
-|     #3 0x4cb6b9 in parse_exec (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb6b9)$
-|     #4 0x4cb94c in main (/home/saleshin/Projects/minishell/mpanic/minishell+0x4cb94c)$
-|     #5 0x7f1a277b5d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f1a277b5e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
-|     #7 0x41f3c4 in _start (/home/saleshin/Projects/minishell/mpanic/minishell+0x41f3c4)$
+| ==489953==ERROR: LeakSanitizer: detected memory leaks$
 | $
-| AddressSanitizer can not provide additional info.$
-| SUMMARY: AddressSanitizer: SEGV (/home/saleshin/Projects/minishell/mpanic/minishell+0x4d5a88) in is_builtin$
-| ==3065383==ABORTING$<-
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #3 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #4 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f0133803d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 293 byte(s) leaked in 14 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -402,13 +772,927 @@
 |--- COMPARED STR:
 | ->syntax error near unexpected token <-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->Error opening file for input redirection: No such file or directory$<-
+| ->Error opening file for input redirection: No such file or directory$
+| $
+| =================================================================$
+| ==489999==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #3 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 2 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d45c4 in rule_redirect_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d45c4)$
+|     #4 0x4d2f31 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f31)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2f76 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f76)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fcfcfb97d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 292 byte(s) leaked in 14 allocation(s).$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [241]
+|  CMD: ->echo hi|echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| ->$
+| =================================================================$
+| ==490086==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #8 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #9 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #10 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f809178fd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 422 byte(s) leaked in 20 allocation(s).$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [242]
+|  CMD: ->echo hi |echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| ->$
+| =================================================================$
+| ==490134==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #8 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #9 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #10 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f7346f29d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 422 byte(s) leaked in 20 allocation(s).$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [243]
+|  CMD: ->echo hi| echo hi<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| ->hi$<-
+|
+|--- STDERR:
+| ->$
+| =================================================================$
+| ==490182==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #8 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #9 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #10 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 3 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4d2c66 in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2c66)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f441a7e3d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 422 byte(s) leaked in 20 allocation(s).$<-
 |
 ---------------------------------------------<
 

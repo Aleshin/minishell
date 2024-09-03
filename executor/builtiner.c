@@ -124,7 +124,6 @@ int	builtiner(t_ast_node *command, t_env **env_list)
 		|| command->first_child->next_sibling == NULL)
 		return (1);
 	exec = command->first_child->next_sibling->value;
-	printf("hello from builtiner\n");
 	if (!exec || !*exec)
 		return (1);
 	return (ft_exec_builtin(exec, command, env_list));

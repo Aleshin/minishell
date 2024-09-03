@@ -70,37 +70,13 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [4]
-|  CMD: ->/bin/echo hi<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [5]
 |  CMD: ->echo $PATH<-
 |--------------------------------
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$<-
+| ->/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$<-
 |
 |--- STDERR:
 | -><-
@@ -111,7 +87,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$<-
+| ->/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$<-
 |
 |--- STDERR:
 | -><-
@@ -358,291 +334,252 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [53]
-|  CMD: ->exit 0<-
+---------------------------------------------> test [97]
+|  CMD: ->cat file
+| exit 1<-
 |--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| -><-
+| ->cat: file: Permission denied$<-
 |
 |--- COMPARED STR:
-| -><-
+| ->mission denied<-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [54]
-|  CMD: ->exit +0<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [56]
-|  CMD: ->exit -0<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [67]
-|  CMD: ->exit 256<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [68]
-|  CMD: ->exit -256<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [70]
-|  CMD: ->exit 2147483648<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [71]
-|  CMD: ->exit -2147483648<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [74]
-|  CMD: ->exit 4294967296<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [75]
-|  CMD: ->exit -4294967296<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [79]
-|  CMD: ->exit -9223372036854775808<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [86]
-|  CMD: ->exit 0000000000000000000000<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [92]
-|  CMD: ->exit 42 | cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
+| ->cat: file: Permission denied$
+| $
+| =================================================================$
+| ==483757==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 5 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 4 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 212 byte(s) leaked in 10 allocation(s).$
+| $
+| =================================================================$
+| ==483755==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 80 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 80 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 80 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 80 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 80 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 9 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 7 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 2 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 2 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 2 byte(s) in 2 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7f3a05b82d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 422 byte(s) leaked in 20 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -652,7 +589,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -663,7 +600,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -724,7 +661,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -735,7 +672,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -748,7 +685,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -759,7 +696,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -772,7 +709,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -783,7 +720,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
+| ->/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -797,7 +734,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell$<-
+| ->/home/emikhayl/Desktop/Minishell$<-
 |
 |--- STDERR:
 | -><-
@@ -808,7 +745,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell$<-
+| ->/home/emikhayl/Desktop/Minishell$<-
 |
 |--- STDERR:
 | -><-
@@ -896,7 +833,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$<-
+| ->emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -907,7 +844,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$<-
+| ->emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -944,7 +881,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -955,7 +892,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -968,7 +905,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -979,7 +916,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/mpanic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/Minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -1040,7 +977,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$PATH/home/saleshin/Projects/minishell/mpanicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+| ->emikhayl$PATH/home/emikhayl/Desktop/Minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
 |
 |--- STDERR:
 | -><-
@@ -1051,7 +988,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$PATH/home/saleshin/Projects/minishell/mpanicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+| ->emikhayl$PATH/home/emikhayl/Desktop/Minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
 |
 |--- STDERR:
 | -><-
@@ -1305,7 +1242,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->|saleshin|$<-
+| ->|emikhayl|$<-
 |
 |--- STDERR:
 | -><-
@@ -1316,7 +1253,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->|saleshin|$<-
+| ->|emikhayl|$<-
 |
 |--- STDERR:
 | -><-
@@ -1779,56 +1716,6 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [201]
-|  CMD: ->echo hi > "fi le"
-| rm "fi le"<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [202]
-|  CMD: ->echo hi > 'fi le'
-| rm 'fi le'<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [204]
 |  CMD: ->echo "$ANA_VAR"<-
 |--------------------------------
@@ -2099,7 +1986,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->~saleshin$<-
+| ->~emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -2110,7 +1997,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->~saleshin$<-
+| ->~emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -2147,7 +2034,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->~saleshin/sdfsfsfdsfs$<-
+| ->~emikhayl/sdfsfsfdsfs$<-
 |
 |--- STDERR:
 | -><-
@@ -2158,7 +2045,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->~saleshin/sdfsfsfdsfs$<-
+| ->~emikhayl/sdfsfsfdsfs$<-
 |
 |--- STDERR:
 | -><-
@@ -2189,2615 +2076,6 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [241]
-|  CMD: ->echo hi|echo hi<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [242]
-|  CMD: ->echo hi |echo hi<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [243]
-|  CMD: ->echo hi| echo hi<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [252]
-|  CMD: ->echo | /bin/cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [253]
-|  CMD: ->echo hi | /bin/cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [254]
-|  CMD: ->cat /etc/shells | head -c 10<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [255]
-|  CMD: ->cat -e /etc/shells | head -c 10<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [256]
-|  CMD: ->cat -e /etc/shells | cat -e | head -c 10<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [257]
-|  CMD: ->cat -e /etc/shells | cat -e | cat -e | head -c 10<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -># /etc/she<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [258]
-|  CMD: ->echo hola | cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [259]
-|  CMD: ->echo hola | cat -e<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [260]
-|  CMD: ->echo hola | cat -e | cat -n<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	hola$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	hola$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [261]
-|  CMD: ->echo hola | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e | cat -e<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$$$$$$$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hola$$$$$$$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [262]
-|  CMD: ->ls | cat -e<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$$
-| >>$$
-| &4$$
-| a.out$$
-| cleaner$$
-| cleaner.c$$
-| echo$$
-| file2$$
-| minishell$$
-| mpanic.sh$$
-| README.md$$
-| test$$
-| traces$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$$
-| >>$$
-| &4$$
-| a.out$$
-| cleaner$$
-| cleaner.c$$
-| echo$$
-| file2$$
-| minishell$$
-| mpanic.sh$$
-| README.md$$
-| test$$
-| traces$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [263]
-|  CMD: ->ls -l | cat -e<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [264]
-|  CMD: ->ls -l | cat -e | cat | cat | cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [265]
-|  CMD: ->ls -l | cat -e | cat -e | cat -e | cat -e<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$$$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$$$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  3 21:26 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       7 Sep  3 21:26 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  3 20:05 &4$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Aug 31 22:01 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  3 21:26 cleaner$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Aug 31 22:01 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  3 21:26 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  3 20:05 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383296 Sep  3 21:26 minishell$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Aug 31 21:20 mpanic.sh$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Aug 31 21:20 README.md$$$$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Aug 31 21:20 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  3 21:26 traces$$$$$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [268]
-|  CMD: ->cat | cat | cat | ls<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [269]
-|  CMD: ->sleep 1 | ls | cat -n<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	file2$
-|      9	minishell$
-|     10	mpanic.sh$
-|     11	README.md$
-|     12	test$
-|     13	traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	file2$
-|      9	minishell$
-|     10	mpanic.sh$
-|     11	README.md$
-|     12	test$
-|     13	traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [270]
-|  CMD: ->cd folder | pwd<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->/home/saleshin/Projects/minishell/mpanic$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [271]
-|  CMD: ->ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [272]
-|  CMD: ->ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [273]
-|  CMD: ->ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls |ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls | ls<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [278]
-|  CMD: ->echo hi > file
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [279]
-|  CMD: ->echo hi >> file
-| echo hi >> file
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [280]
-|  CMD: ->echo hi > *.txt
-| cat '*.txt'
-| rm '*.txt'<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [281]
-|  CMD: ->echo > file hi
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [282]
-|  CMD: ->echo >> file hi
-| echo >> file hi
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [283]
-|  CMD: ->> file echo hi
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [284]
-|  CMD: ->>> file echo hi
-| >> file echo hi
-| cat file
-| rm file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [285]
-|  CMD: ->echo hi > file2 > file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [286]
-|  CMD: ->echo hi >> file2 > file hi
-| echo hi >> file2 > file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [287]
-|  CMD: ->echo hi > file2 >> file hi
-| echo hi > file2 >> file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [288]
-|  CMD: ->echo hi > file2 > file hi
-| echo hi > file2 > file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [289]
-|  CMD: ->echo hi >> file2 >> file hi
-| echo hi >> file2 >> file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [290]
-|  CMD: ->echo hi>file2>file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [291]
-|  CMD: ->echo hi>>file2>>file hi
-| ls
-| cat file
-| rm file file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [292]
-|  CMD: ->echo hi > file3 > file2 > file hi
-| echo hii > file3 > file2 > file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [293]
-|  CMD: ->echo hi > file3 >> file2 > file hi
-| echo hii > file3 >> file2 > file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [294]
-|  CMD: ->echo hi > file3 > file2 >> file hi
-| echo hii > file3 > file2 >> file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [295]
-|  CMD: ->echo hi >> file3 > file2 > file hi
-| echo hii >> file3 > file2 > file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [296]
-|  CMD: ->echo hi >> file3 > file2 >> file hi
-| echo hii >> file3 > file2 >> file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [297]
-|  CMD: ->echo hi >> file3 >> file2 > file hi
-| echo hii >> file3 >> file2 > file hii
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hii hii$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [298]
-|  CMD: ->echo hi>file3>file2>file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [299]
-|  CMD: ->> file3 echo hi > file2 > file hi
-| > file3 echo hi > file2 > file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [300]
-|  CMD: ->> file3 echo hi > file2 >> file hi
-| > file3 echo hi > file2 >> file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [301]
-|  CMD: ->>> file3 echo hi > file2 > file hi
-| >> file3 echo hi > file2 > file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [302]
-|  CMD: ->> file3 echo hi >> file2 > file hi
-| > file3 echo hi >> file2 > file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [303]
-|  CMD: ->>file3 echo hi>file2>file hi
-| > file3 echo hi > file2 > file hi
-| ls
-| cat file
-| rm file file2 file3<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| file$
-| file2$
-| file3$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [304]
-|  CMD: ->echo hi >filea>fileb>filec hi
-| echo hi >filea>fileb>filec hi
-| ls
-| cat filec
-| rm filea fileb filec<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [305]
-|  CMD: ->echo hi >filea>>fileb>filec hi
-| echo hi >filea>>fileb>filec hi
-| ls
-| cat filec
-| rm filea fileb filec<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [306]
-|  CMD: ->echo hi >filea>fileb>>filec hi
-| echo hi >filea>fileb>>filec hi
-| ls
-| cat filec
-| rm filea fileb filec<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [307]
-|  CMD: ->echo hi >>filea>fileb>filec hi
-| echo hi >>filea>fileb>filec hi
-| ls
-| cat filec
-| rm filea fileb filec<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->>$
-| >>$
-| &4$
-| a.out$
-| cleaner$
-| cleaner.c$
-| echo$
-| filea$
-| fileb$
-| filec$
-| minishell$
-| mpanic.sh$
-| README.md$
-| test$
-| traces$
-| hi hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [308]
-|  CMD: ->echo hi > "doble"quote
-| cat doblequote
-| rm doblequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [309]
-|  CMD: ->echo hi >"doble"quote
-| cat doblequote
-| rm doblequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [310]
-|  CMD: ->echo -n hi >>"doble"quote
-| echo -n hi >>"doble"quote
-| cat doblequote
-| rm doblequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hihi<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hihi<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [311]
-|  CMD: ->echo hi > 'simple'quote
-| cat simplequote
-| rm simplequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [312]
-|  CMD: ->echo hi >'simple'quote
-| cat simplequote
-| rm simplequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [313]
-|  CMD: ->echo -n hi >>'simple'quote
-| echo -n hi >>'simple'quote
-| cat simplequote
-| rm simplequote<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hihi<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hihi<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [314]
-|  CMD: ->echo hi > 'with spaces'
-| cat 'with spaces'
-| rm 'with spaces'<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [315]
-|  CMD: ->echo hi >>'with spaces'
-| echo hi >>'with spaces'
-| cat 'with spaces'
-| rm 'with spaces'<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [316]
-|  CMD: ->echo hi > "mixed"'file 'name
-| cat "mixedfile name"
-| rm "mixedfile name"<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [317]
-|  CMD: ->echo hi >> "mixed"'file 'name
-| echo hi >> "mixed"'file 'name
-| cat "mixedfile name"
-| rm "mixedfile name"<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi$
-| hi$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [332]
-|  CMD: ->cat < file<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi, I am the file$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi, I am the file$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [333]
-|  CMD: ->< file cat < file2<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi, I am the file2$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi, I am the file2$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [343]
 |  CMD: ->echo $?<-
 |--------------------------------
@@ -4822,109 +2100,13 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [350]
-|  CMD: ->sleep 1 | ls | cat -n
-| echo $?<-
+---------------------------------------------> test [367]
+|  CMD: ->cat /Users/nonexist/directory<-
 |--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	minishell$
-|      9	mpanic.sh$
-|     10	README.md$
-|     11	test$
-|     12	traces$
-| 0$<-
-|
-|--- STDERR:
 | -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	minishell$
-|      9	mpanic.sh$
-|     10	README.md$
-|     11	test$
-|     12	traces$
-| 0$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [351]
-|  CMD: ->sleep 1 | ls | cat -n<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	minishell$
-|      9	mpanic.sh$
-|     10	README.md$
-|     11	test$
-|     12	traces$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->     1	>$
-|      2	>>$
-|      3	&4$
-|      4	a.out$
-|      5	cleaner$
-|      6	cleaner.c$
-|      7	echo$
-|      8	minishell$
-|      9	mpanic.sh$
-|     10	README.md$
-|     11	test$
-|     12	traces$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [366]
-|  CMD: ->cat /Users/nonexist/directory
-| echo $?<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->1$<-
 |
 |--- STDERR:
 | ->cat: /Users/nonexist/directory: No such file or directory$<-
@@ -4932,13 +2114,125 @@
 |--- COMPARED STR:
 | ->nexist/directory: No such file or directory<-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| ->1$<-
+| -><-
 |
 |--- STDERR:
-| ->cat: /Users/nonexist/directory: No such file or directory$<-
+| ->cat: /Users/nonexist/directory: No such file or directory$
+| $
+| =================================================================$
+| ==498418==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #3 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #4 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #3 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 40 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4d23e8 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d23e8)$
+|     #2 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #3 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #4 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #5 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #6 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #7 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 26 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3db9 in rule_argument_recursive (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3db9)$
+|     #4 0x4d3fc6 in redirects_arguments (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3fc6)$
+|     #5 0x4d3038 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3038)$
+|     #6 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #7 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #8 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #9 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 4 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d3be2 in rule_executable (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d3be2)$
+|     #4 0x4d2f82 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2f82)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d32a5 in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d32a5)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d390c in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d390c)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| Indirect leak of 1 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/Minishell/panic/minishell+0x49a28d)$
+|     #1 0x4da7dd in ft_strdup (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4da7dd)$
+|     #2 0x4d2460 in create_ast_node (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2460)$
+|     #3 0x4d323b in command_init (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d323b)$
+|     #4 0x4d2fc7 in rule_command (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2fc7)$
+|     #5 0x4d2abb in rule_command_line (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4d2abb)$
+|     #6 0x4cb574 in parse_exec (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb574)$
+|     #7 0x4cb94c in main (/home/emikhayl/Desktop/Minishell/panic/minishell+0x4cb94c)$
+|     #8 0x7fd8b1495d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+| $
+| SUMMARY: AddressSanitizer: 233 byte(s) leaked in 10 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -4960,79 +2254,6 @@
 |
 |--- STDOUT:
 | ->export SHLVL= before ./minishell$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [378]
-|  CMD: ->exit --<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [379]
-|  CMD: ->echo all &> testfile < non_exist_file
-| rm testfile<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [388]
-|  CMD: ->./echo<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->Thats the file bro gjn<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->Thats the file bro gjn<-
 |
 |--- STDERR:
 | -><-
