@@ -32,7 +32,7 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 		return (1);
 	token_temp = token_init(&(*token)->value);
 	input_substring = input_init(&token_temp);
-	if (!input_substring)
+	if (!token_temp || !input_substring)
 		return (1);
 	input_substring->env = (*input)->env;
 	while (input_substring->string[input_substring->current_char] != '\0')
@@ -42,7 +42,12 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 	}
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);
+//	printf("+++string tokens+++\n");
+//	print_tokens(*token);
+//	printf("+++substring tokens+++\n");
+//	print_tokens(token_temp);
 	token_change(token, &token_temp);
+//	printf("+++string tokens+++\n");
 //	print_tokens(*token);
 	free(input_substring);
 	return (0);
