@@ -52,7 +52,8 @@ int	parse_exec(t_main *main_str)
 		return (1);
 	}
 	if (ft_handle_builtin(main_str->ast_root, &main_str->environment_list) == 0)
-		ft_executor(main_str->ast_root, &main_str->environment_list);
+		printf("Pipes and child processes\n");
+		//ft_executor(main_str->ast_root, &main_str->environment_list);
 	free_all(&main_str->ast_root, &main_str->token,
 		&main_str->input, &main_str->buf);
 	return (0);

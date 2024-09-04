@@ -65,7 +65,7 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	//command->first_child->next_sibling is EXEC
 	    // Ensure command and its members are valid before use
     if (command && command->first_child && command->first_child->next_sibling) {
-        if (is_builtin(command)) {
+        if (is_builtin(command->first_child->next_sibling->value)) {
             status = builtiner(command, env_list);
         } else if (command->first_child->next_sibling->value != NULL && 
                    (command->first_child->next_sibling->value[0] != '\0' || 
@@ -102,39 +102,40 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
     //return (status); // Ensure the child process exits
 }
 
-//returns 0 if no builtin
+//returns 0 if no builtin || there is pipes (>1 cmd)
+//ast_tree exists, exec/args might not
 int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
 	int			err_code;
-	int			original_stdout;
-	int			out;
+	int			outfile;
+	int			infile;
 
 	err_code = 0;
-    // Check if there is only one command and it is a built-in
-	//ast_tree.first_child.first_child.next_sibling - EXEC
+    // executes only if there is only one command and it is a built-in
+	//or if there is no commands 
+	//ast_tree.first_child.first_child.next_sibling - EXEC NODE
+	// exec = command->first_child->next_sibling->value;
 	//ast_tree.first_child.next_sibling - next command
-	if (ast_tree->first_child->first_child->next_sibling == NULL 
-		|| ast_tree->first_child->next_sibling != NULL || !is_builtin(ast_tree->first_child))
+	//condition 1 is: it is only one exec, it has value and it is a builtin
+	//condition 2: no exec and yes redirects
+	//ast_tree->first_child->first_child->param > 0
+	//condition 3:return only if 0 if no exec no redirects, >1 commands
+	if (ast_tree->first_child->next_sibling != NULL || ( !is_builtin(ast_tree->first_child->value)))
 	{
 		return (0); // Not a single built-in command and we go to ft_exec
 	}
-    // Save the original stdout file descriptor
-	original_stdout = dup(STDOUT_FILENO);
-	if (original_stdout == -1)
-	{
-		perror("dup");
-		return (-1);
-	}
+  
     // Handle output redirection
-	out = output_redir(ast_tree->first_child);
-	if (out != -3)
-		handle_dup_and_close(out, STDOUT_FILENO);
+	outfile = output_redir(ast_tree->first_child);
+	if (outfile != -3) //no redir
+		handle_dup_and_close(outfile, STDOUT_FILENO);
+	infile = input_redir(ast_tree->first_child);
+	if (infile != -3) //no redir
+		handle_dup_and_close(infile, STDIN_FILENO);
     // Execute the built-in command
 	err_code = builtiner(ast_tree->first_child, env_list);
 	set_exit_code(env_list, err_code);
-    // Restore stdout
-	handle_dup_and_close(original_stdout, STDOUT_FILENO);
-	return (1); // Built-in command was handled
+	return (1);
 }
 
 int	ft_exit_status(pid_t last_pid)

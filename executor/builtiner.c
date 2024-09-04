@@ -61,19 +61,13 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 }
 
 // 1 if it is a builtin, 0 if not
+//before use it enshure char *exec is "" or some value
 //HERE TO CHECK IF EXEC IS A VALID BUILTIN
-int	is_builtin(t_ast_node *command)
+int	is_builtin(char *exec)
 {
-	char	*exec;
-
-	//ast_tree.first_child.first_child.next_sibling EXEC
-	//command->first_child->next_sibling
-	if (!command || !command->first_child || !command->first_child->next_sibling)
-        return (0);
-
-    exec = command->first_child->next_sibling->value;
-    if (!exec || exec[0] == '\0')
-		return (0);
+	//temporary check
+	if (exec[0] == '\0') //empty string
+		printf("exec does not exist\n");
 	if (ft_strcmp(exec, "echo") == 0
 		|| ft_strcmp(exec, "cd") == 0
 		|| ft_strcmp(exec, "pwd") == 0
