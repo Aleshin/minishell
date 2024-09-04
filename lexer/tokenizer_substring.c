@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minishell.h"
+//Change value of original quoted string to parsed substring
 
 int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 {
@@ -22,6 +23,8 @@ int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 	free_tokens(token_temp);
 	return (0);
 }
+//Initiate input and token structure for substring
+//and parse substring with rule var and lexem only
 
 int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 {

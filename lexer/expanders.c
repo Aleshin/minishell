@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minishell.h"
+//Unite doubled < and > terminals
 
 int	twin_redirects(t_Token_node **token)
 {
@@ -30,6 +31,7 @@ int	twin_redirects(t_Token_node **token)
 	}
 	return (0);
 }
+//remove <, > and >> and change type of next lexem to it
 
 int	expand_redirects(t_Token_node **token)
 {
@@ -46,7 +48,10 @@ int	expand_redirects(t_Token_node **token)
 	}
 	return (0);
 }
-
+//Use next to heredoc-token lexem as delimiter
+//read heredoc-input while no delimiter to string
+//change value of delimiter to heredoc-input, change type of token to DQS
+//Parsing DQS as substring, remove <<-token and go next token
 int	expand_heredoc(t_Input **input, t_Token_node **token)
 {
 	char	*value;
@@ -69,6 +74,7 @@ int	expand_heredoc(t_Input **input, t_Token_node **token)
 	}
 	return (0);
 }
+//check syntax errors with pipes
 
 int	syntax_checker(t_Token_node **token)
 {
@@ -83,6 +89,7 @@ int	syntax_checker(t_Token_node **token)
 	}
 	return (0);
 }
+//2nd pass of lexer with expanders, syntax checker and empty-lexem remover
 
 int	expander(t_Input **input, t_Token_node **token_temp)
 {

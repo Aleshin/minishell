@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 #include "./minishell.h"
+//Find close qoute
 
 int	end_quotes_finder(t_Input **input, int i)
 {
@@ -24,6 +25,9 @@ int	end_quotes_finder(t_Input **input, int i)
 	}
 	return (-1);
 }
+//Finds start of quoted string
+//add previous opened lexem-token if needed
+//end finds close cuote
 
 int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 {
@@ -46,6 +50,7 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 	(*input)->token_start++;
 	return (end_quotes_finder(input, i));
 }
+//Find quoted string and parse double quoted
 
 int	rule_quotes(t_Input **input, t_Token_node **token)
 {

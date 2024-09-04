@@ -38,6 +38,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 //	print_tokens(*token);
 	if (expander(input, token_temp))
 		return (1);
+//	printf("+++after redirect- and heredoc-expanders, empty-lexem remover and checker+++\n");
 //	print_tokens(*token);
 	return (0);
 }

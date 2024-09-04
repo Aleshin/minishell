@@ -58,17 +58,3 @@ int	print_ast_tree(t_ast_node *ast_node, int level)
 	}
 	return (0);
 }
-
-void	free_ast(t_ast_node **ast_node)
-{
-	if ((*ast_node)->first_child != NULL)
-	{
-		free_ast(&(*ast_node)->first_child);
-	}
-	if ((*ast_node)->next_sibling != NULL)
-	{
-		free_ast(&(*ast_node)->next_sibling);
-	}
-	free((*ast_node)->value);
-	free((*ast_node));
-}
