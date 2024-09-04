@@ -52,6 +52,7 @@ int	expand_redirects(t_Token_node **token)
 //read heredoc-input while no delimiter to string
 //change value of delimiter to heredoc-input, change type of token to DQS
 //Parsing DQS as substring, remove <<-token and go next token
+
 int	expand_heredoc(t_Input **input, t_Token_node **token)
 {
 	char	*value;
@@ -101,9 +102,9 @@ int	expander(t_Input **input, t_Token_node **token_temp)
 			return (1);
 		if (syntax_checker(token_temp) == 1)
 			return (1);
-	if ((*token_temp)->type == lexem && (*token_temp)->value[0] == '\0')
-		delete_token(token_temp);
-	else if (*token_temp != NULL)
+		if ((*token_temp)->type == lexem && (*token_temp)->value[0] == '\0')
+			delete_token(token_temp);
+		else if (*token_temp != NULL)
 			token_temp = &(*token_temp)->next_token;
 	}
 	return (0);

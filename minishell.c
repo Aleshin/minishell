@@ -44,11 +44,11 @@ int	parse_exec(t_main *main_str)
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	print_ast_tree(main_str->ast_root, 0);
+//	print_ast_tree(main_str->ast_root, 0);
 	if (main_str->ast_root->first_child == NULL)
 	{
-	free_all(&main_str->ast_root, &main_str->token,
-		&main_str->input, &main_str->buf);
+		free_all(&main_str->ast_root, &main_str->token,
+			&main_str->input, &main_str->buf);
 		return (1);
 	}
 	if (ft_handle_builtin(main_str->ast_root, &main_str->environment_list) == 0)

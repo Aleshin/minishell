@@ -45,13 +45,7 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 	}
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);
-//	printf("+++string tokens+++\n");
-//	print_tokens(*token);
-//	printf("+++substring tokens+++\n");
-//	print_tokens(token_temp);
 	token_change(token, &token_temp);
-//	printf("+++string tokens+++\n");
-//	print_tokens(*token);
 	free(input_substring);
 	return (0);
 }

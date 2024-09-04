@@ -21,8 +21,6 @@ int	lexer(t_Input **input, t_Token_node **token)
 	if (tokenizer(input, token_temp) == -1)
 		return (-1);
 	token_temp = token;
-//	printf("+++after tokenizer+++\n");
-//	print_tokens(*token);
 	while (*token_temp != NULL)
 	{
 		if (ws_remover(token_temp) == 1)
@@ -34,11 +32,7 @@ int	lexer(t_Input **input, t_Token_node **token)
 			token_temp = &(*token_temp)->next_token;
 	}
 	token_temp = token;
-//	printf("+++after ws remover, twin redirects and quotes remover+++\n");
-//	print_tokens(*token);
 	if (expander(input, token_temp))
 		return (1);
-//	printf("+++after redirect- and heredoc-expanders, empty-lexem remover and checker+++\n");
-//	print_tokens(*token);
 	return (0);
 }
