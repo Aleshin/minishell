@@ -73,9 +73,11 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
             status = ft_exec_command(command, env_list);
         }
     } else {
-        //fprintf(stderr, "No valid command found\n");
-        status = 1; // or any other error code you use to indicate failure
-    }
+        //ft_shell_error(command->first_child->next_sibling->value, "command not found");
+		//fprintf(stderr, "No valid command found\n");
+        status = 127; // or any other error code you use to indicate failure
+		exit(EXIT_FAILURE);
+	}
 	// if (is_builtin(command))
 	// {
 	// 	status = builtiner(command, env_list);
@@ -87,11 +89,15 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
     // Restore original stdin and stdout file descriptors
 	handle_dup_and_close(original_stdout, STDOUT_FILENO);
 	handle_dup_and_close(original_stdin, STDIN_FILENO);
-	//printf ("Last child status is %d\n", status);
+	printf ("Last child status is %d\n", status);
 	if (status == 13 || status == 8)
 		status = 126;
 	else if (status == 2 || status == 14)
+	{
+		ft_shell_error(command->value, "command not exist");
 		status = 127;
+	}
+		
 	exit(status);
     //return (status); // Ensure the child process exits
 }
@@ -226,6 +232,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
     // Handle the exit status of the last command --->$?
 	last_exit_status = ft_exit_status(last_pid);
 	//printf("------> last exit status is %d\n", last_exit_status);
+	printf("LST EXIT STATUS IS %d\n", last_exit_status);
 	set_exit_code(env_list, last_exit_status);
     // Wait for all other child processes to finish
 	while (wait(NULL) > 0);
