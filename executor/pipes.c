@@ -107,35 +107,38 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
 	int			err_code;
-	int			outfile;
-	int			infile;
+	int			original_stdout;
+	int			out;
 
 	err_code = 0;
-    // executes only if there is only one command and it is a built-in
-	//or if there is no commands 
-	//ast_tree.first_child.first_child.next_sibling - EXEC NODE
-	// exec = command->first_child->next_sibling->value;
+    // Check if there is only one command and it is a built-in
+	//ast_tree.first_child.first_child.next_sibling - EXEC
 	//ast_tree.first_child.next_sibling - next command
-	//condition 1 is: it is only one exec, it has value and it is a builtin
-	//condition 2: no exec and yes redirects
-	//ast_tree->first_child->first_child->param > 0
-	//condition 3:return only if 0 if no exec no redirects, >1 commands
-	if (ast_tree->first_child->next_sibling != NULL || ( !is_builtin(ast_tree->first_child->value)))
+	//not a single command
+	if (ast_tree->first_child && ast_tree->first_child->next_sibling != NULL)
+		return (0);
+
+	if (ast_tree->first_child->first_child->next_sibling->value 
+		&& !is_builtin(ast_tree->first_child->first_child->next_sibling->value))
+		return (0);
+		
+    // Save the original stdout file descriptor
+	original_stdout = dup(STDOUT_FILENO);
+	if (original_stdout == -1)
 	{
-		return (0); // Not a single built-in command and we go to ft_exec
+		perror("dup");
+		return (-1);
 	}
-  
     // Handle output redirection
-	outfile = output_redir(ast_tree->first_child);
-	if (outfile != -3) //no redir
-		handle_dup_and_close(outfile, STDOUT_FILENO);
-	infile = input_redir(ast_tree->first_child);
-	if (infile != -3) //no redir
-		handle_dup_and_close(infile, STDIN_FILENO);
+	out = output_redir(ast_tree->first_child);
+	if (out != -3)
+		handle_dup_and_close(out, STDOUT_FILENO);
     // Execute the built-in command
 	err_code = builtiner(ast_tree->first_child, env_list);
 	set_exit_code(env_list, err_code);
-	return (1);
+    // Restore stdout
+	handle_dup_and_close(original_stdout, STDOUT_FILENO);
+	return (1); // Built-in command was handled
 }
 
 int	ft_exit_status(pid_t last_pid)
