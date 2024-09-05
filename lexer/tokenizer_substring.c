@@ -16,17 +16,12 @@ int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 {
 	char	*value;
 
-	if((*token_temp)->value[0] != '\0')
-	{
 	value = ft_strdup((*token_temp)->value);
 	if ((*token_temp)->value[0] != '\0')
 		free((*token)->value);
 	(*token)->value = value;
 	(*token)->type = lexem;
 	free_tokens(token_temp);
-	}
-	else
-		(*token)->type = lexem;
 	return (0);
 }
 //Initiate input and token structure for substring
@@ -51,13 +46,7 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 	}
 	while (token_temp != NULL && token_temp->next_token != NULL)
 		join_next_token(&token_temp);
-	printf("+++string tokens+++\n");
-	print_tokens(*token);
-	printf("+++substring tokens+++\n");
-	print_tokens(token_temp);
 	token_change(token, &token_temp);
-	printf("+++string tokens+++\n");
-	print_tokens(*token);
 	free(input_substring);
 	return (0);
 }
