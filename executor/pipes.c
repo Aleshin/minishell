@@ -94,7 +94,7 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
     // Restore original stdin and stdout file descriptors
 	handle_dup_and_close(original_stdout, STDOUT_FILENO);
 	handle_dup_and_close(original_stdin, STDIN_FILENO);
-	//printf ("Last child status is %d\n", status);
+	printf ("Last child status is %d\n", status);
 	if (status == 13 || status == 8)
 		status = 126;
 	else if (status == 2 || status == 14)
