@@ -68,7 +68,7 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	{
         if (is_builtin(command)) 
 		{
-            status = builtiner(command, env_list);
+            status = ft_exec_builtin(command, env_list);
         }
 		else
 		// (command->first_child->next_sibling->value != NULL && 
@@ -129,7 +129,7 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
         if (out != -3)
             handle_dup_and_close(out, STDOUT_FILENO);
         // Execute the built-in command
-        err_code = builtiner(command, env_list);
+        err_code = ft_exec_builtin(command, env_list);
         set_exit_code(env_list, err_code);
         // Restore stdout
         handle_dup_and_close(original_stdout, STDOUT_FILENO);

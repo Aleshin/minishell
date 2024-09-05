@@ -90,11 +90,13 @@ int	is_builtin(t_ast_node *command)
 // }
 
 //when we get there it is a builtin. return exit code of execution
-int	ft_exec_builtin(char *exec, t_ast_node *command, t_env **env_list)
+int	ft_exec_builtin(t_ast_node *command, t_env **env_list)
 {
 	int		exit_code;
+	char	*exec;
 
 	exit_code = 0;
+	exec = command->first_child->next_sibling->value;
 	if (ft_strcmp(exec, "echo") == 0)
 		exit_code = ft_echo(command);
 	else if (ft_strcmp(exec, "cd") == 0)
@@ -110,16 +112,16 @@ int	ft_exec_builtin(char *exec, t_ast_node *command, t_env **env_list)
 	return (exit_code);
 }
 
-// returns 0 or err code or -1 if TODO work with abs and rel pathi 
-int	builtiner(t_ast_node *command, t_env **env_list)
-{
-	char	*exec;
+// returns 0 or err code or -1
+// int	builtiner(t_ast_node *command, t_env **env_list)
+// {
+// 	char	*exec;
 
-	if (command == NULL || command->first_child == NULL
-		|| command->first_child->next_sibling == NULL)
-		return (1);
-	exec = command->first_child->next_sibling->value;
-	if (!exec || !*exec)
-		return (1);
-	return (ft_exec_builtin(exec, command, env_list));
-}
+// 	// if (command->first_child->next_sibling == NULL)
+// 	// {
+// 	// 	printf("NO EXEC IN BUILTINER");
+// 	// 	return (-1);
+// 	// }	
+// 	exec = command->first_child->next_sibling->value;
+// 	return (ft_exec_builtin(exec, command, env_list));
+// }

@@ -199,6 +199,7 @@ void			handle_dup_and_close(int old_fd, int new_fd);
 
 // builtins
 int				ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
+int				ft_exec_builtin(t_ast_node *command, t_env **env_list);
 int				is_builtin(t_ast_node *command);
 int				ft_echo(t_ast_node *command);
 t_env			*ft_lstnew_env(char *name, char *value);
