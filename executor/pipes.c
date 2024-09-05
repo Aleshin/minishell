@@ -78,23 +78,10 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
             status = ft_exec_command(command, env_list);
         }
     } 
-	// else 
-	// {
-    //     //fprintf(stderr, "No valid command found\n");
-    //     status = 2; // or any other error code you use to indicate failure
-    // }
-	// if (is_builtin(command))
-	// {
-	// 	status = builtiner(command, env_list);
-	// }
-	// else if (command->first_child->next_sibling != NULL
-	// 		|| (command->first_child->next_sibling->value[0] == '\0'
-	// 		&& command->first_child->param != 0) )
-	// 	status = ft_exec_command(command, env_list);
     // Restore original stdin and stdout file descriptors
 	handle_dup_and_close(original_stdout, STDOUT_FILENO);
 	handle_dup_and_close(original_stdin, STDIN_FILENO);
-	printf ("Last child status is %d\n", status);
+	//printf ("Last child status is %d\n", status);
 	if (status == 13 || status == 8)
 		status = 126;
 	else if (status == 2 || status == 14)
@@ -133,11 +120,9 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
         set_exit_code(env_list, err_code);
         // Restore stdout
         handle_dup_and_close(original_stdout, STDOUT_FILENO);
-        //printf("Builtin\n");
         return (1); // Not a single built-in command
     }
     // Save the original stdout file descriptor
-    //printf("Not builtin\n");
     return (0); // Built-in command was handled
 }
 

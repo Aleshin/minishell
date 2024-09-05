@@ -6,19 +6,19 @@
 *                                                            *
 **************************************************************
 
----------------------------------------------> test [7]
-|  CMD: ->echoecho<-
+---------------------------------------------> test [216]
+|  CMD: ->~<-
 |--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|  EXPECTED (BASH OUTP)  |  exit status: (126)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->bash: line 1: echoecho: command not found$<-
+| ->bash: line 1: /home/emikhayl: Is a directory$<-
 |
 |--- COMPARED STR:
-| ->echoecho: command not found<-
+| ->/home/emikhayl: Is a directory<-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
@@ -26,17 +26,17 @@
 | -><-
 |
 |--- STDERR:
-| ->minishell: echoecho: command not found$<-
+| ->minishell: ~: command not found$<-
 |
 ---------------------------------------------<
 
----------------------------------------------> test [12]
-|  CMD: ->echo -n -n hi<-
+---------------------------------------------> test [218]
+|  CMD: ->echo ~<-
 |--------------------------------
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->hi<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -47,59 +47,80 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->-n hi<-
+| ->~$<-
 |
 |--- STDERR:
 | -><-
 |
 ---------------------------------------------<
 
----------------------------------------------> test [16]
-|  CMD: ->eCho what u execute bro?
-| cat ~/echo<-
+---------------------------------------------> test [219]
+|  CMD: ->echo ~/path<-
 |--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->/home/emikhayl/path$<-
 |
 |--- STDERR:
-| ->bash: line 1: eCho: command not found$
-| cat: /home/emikhayl/echo: No such file or directory$<-
+| -><-
 |
 |--- COMPARED STR:
-| ->eCho: command not found<-
+| -><-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->~/path$<-
 |
 |--- STDERR:
-| ->minishell: eCho: command not found$
-| cat: '~/echo': No such file or directory$<-
+| -><-
 |
 ---------------------------------------------<
 
----------------------------------------------> test [18]
-|  CMD: ->unset PATH
-| EcHo how u launch this without PATH??<-
+---------------------------------------------> test [222]
+|  CMD: ->echo ~<-
 |--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (127)
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
-| ->bash: line 2: EcHo: No such file or directory$<-
+| -><-
 |
 |--- COMPARED STR:
-| ->EcHo: No such file or directory<-
+| -><-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
+| ->~$<-
+|
+|--- STDERR:
 | -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [224]
+|  CMD: ->unset HOME
+| echo ~<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->/home/emikhayl$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->~$<-
 |
 |--- STDERR:
 | -><-

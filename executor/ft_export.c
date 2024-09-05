@@ -135,7 +135,9 @@ int	ft_export_node(t_env **lst, char *cur_arg)
 int	ft_export(t_env **lst, t_ast_node *command)
 {
 	t_ast_node	*cur_arg;
+	int	err_code;
 
+	err_code = 0;
 	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
 	if (command->first_child->next_sibling->next_sibling->param == 0)
 	{
@@ -146,9 +148,9 @@ int	ft_export(t_env **lst, t_ast_node *command)
 	{
 		while (cur_arg != NULL)
 		{
-			ft_export_node(lst, cur_arg->value);
+			err_code = ft_export_node(lst, cur_arg->value);
 			cur_arg = cur_arg->next_sibling;
 		}
 	}
-	return (0);
+	return (err_code);
 }
