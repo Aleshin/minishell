@@ -1,0 +1,27 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"__bit_reference": "c",
+			"__node_handle": "c",
+			"bitset": "c",
+			"__memory": "c",
+			"limits": "c",
+			"optional": "c",
+			"ratio": "c",
+			"system_error": "c",
+			"tuple": "c",
+			"vector": "c",
+			"chrono": "c",
+			"type_traits": "c",
+			"minishell.h": "c",
+			"string.h": "c",
+			"errno.h": "c",
+			"__locale": "c"
+		}
+	}
+}

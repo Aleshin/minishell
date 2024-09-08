@@ -1,3 +1,10 @@
-Sample                      minishell                   bash
-'cat | cat | ls'            execve: Bad address         cat | cat | ls: command not found
-"ls | cat"                  execve: Bad address         ls | cat: command not found
+Sample                      minishell						bash
+'cat | cat | ls'            execve: Bad address				cat | cat | ls: command not found
+"ls | cat"                  execve: Bad address				ls | cat: command not found
+echo a"$NOTHING"$USER		asaleshin: command not found	asaleshin
+<< LIM hola | adio << LIM2	hola: command not found			adio: command not found
+hola						adio: command not found			hola: command not found
+Mundo
+LIM
+Adios
+LIM2

@@ -20,7 +20,7 @@ int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 	if ((*token_temp)->value[0] != '\0')
 		free((*token)->value);
 	(*token)->value = value;
-	(*token)->type = lexem;
+	(*token)->type = SINGLE_QUOTED_STRING;
 	free_tokens(token_temp);
 	return (0);
 }

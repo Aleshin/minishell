@@ -1,0 +1,40 @@
+=================================================================
+==52784==ERROR: AddressSanitizer: attempting double-free on 0x602000000ab0 in thread T0:
+    #0 0x10f418b69 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0xdcb69)
+    #1 0x10e9657e7 in free_tokens+0xc7 (minishell:x86_64+0x10000b7e7)
+    #2 0x10e9601fc in token_change+0x1ec (minishell:x86_64+0x1000061fc)
+    #3 0x10e960873 in tokenizer_double_quotes+0x663 (minishell:x86_64+0x100006873)
+    #4 0x10e96163b in rule_quotes+0x29b (minishell:x86_64+0x10000763b)
+    #5 0x10e95df3a in tokenizer+0x25a (minishell:x86_64+0x100003f3a)
+    #6 0x10e95dfc4 in lexer+0x24 (minishell:x86_64+0x100003fc4)
+    #7 0x10e95b90b in init_lexer+0x19b (minishell:x86_64+0x10000190b)
+    #8 0x10e95b0a4 in main+0x264 (minishell:x86_64+0x1000010a4)
+    #9 0x7ff80d023344 in start+0x774 (dyld:x86_64+0xfffffffffff5c344)
+
+0x602000000ab0 is located 0 bytes inside of 1-byte region [0x602000000ab0,0x602000000ab1)
+freed by thread T0 here:
+    #0 0x10f418b69 in wrap_free+0xa9 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0xdcb69)
+    #1 0x10e9600fd in token_change+0xed (minishell:x86_64+0x1000060fd)
+    #2 0x10e960873 in tokenizer_double_quotes+0x663 (minishell:x86_64+0x100006873)
+    #3 0x10e96163b in rule_quotes+0x29b (minishell:x86_64+0x10000763b)
+    #4 0x10e95df3a in tokenizer+0x25a (minishell:x86_64+0x100003f3a)
+    #5 0x10e95dfc4 in lexer+0x24 (minishell:x86_64+0x100003fc4)
+    #6 0x10e95b90b in init_lexer+0x19b (minishell:x86_64+0x10000190b)
+    #7 0x10e95b0a4 in main+0x264 (minishell:x86_64+0x1000010a4)
+    #8 0x7ff80d023344 in start+0x774 (dyld:x86_64+0xfffffffffff5c344)
+
+previously allocated by thread T0 here:
+    #0 0x10f418a20 in wrap_malloc+0xa0 (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0xdca20)
+    #1 0x10e95ba62 in make_token_value+0x132 (minishell:x86_64+0x100001a62)
+    #2 0x10e95bdb8 in copy_substring+0x18 (minishell:x86_64+0x100001db8)
+    #3 0x10e95c1c2 in token_add+0x1e2 (minishell:x86_64+0x1000021c2)
+    #4 0x10e961508 in rule_quotes+0x168 (minishell:x86_64+0x100007508)
+    #5 0x10e95df3a in tokenizer+0x25a (minishell:x86_64+0x100003f3a)
+    #6 0x10e95dfc4 in lexer+0x24 (minishell:x86_64+0x100003fc4)
+    #7 0x10e95b90b in init_lexer+0x19b (minishell:x86_64+0x10000190b)
+    #8 0x10e95b0a4 in main+0x264 (minishell:x86_64+0x1000010a4)
+    #9 0x7ff80d023344 in start+0x774 (dyld:x86_64+0xfffffffffff5c344)
+
+SUMMARY: AddressSanitizer: double-free (libclang_rt.asan_osx_dynamic.dylib:x86_64h+0xdcb69) in wrap_free+0xa9
+==52784==ABORTING
+./mpanic.sh: line 164: 52784 Abort trap: 6           ./minishell
