@@ -1,3 +1,4 @@
 Sample                      minishell                   bash
 'cat | cat | ls'            execve: Bad address         cat | cat | ls: command not found
 "ls | cat"                  execve: Bad address         ls | cat: command not found
+echo a"$NOTHING"$USER		

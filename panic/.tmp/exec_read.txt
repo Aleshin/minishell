@@ -1,0 +1,3 @@
+cat /etc/shells | head -c 10
+
+

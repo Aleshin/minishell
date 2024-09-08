@@ -12,8 +12,11 @@
 #include "./minishell.h"
 //Find close qoute
 
-int	end_quotes_finder(t_Input **input, int i)
+int	end_quotes_finder(t_Input **input)
 {
+	int	i;
+
+	i = (*input)->current_char;
 	while ((*input)->string[i] != '\0')
 	{
 		if (((*input)->string[i] == '\''
@@ -34,27 +37,29 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 	int	i;
 
 	i = (*input)->current_char;
-	if ((*input)->string[i] == '\'')
+	if ((*input)->string[i] == '\'' || (*input)->string[i] == '"')
+	{
+		if ((*input)->current_token_type == lexem)
+		{
+			if (token_add(token, input) == 1)
+			return (-1);
+		}
 		(*input)->current_token_type = SINGLE_QUOTED_STRING;
-	else if ((*input)->string[i] == '"')
-		(*input)->current_token_type = DOUBLE_QUOTED_STRING;
+		if ((*input)->string[i] == '"')
+			(*input)->current_token_type = DOUBLE_QUOTED_STRING;
+	}
 	else
 		return (i);
-	if ((*input)->current_token_type == lexem)
-	{
-		if (token_add(token, input) == 1)
-			return (-1);
-		(*input)->token_start = (*input)->current_char;
-	}
-	i++;
 	(*input)->token_start++;
-	return (end_quotes_finder(input, i));
+	(*input)->current_char = (*input)->token_start;
+	return (end_quotes_finder(input));
 }
 //Find quoted string and parse double quoted
 
 int	rule_quotes(t_Input **input, t_Token_node **token)
 {
 	int	i;
+	t_Token_node	*token_temp;
 
 	i = rule_quotes_helper(input, token);
 	if (i == -1)
@@ -64,9 +69,10 @@ int	rule_quotes(t_Input **input, t_Token_node **token)
 		(*input)->current_char = i;
 		if (token_add(token, input) == 1)
 			return (1);
-		(*input)->token_start++;
 		(*input)->current_char++;
-		tokenizer_double_quotes(input, token);
+		(*input)->token_start = (*input)->current_char;
+		token_temp = token_last(token);
+		tokenizer_double_quotes(input, &token_temp);
 		return (0);
 	}
 	return (1);
