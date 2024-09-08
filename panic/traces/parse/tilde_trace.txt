@@ -15,10 +15,10 @@
 | -><-
 |
 |--- STDERR:
-| ->bash: line 1: /home/saleshin: Is a directory$<-
+| ->bash: line 1: /home/emikhayl: Is a directory$<-
 |
 |--- COMPARED STR:
-| ->/home/saleshin: Is a directory<-
+| ->/home/emikhayl: Is a directory<-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
@@ -36,7 +36,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -60,7 +60,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/path$<-
+| ->/home/emikhayl/path$<-
 |
 |--- STDERR:
 | -><-
@@ -84,7 +84,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -109,7 +109,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-

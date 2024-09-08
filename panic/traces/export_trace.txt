@@ -368,7 +368,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$<-
+| ->emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -379,7 +379,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$<-
+| ->emikhayl$<-
 |
 |--- STDERR:
 | ->minishell: export: PATH=/usr/bin: not a valid identifier$<-

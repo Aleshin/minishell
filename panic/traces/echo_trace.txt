@@ -65,7 +65,7 @@
 |
 |--- STDERR:
 | ->bash: line 1: eCho: command not found$
-| cat: /home/saleshin/echo: No such file or directory$<-
+| cat: /home/emikhayl/echo: No such file or directory$<-
 |
 |--- COMPARED STR:
 | ->eCho: command not found<-

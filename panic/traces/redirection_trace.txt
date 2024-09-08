@@ -388,10 +388,10 @@
 | -><-
 |
 |--- STDERR:
-| ->bash: line 1: saleshin: No such file or directory$<-
+| ->bash: line 1: emikhayl: No such file or directory$<-
 |
 |--- COMPARED STR:
-| ->saleshin: No such file or directory<-
+| ->emikhayl: No such file or directory<-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
