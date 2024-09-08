@@ -37,7 +37,7 @@ int	ft_echo(t_ast_node *command)
 	num_args = command->first_child->next_sibling->next_sibling;
 	args = num_args->first_child;
 	no_newline = 0;
-	if (num_args != NULL && echo_n(args->value))
+	if (num_args != NULL && args && echo_n(args->value))
 	{
 		no_newline = 1;
 		args = args->next_sibling;

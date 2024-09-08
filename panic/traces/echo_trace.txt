@@ -6,6 +6,86 @@
 *                                                            *
 **************************************************************
 
+---------------------------------------------> test [1]
+|  CMD: ->echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->AddressSanitizer:DEADLYSIGNAL$
+| =================================================================$
+| ==3466837==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d746c bp 0x7ffce01b60a0 sp 0x7ffce01b6030 T0)$
+| ==3466837==The signal is caused by a READ memory access.$
+| ==3466837==Hint: address points to the zero page.$
+|     #0 0x4d746c in ft_echo (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c)$
+|     #1 0x4d63be in ft_exec_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d63be)$
+|     #2 0x4d55b3 in ft_handle_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d55b3)$
+|     #3 0x4cb690 in parse_exec (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cb690)$
+|     #4 0x4cbaa6 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cbaa6)$
+|     #5 0x7f0f4650bd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f0f4650be3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
+| $
+| AddressSanitizer can not provide additional info.$
+| SUMMARY: AddressSanitizer: SEGV (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c) in ft_echo$
+| ==3466837==ABORTING$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [6]
+|  CMD: ->echo $NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->AddressSanitizer:DEADLYSIGNAL$
+| =================================================================$
+| ==3467194==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d746c bp 0x7ffee6290d40 sp 0x7ffee6290cd0 T0)$
+| ==3467194==The signal is caused by a READ memory access.$
+| ==3467194==Hint: address points to the zero page.$
+|     #0 0x4d746c in ft_echo (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c)$
+|     #1 0x4d63be in ft_exec_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d63be)$
+|     #2 0x4d55b3 in ft_handle_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d55b3)$
+|     #3 0x4cb690 in parse_exec (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cb690)$
+|     #4 0x4cbaa6 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cbaa6)$
+|     #5 0x7f3540ef2d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f3540ef2e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
+| $
+| AddressSanitizer can not provide additional info.$
+| SUMMARY: AddressSanitizer: SEGV (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c) in ft_echo$
+| ==3467194==ABORTING$<-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [7]
 |  CMD: ->echoecho<-
 |--------------------------------
@@ -27,30 +107,6 @@
 |
 |--- STDERR:
 | ->minishell: echoecho: command not found$<-
-|
----------------------------------------------<
-
----------------------------------------------> test [12]
-|  CMD: ->echo -n -n hi<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->hi<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->-n hi<-
-|
-|--- STDERR:
-| -><-
 |
 ---------------------------------------------<
 

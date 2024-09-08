@@ -27,21 +27,21 @@
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3420735==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f57 at pc 0x0000004cdffc bp 0x7ffd33b17ac0 sp 0x7ffd33b17ab8$
+| ==3472635==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f57 at pc 0x0000004cdffc bp 0x7ffd0ccef7e0 sp 0x7ffd0ccef7d8$
 | READ of size 1 at 0x602000003f57 thread T0$
 |     #0 0x4cdffb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb)$
 |     #1 0x4ce2fa in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce2fa)$
 |     #2 0x4ce3a4 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce3a4)$
 |     #3 0x4cc1b9 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc1b9)$
 |     #4 0x4cba90 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba90)$
-|     #5 0x7f471e92bd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f471e92be3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #5 0x7f49486ffd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f49486ffe3f in __libc_start_main csu/../csu/libc-start.c:392:3$
 |     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
 | $
 | 0x602000003f57 is located 0 bytes to the right of 7-byte region [0x602000003f50,0x602000003f57)$
 | allocated by thread T0 here:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7f471ec6bbac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f4948a3fbac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb) in rule_lexem$
 | Shadow bytes around the buggy address:$
@@ -76,7 +76,7 @@
 |   Left alloca redzone:     ca$
 |   Right alloca redzone:    cb$
 |   Shadow gap:              cc$
-| ==3420735==ABORTING$<-
+| ==3472635==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -101,21 +101,21 @@
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3420776==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f59 at pc 0x0000004cdffc bp 0x7fff39083c60 sp 0x7fff39083c58$
+| ==3472676==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f59 at pc 0x0000004cdffc bp 0x7fff72395200 sp 0x7fff723951f8$
 | READ of size 1 at 0x602000003f59 thread T0$
 |     #0 0x4cdffb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb)$
 |     #1 0x4ce2fa in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce2fa)$
 |     #2 0x4ce3a4 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce3a4)$
 |     #3 0x4cc1b9 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc1b9)$
 |     #4 0x4cba90 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba90)$
-|     #5 0x7f16f8ef0d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f16f8ef0e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #5 0x7f3159da4d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f3159da4e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
 |     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
 | $
 | 0x602000003f59 is located 0 bytes to the right of 9-byte region [0x602000003f50,0x602000003f59)$
 | allocated by thread T0 here:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7f16f9230bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f315a0e4bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb) in rule_lexem$
 | Shadow bytes around the buggy address:$
@@ -150,7 +150,7 @@
 |   Left alloca redzone:     ca$
 |   Right alloca redzone:    cb$
 |   Shadow gap:              cc$
-| ==3420776==ABORTING$<-
+| ==3472676==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -226,11 +226,11 @@
 | ->opened quotes error$
 | $
 | =================================================================$
-| ==3420943==ERROR: LeakSanitizer: detected memory leaks$
+| ==3472843==ERROR: LeakSanitizer: detected memory leaks$
 | $
 | Direct leak of 20 byte(s) in 1 object(s) allocated from:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7fb093512bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7fb5ae7e9bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
 |
@@ -259,11 +259,11 @@
 | ->opened quotes error$
 | $
 | =================================================================$
-| ==3420990==ERROR: LeakSanitizer: detected memory leaks$
+| ==3472890==ERROR: LeakSanitizer: detected memory leaks$
 | $
 | Direct leak of 20 byte(s) in 1 object(s) allocated from:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7fd623c10bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f32dc917bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
 |
@@ -292,13 +292,53 @@
 | ->opened quotes error$
 | $
 | =================================================================$
-| ==3421037==ERROR: LeakSanitizer: detected memory leaks$
+| ==3472937==ERROR: LeakSanitizer: detected memory leaks$
 | $
 | Direct leak of 20 byte(s) in 1 object(s) allocated from:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7efcab030bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f083c6a2bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [131]
+|  CMD: ->echo $NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->AddressSanitizer:DEADLYSIGNAL$
+| =================================================================$
+| ==3473022==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d746c bp 0x7ffc906b4980 sp 0x7ffc906b4910 T0)$
+| ==3473022==The signal is caused by a READ memory access.$
+| ==3473022==Hint: address points to the zero page.$
+|     #0 0x4d746c in ft_echo (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c)$
+|     #1 0x4d63be in ft_exec_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d63be)$
+|     #2 0x4d55b3 in ft_handle_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d55b3)$
+|     #3 0x4cb690 in parse_exec (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cb690)$
+|     #4 0x4cbaa6 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cbaa6)$
+|     #5 0x7f49ab72dd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f49ab72de3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
+| $
+| AddressSanitizer can not provide additional info.$
+| SUMMARY: AddressSanitizer: SEGV (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c) in ft_echo$
+| ==3473022==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -372,6 +412,46 @@
 |
 |--- STDERR:
 | -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [141]
+|  CMD: ->$TMPENVVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->AddressSanitizer:DEADLYSIGNAL$
+| =================================================================$
+| ==3473537==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d746c bp 0x7ffd1940f1a0 sp 0x7ffd1940f130 T0)$
+| ==3473537==The signal is caused by a READ memory access.$
+| ==3473537==Hint: address points to the zero page.$
+|     #0 0x4d746c in ft_echo (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c)$
+|     #1 0x4d63be in ft_exec_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d63be)$
+|     #2 0x4d55b3 in ft_handle_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d55b3)$
+|     #3 0x4cb690 in parse_exec (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cb690)$
+|     #4 0x4cbaa6 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cbaa6)$
+|     #5 0x7f20a2d34d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f20a2d34e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
+| $
+| AddressSanitizer can not provide additional info.$
+| SUMMARY: AddressSanitizer: SEGV (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c) in ft_echo$
+| ==3473537==ABORTING$<-
 |
 ---------------------------------------------<
 
