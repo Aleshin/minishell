@@ -113,6 +113,7 @@ int	tokenizer(t_Input **input, t_Token_node **token)
 				if (res == -1)
 				{
 					ft_putstr_fd("opened quotes error\n", STDERR_FILENO);
+					set_exit_code(&(*input)->env, 2);
 					return (-1);
 				}
 				if (res == 1)

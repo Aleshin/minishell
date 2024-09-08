@@ -101,7 +101,10 @@ int	expander(t_Input **input, t_Token_node **token_temp)
 		if (expand_heredoc(input, token_temp) == 1)
 			return (1);
 		if (syntax_checker(token_temp) == 1)
+		{
+			set_exit_code(&(*input)->env, 2);
 			return (1);
+		}
 		if ((*token_temp)->type == lexem && (*token_temp)->value[0] == '\0')
 			delete_token(token_temp);
 		else if (*token_temp != NULL)
