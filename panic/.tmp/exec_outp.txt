@@ -1,2 +1,0 @@
-# List of exit
-LST EXIT STATUS IS 0

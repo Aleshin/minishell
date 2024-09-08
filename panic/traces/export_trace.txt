@@ -280,7 +280,7 @@
 | ->declare -x TEST=value$<-
 |
 |--- STDERR:
-| ->minishell: export: EST+=" added value: not a valid identifier$<-
+| ->minishell: export: TEST+= added value: not a valid identifier$<-
 |
 ---------------------------------------------<
 
@@ -368,7 +368,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->emikhayl$<-
+| ->saleshin$<-
 |
 |--- STDERR:
 | -><-
@@ -379,10 +379,10 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->emikhayl$<-
+| ->saleshin$<-
 |
 |--- STDERR:
-| ->minishell: export: ATH='/usr/bin: not a valid identifier$<-
+| ->minishell: export: PATH=/usr/bin: not a valid identifier$<-
 |
 ---------------------------------------------<
 

@@ -13,7 +13,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl$<-
+| ->/home/saleshin$<-
 |
 |--- STDERR:
 | -><-
@@ -24,7 +24,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl/Desktop/minishell/panic$<-
+| ->/home/saleshin/Projects/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -232,7 +232,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl$<-
+| ->/home/saleshin$<-
 |
 |--- STDERR:
 | -><-
@@ -243,7 +243,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl/Desktop/minishell/panic$<-
+| ->/home/saleshin/Projects/minishell/panic$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-
@@ -258,7 +258,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl$<-
+| ->/home/saleshin$<-
 |
 |--- STDERR:
 | -><-
@@ -269,7 +269,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/emikhayl/Desktop/minishell$<-
+| ->/home/saleshin/Projects/minishell$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-
