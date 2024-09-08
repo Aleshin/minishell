@@ -48,6 +48,5 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 		join_next_token(&token_temp);
 	token_change(token, &token_temp);
 	free(input_substring);
-	printf("token type after double quotes tokenizer: %d\n", (*token)->type);
 	return (0);
 }

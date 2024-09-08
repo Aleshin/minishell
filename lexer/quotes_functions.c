@@ -42,7 +42,7 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 		if ((*input)->current_token_type == lexem)
 		{
 			if (token_add(token, input) == 1)
-			return (-1);
+				return (-1);
 		}
 		(*input)->current_token_type = SINGLE_QUOTED_STRING;
 		if ((*input)->string[i] == '"')
@@ -50,23 +50,25 @@ int	rule_quotes_helper(t_Input **input, t_Token_node **token)
 	}
 	else
 		return (i);
-	(*input)->token_start++;
-	(*input)->current_char = (*input)->token_start;
+	(*input)->current_char++;
 	return (end_quotes_finder(input));
 }
 //Find quoted string and parse double quoted
 
 int	rule_quotes(t_Input **input, t_Token_node **token)
 {
-	int	i;
+	int				i;
 	t_Token_node	*token_temp;
 
 	i = rule_quotes_helper(input, token);
 	if (i == -1)
 		return (-1);
-	if (i > (*input)->current_char)
+	if (i > (*input)->token_start
+		&& ((*input)->current_token_type == DOUBLE_QUOTED_STRING
+			|| (*input)->current_token_type == SINGLE_QUOTED_STRING))
 	{
 		(*input)->current_char = i;
+		(*input)->token_start++;
 		if (token_add(token, input) == 1)
 			return (1);
 		(*input)->current_char++;

@@ -44,7 +44,7 @@ int	parse_exec(t_main *main_str)
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	//print_ast_tree(main_str->ast_root, 0);
+//	print_ast_tree(main_str->ast_root, 0);
 	if (main_str->ast_root->first_child == NULL)
 	{
 	free_all(&main_str->ast_root, &main_str->token,
@@ -92,3 +92,4 @@ int	main(int argc, char **argv, char **envp)
 // ls -l | sort -k 5 -n | tail -10
 // cat minishell.c | tr -s ' ' '\n' | sort | uniq -c | sort -nr | head -10
 // ps aux | awk '{print $1}' | sort | uniq -c | sort -nr
+// echo $HOME/$USER'$USER'$NOTHING"$USER"

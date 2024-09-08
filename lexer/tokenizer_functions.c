@@ -100,15 +100,25 @@ int	rule_lexem(t_Input **input, t_Token_node **token)
 
 int	tokenizer(t_Input **input, t_Token_node **token)
 {
+	int	res;
+
 	if ((*input)->string[0] == '\0')
 		return (-1);
 	while ((*input)->string[(*input)->current_char] != '\0')
 	{
 		if (rule_terminals(input, token))
 			if (rule_ws(input, token))
-				if (rule_quotes(input, token))
+			{
+				res = rule_quotes(input, token);
+				if (res == -1)
+				{
+					ft_putstr_fd("opened quotes error\n", STDERR_FILENO);
+					return (-1);
+				}
+				if (res == 1)
 					if (rule_var(input, token))
 						rule_lexem(input, token);
+			}
 	}
 	return (0);
 }
