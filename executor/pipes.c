@@ -13,85 +13,140 @@
 #include "./minishell.h"
 
 //command is ast_tree->first_child
+
 void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	t_env **env_list)
 {
 	int	status;
-	int	original_stdout;
-	int	original_stdin;
 	int	input_fd;
 	int	output_fd;
 
 	status = 0;
-	original_stdout = dup(STDOUT_FILENO);
-	if (original_stdout == -1)
-	{
-		perror("dup");
-		exit(EXIT_FAILURE);
-	}
-	original_stdin = dup(STDIN_FILENO);
-	if (original_stdin == -1)
-	{
-		perror("dup");
-		exit(EXIT_FAILURE);
-	}
 	input_fd = input_redir(command);
 	output_fd = output_redir(command);
-    // Use input_fd as fd_in if it's not -3
+
+	// Use input_fd as fd_in if it's not -3
 	if (input_fd != -3)
 		fd_in = input_fd;
-    // Redirect input if fd_in is valid
+
+	// Redirect input if fd_in is valid
 	if (fd_in != 0)
 		handle_dup_and_close(fd_in, STDIN_FILENO);
-    // Setup output redirection or pipe
-	if (command && command->next_sibling != NULL)
+
+	// Handle output redirection or pipe
+	if (output_fd != -3)
 	{
-		// Duplicate write end to stdout
+		// Redirect output to the file specified in output_fd
+		handle_dup_and_close(output_fd, STDOUT_FILENO);
+	}
+	else if (command && command->next_sibling != NULL)
+	{
+		// If there is no output redirection, set up the pipe
 		handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
 		close(pipefds[READ_END]); // Close unused read end
 	}
-	else
-	{
-		// This is the last command in the pipeline
-        // Redirect output to the file specified in output_fd
-		if (output_fd != -3)
-		{
-			handle_dup_and_close(output_fd, STDOUT_FILENO);
-		}
-	}
+
 	// Execute the command (external or builtin)
-	//TO DO HERE TO CHECK IF THE COMMAND IS ABSOLUTE PATH
-	//command is ast_tree.first_child is command 1
-	//command->first_child->next_sibling is EXEC
-	    // Ensure command and its members are valid before use
-    if (command->first_child && command->first_child->next_sibling) 
+	if (command->first_child && command->first_child->next_sibling) 
 	{
         if (is_builtin(command)) 
 		{
             status = ft_exec_builtin(command, env_list);
         }
 		else
-		// (command->first_child->next_sibling->value != NULL && 
-        //            (command->first_child->next_sibling->value[0] != '\0' || 
-        //             command->first_child->param != 0)) 
 		{
             status = ft_exec_command(command, env_list);
         }
-    } 
-    // Restore original stdin and stdout file descriptors
-	handle_dup_and_close(original_stdout, STDOUT_FILENO);
-	handle_dup_and_close(original_stdin, STDIN_FILENO);
-	//printf ("Last child status is %d\n", status);
+    }
+
+	// Handle exit status and terminate child process
 	if (status == 13 || status == 8)
 		status = 126;
 	else if (status == 2 || status == 14)
-	{
 		status = 127;
-	}
-		
+	
 	exit(status);
-    //return (status); // Ensure the child process exits
 }
+
+// void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
+// 	t_env **env_list)
+// {
+// 	int	status;
+// 	// int	original_stdout;
+// 	// int	original_stdin;
+// 	int	input_fd;
+// 	int	output_fd;
+
+// 	status = 0;
+// 	// original_stdout = dup(STDOUT_FILENO);
+// 	// if (original_stdout == -1)
+// 	// {
+// 	// 	perror("dup");
+// 	// 	exit(EXIT_FAILURE);
+// 	// }
+// 	// original_stdin = dup(STDIN_FILENO);
+// 	// if (original_stdin == -1)
+// 	// {
+// 	// 	perror("dup");
+// 	// 	exit(EXIT_FAILURE);
+// 	// }
+// 	input_fd = input_redir(command);
+// 	output_fd = output_redir(command);
+//     // Use input_fd as fd_in if it's not -3
+// 	if (input_fd != -3)
+// 		fd_in = input_fd;
+//     // Redirect input if fd_in is valid
+// 	if (fd_in != 0)
+// 		handle_dup_and_close(fd_in, STDIN_FILENO);
+//     // Setup output redirection or pipe
+// 	if (command && command->next_sibling != NULL)
+// 	{
+// 		// Duplicate write end to stdout
+// 		handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
+// 		close(pipefds[READ_END]); // Close unused read end
+// 	}
+// 	else
+// 	{
+// 		// This is the last command in the pipeline
+//         // Redirect output to the file specified in output_fd
+// 		if (output_fd != -3)
+// 		{
+// 			handle_dup_and_close(output_fd, STDOUT_FILENO);
+// 		}
+// 	}
+// 	// Execute the command (external or builtin)
+// 	//TO DO HERE TO CHECK IF THE COMMAND IS ABSOLUTE PATH
+// 	//command is ast_tree.first_child is command 1
+// 	//command->first_child->next_sibling is EXEC
+// 	    // Ensure command and its members are valid before use
+//     if (command->first_child && command->first_child->next_sibling) 
+// 	{
+//         if (is_builtin(command)) 
+// 		{
+//             status = ft_exec_builtin(command, env_list);
+//         }
+// 		else
+// 		// (command->first_child->next_sibling->value != NULL && 
+//         //            (command->first_child->next_sibling->value[0] != '\0' || 
+//         //             command->first_child->param != 0)) 
+// 		{
+//             status = ft_exec_command(command, env_list);
+//         }
+//     } 
+//     // Restore original stdin and stdout file descriptors
+// 	//handle_dup_and_close(original_stdout, STDOUT_FILENO);
+// 	//handle_dup_and_close(original_stdin, STDIN_FILENO);
+// 	//printf ("Last child status is %d\n", status);
+// 	if (status == 13 || status == 8)
+// 		status = 126;
+// 	else if (status == 2 || status == 14)
+// 	{
+// 		status = 127;
+// 	}
+		
+// 	exit(status);
+//     //return (status); // Ensure the child process exits
+// }
 
 //returns 0 if no builtin
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
