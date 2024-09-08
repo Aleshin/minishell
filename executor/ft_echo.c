@@ -37,15 +37,16 @@ int	ft_echo(t_ast_node *command)
 	num_args = command->first_child->next_sibling->next_sibling;
 	args = num_args->first_child;
 	no_newline = 0;
-	if (num_args != NULL && num_args->param > 0 && echo_n(args->value))
+	if (num_args != NULL && echo_n(args->value))
 	{
 		no_newline = 1;
 		args = args->next_sibling;
 	}
 	while (args != NULL)
 	{
-		ft_putstr_fd(args->value, STDOUT_FILENO);
-		if (args->next_sibling != NULL)
+		if (!echo_n(args->value) || no_newline == 0)
+			ft_putstr_fd(args->value, STDOUT_FILENO);
+		if (args->next_sibling != NULL && no_newline == 0)
 			ft_putstr_fd(" ", STDOUT_FILENO);
 		args = args->next_sibling;
 	}

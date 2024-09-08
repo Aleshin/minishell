@@ -23,7 +23,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->Command '' not found$<-
 |
 |--- STDERR:
 | -><-

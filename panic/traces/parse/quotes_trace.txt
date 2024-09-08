@@ -308,13 +308,22 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3423943==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 17 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7f372e8bdbac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 17 byte(s) leaked in 1 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -332,13 +341,22 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3423985==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 17 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7fccb6329bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 17 byte(s) leaked in 1 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -356,13 +374,22 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3424027==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 17 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7f928af09bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 17 byte(s) leaked in 1 allocation(s).$<-
 |
 ---------------------------------------------<
 

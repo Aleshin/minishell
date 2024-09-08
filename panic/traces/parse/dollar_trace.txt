@@ -27,23 +27,23 @@
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3348259==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f57 at pc 0x0000004cdfdc bp 0x7fff82c9a8b0 sp 0x7fff82c9a8a8$
+| ==3420735==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f57 at pc 0x0000004cdffc bp 0x7ffd33b17ac0 sp 0x7ffd33b17ab8$
 | READ of size 1 at 0x602000003f57 thread T0$
-|     #0 0x4cdfdb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdfdb)$
-|     #1 0x4ce29a in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce29a)$
-|     #2 0x4ce344 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce344)$
-|     #3 0x4cc199 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc199)$
-|     #4 0x4cba70 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba70)$
-|     #5 0x7f027d710d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f027d710e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #0 0x4cdffb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb)$
+|     #1 0x4ce2fa in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce2fa)$
+|     #2 0x4ce3a4 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce3a4)$
+|     #3 0x4cc1b9 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc1b9)$
+|     #4 0x4cba90 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba90)$
+|     #5 0x7f471e92bd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f471e92be3f in __libc_start_main csu/../csu/libc-start.c:392:3$
 |     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
 | $
 | 0x602000003f57 is located 0 bytes to the right of 7-byte region [0x602000003f50,0x602000003f57)$
 | allocated by thread T0 here:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7f027da50bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f471ec6bbac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
-| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdfdb) in rule_lexem$
+| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb) in rule_lexem$
 | Shadow bytes around the buggy address:$
 |   0x0c047fff8790: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa$
 |   0x0c047fff87a0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd$
@@ -76,7 +76,7 @@
 |   Left alloca redzone:     ca$
 |   Right alloca redzone:    cb$
 |   Shadow gap:              cc$
-| ==3348259==ABORTING$<-
+| ==3420735==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -101,23 +101,23 @@
 |
 |--- STDERR:
 | ->=================================================================$
-| ==3348300==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f59 at pc 0x0000004cdfdc bp 0x7ffd91346270 sp 0x7ffd91346268$
+| ==3420776==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003f59 at pc 0x0000004cdffc bp 0x7fff39083c60 sp 0x7fff39083c58$
 | READ of size 1 at 0x602000003f59 thread T0$
-|     #0 0x4cdfdb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdfdb)$
-|     #1 0x4ce29a in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce29a)$
-|     #2 0x4ce344 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce344)$
-|     #3 0x4cc199 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc199)$
-|     #4 0x4cba70 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba70)$
-|     #5 0x7f064c7f2d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #6 0x7f064c7f2e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
+|     #0 0x4cdffb in rule_lexem (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb)$
+|     #1 0x4ce2fa in tokenizer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce2fa)$
+|     #2 0x4ce3a4 in lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4ce3a4)$
+|     #3 0x4cc1b9 in init_lexer (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cc1b9)$
+|     #4 0x4cba90 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cba90)$
+|     #5 0x7f16f8ef0d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
+|     #6 0x7f16f8ef0e3f in __libc_start_main csu/../csu/libc-start.c:392:3$
 |     #7 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
 | $
 | 0x602000003f59 is located 0 bytes to the right of 9-byte region [0x602000003f50,0x602000003f59)$
 | allocated by thread T0 here:$
 |     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7f064cb32bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+|     #1 0x7f16f9230bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
-| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdfdb) in rule_lexem$
+| SUMMARY: AddressSanitizer: heap-buffer-overflow (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cdffb) in rule_lexem$
 | Shadow bytes around the buggy address:$
 |   0x0c047fff8790: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa$
 |   0x0c047fff87a0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd$
@@ -150,7 +150,7 @@
 |   Left alloca redzone:     ca$
 |   Right alloca redzone:    cb$
 |   Shadow gap:              cc$
-| ==3348300==ABORTING$<-
+| ==3420776==ABORTING$<-
 |
 ---------------------------------------------<
 
@@ -217,13 +217,22 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3420943==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 20 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7fb093512bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -241,13 +250,22 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3420990==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 20 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7fd623c10bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
 |
 ---------------------------------------------<
 
@@ -265,13 +283,95 @@
 |--- COMPARED STR:
 | -><-
 |--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
 | -><-
 |
 |--- STDERR:
-| ->opened quotes error$<-
+| ->opened quotes error$
+| $
+| =================================================================$
+| ==3421037==ERROR: LeakSanitizer: detected memory leaks$
+| $
+| Direct leak of 20 byte(s) in 1 object(s) allocated from:$
+|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
+|     #1 0x7efcab030bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
+| $
+| SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [138]
+|  CMD: ->$NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->Command '' not found$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [139]
+|  CMD: ->$NONEXIST $NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->Command '' not found$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [140]
+|  CMD: ->export TMPENVVAR
+| $TMPENVVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->Command '' not found$<-
+|
+|--- STDERR:
+| -><-
 |
 ---------------------------------------------<
 
