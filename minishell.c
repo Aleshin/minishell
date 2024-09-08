@@ -79,6 +79,11 @@ int	main(int argc, char **argv, char **envp)
 			write (1, "exit\n", 5);
 			return (0);
 		}
+		if (g_exit_code > 0)
+		{
+			set_exit_code(&main_str.environment_list, 128 + g_exit_code);
+			g_exit_code = 0;
+		}
 		err_no = init_lexer(&main_str);
 		if (err_no == 0)
 			parse_exec(&main_str);

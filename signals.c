@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
+volatile sig_atomic_t	g_exit_code;
+
 // Ctrl-C handler
 void sigint_handler(int signum)
 {
@@ -20,6 +22,7 @@ void sigint_handler(int signum)
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
+	g_exit_code = signum;
 }
 
 // Ctrl-\ handler
