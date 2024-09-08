@@ -1,3 +1,27 @@
+---------------------------------------------> test [1]
+|  CMD: ->echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [2]
 |  CMD: ->echo ñ<-
 |--------------------------------
@@ -88,6 +112,30 @@
 |
 |--- STDOUT:
 | ->/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [6]
+|  CMD: ->echo $NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
 |
 |--- STDERR:
 | -><-
@@ -802,6 +850,30 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [131]
+|  CMD: ->echo $NONEXIST<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [132]
 |  CMD: ->echo $USER$PATH$PWD<-
 |--------------------------------
@@ -940,6 +1012,30 @@
 |
 |--- STDOUT:
 | ->emikhayl$PATH/home/emikhayl/Desktop/minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [141]
+|  CMD: ->$TMPENVVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
 |
 |--- STDERR:
 | -><-
@@ -1588,6 +1684,54 @@
 |
 |--- STDOUT:
 | ->hithi$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [182]
+|  CMD: ->""echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [184]
+|  CMD: ->''echo<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
 |
 |--- STDERR:
 | -><-
@@ -2268,6 +2412,30 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [252]
+|  CMD: ->echo | /bin/cat<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [253]
 |  CMD: ->echo hi | /bin/cat<-
 |--------------------------------
@@ -2538,20 +2706,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2562,20 +2730,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2588,20 +2756,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2612,20 +2780,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2638,20 +2806,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$$$$
+| ->total 1468$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$$$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$$$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$$$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$$$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$$$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$$$$<-
 |
 |--- STDERR:
 | -><-
@@ -2662,20 +2830,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       0 Sep  8 20:54 >$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 >>$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 19:48 &4$$$$$
+| ->total 1468$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:54 cleaner$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:54 echo$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 19:48 file2$$$$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:54 minishell$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$$$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$$$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$$$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:54 traces$$$$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$$$$<-
 |
 |--- STDERR:
 | -><-

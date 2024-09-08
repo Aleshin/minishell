@@ -205,6 +205,7 @@ int	ft_exit_status(pid_t last_pid)
 		}
 		else
 		{
+            //here should retirn 128+signal with WTERMSIG
             //printf("Last command did not exit normally\n");
 			return (-1); // Indicate abnormal termination
 		}

@@ -10,3 +10,7 @@ Adios
 LIM2
 echo $                      heap-buffer-overflow            $
 usr/bin/echo hello with unset path err 127 no err msg       newline
+
+$nothign""Adios"$NADA"Holaa $nothign""Adios"$NADA"Hola
+
+git Max https://github.com/Ziermax/minishell/blob/master/sources/executor_utils.c

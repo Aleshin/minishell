@@ -6,47 +6,6 @@
 *                                                            *
 **************************************************************
 
----------------------------------------------> test [252]
-|  CMD: ->echo | /bin/cat<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| ->AddressSanitizer:DEADLYSIGNAL$
-| =================================================================$
-| ==3478305==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000008 (pc 0x0000004d746c bp 0x7ffe12f38610 sp 0x7ffe12f385a0 T0)$
-| ==3478305==The signal is caused by a READ memory access.$
-| ==3478305==Hint: address points to the zero page.$
-|     #0 0x4d746c in ft_echo (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c)$
-|     #1 0x4d63be in ft_exec_builtin (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d63be)$
-|     #2 0x4d53e5 in ft_child_process (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d53e5)$
-|     #3 0x4d5aac in ft_executor (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d5aac)$
-|     #4 0x4cb6dc in parse_exec (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cb6dc)$
-|     #5 0x4cbaa6 in main (/home/emikhayl/Desktop/minishell/panic/minishell+0x4cbaa6)$
-|     #6 0x7f4774d9bd8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16$
-|     #7 0x7f4774d9be3f in __libc_start_main csu/../csu/libc-start.c:392:3$
-|     #8 0x41f3c4 in _start (/home/emikhayl/Desktop/minishell/panic/minishell+0x41f3c4)$
-| $
-| AddressSanitizer can not provide additional info.$
-| SUMMARY: AddressSanitizer: SEGV (/home/emikhayl/Desktop/minishell/panic/minishell+0x4d746c) in ft_echo$
-| ==3478305==ABORTING$<-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [266]
 |  CMD: ->echo hola | asdf<-
 |--------------------------------
