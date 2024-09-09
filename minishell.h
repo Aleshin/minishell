@@ -79,6 +79,7 @@ typedef struct t_list
 {
 	char			*name;
 	char			*value;
+	int				to_env;
 	struct t_list	*next;
 }	t_env;
 

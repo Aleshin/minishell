@@ -75,7 +75,20 @@ char	**linked_list_to_envp(t_env **env)
 	current = *env;
 	while (current != NULL)
 	{
-		env_string = ft_strjoin(current->name, "=", current->value);
+		
+		if ((*env)->to_env == 1) //check this condition!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		{
+			printf("HERE 1 %d\n", (*env)->to_env);
+			env_string = ft_strjoin(current->name, "=", current->value);
+		}
+			
+		else if ((*env)->to_env == 0)
+		{
+			printf("HERE 2\n");
+			env_string = ft_strjoin(current->name, "", current->value);
+		}
+			
+		
 		if (env_string == NULL)
 			return (free_arr(arr_of_words), perror("malloc"), NULL);
 		arr_of_words[i++] = env_string;

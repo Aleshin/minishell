@@ -33,6 +33,7 @@ t_env	*ft_lstnew_env(char *name, char *value)
 		free(new);
 		return (NULL);
 	}
+	new->to_env = 1;//initialize
 	new->next = NULL;
 	return (new);
 }
@@ -89,7 +90,31 @@ char	**get_name_val(char *cur_arg)
 
 	name_val = ft_split_global(cur_arg, '=');
 	if (!name_val)
-		return (NULL);
+	  {
+        // Allocate memory for name_val (3 pointers)
+        name_val = (char **)malloc(3 * sizeof(char *));
+        if (!name_val)
+            return (NULL);  // Return NULL if memory allocation fails
+
+        // Assign values
+        name_val[0] = ft_strdup(cur_arg);  // Duplicate cur_arg
+        if (!name_val[0])
+		{
+            free(name_val);
+            return (NULL);  // Return NULL if strdup fails
+        }
+
+        name_val[1] = NULL;  // Duplicate "NO"
+        // if (!name_val[1]) {
+        //     free(name_val[0]);
+        //     free(name_val);
+        //     return (NULL);  // Return NULL if strdup fails
+        // }
+        name_val[2] = NULL;  // Null-terminate the array
+		return(name_val);
+    }
+
+
 	if (name_val[1] == NULL)
 	{
 		name_val[1] = ft_strdup("");
@@ -118,6 +143,12 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 	new_val = get_name_val(cur_arg_val);
 	if (new_val == NULL)
 		return (1);
+	if (new_val[1] == NULL)
+	{
+		(*lst)->to_env = 0;///////////////////////////////////KOSTIL
+		new_val[1] = ft_strdup("");
+	}
+
 	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
 	{
 		new_node = ft_lstnew_env(new_val[0], new_val[1]);
