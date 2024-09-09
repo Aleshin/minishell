@@ -19,7 +19,7 @@ int	print_env(t_env **env)
 	curr = *env;
 	while (curr != NULL)
 	{
-		if (ft_strcmp(curr->name, "?") != 0)
+		if (ft_strcmp(curr->name, "?") != 0) //maybe no need in last check
 		{
 			printf("%s=%s\n", curr->name, curr->value);
 		}

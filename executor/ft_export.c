@@ -28,6 +28,7 @@ t_env	*ft_lstnew_env(char *name, char *value)
 	new->value = ft_strdup(value);
 	if (new->value == NULL)
 	{
+		//new->value = ft_strdup("");
 		free(new->name);
 		free(new);
 		return (NULL);
@@ -103,18 +104,18 @@ char	**get_name_val(char *cur_arg)
 	return (name_val);
 }
 
-int	ft_export_node(t_env **lst, char *cur_arg)
+int	ft_export_node(t_env **lst, char *cur_arg_val)
 {
 	t_env	*new_node;
 	char	**new_val;
 
-	if (check_varname(cur_arg, 1) == 0)
+	if (check_varname(cur_arg_val, 1) == 0)
 	{
-		ft_env_error("export", cur_arg, "not a valid identifier");
+		ft_env_error("export", cur_arg_val, "not a valid identifier");
 		return (1);
 	}
 	new_node = NULL;
-	new_val = get_name_val(cur_arg);
+	new_val = get_name_val(cur_arg_val);
 	if (new_val == NULL)
 		return (1);
 	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
@@ -139,7 +140,7 @@ int	ft_export(t_env **lst, t_ast_node *command)
 
 	err_code = 0;
 	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-	if (command->first_child->next_sibling->next_sibling->param == 0)
+	if (command->first_child->next_sibling->next_sibling->param == 0) //no arg
 	{
 		ft_print_sorted(*lst);
 		return (0);
@@ -148,6 +149,7 @@ int	ft_export(t_env **lst, t_ast_node *command)
 	{
 		while (cur_arg != NULL)
 		{
+			//printf("value is %s\n", cur_arg->value);
 			err_code = ft_export_node(lst, cur_arg->value);
 			cur_arg = cur_arg->next_sibling;
 		}

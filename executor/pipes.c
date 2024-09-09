@@ -203,14 +203,15 @@ int	ft_exit_status(pid_t last_pid)
 			exit_status = WEXITSTATUS(status);
 			return (exit_status);
 		}
-		else
+		else if (WTERMSIG(status))
 		{
             //here should retirn 128+signal with WTERMSIG
+            exit_status = 128 + WTERMSIG(status);
             //printf("Last command did not exit normally\n");
-			return (-1); // Indicate abnormal termination
+			return (exit_status); // Indicate abnormal termination
 		}
 	}
-	return (-1); // Return -1 if there was no child process,
+	return (0); // Return -1 if there was no child process,
 }
 
 

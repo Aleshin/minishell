@@ -42,7 +42,7 @@ int	ft_print_sorted(t_env *lst)
 	int		len;
 	int		i;
 
-	i = 0;
+	i = 1; //to not to print ?
 	if (!lst)
 		return (1);
 	arr = linked_list_to_envp(&lst);
@@ -50,13 +50,11 @@ int	ft_print_sorted(t_env *lst)
 		return (0);
 	len = list_len(lst);
 	bubble_sort(arr, len);
+
 	while (i < len)
 	{
-		if (arr[i][0] != '$')
-		{
-			ft_putstr_fd("declare -x ", STDOUT_FILENO);
-			ft_putendl_fd(arr[i], STDOUT_FILENO);
-		}
+		ft_putstr_fd("declare -x ", STDOUT_FILENO);
+		ft_putendl_fd(&arr[i][0], STDOUT_FILENO);
 		i++;
 	}
 	free_arr(arr);
