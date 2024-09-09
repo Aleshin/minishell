@@ -358,6 +358,779 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [36]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [37]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [38]
+|  CMD: ->env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [40]
+|  CMD: ->export TESTVAR=
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [41]
+|  CMD: ->export TESTVAR=""
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [42]
+|  CMD: ->export TESTVAR="value"
+| env | grep TESTVAR<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->TESTVAR=value$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [43]
+|  CMD: ->exit<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [53]
+|  CMD: ->exit 0<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [54]
+|  CMD: ->exit +0<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [56]
+|  CMD: ->exit -0<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [58]
+|  CMD: ->exit 1<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [59]
+|  CMD: ->exit +1<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [61]
+|  CMD: ->exit -1<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [63]
+|  CMD: ->exit ' 3'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (3)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (3)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [65]
+|  CMD: ->exit 255<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [66]
+|  CMD: ->exit -255<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [67]
+|  CMD: ->exit 256<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [68]
+|  CMD: ->exit -256<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [69]
+|  CMD: ->exit 2147483647<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [70]
+|  CMD: ->exit 2147483648<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [71]
+|  CMD: ->exit -2147483648<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [72]
+|  CMD: ->exit -2147483649<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [73]
+|  CMD: ->exit 4294967295<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [74]
+|  CMD: ->exit 4294967296<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [75]
+|  CMD: ->exit -4294967296<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [76]
+|  CMD: ->exit -4294967297<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [77]
+|  CMD: ->exit 9223372036854775807<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (255)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [79]
+|  CMD: ->exit -9223372036854775808<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [86]
+|  CMD: ->exit 0000000000000000000000<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [87]
+|  CMD: ->exit 0000000000000000000001<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [89]
+|  CMD: ->exit 1 2 3
+| echo should not exit<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->should not exit$<-
+|
+|--- STDERR:
+| ->bash: line 1: exit: too many arguments$<-
+|
+|--- COMPARED STR:
+| ->exit: too many arguments<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->should not exit$<-
+|
+|--- STDERR:
+| ->exit$
+| minishell: exit: too many arguments$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [92]
+|  CMD: ->exit 42 | cat<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [93]
 |  CMD: ->Exit 1
 | echo is not a buildin!<-
@@ -380,6 +1153,56 @@
 |
 |--- STDERR:
 | ->minishell: Exit: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [95]
+|  CMD: ->aaa
+| exit 1<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->bash: line 1: aaa: command not found$<-
+|
+|--- COMPARED STR:
+| ->aaa: command not found<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->minishell: aaa: command not found$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [97]
+|  CMD: ->cat file
+| exit 1<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: file: Permission denied$<-
+|
+|--- COMPARED STR:
+| ->mission denied<-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| ->cat: file: Permission denied$<-
 |
 ---------------------------------------------<
 
@@ -631,6 +1454,54 @@
 |
 ---------------------------------------------<
 
+---------------------------------------------> test [122]
+|  CMD: ->echo $<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [123]
+|  CMD: ->echo hi$<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->hi$$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
 ---------------------------------------------> test [124]
 |  CMD: ->echo '$ '<-
 |--------------------------------
@@ -649,6 +1520,54 @@
 |
 |--- STDOUT:
 | ->$ $<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [125]
+|  CMD: ->echo $/<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$/$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$/$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [126]
+|  CMD: ->echo "'$'"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
 |
 |--- STDERR:
 | -><-
@@ -1106,6 +2025,30 @@
 |
 |--- STDOUT:
 | ->~ups$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [156]
+|  CMD: ->echo "'$'"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->'$'$<-
 |
 |--- STDERR:
 | -><-
@@ -2608,20 +3551,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2632,20 +3575,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2658,20 +3601,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2682,20 +3625,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$
+| ->total 1468$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -2708,20 +3651,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$$$$
+| ->total 1468$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$$$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$$$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$$$$<-
 |
 |--- STDERR:
 | -><-
@@ -2732,20 +3675,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1464$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep  8 16:50 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      17 Sep  8 16:50 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep  5 19:44 &4$$$$$
+| ->total 1468$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 01:40 >$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      24 Sep 10 01:40 >>$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:37 &4$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep  8 16:49 cleaner$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 01:40 cleaner$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep  8 16:49 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep  5 19:44 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1383488 Sep  8 16:49 minishell$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 01:40 echo$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:37 file2$$$$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 01:40 minishell$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep  8 16:50 traces$$$$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 01:40 traces$$$$$<-
 |
 |--- STDERR:
 | -><-
