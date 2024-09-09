@@ -16,7 +16,7 @@ int	rule_var_word(t_Input **input)
 {
 	int	i;
 
-	i = (*input)->token_start;
+	i = (*input)->current_char;
 	while ((*input)->string[i] != '\0')
 	{
 		if (((*input)->string[i] >= '0' && (*input)->string[i] <= '9')
@@ -46,15 +46,19 @@ int	detect_var(t_Input **input, t_Token_node **token)
 			if (token_add(token, input) == 1)
 				return (1);
 		(*input)->current_char++;
-		(*input)->token_start = (*input)->current_char;
 		rule_var_word(input);
-		if ((*input)->token_start != (*input)->current_char)
+		if ((*input)->current_char > (*input)->token_start + 1)
 		{
+			(*input)->token_start++;
 			(*input)->current_token_type = var;
 			if (token_add(token, input) == 1)
 				return (1);
 			(*input)->token_start = (*input)->current_char;
 			return (0);
+		} else
+		{
+			(*input)->current_token_type = lexem;
+			(*input)->current_char--;
 		}
 	}
 	return (1);
@@ -100,3 +104,38 @@ int	rule_var(t_Input **input, t_Token_node **token)
 	token_temp->type = SINGLE_QUOTED_STRING;
 	return (0);
 }
+
+/* Version with no var no token
+
+if there is no var remove var token
+
+int	expand_var(t_Input *input, t_Token_node **token)
+{
+	char	*value_temp;
+
+	value_temp = (*token)->value;
+	if (ft_getenv(input->env, (*token)->value) == NULL)
+	{
+		delete_token(token);
+	}
+	else
+	{
+		(*token)->value = ft_strdup(ft_getenv(input->env, (*token)->value));
+		(*token)->type = SINGLE_QUOTED_STRING;
+		free(value_temp);
+	}
+	return (0);
+
+int	rule_var(t_Input **input, t_Token_node **token)
+{
+	t_Token_node	*token_temp;
+
+	if (detect_var(input, token))
+		return (1);
+	token_temp = token_last(token);
+	expand_var(*input, &token_temp);
+	if (!token_temp)
+		*token = NULL;
+	return (0);
+}
+*/
