@@ -73,7 +73,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		main_str.buf = readline("$> ");
-		if (main_str.buf == NULL || ft_strcmp(main_str.buf, "exit") == 0)
+		if (main_str.buf == NULL)
 		{
 			free(main_str.buf);
 			lst_dealloc(&main_str.environment_list);

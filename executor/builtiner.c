@@ -74,7 +74,8 @@ int	is_builtin(t_ast_node *command)
         || ft_strcmp(exec, "pwd") == 0
         || ft_strcmp(exec, "export") == 0
         || ft_strcmp(exec, "unset") == 0
-        || ft_strcmp(exec, "env") == 0)
+        || ft_strcmp(exec, "env") == 0
+        || ft_strcmp(exec, "exit") == 0)
     {
         return (1); // Command is a built-in
     }
@@ -109,6 +110,8 @@ int	ft_exec_builtin(t_ast_node *command, t_env **env_list)
 		exit_code = ft_unset(env_list, command);
 	else if (ft_strcmp(exec, "env") == 0)
 		exit_code = print_env(env_list);
+	else if (ft_strcmp(exec, "exit") == 0)
+		exit_code = ft_exit(env_list, command);
 	return (exit_code);
 }
 

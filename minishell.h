@@ -207,7 +207,7 @@ int				ft_echo(t_ast_node *command);
 t_env			*ft_lstnew_env(char *name, char *value);
 int				ft_unset(t_env **list, t_ast_node *command);
 int				ft_export_node(t_env **lst, char *cur_arg);
-int				ft_exit(t_ast_node *command);
+int				ft_exit(t_env **env_list, t_ast_node *command);
 
 // exec_helpers
 void			free_arr(char **arr);
