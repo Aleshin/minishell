@@ -48,7 +48,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit:  : numeric argument required$<-
+| exit:  : numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -73,7 +73,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit:  : numeric argument required$<-
+| exit:  : numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -98,7 +98,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit:  : numeric argument required$<-
+| exit:  : numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -123,7 +123,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: 42network: numeric argument required$<-
+| exit: 42network: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -148,7 +148,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: +: numeric argument required$<-
+| exit: +: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -173,7 +173,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: ++: numeric argument required$<-
+| exit: ++: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -198,7 +198,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: -: numeric argument required$<-
+| exit: -: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -223,7 +223,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: ---: numeric argument required$<-
+| exit: ---: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -248,7 +248,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: ++0: numeric argument required$<-
+| exit: ++0: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -273,7 +273,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: --0: numeric argument required$<-
+| exit: --0: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -298,7 +298,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: ++1: numeric argument required$<-
+| exit: ++1: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -323,7 +323,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: --1: numeric argument required$<-
+| exit: --1: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -348,7 +348,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: 3 : numeric argument required$<-
+| exit: 3 : numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -421,7 +421,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: 18446744073709551615: numeric argument required$<-
+| exit: 18446744073709551615: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -446,7 +446,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: 18446744073709551616: numeric argument required$<-
+| exit: 18446744073709551616: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -471,7 +471,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: -18446744073709551616: numeric argument required$<-
+| exit: -18446744073709551616: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -496,7 +496,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: -18446744073709551617: numeric argument required$<-
+| exit: -18446744073709551617: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -521,7 +521,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: 9999999999999999999999: numeric argument required$<-
+| exit: 9999999999999999999999: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
@@ -549,7 +549,7 @@
 |
 |--- STDERR:
 | ->exit$
-| minishell: exit: too many arguments$<-
+| exit: too many arguments$<-
 |
 ---------------------------------------------<
 
@@ -574,7 +574,7 @@
 |
 |--- STDERR:
 | ->exit$
-| minishell: exit: too many arguments$<-
+| exit: too many arguments$<-
 |
 ---------------------------------------------<
 
@@ -596,7 +596,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: not: numeric argument required$<-
+| exit: not: numeric argument required$<-
 |
 |--- STDERR:
 | -><-

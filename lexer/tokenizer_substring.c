@@ -17,8 +17,7 @@ int	*token_change(t_Token_node **token, t_Token_node **token_temp)
 	char	*value;
 
 	value = ft_strdup((*token_temp)->value);
-	if ((*token_temp)->value[0] != '\0')
-		free((*token)->value);
+	free((*token)->value);
 	(*token)->value = value;
 	(*token)->type = SINGLE_QUOTED_STRING;
 	free_tokens(token_temp);
@@ -34,6 +33,8 @@ int	tokenizer_double_quotes(t_Input **input, t_Token_node **token)
 
 	if ((*token)->type != DOUBLE_QUOTED_STRING)
 		return (1);
+	if ((*token)->value[0] == '\0')
+		return ((*token)->type = SINGLE_QUOTED_STRING, 0);
 	token_temp = token_init(&(*token)->value);
 	input_substring = input_init(&token_temp);
 	if (!token_temp || !input_substring)

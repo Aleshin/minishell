@@ -57,7 +57,7 @@
 |
 |--- STDOUT:
 | ->exit$
-| minishell: exit: --: numeric argument required$<-
+| exit: --: numeric argument required$<-
 |
 |--- STDERR:
 | -><-
