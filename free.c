@@ -20,6 +20,14 @@ int	free_noerr(t_main *main_str, int err_no)
 	return (0);
 }
 
+int	free_ctrl_d(t_main *main_str)
+{
+	free(main_str->buf);
+	lst_dealloc(&main_str->environment_list);
+	write (1, "exit\n", 5);
+	return (0);
+}
+
 int	free_all(t_ast_node **ast_root, t_Token_node **token,
 			t_Input **input, char **buf)
 {

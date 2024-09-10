@@ -3552,19 +3552,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3576,19 +3576,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3602,19 +3602,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3626,19 +3626,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3652,19 +3652,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$$$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$$$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$$$$<-
 |
 |--- STDERR:
 | -><-
@@ -3676,19 +3676,19 @@
 |
 |--- STDOUT:
 | ->total 1468$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 22:40 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      25 Sep 10 22:40 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 01:41 &4$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 22:40 cleaner$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 22:40 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 01:41 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388024 Sep 10 22:40 minishell$$$$$
+| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$$$$
+| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$$$$
+| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$$$$
 | -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
 | -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
 | drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 22:40 traces$$$$$<-
+| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$$$$<-
 |
 |--- STDERR:
 | -><-

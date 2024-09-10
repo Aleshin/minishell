@@ -145,6 +145,7 @@ int				init_lexer(t_main *main_str);
 int				free_noerr(t_main *main_str, int err_no);
 int				free_all(t_ast_node **ast_root, t_Token_node **token,
 					t_Input **input, char **buf);
+int				free_ctrl_d(t_main *main_str);
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);

@@ -47,8 +47,8 @@ int	parse_exec(t_main *main_str)
 //	print_ast_tree(main_str->ast_root, 0);
 	if (main_str->ast_root->first_child == NULL)
 	{
-	free_all(&main_str->ast_root, &main_str->token,
-		&main_str->input, &main_str->buf);
+		free_all(&main_str->ast_root, &main_str->token,
+			&main_str->input, &main_str->buf);
 //		printf("Command '' not found\n");
 		set_exit_code(&main_str->environment_list, 127);
 		return (1);
@@ -74,12 +74,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		main_str.buf = readline("$> ");
 		if (main_str.buf == NULL)
-		{
-			free(main_str.buf);
-			lst_dealloc(&main_str.environment_list);
-			write (1, "exit\n", 5);
-			return (0);
-		}
+			return (free_ctrl_d(&main_str));
 		if (g_exit_code > 0)
 		{
 			set_exit_code(&main_str.environment_list, 128 + g_exit_code);

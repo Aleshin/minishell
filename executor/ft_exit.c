@@ -11,7 +11,28 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-//returns 0 if number is 0, negative or not number
+int	atoi_helper(long long res, int sign, int is_num, char *str)
+{
+	while (*str >= '0' && *str <= '9')
+	{
+		is_num = 1;
+		if ((sign == 1 && res > LLONG_MAX / 10)
+			|| (sign == -1 && res * sign < LLONG_MIN / 10))
+			return (-1);
+		res = res * 10 + (*str - '0');
+		str++;
+	}
+	if (is_num == 1 && *str == '\0')
+	{
+		if (sign < 0)
+			res = 256 - (res % 256);
+		else
+			res = res % 256;
+		return ((int)res);
+	}
+	return (-1);
+}
+
 int	exit_code(char *str)
 {
 	long long	res;
@@ -29,24 +50,7 @@ int	exit_code(char *str)
 			sign = -1;
 		str++;
 	}
-	while (*str >= '0' && *str <= '9')
-	{
-		is_num = 1;
-		if ((sign == 1 && res > LLONG_MAX / 10)
-			|| (sign == -1 && res * sign < LLONG_MIN / 10))
-			return (-1);
-		res = res * 10 + (*str - '0');
-		str++;
-	}
-	if (is_num == 1 && *str == '\0')
-	{
-		if (sign < 0)
-			res = 256 - (res % 256);
-		else
-			res = res % 256;
-		return (res);
-	}
-	return (-1);
+	return (atoi_helper(res, sign, is_num, str));
 }
 
 /*
