@@ -18,8 +18,8 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/panic/testdirtest$
-| /home/saleshin/Projects/minishell/panic/testdirtest/.$<-
+| ->/home/emikhayl/Desktop/minishell/panic/testdirtest$
+| /home/emikhayl/Desktop/minishell/panic/testdirtest/.$<-
 |
 |--- STDERR:
 | ->cd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory$<-
@@ -100,20 +100,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/panic/testdir$
-| /home/saleshin/Projects/minishell/panic$<-
+| ->/home/emikhayl/Desktop/minishell/panic/testdir$
+| /home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
-| ->bash: line 7: cd: /home/saleshin/Projects/minishell/panic/testdir: No such file or directory$<-
+| ->bash: line 7: cd: /home/emikhayl/Desktop/minishell/panic/testdir: No such file or directory$<-
 |
 |--- COMPARED STR:
-| ->cd: /home/saleshin/Projects/minishell/panic/testdir: No such file or directory<-
+| ->cd: /home/emikhayl/Desktop/minishell/panic/testdir: No such file or directory<-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/panic/testdir$
-| /home/saleshin/Projects/minishell/panic$<-
+| ->/home/emikhayl/Desktop/minishell/panic/testdir$
+| /home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-
@@ -129,9 +129,9 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$
-| /home/saleshin/Projects/minishell/panic$
-| /home/saleshin/Projects/minishell/panic$<-
+| ->/home/emikhayl$
+| /home/emikhayl/Desktop/minishell/panic$
+| /home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -142,8 +142,8 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin/Projects/minishell/panic$
-| /home/saleshin/Projects/minishell/panic$<-
+| ->/home/emikhayl/Desktop/minishell/panic$
+| /home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | ->cd: No such file or directory$<-
@@ -156,7 +156,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->/home/saleshin$<-
+| ->/home/emikhayl$<-
 |
 |--- STDERR:
 | -><-
@@ -185,10 +185,10 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| ->PWD=/home/saleshin/Projects/minishell/panic$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| PWD=/home/saleshin/Projects/minishell/panic/testdirtest$
-| OLDPWD=/home/saleshin/Projects/minishell/panic$<-
+| ->PWD=/home/emikhayl/Desktop/minishell/panic$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| PWD=/home/emikhayl/Desktop/minishell/panic/testdirtest$
+| OLDPWD=/home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -199,11 +199,11 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->PWD=/home/saleshin/Projects/minishell/panic$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| PWD=/home/saleshin/Projects/minishell/panic/testdirtest$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| OLDPWD=/home/saleshin/Projects/minishell$<-
+| ->PWD=/home/emikhayl/Desktop/minishell/panic$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| PWD=/home/emikhayl/Desktop/minishell/panic/testdirtest$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| OLDPWD=/home/emikhayl/Desktop/minishell$<-
 |
 |--- STDERR:
 | -><-
@@ -221,11 +221,11 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->PWD=/home/saleshin/Projects/minishell/panic$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| PWD=/home/saleshin/Projects/minishell/panic/testdirtest$
-| OLDPWD=/home/saleshin/Projects/minishell/panic$
-| PWD=/home/saleshin/Projects/minishell/panic$
+| ->PWD=/home/emikhayl/Desktop/minishell/panic$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| PWD=/home/emikhayl/Desktop/minishell/panic/testdirtest$
+| OLDPWD=/home/emikhayl/Desktop/minishell/panic$
+| PWD=/home/emikhayl/Desktop/minishell/panic$
 | OLDPWD=nosensedir$<-
 |
 |--- STDERR:
@@ -237,12 +237,12 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->PWD=/home/saleshin/Projects/minishell/panic$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| PWD=/home/saleshin/Projects/minishell/panic/testdirtest$
-| OLDPWD=/home/saleshin/Projects/minishell$
-| PWD=/home/saleshin/Projects/minishell/panic$
-| OLDPWD=/home/saleshin/Projects/minishell$<-
+| ->PWD=/home/emikhayl/Desktop/minishell/panic$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| PWD=/home/emikhayl/Desktop/minishell/panic/testdirtest$
+| OLDPWD=/home/emikhayl/Desktop/minishell$
+| PWD=/home/emikhayl/Desktop/minishell/panic$
+| OLDPWD=/home/emikhayl/Desktop/minishell$<-
 |
 |--- STDERR:
 | -><-

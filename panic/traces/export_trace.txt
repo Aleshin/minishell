@@ -225,7 +225,8 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x EMPTY_TOO=$
+| ->declare -x EMPTY$
+| declare -x EMPTY_TOO=$
 | declare -x NOT_EMPTY=contnent$<-
 |
 |--- STDERR:

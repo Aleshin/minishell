@@ -1155,153 +1155,6 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [36]
-|  CMD: ->env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [37]
-|  CMD: ->env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [38]
-|  CMD: ->env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=value$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=value$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [40]
-|  CMD: ->export TESTVAR=
-| env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [41]
-|  CMD: ->export TESTVAR=""
-| env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [42]
-|  CMD: ->export TESTVAR="value"
-| env | grep TESTVAR<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=value$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->TESTVAR=value$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [93]
 |  CMD: ->Exit 1
 | echo is not a buildin!<-
@@ -1673,102 +1526,6 @@
 |
 ---------------------------------------------<
 
----------------------------------------------> test [122]
-|  CMD: ->echo $<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$ $<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [125]
-|  CMD: ->echo $/<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$/$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->$/$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [126]
-|  CMD: ->echo "'$'"<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->'$'$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->'$'$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [123]
-|  CMD: ->echo hi$<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->saleshin$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->saleshin$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
 ---------------------------------------------> test [124]
 |  CMD: ->echo '$ '<-
 |--------------------------------
@@ -1799,7 +1556,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->$/$<-
 |
 |--- STDERR:
 | -><-
@@ -1810,7 +1567,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->$/$<-
 |
 |--- STDERR:
 | -><-
@@ -1823,7 +1580,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->'$'$<-
 |
 |--- STDERR:
 | -><-
@@ -1834,7 +1591,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->'$'$<-
 |
 |--- STDERR:
 | -><-
@@ -1895,7 +1652,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -1906,7 +1663,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/saleshin/Projects/minishell/panic$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -1919,7 +1676,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$PATH/home/saleshin/Projects/minishell/panicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
 |
 |--- STDERR:
 | -><-
@@ -1930,7 +1687,103 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->saleshin$PATH/home/saleshin/Projects/minishell/panicUSER/Users/saleshin:/home/saleshin/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [134]
+|  CMD: ->echo '$USER$PATH$PWD'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$USER$PATH$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$USER$PATH$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [135]
+|  CMD: ->echo '$USER",$PATH,$PWD'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$USER",$PATH,$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->$USER",$PATH,$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [136]
+|  CMD: ->echo $USER"$PATH"$PWD"USER"$PATH"$PWD"<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->emikhayl/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin/home/emikhayl/Desktop/minishell/panic$<-
+|
+|--- STDERR:
+| -><-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [137]
+|  CMD: ->echo $USER'$PATH'$PWD'USER'$PATH'$PWD'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->emikhayl$PATH/home/emikhayl/Desktop/minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->emikhayl$PATH/home/emikhayl/Desktop/minishell/panicUSER/Users/emikhayl:/home/emikhayl/bin:/home/emikhayl/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin$PWD$<-
 |
 |--- STDERR:
 | -><-
@@ -3722,34 +3575,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
+| ->total 1600$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
-| ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3760,34 +3599,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
+| ->total 1600$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
-| ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3800,34 +3625,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
+| ->total 1600$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
-| ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3838,34 +3649,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$
+| ->total 1600$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$<-
-| ->total 1468$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$<-
 |
 |--- STDERR:
 | -><-
@@ -3878,34 +3675,20 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$$$$
+| ->total 1600$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$$$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$$$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$$$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$$$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$$$$<-
-| ->total 1468$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$$$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$$$$<-
 |
 |--- STDERR:
 | -><-
@@ -3916,34 +3699,20 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->total 1468$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep  8 20:59 >$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      22 Sep  8 20:59 >>$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep  8 20:54 &4$$$$$
+| ->total 1600$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       1 Sep 11 23:21 >$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      32 Sep 11 23:21 >>$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona       5 Sep 11 23:01 &4$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   16632 Sep  5 20:55 a.out$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep  8 20:59 cleaner$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   16584 Sep 11 23:21 cleaner$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    2919 Sep  5 20:55 cleaner.c$$$$$
-| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep  8 20:59 echo$$$$$
-| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep  8 20:54 file2$$$$$
-| -rwxrwxrwx 1 emikhayl 2023_barcelona 1387768 Sep  8 20:59 minishell$$$$$
+| -rwxr-xr-x 1 emikhayl 2023_barcelona   15960 Sep 11 23:21 echo$$$$$
+| -rw-r--r-- 1 emikhayl 2023_barcelona      21 Sep 11 23:01 file2$$$$$
+| -rwxrwxrwx 1 emikhayl 2023_barcelona 1392592 Sep 11 23:21 minishell$$$$$
 | -rwxr-xr-x 1 emikhayl 2023_barcelona   26105 Sep  5 20:55 mpanic.sh$$$$$
 | -rw-r--r-- 1 emikhayl 2023_barcelona    4864 Sep  5 20:55 README.md$$$$$
 | drwxr-xr-x 5 emikhayl 2023_barcelona      71 Sep  5 20:55 test$$$$$
-| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep  8 20:59 traces$$$$$<-
-| ->total 1468$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       1 Sep 10 23:14 >$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      26 Sep 10 23:14 >>$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona       5 Sep 10 22:40 &4$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16632 Sep  5 15:14 a.out$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   16584 Sep 10 23:14 cleaner$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    2919 Sep  5 15:14 cleaner.c$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   15960 Sep 10 23:14 echo$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona      21 Sep 10 22:40 file2$$$$$
-| -rwxrwxrwx 1 saleshin 2023_barcelona 1388064 Sep 10 23:14 minishell$$$$$
-| -rwxr-xr-x 1 saleshin 2023_barcelona   26105 Sep  5 15:14 mpanic.sh$$$$$
-| -rw-r--r-- 1 saleshin 2023_barcelona    4864 Sep  5 15:14 README.md$$$$$
-| drwxr-xr-x 5 saleshin 2023_barcelona      71 Sep  5 15:14 test$$$$$
-| drwxr-xr-x 3 saleshin 2023_barcelona     181 Sep 10 23:14 traces$$$$$<-
+| drwxr-xr-x 3 emikhayl 2023_barcelona     181 Sep 11 23:21 traces$$$$$<-
 |
 |--- STDERR:
 | -><-

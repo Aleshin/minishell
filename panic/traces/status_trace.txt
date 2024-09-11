@@ -286,11 +286,11 @@
 | -><-
 |
 |--- STDERR:
-| ->bash: line 1: nonexistcmd: command not found$
-| bash: line 1: nofile: No such file or directory$<-
+| ->bash: line 1: nofile: No such file or directory$
+| bash: line 1: nonexistcmd: command not found$<-
 |
 |--- COMPARED STR:
-| ->nonexistcmd: command not found<-
+| ->nofile: No such file or directory<-
 |--------------------------------
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
