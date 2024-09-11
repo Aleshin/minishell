@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_env	*ft_lstnew_env(char *name, char *value)
+t_env	*ft_lstnew_env(char *name, char *value, int n)
 {
 	t_env	*new;
 
@@ -33,7 +33,7 @@ t_env	*ft_lstnew_env(char *name, char *value)
 		free(new);
 		return (NULL);
 	}
-	new->to_env = 1;//initialize
+	new->to_env = n;
 	new->next = NULL;
 	return (new);
 }
@@ -65,9 +65,10 @@ int	upd_envvar(char *name, char *value, t_env *lst)
 		return (-1);
 	while (curr != NULL)
 	{
-		if (!ft_strcmp(name, curr->name))
+		if (!ft_strcmp(name, curr->name))//return 0 if equal
 		{
 			free(curr->value);
+			curr->to_env = 1;
 			curr->value = ft_strdup(value);
 			if (curr->value == NULL)
 			{
@@ -145,7 +146,9 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 {
 	t_env	*new_node;
 	char	**new_val;
+	int		n;
 
+	n=1;
 	if (check_varname(cur_arg_val, 1) == 0)
 	{
 		ft_env_error("export", cur_arg_val, "not a valid identifier");
@@ -156,29 +159,19 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 	//if no =
 	if (new_val == NULL)
 	{
-		printf("enter if new_val == NULL\n");
-		(*lst)->to_env = 0;
+		n = 0;
 		new_val = no_assign_val(cur_arg_val, new_val);
-		printf("newval[0]=%s, new val[1]=%s, to_env flag=%d\n", new_val[0], new_val[1], (*lst)->to_env);
-	}
-	else
-		{
-			(*lst)->to_env = 1;
-			printf("If new val not NULL newval[0]=%s, new val[1]=%s, to_env flag=%d\n", new_val[0], new_val[1], (*lst)->to_env);
-		}
-		
+	}		
 	//no need to update, create new var
 	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
 	{
-		new_node = ft_lstnew_env(new_val[0], new_val[1]);
+		new_node = ft_lstnew_env(new_val[0], new_val[1], n);
 		if (new_node == NULL)
 		{
 			perror("Memory allocation failed for node");
 			free_arr(new_val);
 			return (1);
 		}
-
-		printf("newnode name %s, newnode val %s, to env %d\n", new_node->name, new_node->value, (*lst)->to_env);
 		ft_lstadd_back_env(lst, new_node);
 	}
 	free_arr(new_val);

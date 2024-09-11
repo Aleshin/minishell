@@ -43,15 +43,14 @@ int	ft_print_sorted(t_env *lst)
 	int		len;
 	int		i;
 
-	i = 1; //to not to print ?
+	i = 1;
 	if (!lst)
 		return (1);
-	arr = linked_list_to_envp(&lst);
+	arr = linked_list_to_envp_export(&lst);
 	if (!arr)
 		return (0);
 	len = list_len(lst);
 	bubble_sort(arr, len);
-
 	while (i < len)
 	{
 		ft_putstr_fd("declare -x ", STDOUT_FILENO);
@@ -78,7 +77,7 @@ void	set_exit_code(t_env **lst, int code)
 	}
 	if (!upd_envvar(key, value, *lst))
 	{
-		new_node = ft_lstnew_env(key, value);
+		new_node = ft_lstnew_env(key, value, 1);
 		if (new_node == NULL)
 		{
 			perror("Memory allocation failed for node");

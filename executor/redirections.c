@@ -71,11 +71,9 @@ int	output_redir(t_ast_node *command)
 	t_ast_node	*current_redirect;
 
 	file = -3;
-	
 	redirects = command->first_child;
 	if (redirects->param == 0)
 		return (-3);
-	
 	current_redirect = redirects->first_child;
 	while (current_redirect != NULL)
 	{

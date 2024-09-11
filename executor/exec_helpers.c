@@ -38,10 +38,7 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 		return (command);
 	path = ft_getenv(env_list, "PATH");
 	if (path == NULL)
-	{
 		return (NULL);
-	}
-		
 	arr = ft_split(path, ':');
 	path_to_command = NULL;
 	i = 0;
@@ -58,9 +55,7 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	}
 	free_arr(arr);
 	if (path_to_command == NULL)
-	{
 		ft_shell_error(command, "command not found");
-	}
 	return (path_to_command);
 }
 
@@ -106,13 +101,9 @@ int	ft_exec_command(t_ast_node *commands, t_env **env_var)
 	}
 	path = ft_find_abs_path(commands->first_child->next_sibling->value,
 			*env_var);
-
 	argv = cmd_to_argv(commands->first_child->next_sibling);
 	if (execve(path, argv, upd_envvar) == -1)
 	{
-		//perror("execve");
-		// printf("errno number: %d\n", errno);
-	
 		free_arr(argv);
 		free_arr(upd_envvar);
 		return (errno);

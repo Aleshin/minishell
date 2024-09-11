@@ -205,7 +205,6 @@ int				ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
 int				ft_exec_builtin(t_ast_node *command, t_env **env_list);
 int				is_builtin(t_ast_node *command);
 int				ft_echo(t_ast_node *command);
-t_env			*ft_lstnew_env(char *name, char *value);
 int				ft_unset(t_env **list, t_ast_node *command);
 int				ft_export_node(t_env **lst, char *cur_arg);
 int				ft_exit(t_env **env_list, t_ast_node *command);
@@ -220,6 +219,7 @@ int				ft_exec_command(t_ast_node *commands, t_env **env_var);
 char			**ft_split_global(const char *s, char c);
 int				check_varname(char *str, int flag);
 char			**linked_list_to_envp(t_env **env);
+char			**linked_list_to_envp_export(t_env **env);
 t_env			*envp_to_linked_list(char **envp);
 void			free_env_node(t_env *node);
 void			lst_dealloc(t_env **head);
@@ -232,7 +232,7 @@ int				list_len(t_env *env);
 int				ft_print_sorted(t_env *lst);
 
 // ft_export
-t_env			*ft_lstnew_env(char *name, char *value);
+t_env			*ft_lstnew_env(char *name, char *value, int n);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 int				ft_export(t_env **lst, t_ast_node *command);
 int				upd_envvar(char *name, char *value, t_env *lst);

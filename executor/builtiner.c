@@ -67,28 +67,20 @@ int	is_builtin(t_ast_node *command)
 	char	*exec;
 
 	if (!command->first_child->next_sibling)
-        return (0);
-    exec = command->first_child->next_sibling->value;
-    if (ft_strcmp(exec, "echo") == 0
-        || ft_strcmp(exec, "cd") == 0
-        || ft_strcmp(exec, "pwd") == 0
-        || ft_strcmp(exec, "export") == 0
-        || ft_strcmp(exec, "unset") == 0
-        || ft_strcmp(exec, "env") == 0
-        || ft_strcmp(exec, "exit") == 0)
-    {
-        return (1); // Command is a built-in
-    }
-    return (0); // Command is not a built-in
+		return (0);
+	exec = command->first_child->next_sibling->value;
+	if (ft_strcmp(exec, "echo") == 0
+		|| ft_strcmp(exec, "cd") == 0
+		|| ft_strcmp(exec, "pwd") == 0
+		|| ft_strcmp(exec, "export") == 0
+		|| ft_strcmp(exec, "unset") == 0
+		|| ft_strcmp(exec, "env") == 0
+		|| ft_strcmp(exec, "exit") == 0)
+	{
+		return (1);
+	}
+	return (0);
 }
-
-// int	check_tree(t_ast_node *command)
-// {
-// 	if (command == NULL || command->first_child == NULL
-// 		|| command->first_child->next_sibling == NULL)
-// 			return (1);
-// 	return (0);
-// }
 
 //when we get there it is a builtin. return exit code of execution
 int	ft_exec_builtin(t_ast_node *command, t_env **env_list)
