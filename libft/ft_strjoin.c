@@ -40,6 +40,7 @@
 // 	return (joined);
 // }
 // Allocates with malloc and returns new string s1 + s2 + s3 + '\0'
+//null check added to prevent segfault
 char    *ft_strjoin(char const *s1, char const *s2, char const *s3)
 {
     size_t  s1_len;
@@ -55,12 +56,15 @@ char    *ft_strjoin(char const *s1, char const *s2, char const *s3)
     i = 0;
     if (joined == NULL)
         return (NULL);
-    while (*s1)
-        joined[i++] = *s1++;
-    while (*s2)
-        joined[i++] = *s2++;
-    while (*s3)
-        joined[i++] = *s3++;
+    if (s1 != NULL)
+        while (*s1)
+            joined[i++] = *s1++;
+    if (s2 != NULL)
+        while (*s2)
+            joined[i++] = *s2++;
+    if (s3 != NULL)
+        while (*s3)
+            joined[i++] = *s3++;
     joined[i] = '\0';
     return (joined);
 }

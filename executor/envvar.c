@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+//prints linked list
 int	print_env(t_env **env)
 {
 	t_env	*curr;

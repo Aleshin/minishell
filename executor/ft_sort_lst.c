@@ -36,6 +36,7 @@ void	bubble_sort(char **arr, int len)
 	}
 }
 
+//prints array
 int	ft_print_sorted(t_env *lst)
 {
 	char	**arr;

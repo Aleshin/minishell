@@ -90,31 +90,9 @@ char	**get_name_val(char *cur_arg)
 
 	name_val = ft_split_global(cur_arg, '=');
 	if (!name_val)
-	  {
-        // Allocate memory for name_val (3 pointers)
-        name_val = (char **)malloc(3 * sizeof(char *));
-        if (!name_val)
-            return (NULL);  // Return NULL if memory allocation fails
-
-        // Assign values
-        name_val[0] = ft_strdup(cur_arg);  // Duplicate cur_arg
-        if (!name_val[0])
-		{
-            free(name_val);
-            return (NULL);  // Return NULL if strdup fails
-        }
-
-        name_val[1] = NULL;  // Duplicate "NO"
-        // if (!name_val[1]) {
-        //     free(name_val[0]);
-        //     free(name_val);
-        //     return (NULL);  // Return NULL if strdup fails
-        // }
-        name_val[2] = NULL;  // Null-terminate the array
-		return(name_val);
+	{
+        return (NULL);
     }
-
-
 	if (name_val[1] == NULL)
 	{
 		name_val[1] = ft_strdup("");
@@ -126,7 +104,41 @@ char	**get_name_val(char *cur_arg)
 			return (NULL);
 		}
 	}
-	return (name_val);
+	return (name_val); //NULL if no =
+}
+
+char	**no_assign_val(char *cur_arg_val, char **new_val)
+{
+	// Allocate memory for new_val to hold two pointers (for name and value)
+	new_val = (char **)malloc(3 * sizeof(char *));
+	if (new_val == NULL)
+	{
+		perror("Memory allocation failed for new_val");
+		return (NULL); // Return NULL if memory allocation fails
+	}
+
+	// Allocate and assign the name string (new_val[0])
+	new_val[0] = ft_strdup(cur_arg_val);
+	if (new_val[0] == NULL)
+	{
+		free(new_val); // Free new_val if allocation fails
+		perror("Memory allocation failed for new_val[0]");
+		return (NULL);
+	}
+
+	// Assign an empty string as the value (new_val[1])
+	new_val[1] = ft_strdup("");
+	if (new_val[1] == NULL)
+	{
+		free(new_val[0]); // Free previously allocated memory
+		free(new_val);
+		perror("Memory allocation failed for new_val[1]");
+		return (NULL);
+	}
+	new_val[2] = NULL;
+
+	// Successfully created new_val
+	return new_val;
 }
 
 int	ft_export_node(t_env **lst, char *cur_arg_val)
@@ -141,14 +153,21 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 	}
 	new_node = NULL;
 	new_val = get_name_val(cur_arg_val);
+	//if no =
 	if (new_val == NULL)
-		return (1);
-	if (new_val[1] == NULL)
 	{
-		(*lst)->to_env = 0;///////////////////////////////////KOSTIL
-		new_val[1] = ft_strdup("");
+		printf("enter if new_val == NULL\n");
+		(*lst)->to_env = 0;
+		new_val = no_assign_val(cur_arg_val, new_val);
+		printf("newval[0]=%s, new val[1]=%s, to_env flag=%d\n", new_val[0], new_val[1], (*lst)->to_env);
 	}
-
+	else
+		{
+			(*lst)->to_env = 1;
+			printf("If new val not NULL newval[0]=%s, new val[1]=%s, to_env flag=%d\n", new_val[0], new_val[1], (*lst)->to_env);
+		}
+		
+	//no need to update, create new var
 	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
 	{
 		new_node = ft_lstnew_env(new_val[0], new_val[1]);
@@ -158,6 +177,8 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 			free_arr(new_val);
 			return (1);
 		}
+
+		printf("newnode name %s, newnode val %s, to env %d\n", new_node->name, new_node->value, (*lst)->to_env);
 		ft_lstadd_back_env(lst, new_node);
 	}
 	free_arr(new_val);
@@ -173,7 +194,7 @@ int	ft_export(t_env **lst, t_ast_node *command)
 	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
 	if (command->first_child->next_sibling->next_sibling->param == 0) //no arg
 	{
-		ft_print_sorted(*lst);
+		ft_print_sorted(*lst);//not print if flag 0
 		return (0);
 	}
 	else
