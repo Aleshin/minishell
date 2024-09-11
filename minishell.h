@@ -29,6 +29,7 @@ ast_tree
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+#include <limits.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -145,6 +146,7 @@ int				init_lexer(t_main *main_str);
 int				free_noerr(t_main *main_str, int err_no);
 int				free_all(t_ast_node **ast_root, t_Token_node **token,
 					t_Input **input, char **buf);
+int				free_ctrl_d(t_main *main_str);
 // token structure functions
 t_Token_node	*token_last(t_Token_node **tokens);
 t_Token_node	*token_first(t_Token_node **token);
@@ -207,7 +209,7 @@ int				is_builtin(t_ast_node *command);
 int				ft_echo(t_ast_node *command);
 int				ft_unset(t_env **list, t_ast_node *command);
 int				ft_export_node(t_env **lst, char *cur_arg);
-int				ft_exit(t_env **env_list, t_ast_node *command);
+int				ft_exit(t_ast_node *command);
 
 // exec_helpers
 void			free_arr(char **arr);

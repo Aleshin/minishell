@@ -55,7 +55,8 @@ int	detect_var(t_Input **input, t_Token_node **token)
 				return (1);
 			(*input)->token_start = (*input)->current_char;
 			return (0);
-		} else
+		}
+		else
 		{
 			(*input)->current_token_type = lexem;
 			(*input)->current_char--;

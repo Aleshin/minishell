@@ -220,7 +220,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| -><-
+| ->$\n$$<-
 |
 |--- STDERR:
 | ->opened quotes error$
@@ -233,6 +233,7 @@
 |     #1 0x7efd5eefebac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
+| -><-
 |
 ---------------------------------------------<
 
@@ -253,7 +254,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (1)
 |
 |--- STDOUT:
-| -><-
+| ->$\r$$<-
 |
 |--- STDERR:
 | ->opened quotes error$
@@ -266,6 +267,7 @@
 |     #1 0x7ff073cf7bac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
 | $
 | SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
+| -><-
 |
 ---------------------------------------------<
 
@@ -276,63 +278,6 @@
 |
 |--- STDOUT:
 | ->	$$<-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (1)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| ->opened quotes error$
-| $
-| =================================================================$
-| ==3499542==ERROR: LeakSanitizer: detected memory leaks$
-| $
-| Direct leak of 20 byte(s) in 1 object(s) allocated from:$
-|     #0 0x49a28d in malloc (/home/emikhayl/Desktop/minishell/panic/minishell+0x49a28d)$
-|     #1 0x7f0102e8abac in xmalloc (/lib/x86_64-linux-gnu/libreadline.so.8+0x39bac)$
-| $
-| SUMMARY: AddressSanitizer: 20 byte(s) leaked in 1 allocation(s).$<-
-|
----------------------------------------------<
-
----------------------------------------------> test [138]
-|  CMD: ->$NONEXIST<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
-|
-|--- STDERR:
-| -><-
-|
-|--- COMPARED STR:
-| -><-
-|--------------------------------
-|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| ->Command '' not found$<-
-|
-|--- STDERR:
-| -><-
-|
----------------------------------------------<
-
----------------------------------------------> test [139]
-|  CMD: ->$NONEXIST $NONEXIST<-
-|--------------------------------
-|  EXPECTED (BASH OUTP)  |  exit status: (0)
-|
-|--- STDOUT:
-| -><-
 |
 |--- STDERR:
 | -><-
@@ -357,7 +302,7 @@
 |  EXPECTED (BASH OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->$\t$$<-
 |
 |--- STDERR:
 | -><-
@@ -371,6 +316,7 @@
 | ->Command '' not found$<-
 |
 |--- STDERR:
+| -><-
 | -><-
 |
 ---------------------------------------------<

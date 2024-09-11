@@ -103,7 +103,7 @@ int	ft_exec_builtin(t_ast_node *command, t_env **env_list)
 	else if (ft_strcmp(exec, "env") == 0)
 		exit_code = print_env(env_list);
 	else if (ft_strcmp(exec, "exit") == 0)
-		exit_code = ft_exit(env_list, command);
+		exit_code = ft_exit(command);
 	return (exit_code);
 }
 
