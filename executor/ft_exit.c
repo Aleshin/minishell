@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 #include "minishell.h"
 
-int	ft_exit(t_ast_node *command)
+int	ft_exit(t_env **env_list, t_ast_node *command)
 {
-    return (0);
+    (void) env_list;
+    (void) command;
+    exit (0);
 }
