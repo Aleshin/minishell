@@ -75,7 +75,6 @@ char	**linked_list_to_envp(t_env **env)
 	current = *env;
 	while (current != NULL)
 	{
-	
 		if (current->to_env == 1)
 			env_string = ft_strjoin(current->name, "=", current->value);
 		if (env_string == NULL)
@@ -107,7 +106,6 @@ char	**linked_list_to_envp_export(t_env **env)
 			env_string = ft_strjoin(current->name, "=", current->value);
 		else if (current->to_env == 0)
 			env_string = ft_strjoin(current->name, NULL, NULL);
-		
 		if (env_string == NULL)
 			return (free_arr(arr_of_words), perror("malloc"), NULL);
 		arr_of_words[i++] = env_string;

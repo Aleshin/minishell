@@ -75,7 +75,7 @@ char	*ft_find_abs_path(char *command, t_env *env_list)
 	{
 		tmp = ft_strjoin(arr[i], "/", command);
 		if (access(tmp, F_OK) == 0)
-			return (free_arr(arr), tmp); // Clean up array and return path
+			return (free_arr(arr), tmp);
 		free(tmp);
 		i++;
 	}

@@ -65,7 +65,7 @@ int	upd_envvar(char *name, char *value, t_env *lst)
 		return (-1);
 	while (curr != NULL)
 	{
-		if (!ft_strcmp(name, curr->name))//return 0 if equal
+		if (!ft_strcmp(name, curr->name))
 		{
 			free(curr->value);
 			curr->to_env = 1;
