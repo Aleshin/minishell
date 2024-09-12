@@ -26,37 +26,61 @@ void	free_arr(char **arr)
 }
 
 // Return pointer to path or NULL
+// char	*ft_find_abs_path(char *command, t_env *env_list)
+// {
+// 	char	*path;
+// 	char	**arr;
+// 	char	*path_to_command;
+// 	int		i;
+// 	char	*tmp;
+
+// 	if (access(command, F_OK) != -1)
+// 		return (command);
+// 	path = ft_getenv(env_list, "PATH");
+// 	if (path == NULL)
+// 		return (NULL);
+// 	arr = ft_split(path, ':');
+// 	path_to_command = NULL;
+// 	i = 0;
+// 	while (arr[i])
+// 	{
+// 		tmp = ft_strjoin(arr[i], "/", command);
+// 		if (access(tmp, F_OK) != -1)
+// 		{
+// 			path_to_command = tmp;
+// 			break ;
+// 		}
+// 		free(tmp);
+// 		i++;
+// 	}
+// 	free_arr(arr);
+// 	return (path_to_command);
+// }
+
 char	*ft_find_abs_path(char *command, t_env *env_list)
 {
 	char	*path;
 	char	**arr;
-	char	*path_to_command;
-	int		i;
 	char	*tmp;
+	int		i;
 
 	if (access(command, F_OK) != -1)
 		return (command);
 	path = ft_getenv(env_list, "PATH");
-	if (path == NULL)
+	if (!path)
 		return (NULL);
 	arr = ft_split(path, ':');
-	path_to_command = NULL;
 	i = 0;
 	while (arr[i])
 	{
 		tmp = ft_strjoin(arr[i], "/", command);
-		if (access(tmp, F_OK) != -1)
-		{
-			path_to_command = tmp;
-			break ;
-		}
+		if (access(tmp, F_OK) == 0)
+			return (free_arr(arr), tmp); // Clean up array and return path
 		free(tmp);
 		i++;
 	}
 	free_arr(arr);
-	if (path_to_command == NULL)
-		ft_shell_error(command, "command not found");
-	return (path_to_command);
+	return (NULL);
 }
 
 char	**cmd_to_argv(t_ast_node *cmd)
@@ -101,6 +125,9 @@ int	ft_exec_command(t_ast_node *commands, t_env **env_var)
 	}
 	path = ft_find_abs_path(commands->first_child->next_sibling->value,
 			*env_var);
+	if (path == NULL)
+		ft_shell_error(commands->first_child->next_sibling->value,
+			"command not found");
 	argv = cmd_to_argv(commands->first_child->next_sibling);
 	if (execve(path, argv, upd_envvar) == -1)
 	{
