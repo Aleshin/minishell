@@ -92,8 +92,8 @@ char	**get_name_val(char *cur_arg)
 	name_val = ft_split_global(cur_arg, '=');
 	if (!name_val)
 	{
-        return (NULL);
-    }
+		return (NULL);
+	}
 	if (name_val[1] == NULL)
 	{
 		name_val[1] = ft_strdup("");
@@ -117,7 +117,6 @@ char	**no_assign_val(char *cur_arg_val, char **new_val)
 		perror("Memory allocation failed for new_val");
 		return (NULL); // Return NULL if memory allocation fails
 	}
-
 	// Allocate and assign the name string (new_val[0])
 	new_val[0] = ft_strdup(cur_arg_val);
 	if (new_val[0] == NULL)
@@ -126,7 +125,6 @@ char	**no_assign_val(char *cur_arg_val, char **new_val)
 		perror("Memory allocation failed for new_val[0]");
 		return (NULL);
 	}
-
 	// Assign an empty string as the value (new_val[1])
 	new_val[1] = ft_strdup("");
 	if (new_val[1] == NULL)
@@ -137,9 +135,8 @@ char	**no_assign_val(char *cur_arg_val, char **new_val)
 		return (NULL);
 	}
 	new_val[2] = NULL;
-
 	// Successfully created new_val
-	return new_val;
+	return (new_val);
 }
 
 int	ft_export_node(t_env **lst, char *cur_arg_val)
@@ -148,30 +145,25 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 	char	**new_val;
 	int		n;
 
-	n=1;
-	if (check_varname(cur_arg_val, 1) == 0)
+	n = 1;
+	printf("varname in export %s\n", cur_arg_val);
+	if (check_varname_export(cur_arg_val) == 0)
 	{
 		ft_env_error("export", cur_arg_val, "not a valid identifier");
 		return (1);
 	}
 	new_node = NULL;
 	new_val = get_name_val(cur_arg_val);
-	//if no =
 	if (new_val == NULL)
 	{
 		n = 0;
 		new_val = no_assign_val(cur_arg_val, new_val);
-	}		
-	//no need to update, create new var
+	}
 	if (upd_envvar(new_val[0], new_val[1], *lst) == 0)
 	{
 		new_node = ft_lstnew_env(new_val[0], new_val[1], n);
 		if (new_node == NULL)
-		{
-			perror("Memory allocation failed for node");
-			free_arr(new_val);
-			return (1);
-		}
+			return (free_arr(new_val), 1);
 		ft_lstadd_back_env(lst, new_node);
 	}
 	free_arr(new_val);
@@ -181,7 +173,7 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 int	ft_export(t_env **lst, t_ast_node *command)
 {
 	t_ast_node	*cur_arg;
-	int	err_code;
+	int			err_code;
 
 	err_code = 0;
 	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
@@ -194,7 +186,6 @@ int	ft_export(t_env **lst, t_ast_node *command)
 	{
 		while (cur_arg != NULL)
 		{
-			//printf("value is %s\n", cur_arg->value);
 			err_code = ft_export_node(lst, cur_arg->value);
 			cur_arg = cur_arg->next_sibling;
 		}

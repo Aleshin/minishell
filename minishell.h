@@ -205,7 +205,6 @@ void			redirects_arguments(t_Token_node **token,
 int				print_ast_tree(t_ast_node *ast_node, int level);
 //executer functions
 int				ft_executor(t_ast_node *commands, t_env **env);
-int				builtiner(t_ast_node *command, t_env **env);
 
 // redirections
 int				input_redir(t_ast_node *commands);
@@ -229,7 +228,8 @@ int				ft_exec_command(t_ast_node *commands, t_env **env_var);
 
 // envvar_helpers FULL
 char			**ft_split_global(const char *s, char c);
-int				check_varname(char *str, int flag);
+int				check_varname(char *str);
+int				check_varname_export(char *str);
 char			**linked_list_to_envp(t_env **env);
 char			**linked_list_to_envp_export(t_env **env);
 t_env			*envp_to_linked_list(char **envp);
@@ -248,8 +248,8 @@ t_env			*ft_lstnew_env(char *name, char *value, int n);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 int				ft_export(t_env **lst, t_ast_node *command);
 int				upd_envvar(char *name, char *value, t_env *lst);
-char			*extract_exec(char *command);
-int				ft_path_ok(char *command);
+
+
 
 // helper functions
 int				ft_strcmp(const char *s1, const char *s2);
