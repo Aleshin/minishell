@@ -118,22 +118,39 @@ void	ft_parent_process(t_pipe *pipes, t_ast_node *command)
 	pipes->last_pid = pipes->pid;
 }
 
+void	ft_set_exit_status(t_env **env_list, int *last_pid)
+{
+	int last_exit_status;
+
+	last_exit_status = ft_exit_status(last_pid);
+	set_exit_code(env_list, last_exit_status);
+}
+
+int	ft_create_pipe_if_needed(t_pipe *pipes, t_ast_node *command)
+{
+	if (command->next_sibling != NULL)
+	{
+		if (pipe(pipes->pipefds) == -1)
+		{
+			perror("pipe");
+			return (-1);
+		}
+	}
+	return (0);
+}
+
 int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
 	t_pipe	pipes;
 	t_ast_node		*command;
-	int		last_exit_status;
-
+	
 	pipes.fd_in = 0;
 	pipes.last_pid = -1;
 	command = ast_tree->first_child;
 	while (command != NULL)
 	{
-		if (command->next_sibling != NULL)
-		{
-			if (pipe(pipes.pipefds) == -1)
-				return (perror("pipe"), -1);
-		}
+		if (ft_create_pipe_if_needed(&pipes, command) == -1)
+			return (-1);
 		pipes.pid = fork();
 		if (pipes.pid == -1)
 			return (perror("fork"), -1);
@@ -143,8 +160,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 			ft_parent_process(&pipes, command);
 		command = command->next_sibling;
 	}
-	last_exit_status = ft_exit_status(&pipes.last_pid);
-	set_exit_code(env_list, last_exit_status);
+	ft_set_exit_status(env_list, &pipes.last_pid);
 	while (wait(NULL) > 0)
 		;
 	return (0);
