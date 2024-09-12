@@ -146,7 +146,6 @@ int	ft_export_node(t_env **lst, char *cur_arg_val)
 	int		n;
 
 	n = 1;
-	printf("varname in export %s\n", cur_arg_val);
 	if (check_varname_export(cur_arg_val) == 0)
 	{
 		ft_env_error("export", cur_arg_val, "not a valid identifier");

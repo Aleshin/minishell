@@ -241,6 +241,7 @@
 | OLDPWD=/home/emikhayl/Desktop/minishell$
 | PWD=/home/emikhayl/Desktop/minishell/panic/testdirtest$
 | OLDPWD=/home/emikhayl/Desktop/minishell$
+| varname in export PWD=nosensedir$
 | PWD=/home/emikhayl/Desktop/minishell/panic$
 | OLDPWD=/home/emikhayl/Desktop/minishell$<-
 |

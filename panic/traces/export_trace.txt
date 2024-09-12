@@ -23,7 +23,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export 1A=value$<-
 |
 |--- STDERR:
 | ->minishell: export: 1A=value: not a valid identifier$<-
@@ -47,7 +47,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export /A=value$<-
 |
 |--- STDERR:
 | ->minishell: export: /A=value: not a valid identifier$<-
@@ -71,10 +71,34 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export A/=value$<-
 |
 |--- STDERR:
 | ->minishell: export: A/=value: not a valid identifier$<-
+|
+---------------------------------------------<
+
+---------------------------------------------> test [22]
+|  CMD: ->export 'A=value'<-
+|--------------------------------
+|  EXPECTED (BASH OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| -><-
+|
+|--- STDERR:
+| -><-
+|
+|--- COMPARED STR:
+| -><-
+|--------------------------------
+|--->FOUND (MINISHELL OUTP)  |  exit status: (0)
+|
+|--- STDOUT:
+| ->varname in export A=value$<-
+|
+|--- STDERR:
+| -><-
 |
 ---------------------------------------------<
 
@@ -95,7 +119,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export  A=value$<-
 |
 |--- STDERR:
 | ->minishell: export:  A=value: not a valid identifier$<-
@@ -119,7 +143,7 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export A =value$<-
 |
 |--- STDERR:
 | ->minishell: export: A =value: not a valid identifier$<-
@@ -144,7 +168,8 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x TEST=test$<-
+| ->varname in export TEST=test$
+| declare -x TEST=test$<-
 |
 |--- STDERR:
 | -><-
@@ -170,7 +195,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x TEST=test$
+| ->varname in export TEST=test$
+| varname in export TESTT=test2$
+| declare -x TEST=test$
 | declare -x TESTT=test2$<-
 |
 |--- STDERR:
@@ -197,7 +224,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| -><-
+| ->varname in export TEST=test$
+| varname in export W:RON:G=wrong$
+| varname in export TESTT=test2$<-
 |
 |--- STDERR:
 | ->minishell: export: W:RON:G=wrong: not a valid identifier$
@@ -225,7 +254,10 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x EMPTY$
+| ->varname in export EMPTY$
+| varname in export EMPTY_TOO=$
+| varname in export NOT_EMPTY=contnent$
+| declare -x EMPTY$
 | declare -x EMPTY_TOO=$
 | declare -x NOT_EMPTY=contnent$<-
 |
@@ -252,7 +284,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x TEST=value2$<-
+| ->varname in export TEST=value$
+| varname in export TEST=value2$
+| declare -x TEST=value2$<-
 |
 |--- STDERR:
 | -><-
@@ -278,7 +312,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x TEST=value$<-
+| ->varname in export TEST=value$
+| varname in export TEST+= added value$
+| declare -x TEST=value$<-
 |
 |--- STDERR:
 | ->minishell: export: TEST+= added value: not a valid identifier$<-
@@ -303,7 +339,8 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x TEST=value$<-
+| ->varname in export TEST=value$
+| declare -x TEST=value$<-
 |
 |--- STDERR:
 | -><-
@@ -329,7 +366,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x correct=correct$<-
+| ->varname in export correct=correct$
+| varname in export wrong%=wrong$
+| declare -x correct=correct$<-
 |
 |--- STDERR:
 | ->minishell: export: wrong%=wrong: not a valid identifier$<-
@@ -355,7 +394,9 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->declare -x correct=correct$<-
+| ->varname in export wrong%=wrong$
+| varname in export correct=correct$
+| declare -x correct=correct$<-
 |
 |--- STDERR:
 | ->minishell: export: wrong%=wrong: not a valid identifier$<-
@@ -380,10 +421,11 @@
 |--->FOUND (MINISHELL OUTP)  |  exit status: (0)
 |
 |--- STDOUT:
-| ->emikhayl$<-
+| ->varname in export PATH=/usr/bin$
+| emikhayl$<-
 |
 |--- STDERR:
-| ->minishell: export: PATH=/usr/bin: not a valid identifier$<-
+| -><-
 |
 ---------------------------------------------<
 
