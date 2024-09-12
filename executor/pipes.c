@@ -13,8 +13,8 @@
 #include "./minishell.h"
 
 //command is ast_tree->first_child
-
-void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
+//int fd_in, int pipefds[]
+void	ft_child_process(t_pipe *pipes, t_ast_node *command,
 	t_env **env_list)
 {
 	int	status;
@@ -26,10 +26,10 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	output_fd = output_redir(command);
 	// Use input_fd as fd_in if it's not -3
 	if (input_fd != -3)
-		fd_in = input_fd;
+		pipes->fd_in = input_fd;
 	// Redirect input if fd_in is valid
-	if (fd_in != 0)
-		handle_dup_and_close(fd_in, STDIN_FILENO);
+	if (pipes->fd_in != 0)
+		handle_dup_and_close(pipes->fd_in, STDIN_FILENO);
 	// Handle output redirection or pipe
 	if (output_fd != -3)
 	{
@@ -39,13 +39,13 @@ void	ft_child_process(int fd_in, int pipefds[], t_ast_node *command,
 	else if (command && command->next_sibling != NULL)
 	{
 		// If there is no output redirection, set up the pipe
-		handle_dup_and_close(pipefds[WRITE_END], STDOUT_FILENO);
-		close(pipefds[READ_END]); // Close unused read end
+		handle_dup_and_close(pipes->pipefds[WRITE_END], STDOUT_FILENO);
+		close(pipes->pipefds[READ_END]); // Close unused read end
 	}
 	// Execute the command (external or builtin)
 	if (command->first_child && command->first_child->next_sibling)
 	{
-        if (is_builtin(command)) 
+        if (is_builtin(command))
             status = ft_exec_builtin(command, env_list);
         else
             status = ft_exec_command(command, env_list);
@@ -91,15 +91,15 @@ int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 	return (0);
 }
 
-int	ft_exit_status(pid_t last_pid)
+int	ft_exit_status(pid_t *last_pid)
 {
 	int	status;
 	int	exit_status;
     // Wait for the last child process and capture its exit status
-	if (last_pid != -1)
+	if (*last_pid != -1)
 	{
 //if it == -1 there is no child process
-		while (waitpid(last_pid, &status, 0) == -1)
+		while (waitpid(*last_pid, &status, 0) == -1)
 		{
 			if (errno != EINTR)
 			{
@@ -126,54 +126,55 @@ int	ft_exit_status(pid_t last_pid)
 
 int ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
-	t_ast_node  *command;
-	int			fd_in;//Initial input file descriptor (stdin)
-	int			pipefds[2];//Pipe file descriptors (in and out)
-	pid_t		pid;
-	pid_t		last_pid;//PID of the last child process
+	t_pipe pipes;
+    t_ast_node  *command;
+	// int			fd_in;//Initial input file descriptor (stdin)
+	// int			pipefds[2];//Pipe file descriptors (in and out)
+	//pid_t		pid;
+	//pid_t		last_pid;//PID of the last child process
 	int			last_exit_status;
 
-	fd_in = 0;
-	last_pid = -1;
+	pipes.fd_in = 0;
+	pipes.last_pid = -1;
 	command = ast_tree->first_child;
 	while (command != NULL)
 	{
         // Create pipe only if there is another command after this one
 		if (command->next_sibling != NULL)
 		{
-			if (pipe(pipefds) == -1)
+			if (pipe(pipes.pipefds) == -1)
 			{
 				perror("pipe");
 				return (-1);
 			}
 		}
-		pid = fork();
-		if (pid == -1)
+		pipes.pid = fork();
+		if (pipes.pid == -1)
 		{
 			perror("fork");
 			return (-1);
 		}
-		if (pid == 0)
+		if (pipes.pid == 0)
 		{
             // Child process changes in and out fd accordingly
-			ft_child_process(fd_in, pipefds, command, env_list);
+			ft_child_process(&pipes, command, env_list);
 		}
 		else
 		{
         // Parent process
-			if (fd_in != 0)
-				close(fd_in); // Close the old input fd
+			if (pipes.fd_in != 0)
+				close(pipes.fd_in); // Close the old input fd
 			if (command->next_sibling != NULL)
 			{
-				close(pipefds[WRITE_END]); // Close write end in parent
-				fd_in = pipefds[READ_END]; // Save read end for next command's input
+				close(pipes.pipefds[WRITE_END]); // Close write end in parent
+				pipes.fd_in = pipes.pipefds[READ_END]; // Save read end for next command's input
 			}
-			last_pid = pid;
+			pipes.last_pid = pipes.pid;
 		}
 		command = command->next_sibling;
 	}
     // Handle the exit status of the last command --->$?
-	last_exit_status = ft_exit_status(last_pid);
+	last_exit_status = ft_exit_status(&pipes.last_pid);
     //printf("------> last exit status is %d\n", last_exit_status);
 	set_exit_code(env_list, last_exit_status);
     // Wait for all other child processes to finish

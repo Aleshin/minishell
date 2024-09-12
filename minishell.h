@@ -84,6 +84,16 @@ typedef struct t_list
 	struct t_list	*next;
 }	t_env;
 
+//pipes fd structure
+typedef struct s_pipes
+{
+	int	fd_in;
+	int	fd_out;
+	int	pipefds[2];
+	pid_t		pid;
+	pid_t		last_pid;
+}	t_pipe;
+
 typedef struct Input
 {
 	int					token_start;
