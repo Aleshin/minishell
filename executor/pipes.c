@@ -140,6 +140,7 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 
 	pipes.fd_in = 0;
 	pipes.last_pid = -1;
+
 	while (ast_tree->first_child != NULL)
 	{
 		if (ast_tree->first_child->next_sibling != NULL)

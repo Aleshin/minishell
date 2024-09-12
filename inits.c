@@ -28,7 +28,7 @@ t_Input	*input_init(t_Token_node **token)
 
 	input = (t_Input *)malloc(sizeof(t_Input));
 	if (!input)
-		return (NULL);
+		exit (1);
 	input->current_char = 0;
 	input->token_start = 0;
 	input->current_token_type = (*token)->type;
@@ -43,7 +43,7 @@ t_Token_node	*token_init(char **buf)
 
 	token = (t_Token_node *)malloc(sizeof(t_Token_node));
 	if (!token)
-		return (NULL);
+		exit (1);
 	token->next_token = NULL;
 	token->prev_token = NULL;
 	token->type = commandLine;

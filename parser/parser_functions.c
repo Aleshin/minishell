@@ -64,6 +64,8 @@ t_ast_node	*rule_command(t_Token_node **token)
 	t_ast_keys	*ast_keys;
 
 	ast_keys = malloc(sizeof(t_ast_keys));
+	if (!ast_keys)
+		exit (1);
 	ast_keys->command = NULL;
 	ast_keys->redirects = NULL;
 	ast_keys->redirects_num = 0;

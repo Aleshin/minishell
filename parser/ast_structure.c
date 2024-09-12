@@ -18,7 +18,7 @@ t_ast_node	*create_ast_node(t_SymbolType type, const char *value)
 
 	node = (t_ast_node *)malloc(sizeof(t_ast_node));
 	if (!node)
-		return (NULL);
+		exit (1);
 	node->type = type;
 	node->value = ft_strdup(value);
 	node->param = 0;

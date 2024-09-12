@@ -19,7 +19,7 @@ char	*heredoc_stdin(char *delimiter)
 
 	buf = (char *)malloc(sizeof(char));
 	if (!buf)
-		return (NULL);
+		exit (1);
 	*buf = '\0';
 	line = readline("> ");
 	while (line != NULL)
@@ -44,7 +44,7 @@ int	parse_exec(t_main *main_str)
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	//print_ast_tree(main_str->ast_root, 0);
+//	print_ast_tree(main_str->ast_root, 0);
 	if (main_str->ast_root->first_child == NULL)
 	{
 		free_all(&main_str->ast_root, &main_str->token,
@@ -55,6 +55,7 @@ int	parse_exec(t_main *main_str)
 	}
 	if (ft_handle_builtin(main_str->ast_root, &main_str->environment_list) == 0)
 		ft_executor(main_str->ast_root, &main_str->environment_list);
+//	print_ast_tree(main_str->ast_root, 0);
 	free_all(&main_str->ast_root, &main_str->token,
 		&main_str->input, &main_str->buf);
 	return (0);

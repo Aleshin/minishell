@@ -25,7 +25,7 @@ char	*make_token_value(t_Input **input)
 	j = 0;
 	value = (char *)malloc(end - start + 1);
 	if (!value)
-		return (NULL);
+		exit (1);
 	while (i < end)
 	{
 		value[j++] = (*input)->string[i++];
