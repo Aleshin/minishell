@@ -58,6 +58,22 @@ void	ft_child_process(t_pipe *pipes, t_ast_node *command,
 	exit(status);
 }
 
+void ft_parent_process(t_pipe *pipes, t_ast_node *command)
+{
+    // Close the old input fd if it's not stdin
+    if (pipes->fd_in != 0)
+        close(pipes->fd_in);
+
+    // If there's a next command, set up the pipe
+    if (command->next_sibling != NULL)
+    {
+        close(pipes->pipefds[WRITE_END]);  // Close the write end in the parent
+        pipes->fd_in = pipes->pipefds[READ_END];  // Save the read end for the next command's input
+    }
+
+    pipes->last_pid = pipes->pid;  // Store the last process ID
+}
+
 //returns 0 if no builtin
 int ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 {
@@ -127,55 +143,28 @@ int	ft_exit_status(pid_t *last_pid)
 int ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
 	t_pipe pipes;
-    t_ast_node  *command;
-	// int			fd_in;//Initial input file descriptor (stdin)
-	// int			pipefds[2];//Pipe file descriptors (in and out)
-	//pid_t		pid;
-	//pid_t		last_pid;//PID of the last child process
 	int			last_exit_status;
 
 	pipes.fd_in = 0;
 	pipes.last_pid = -1;
-	command = ast_tree->first_child;
-	while (command != NULL)
+	while (ast_tree->first_child != NULL)
 	{
         // Create pipe only if there is another command after this one
-		if (command->next_sibling != NULL)
+		if (ast_tree->first_child->next_sibling != NULL)
 		{
 			if (pipe(pipes.pipefds) == -1)
-			{
-				perror("pipe");
-				return (-1);
-			}
+				return (perror("pipe"), -1);
 		}
 		pipes.pid = fork();
 		if (pipes.pid == -1)
-		{
-			perror("fork");
-			return (-1);
-		}
+			return (perror("fork"), -1);
 		if (pipes.pid == 0)
-		{
-            // Child process changes in and out fd accordingly
-			ft_child_process(&pipes, command, env_list);
-		}
+			ft_child_process(&pipes, ast_tree->first_child, env_list);
 		else
-		{
-        // Parent process
-			if (pipes.fd_in != 0)
-				close(pipes.fd_in); // Close the old input fd
-			if (command->next_sibling != NULL)
-			{
-				close(pipes.pipefds[WRITE_END]); // Close write end in parent
-				pipes.fd_in = pipes.pipefds[READ_END]; // Save read end for next command's input
-			}
-			pipes.last_pid = pipes.pid;
-		}
-		command = command->next_sibling;
+			ft_parent_process(&pipes, ast_tree->first_child);
+		ast_tree->first_child = ast_tree->first_child->next_sibling;
 	}
-    // Handle the exit status of the last command --->$?
 	last_exit_status = ft_exit_status(&pipes.last_pid);
-    //printf("------> last exit status is %d\n", last_exit_status);
 	set_exit_code(env_list, last_exit_status);
     // Wait for all other child processes to finish
 	while (wait(NULL) > 0);
