@@ -12,13 +12,45 @@
 
 #include "./minishell.h"
 
+int	ft_handle_heredoc(t_ast_node *current_redirect)
+{
+	int		pipefd[2];
+	ssize_t	n;
+
+	if (pipe(pipefd) == -1)
+	{
+		perror("pipe");
+		exit(EXIT_FAILURE);
+	}
+	n = write(pipefd[WRITE_END], current_redirect->value,
+			ft_strlen(current_redirect->value));
+	if (n == -1)
+	{
+		perror("write");
+		exit(EXIT_FAILURE);
+	}
+	close(pipefd[WRITE_END]); // Close the write end after writing
+	return (pipefd[READ_END]); // Return the read end for input redirection
+}
+
+int	ft_handle_input_redir(t_ast_node *current_redirect, int file)
+{
+	if (file != -3)
+		close(file);
+	file = open(current_redirect->value, O_RDONLY);
+	if (file == -1)
+	{
+		ft_perror("Error opening file for input redirection");
+		exit(EXIT_FAILURE);
+	}
+	return (file);
+}
+
 int	input_redir(t_ast_node *command)
 {
 	int			file;
 	t_ast_node	*redirects;
 	t_ast_node	*current_redirect;
-	ssize_t		n;
-	int			pipefd[2];
 
 	redirects = command->first_child;
 	if (redirects == 0)
@@ -28,45 +60,39 @@ int	input_redir(t_ast_node *command)
 	while (current_redirect != NULL)
 	{
 		if (current_redirect->type == redirect_in)
-		{
-			if (file != -3)
-				close(file);
-			file = open(current_redirect->value, O_RDONLY);
-			if (file == -1)
-			{
-				ft_perror("Error opening file for input redirection");
-				exit(EXIT_FAILURE);
-			}
-		}
+			file = ft_handle_input_redir(current_redirect, file);
 		else if (current_redirect->type == heredoc)
-		{
-			if (pipe(pipefd) == -1)
-			{
-				perror("pipe");
-				exit(EXIT_FAILURE);
-			}
-			n = write(pipefd[WRITE_END],
-					current_redirect->value,
-					ft_strlen(current_redirect->value));
-			if (n == -1)
-			{
-				perror("write");
-				exit(EXIT_FAILURE);
-			}
-			close(pipefd[WRITE_END]);
-			file = pipefd[READ_END];
-		}
+			file = ft_handle_heredoc(current_redirect);
 		current_redirect = current_redirect->next_sibling;
 	}
 	return (file);
 }
 
 // OUTPUT REDIRECTIONS
+int	handle_output_redir(t_ast_node *current_redirect, int file)
+{
+	int	flags;
+
+	if (file != -3)
+		close(file);
+	flags = O_WRONLY | O_CREAT;
+	if (current_redirect->type == redirect_out_add)
+		flags |= O_APPEND;
+	else
+		flags |= O_TRUNC;
+	file = open(current_redirect->value, flags, 0644);
+	if (file == -1)
+	{
+		perror("Error opening file for output redirection");
+		exit(EXIT_FAILURE);
+	}
+	return (file);
+}
+
 //command is ast_tree->first_child
 int	output_redir(t_ast_node *command)
 {
 	int			file;
-	int			flags;
 	t_ast_node	*redirects;
 	t_ast_node	*current_redirect;
 
@@ -80,19 +106,7 @@ int	output_redir(t_ast_node *command)
 		if (current_redirect->type == redirect_out
 			|| current_redirect->type == redirect_out_add)
 		{
-			if (file != -3)
-				close(file);
-			flags = O_WRONLY | O_CREAT;
-			if (current_redirect->type == redirect_out_add)
-				flags |= O_APPEND;
-			else
-				flags |= O_TRUNC;
-			file = open(current_redirect->value, flags, 0644);
-			if (file == -1)
-			{
-				perror("Error opening file for output redirection");
-				exit(EXIT_FAILURE);
-			}
+			file = handle_output_redir(current_redirect, file);
 		}
 		current_redirect = current_redirect->next_sibling;
 	}

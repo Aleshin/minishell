@@ -106,43 +106,50 @@ int	ft_exit_status(pid_t *last_pid)
 	return (0); // Return -1 if there was no child process,
 }
 
-void	ft_parent_process(t_pipe *pipes, t_ast_node *command)
-{
-	if (pipes->fd_in != 0)
-		close(pipes->fd_in);
-	if (command->next_sibling != NULL)
-	{
-		close(pipes->pipefds[WRITE_END]);
-		pipes->fd_in = pipes->pipefds[READ_END];
-	}
-	pipes->last_pid = pipes->pid;
-}
-
 int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
-	t_pipe		pipes;
+	t_pipe	pipes;
+	t_ast_node		*command;
 	int		last_exit_status;
 
 	pipes.fd_in = 0;
 	pipes.last_pid = -1;
-	while (ast_tree->first_child != NULL)
+	command = ast_tree->first_child;
+	while (command != NULL)
 	{
-		if (ast_tree->first_child->next_sibling != NULL)
+		if (command->next_sibling != NULL)
 		{
 			if (pipe(pipes.pipefds) == -1)
-				return (perror("pipe"), -1);
+			{
+				perror("pipe");
+				return (-1);
+			}
 		}
 		pipes.pid = fork();
 		if (pipes.pid == -1)
-			return (perror("fork"), -1);
+		{
+			perror("fork");
+			return (-1);
+		}
 		if (pipes.pid == 0)
-			ft_child_process(&pipes, ast_tree->first_child, env_list);
+			ft_child_process(&pipes, command, env_list);
 		else
-			ft_parent_process(&pipes, ast_tree->first_child);
-		ast_tree->first_child = ast_tree->first_child->next_sibling;
+		{
+        // Parent process
+			if (pipes.fd_in != 0)
+				close(pipes.fd_in); // Close the old input fd
+			if (command->next_sibling != NULL)
+			{
+				close(pipes.pipefds[WRITE_END]); // Close write end in parent
+				pipes.fd_in = pipes.pipefds[READ_END]; // Save read end for next command's input
+			}
+			pipes.last_pid = pipes.pid;
+		}
+		command = command->next_sibling;
 	}
 	last_exit_status = ft_exit_status(&pipes.last_pid);
 	set_exit_code(env_list, last_exit_status);
+    // Wait for all other child processes to finish
 	while (wait(NULL) > 0)
 		;
 	return (0);
