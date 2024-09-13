@@ -9,27 +9,10 @@
 /*   Updated: 2024/05/14 18:48:36 by saleshin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-/*				AST structure
-commands
-ast_tree
-	command 1
-	ast_tree.first_child
-		redirects (num of rdr): ast_tree.first_child.first_child
-			redirect 1: ast_tree.first_child.first_child.first_child
-			redirect 2: ast_tree.first_child.first_child.first_child.next_sibling
-			...
-		exec: ast_tree.first_child.first_child.next_sibling
-		args (num of args): ast_tree.first_child.first_child.next_sibling.next_sibling
-			arg 1: ast_tree.first_child.first_child.next_sibling..next_sibling.first_child
-			arg 2: ast_tree.first_child.first_child.next_sibling..next_sibling.first_child.next_sibling
-			...
-	command 2: ast_tree.first_child.next_sibling
-	...
-*/
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-#include <limits.h>
+# include <limits.h>
 # include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
@@ -47,29 +30,29 @@ ast_tree
 # include <termios.h>
 # include <string.h>
 
-extern volatile sig_atomic_t g_exit_code;
+extern volatile sig_atomic_t	g_exit_code;
 
 typedef enum SymbolType
 {
-	commandLine,			// 0
-	command,				// 1
-	executable,				// 2
-	arguments,				// 3
-	argument,				// 4
-	WORD,					// 5
-	SINGLE_QUOTED_STRING,	// 6
-	DOUBLE_QUOTED_STRING,	// 7
-	PIPE,					// 8
-	redirects,				// 9
-	redirect_in,			// 10
-	heredoc,				// 11
-	redirect_out,			// 12
-	redirect_out_add,		// 13
-	var,					// 14
-	WS,						// 15
-	lexem,					// 16
-	terminals,				// 17
-	SYMBOL_UNKNOWN			// 18
+	commandLine,
+	command,
+	executable,
+	arguments,
+	argument,
+	WORD,
+	SINGLE_QUOTED_STRING,
+	DOUBLE_QUOTED_STRING,
+	PIPE,
+	redirects,
+	redirect_in,
+	heredoc,
+	redirect_out,
+	redirect_out_add,
+	var,
+	WS,
+	lexem,
+	terminals,
+	SYMBOL_UNKNOWN
 }	t_SymbolType;
 
 # define READ_END 0
@@ -87,11 +70,11 @@ typedef struct t_list
 //pipes fd structure
 typedef struct s_pipes
 {
-	int	fd_in;
-	int	fd_out;
-	int	pipefds[2];
-	pid_t		pid;
-	pid_t		last_pid;
+	int		fd_in;
+	int		fd_out;
+	int		pipefds[2];
+	pid_t	pid;
+	pid_t	last_pid;
 }	t_pipe;
 
 typedef struct Input
@@ -121,6 +104,8 @@ typedef struct ast_node
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
 
+typedef int	(*t_function_pointer)(t_ast_node *);
+
 typedef struct ast_keys
 {
 //	t_ast_node	*head;
@@ -131,8 +116,6 @@ typedef struct ast_keys
 	int			arguments_num;
 //	t_ast_node	*reverse_node;
 }	t_ast_keys;
-
-typedef int	(*t_function_pointer)(t_ast_node *);
 
 typedef struct main_structure
 {
@@ -251,8 +234,6 @@ t_env			*ft_lstnew_env(char *name, char *value, int n);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 int				ft_export(t_env **lst, t_ast_node *command);
 int				upd_envvar(char *name, char *value, t_env *lst);
-
-
 
 // helper functions
 int				ft_strcmp(const char *s1, const char *s2);

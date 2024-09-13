@@ -14,10 +14,10 @@
 volatile sig_atomic_t	g_exit_code;
 
 // Ctrl-C handler
-void sigint_handler(int signum)
+// new line and prompt
+void	sigint_handler(int signum)
 {
 	(void)signum;
-	// new line and prompt
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -26,14 +26,14 @@ void sigint_handler(int signum)
 }
 
 // Ctrl-\ handler
-void sigquit_handler(int signum)
+void	sigquit_handler(int signum)
 {
 	(void)signum;
 }
 
-void setup_signal_handlers()
+void	setup_signal_handlers(void)
 {
-	struct sigaction signal;
+	struct sigaction	signal;
 
 	signal.sa_handler = sigint_handler;
 	sigemptyset(&signal.sa_mask);
@@ -45,9 +45,9 @@ void setup_signal_handlers()
 	sigaction(SIGQUIT, &signal, NULL);
 }
 
-void disable_ctrl_backslash()
+void	disable_ctrl_backslash(void)
 {
-	struct termios term;
+	struct termios	term;
 
 	tcgetattr(STDIN_FILENO, &term);
 	term.c_cc[VQUIT] = _POSIX_VDISABLE;

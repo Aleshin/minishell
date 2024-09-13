@@ -60,7 +60,7 @@ void	free_tokens(t_Token_node **head)
 		current = next;
 	}
 }
- 
+
 void	free_ast(t_ast_node **ast_node)
 {
 	if ((*ast_node)->first_child != NULL)
