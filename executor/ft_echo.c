@@ -54,12 +54,3 @@ int	ft_echo(t_ast_node *command)
 		ft_putendl_fd("", STDOUT_FILENO);
 	return (0);
 }
-
-/*TESTS
-echo
-echo -n
-echo -nnnnnnnnnnn
-echo -nr -n
-echo good morning
-echo -n good m"orn"ing
-*/

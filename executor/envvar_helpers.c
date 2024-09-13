@@ -12,44 +12,7 @@
 
 #include "minishell.h"
 
-//varname can start 
-//flag 1 for export, 0 for unset
-int	check_varname(char *str) // 1 for yes, 0 for no
-{
-	if (*str == '\0')
-		return (0);
-	if (!(ft_isalpha(*str) || *str == '_'))
-		return (0);
-	str++;
-	while (*str != '\0')
-	{
-		if (!(ft_isalpha(*str) || ft_isdigit(*str)
-				|| *str == '_' || *str == '='))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
-// 1 valid, 0 not
-int	check_varname_export(char *str)
-{
-	if (*str == '\0')
-		return (0);
-
-	if (!(ft_isalpha(*str) || *str == '_'))
-		return (0);
-
-	str++;
-	while (*str != '\0' && *str != '=')
-	{
-		if (!(ft_isalpha(*str) || ft_isdigit(*str) || *str == '_'))
-			return (0);
-		str++;
-	}
-	return (1);
-}
-
+//5
 //split string to *arr[2] (before and after first '=')
 //allocates memory for 2 elements and NULL terminator
 char	**ft_split_global(const char *s, char c)
@@ -162,29 +125,18 @@ t_env	*envp_to_linked_list(char **envp)
 	return (head);
 }
 
-void	free_env_node(t_env *node)
+int	list_len(t_env *env)
 {
-	if (node != NULL)
-	{
-		free(node->name);
-		free(node->value);
-		free(node);
-	}
-}
+	int	i;
 
-void	lst_dealloc(t_env **head)
-{
-	t_env	*current;
-	t_env	*aux;
-
-	if (*head == NULL)
-		return ;
-	current = *head;
-	while (current != NULL)
+	i = 0;
+	if (env != NULL)
 	{
-		aux = current;
-		current = current->next;
-		free_env_node(aux);
+		while (env != NULL)
+		{
+			env = env->next;
+			i++;
+		}
 	}
-	*head = NULL;
+	return (i);
 }

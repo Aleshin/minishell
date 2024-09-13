@@ -12,17 +12,6 @@
 
 #include "./minishell.h"
 
-//command is ast_tree->first_child
-//int fd_in, int pipefds[]
-int	status_converter(int status)
-{
-	if (status == 13 || status == 8)
-		status = 126;
-	else if (status == 2 || status == 14)
-		status = 127;
-	return (status);
-}
-
 void	ft_child_process(t_pipe *pipes, t_ast_node *command,
 	t_env **env_list)
 {
@@ -81,31 +70,6 @@ int	ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list)
 	return (0);
 }
 
-int	ft_exit_status(pid_t *last_pid)
-{
-	int	status;
-	//int	exit_status;
-    // Wait for the last child process and capture its exit status
-	if (*last_pid != -1)
-	{
-//if it == -1 there is no child process
-		while (waitpid(*last_pid, &status, 0) == -1)
-		{
-			if (errno != EINTR)
-			{
-				perror("waitpid");
-				return (-1);
-			}
-		}
-        // Check if the child process terminated normally
-		if (WIFEXITED(status))
-			return (WEXITSTATUS(status));
-		else if (WTERMSIG(status))
-			return (128 + WTERMSIG(status)); // Indicate abnormal termination
-	}
-	return (0); // Return -1 if there was no child process,
-}
-
 void	ft_parent_process(t_pipe *pipes, t_ast_node *command)
 {
 	if (pipes->fd_in != 0)
@@ -116,14 +80,6 @@ void	ft_parent_process(t_pipe *pipes, t_ast_node *command)
 		pipes->fd_in = pipes->pipefds[READ_END];
 	}
 	pipes->last_pid = pipes->pid;
-}
-
-void	ft_set_exit_status(t_env **env_list, int *last_pid)
-{
-	int last_exit_status;
-
-	last_exit_status = ft_exit_status(last_pid);
-	set_exit_code(env_list, last_exit_status);
 }
 
 int	ft_create_pipe_if_needed(t_pipe *pipes, t_ast_node *command)
@@ -141,9 +97,9 @@ int	ft_create_pipe_if_needed(t_pipe *pipes, t_ast_node *command)
 
 int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 {
-	t_pipe	pipes;
-	t_ast_node		*command;
-	
+	t_pipe		pipes;
+	t_ast_node	*command;
+
 	pipes.fd_in = 0;
 	pipes.last_pid = -1;
 	command = ast_tree->first_child;
@@ -165,5 +121,3 @@ int	ft_executor(t_ast_node *ast_tree, t_env **env_list)
 		;
 	return (0);
 }
-
-//2 lines

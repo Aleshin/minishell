@@ -12,27 +12,6 @@
 
 #include "./minishell.h"
 
-int	ft_handle_heredoc(t_ast_node *current_redirect)
-{
-	int		pipefd[2];
-	ssize_t	n;
-
-	if (pipe(pipefd) == -1)
-	{
-		perror("pipe");
-		exit(EXIT_FAILURE);
-	}
-	n = write(pipefd[WRITE_END], current_redirect->value,
-			ft_strlen(current_redirect->value));
-	if (n == -1)
-	{
-		perror("write");
-		exit(EXIT_FAILURE);
-	}
-	close(pipefd[WRITE_END]); // Close the write end after writing
-	return (pipefd[READ_END]); // Return the read end for input redirection
-}
-
 int	ft_handle_input_redir(t_ast_node *current_redirect, int file)
 {
 	if (file != -3)
@@ -89,7 +68,6 @@ int	handle_output_redir(t_ast_node *current_redirect, int file)
 	return (file);
 }
 
-//command is ast_tree->first_child
 int	output_redir(t_ast_node *command)
 {
 	int			file;
