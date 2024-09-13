@@ -193,6 +193,7 @@ int				ft_executor(t_ast_node *commands, t_env **env);
 int				input_redir(t_ast_node *commands);
 int				output_redir(t_ast_node *commands);
 void			handle_dup_and_close(int old_fd, int new_fd);
+int				ft_handle_heredoc(t_ast_node *current_redirect);
 
 // builtins
 int				ft_handle_builtin(t_ast_node *ast_tree, t_env **env_list);
@@ -209,7 +210,7 @@ char			*ft_find_abs_path(char *command, t_env *env_list);
 char			**cmd_to_argv(t_ast_node *cmd);
 int				ft_exec_command(t_ast_node *commands, t_env **env_var);
 
-// envvar_helpers FULL
+// envvar_helpers
 char			**ft_split_global(const char *s, char c);
 int				check_varname(char *str);
 int				check_varname_export(char *str);
@@ -219,7 +220,7 @@ t_env			*envp_to_linked_list(char **envp);
 void			free_env_node(t_env *node);
 void			lst_dealloc(t_env **head);
 
-// envvar FULL
+// envvar
 void			remove_node(t_env **lst, char *name);
 int				list_len(t_env *env);
 
@@ -227,6 +228,8 @@ int				list_len(t_env *env);
 int				ft_print_sorted(t_env *lst);
 
 // ft_export
+char			**get_name_val(char *cur_arg);
+int				upd_envvar(char *name, char *value, t_env *lst);
 t_env			*ft_lstnew_env(char *name, char *value, int n);
 void			ft_lstadd_back_env(t_env **lst, t_env *new);
 int				ft_export(t_env **lst, t_ast_node *command);
@@ -246,4 +249,6 @@ void			ft_sintax_error(char *cmd);
 void			ft_env_error(char *cmd, char *arg, char *error);
 void			set_exit_code(t_env **lst, int code);
 int				ft_export_status(t_env **lst, char *value);
+void			ft_set_exit_status(t_env **env_list, int *last_pid);
+int				status_converter(int status);
 #endif

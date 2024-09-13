@@ -12,6 +12,41 @@
 
 #include "minishell.h"
 
+//varname can start with _or alpha
+int	check_varname(char *str) // 1 for yes, 0 for no
+{
+	if (*str == '\0')
+		return (0);
+	if (!(ft_isalpha(*str) || *str == '_'))
+		return (0);
+	str++;
+	while (*str != '\0')
+	{
+		if (!(ft_isalpha(*str) || ft_isdigit(*str)
+				|| *str == '_' || *str == '='))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+// 1 valid, 0 not
+int	check_varname_export(char *str)
+{
+	if (*str == '\0')
+		return (0);
+	if (!(ft_isalpha(*str) || *str == '_'))
+		return (0);
+	str++;
+	while (*str != '\0' && *str != '=')
+	{
+		if (!(ft_isalpha(*str) || ft_isdigit(*str) || *str == '_'))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
 //prints linked list
 int	print_env(t_env **env)
 {
@@ -56,39 +91,4 @@ void	remove_node(t_env **lst, char *name)
 		else
 			curr = curr->next;
 	}
-}
-
-// Updated ft_unset function
-int	ft_unset(t_env **list, t_ast_node *command)
-{
-	t_ast_node	*cur_arg;
-
-	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
-	while (cur_arg != NULL)
-	{
-		// if (!check_varname(cur_arg->value))
-		// {
-		// 	ft_env_error("unset", cur_arg->value, "not a valid identifier");
-		// 	return (1);
-		// }
-		remove_node(list, cur_arg->value);
-		cur_arg = cur_arg->next_sibling;
-	}
-	return (0);
-}
-
-int	list_len(t_env *env)
-{
-	int	i;
-
-	i = 0;
-	if (env != NULL)
-	{
-		while (env != NULL)
-		{
-			env = env->next;
-			i++;
-		}
-	}
-	return (i);
 }

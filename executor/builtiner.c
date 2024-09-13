@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+// 5 ft
 //success 0, error 1
 //getcwd for get current working directory, getcwd allocate memory 
 //in buffer that must be freed
@@ -60,6 +61,20 @@ int	ft_cd(t_env **env_lst, t_ast_node *command)
 	return (err);
 }
 
+// Updated ft_unset function
+int	ft_unset(t_env **list, t_ast_node *command)
+{
+	t_ast_node	*cur_arg;
+
+	cur_arg = command->first_child->next_sibling->next_sibling->first_child;
+	while (cur_arg != NULL)
+	{
+		remove_node(list, cur_arg->value);
+		cur_arg = cur_arg->next_sibling;
+	}
+	return (0);
+}
+
 // 1 if it is a builtin, 0 if not
 //HERE TO CHECK IF EXEC IS A VALID BUILTIN
 int	is_builtin(t_ast_node *command)
@@ -106,17 +121,3 @@ int	ft_exec_builtin(t_ast_node *command, t_env **env_list)
 		exit_code = ft_exit(command);
 	return (exit_code);
 }
-
-// returns 0 or err code or -1
-// int	builtiner(t_ast_node *command, t_env **env_list)
-// {
-// 	char	*exec;
-
-// 	// if (command->first_child->next_sibling == NULL)
-// 	// {
-// 	// 	printf("NO EXEC IN BUILTINER");
-// 	// 	return (-1);
-// 	// }	
-// 	exec = command->first_child->next_sibling->value;
-// 	return (ft_exec_builtin(exec, command, env_list));
-// }

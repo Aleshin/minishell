@@ -25,38 +25,6 @@ void	free_arr(char **arr)
 	free(arr);
 }
 
-// Return pointer to path or NULL
-// char	*ft_find_abs_path(char *command, t_env *env_list)
-// {
-// 	char	*path;
-// 	char	**arr;
-// 	char	*path_to_command;
-// 	int		i;
-// 	char	*tmp;
-
-// 	if (access(command, F_OK) != -1)
-// 		return (command);
-// 	path = ft_getenv(env_list, "PATH");
-// 	if (path == NULL)
-// 		return (NULL);
-// 	arr = ft_split(path, ':');
-// 	path_to_command = NULL;
-// 	i = 0;
-// 	while (arr[i])
-// 	{
-// 		tmp = ft_strjoin(arr[i], "/", command);
-// 		if (access(tmp, F_OK) != -1)
-// 		{
-// 			path_to_command = tmp;
-// 			break ;
-// 		}
-// 		free(tmp);
-// 		i++;
-// 	}
-// 	free_arr(arr);
-// 	return (path_to_command);
-// }
-
 char	*ft_find_abs_path(char *command, t_env *env_list)
 {
 	char	*path;

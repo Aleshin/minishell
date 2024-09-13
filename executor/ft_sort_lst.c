@@ -60,33 +60,3 @@ int	ft_print_sorted(t_env *lst)
 	free_arr(arr);
 	return (1);
 }
-
-//function to set last exit code. it 
-void	set_exit_code(t_env **lst, int code)
-{
-	char	*key;
-	char	*value;
-	t_env	*new_node;
-
-	key = "?";
-	value = ft_itoa(code);
-	if (value == NULL)
-	{
-		perror("Malloc failed in itoa");
-		return ;
-	}
-	if (!upd_envvar(key, value, *lst))
-	{
-		new_node = ft_lstnew_env(key, value, 1);
-		if (new_node == NULL)
-		{
-			perror("Memory allocation failed for node");
-			free(value);
-			return ;
-		}
-		free(value);
-		ft_lstadd_back_env(lst, new_node);
-	}
-	else
-		free(value);
-}
