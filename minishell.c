@@ -71,6 +71,8 @@ int	main(int argc, char **argv, char **envp)
 	rl_bind_key('\t', rl_insert);
 	while (1)
 	{
+signal(SIGQUIT, SIG_IGN);
+//disable_ctrl_backslash();
 		main_str.buf = readline("$> ");
 		if (main_str.buf == NULL)
 			exit (free_ctrl_d(&main_str));
@@ -79,6 +81,8 @@ int	main(int argc, char **argv, char **envp)
 			set_exit_code(&main_str.environment_list, 128 + g_exit_code);
 			g_exit_code = 0;
 		}
+//signal(SIGQUIT, SIG_DFL);
+enable_ctrl_backslash();
 		err_no = init_lexer(&main_str);
 		if (err_no == 0)
 			parse_exec(&main_str);

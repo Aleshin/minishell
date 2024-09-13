@@ -14,7 +14,7 @@
 int	init_start(t_main *main_str, char **envp)
 {
 	setup_signal_handlers();
-	disable_ctrl_backslash();
+//	disable_ctrl_backslash();
 	main_str->environment_list = envp_to_linked_list(envp);
 	if (!main_str->environment_list)
 		return (1);

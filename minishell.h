@@ -104,7 +104,7 @@ typedef struct ast_node
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
 
-typedef int	(*t_function_pointer)(t_ast_node *);
+//typedef int	(*t_function_pointer)(t_ast_node *);
 
 typedef struct ast_keys
 {
@@ -131,6 +131,7 @@ typedef struct main_structure
 // signals
 void			setup_signal_handlers(void);
 void			disable_ctrl_backslash(void);
+void 			enable_ctrl_backslash(void);
 // init & finish
 int				init_start(t_main *main_str, char **envp);
 t_Input			*input_init(t_Token_node **token);
