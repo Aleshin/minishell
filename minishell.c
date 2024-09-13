@@ -44,12 +44,12 @@ int	parse_exec(t_main *main_str)
 	main_str->current_token = main_str->token;
 	main_str->ast_root
 		= rule_command_line(&main_str->current_token, main_str->ast_root);
-	//print_ast_tree(main_str->ast_root, 0);
+//	print_ast_tree(main_str->ast_root, 0);
 	if (main_str->ast_root->first_child == NULL)
 	{
 		free_all(&main_str->ast_root, &main_str->token,
 			&main_str->input, &main_str->buf);
-//		printf("Command '' not found\n");
+		printf("Command '' not found\n");
 		set_exit_code(&main_str->environment_list, 127);
 		return (1);
 	}
@@ -68,13 +68,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	if (init_start(&main_str, envp))
-		return (1);
+		exit (1);
 	rl_bind_key('\t', rl_insert);
 	while (1)
 	{
 		main_str.buf = readline("$> ");
 		if (main_str.buf == NULL)
-			return (free_ctrl_d(&main_str));
+			exit (free_ctrl_d(&main_str));
 		if (g_exit_code > 0)
 		{
 			set_exit_code(&main_str.environment_list, 128 + g_exit_code);
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **envp)
 		else
 			free_noerr(&main_str, err_no);
 	}
-	return (0);
+	exit (0);
 }
 // examples for testing
 // du ./ | sort -n | tail -10
