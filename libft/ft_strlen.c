@@ -6,21 +6,19 @@
 /*   By: emikhayl <emikhayl@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/15 21:57:42 by emikhayl          #+#    #+#             */
-/*   Updated: 2023/09/15 22:41:25 by emikhayl         ###   ########.fr       */
+/*   Updated: 2024/09/13 21:54:16 by emikhayl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-//size_t it is unsigned integer and it is used to represent
-//sizes of arrays, memory allocations
-//const used here to ensure that the function doesnt alterate the array
+
 size_t	ft_strlen(const char *str)
 {
 	size_t	len;
 
 	len = 0;
 	if (str == NULL)
-        return (0);
+		return (0);
 	while (*str)
 	{
 		str++;
