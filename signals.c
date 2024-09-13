@@ -26,18 +26,10 @@ void	sigint_handler(int signum)
 }
 
 // Ctrl-\ handler
-/*
-void	sigquit_handler(int signum)
-{
-	(void)signum;
-}
-*/
-
 void	sigquit_handler(int signum)
 {
 	(void)signum;
 	printf("Quit (core dumped)\n");
-//	exit (131);
 }
 
 void	setup_signal_handlers(void)
@@ -63,15 +55,10 @@ void	disable_ctrl_backslash(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void enable_ctrl_backslash(void)
+void	enable_ctrl_backslash(void)
 {
-//	struct termios term;
 	struct sigaction	signal;
-/*
-	tcgetattr(STDIN_FILENO, &term);
-	term.c_cc[VQUIT] = 28;
-	tcsetattr(STDIN_FILENO, TCSANOW, &term);
-*/
+
 	signal.sa_handler = sigquit_handler;
 	sigemptyset(&signal.sa_mask);
 	signal.sa_flags = SA_RESTART;

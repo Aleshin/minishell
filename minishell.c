@@ -48,7 +48,7 @@ int	parse_exec(t_main *main_str)
 	{
 		free_all(&main_str->ast_root, &main_str->token,
 			&main_str->input, &main_str->buf);
-		printf("Command '' not found\n");
+		printf("Command not found\n");
 		set_exit_code(&main_str->environment_list, 127);
 		return (1);
 	}
@@ -68,11 +68,9 @@ int	main(int argc, char **argv, char **envp)
 	(void)argv;
 	if (init_start(&main_str, envp))
 		exit (1);
-	rl_bind_key('\t', rl_insert);
 	while (1)
 	{
-signal(SIGQUIT, SIG_IGN);
-//disable_ctrl_backslash();
+		signal(SIGQUIT, SIG_IGN);
 		main_str.buf = readline("$> ");
 		if (main_str.buf == NULL)
 			exit (free_ctrl_d(&main_str));
@@ -81,8 +79,6 @@ signal(SIGQUIT, SIG_IGN);
 			set_exit_code(&main_str.environment_list, 128 + g_exit_code);
 			g_exit_code = 0;
 		}
-//signal(SIGQUIT, SIG_DFL);
-enable_ctrl_backslash();
 		err_no = init_lexer(&main_str);
 		if (err_no == 0)
 			parse_exec(&main_str);
