@@ -20,7 +20,7 @@ void sigint_handler(int signum)
 	// new line and prompt
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
-	//rl_replace_line("", 0);
+	rl_replace_line("", 0);
 	rl_redisplay();
 	g_exit_code = signum;
 }

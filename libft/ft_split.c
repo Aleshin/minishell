@@ -75,28 +75,3 @@ char	**ft_split(char const *s, char c)
 	arr_of_words[i] = (NULL);
 	return (arr_of_words);
 }
-
-
-/*
-int	main()
-{
-	const char	*str = " Hello darkness my old friend ";
-	char		c = ' ';
-	char		**arr_of_words;
-	int			i;
-	arr_of_words = ft_split(str, c);
-	if (!arr_of_words)
-	{
-		printf("Memory allocation failed.\n");
-		return 1;
-	}
-	i = 0;
-	while (arr_of_words[i])
-	{
-		printf("%s\n", arr_of_words[i]);
-		free(arr_of_words[i]);
-		i++;
-	}
-	free(arr_of_words);
-	return 0;
-}*/
