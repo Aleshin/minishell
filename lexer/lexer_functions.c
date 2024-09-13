@@ -21,6 +21,9 @@ int	lexer(t_Input **input, t_Token_node **token)
 	if (tokenizer(input, token_temp) == -1)
 		return (-1);
 	token_temp = token;
+	if ((*token_temp)->next_token == NULL
+		&& (*token_temp)->type == WS)
+		return (1);
 	while (*token_temp != NULL)
 	{
 		if (ws_remover(token_temp) == 1)
