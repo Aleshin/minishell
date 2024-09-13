@@ -104,7 +104,7 @@ typedef struct ast_node
 	struct ast_node	*next_sibling; // Sibling pointer
 }	t_ast_node;
 
-typedef int	(*t_function_pointer)(t_ast_node *);
+//typedef int	(*t_function_pointer)(t_ast_node *);
 
 typedef struct ast_keys
 {
