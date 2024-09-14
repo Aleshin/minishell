@@ -13,7 +13,7 @@
 
 int	init_start(t_main *main_str, char **envp)
 {
-	rl_bind_key('\t', rl_insert);
+	rl_completion_query_items = 1;
 	setup_signal_handlers();
 	main_str->environment_list = envp_to_linked_list(envp);
 	if (!main_str->environment_list)

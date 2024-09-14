@@ -19,12 +19,13 @@ char	*heredoc_stdin(char *delimiter)
 
 	buf = (char *)malloc(sizeof(char));
 	if (!buf)
-		return (NULL);
+		exit (1);
 	*buf = '\0';
+	signal(SIGQUIT, SIG_IGN);
 	line = readline("> ");
 	while (line != NULL)
 	{
-		if (ft_strncmp(line, delimiter, ft_strlen(line)) == 0)
+		if (ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			return (buf);
@@ -35,7 +36,8 @@ char	*heredoc_stdin(char *delimiter)
 		free(line);
 		line = readline("> ");
 	}
-	return (NULL);
+	enable_ctrl_backslash();
+	return (buf);
 }
 
 int	parse_exec(t_main *main_str)
